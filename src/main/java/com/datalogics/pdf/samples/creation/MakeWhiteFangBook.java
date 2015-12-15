@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Datalogics Inc.
+ * Copyright 2015 Datalogics, Inc.
  */
 
 package com.datalogics.pdf.samples.creation;
