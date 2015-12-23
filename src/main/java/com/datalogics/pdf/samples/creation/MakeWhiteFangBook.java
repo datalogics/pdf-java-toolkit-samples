@@ -63,11 +63,17 @@ public final class MakeWhiteFangBook {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        run();
+        String path;
+        if (args.length > 0) {
+            path = args[0];
+        } else {
+            path = outputPDFPath;
+        }
+        run(path);
     }
 
 
-    static void run() throws Exception {
+    static void run(final String outputPath) throws Exception {
         PDFDocument document = null;
 
         try {
@@ -77,7 +83,7 @@ public final class MakeWhiteFangBook {
 
             addBookText(document);
 
-            DocumentHelper.saveFullAndClose(document, outputPDFPath);
+            DocumentHelper.saveFullAndClose(document, outputPath);
         } finally {
             if (document != null) {
                 document.close();
