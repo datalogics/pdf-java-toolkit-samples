@@ -39,6 +39,12 @@ import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
+/**
+ * Base class for tests for the samples.
+ *
+ * <p>
+ * This base class provides a font cache, and some utility functions to ease the writing of tests.
+ */
 public class SampleTest {
     private TestFontCacheManager fontCacheManager = null;
 
@@ -225,6 +231,12 @@ public class SampleTest {
         }
     }
 
+    /**
+     * Create a {@link File} with the specified name in <tt>target/test-output</tt>.
+     *
+     * @param filename the name of the file to create
+     * @return a {@link File} object containing the file location.
+     */
     protected static File newOutputFile(final String filename) {
         return new File(new File(new File("target"), "test-output"), filename);
     }
