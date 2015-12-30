@@ -6,6 +6,7 @@ package com.datalogics.pdf.samples.printing;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.InputStreamByteReader;
+import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.page.PDFPage;
@@ -53,6 +54,12 @@ public class PrintPDF {
 
     public static void main(final String... args) throws Exception {
         try {
+            // If you are using an evaluation version of the product (License Managed, or LM), set the path to where
+            // PDFJT can find the license file.
+            //
+            // If you are not using an evaluation version of the product you can ignore or remove this code.
+            LicenseManager.setLicensePath(".");
+
             // Only log info messages and above
             logger.setLevel(Level.INFO);
 
