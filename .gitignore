@@ -1,0 +1,58 @@
+# Java
+
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# Sample outputs
+*.pdf
+
+# Random
+*.log
+*.bak
+
+# Eclipse
+.project
+.settings
+.classpath
+.checkstyle
+
+# The FindBugs connector for M2Eclipse makes these
+.fbExcludeFilterFile
+
+# PMD connector for Eclipse
+.pmd
+.pmdruleset.xml
+
+# Git
+*_BACKUP_*
+*_BASE_*
+*_LOCAL_*
+*_REMOTE_*
+*.orig
+
+# Python environments
+/env
+/python-env
+
+# License files
+*.l4je
+*.l4j
