@@ -51,7 +51,7 @@ public final class MergeDocuments {
         }
     }
 
-    public static void run(final String outputPath) throws Exception {
+    static void run(final String outputPath) throws Exception {
         // Start by creating a new PDF document that will be used to merge the other documents into. The new document
         // will contain a single blank page but we'll remove this just before saving the merged file.
         final PDFDocument mergedDocument = PDFDocument.newInstance(new ASRectangle(ASRectangle.US_LETTER),
