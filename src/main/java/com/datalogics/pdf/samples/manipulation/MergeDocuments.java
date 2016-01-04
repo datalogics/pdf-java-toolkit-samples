@@ -6,17 +6,10 @@ package com.datalogics.pdf.samples.manipulation;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.InputStreamByteReader;
-import com.adobe.pdfjt.core.exceptions.PDFIOException;
-import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
-import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASRectangle;
-import com.adobe.pdfjt.pdf.document.PDFCatalog;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
-import com.adobe.pdfjt.pdf.interactive.PDFViewerPreferences;
-import com.adobe.pdfjt.pdf.page.PDFPageLayout;
-import com.adobe.pdfjt.pdf.page.PDFPageMode;
 import com.adobe.pdfjt.services.manipulations.PMMOptions;
 import com.adobe.pdfjt.services.manipulations.PMMService;
 
@@ -41,7 +34,7 @@ public final class MergeDocuments {
     /**
      * Main program.
      *
-     * @param args command line arguments
+     * @param args The path to the merged output file
      * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
@@ -61,13 +54,8 @@ public final class MergeDocuments {
     public static void run(final String outputPath) throws Exception {
         // Start by creating a new PDF document that will be used to merge the other documents into. The new document
         // will contain a single blank page but we'll remove this just before saving the merged file.
-        final PDFDocument mergedDocument = PDFDocument.newInstance(new ASRectangle(new double[] { 0, 0, 612, 792 }),
+        final PDFDocument mergedDocument = PDFDocument.newInstance(new ASRectangle(ASRectangle.US_LETTER),
                                                                    PDFOpenOptions.newInstance());
-
-        // Setting the initial view is not required. However, the PMMService which is used to merge the documents will
-        // also merge the bookmarks from the individual files. Setting the initial view to display the bookmarks makes
-        // it easier to see that the sample has worked correctly.
-        setInitialView(mergedDocument, true, PDFPageLayout.SinglePage, PDFPageMode.WithBookmarks);
 
         // Create the new PMMService that will be used to manipulate the pages.
         final PMMService pmmService = new PMMService(mergedDocument);
@@ -76,9 +64,8 @@ public final class MergeDocuments {
         ByteReader byteReader = null;
         PDFDocument pdfToAppend = null;
         try {
-            // Add the files in the input directory to the new PDF file. This process will append the pages from each
-            // document to the end of the new document creating a continuous series of pages.
-            // Folders will be skipped.
+            // Add the input files to the new PDF file. This process will append the pages from each document to the
+            // end of the new document creating a continuous series of pages.
             for (final String pdfFileName : fileNames) {
                 is = MergeDocuments.class.getResourceAsStream(pdfFileName);
 
@@ -121,28 +108,5 @@ public final class MergeDocuments {
             }
         }
 
-    }
-
-    /**
-     * Sets the initial view of the PDF file passed.
-     *
-     * @param pdfDocument The PDFDocument object in question
-     * @param fitWindow Set the initial zoom of the PDF to fit page if true
-     * @param layout Sets the initial page layout in the PDF viewer
-     * @param mode Sets the initial page mode to display one of the navigational tabs in the PDF viewer
-     * @return none
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     */
-    private static void setInitialView(final PDFDocument pdfDocument,
-                                       final boolean fitWindow, final PDFPageLayout layout, final PDFPageMode mode)
-                                       throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
-        final PDFCatalog catalog = pdfDocument.requireCatalog();
-        catalog.setPageLayout(layout);
-        catalog.setPageMode(mode);
-        final PDFViewerPreferences pdfViewerPreferences = PDFViewerPreferences.newInstance(pdfDocument);
-        pdfViewerPreferences.setFitWindow(fitWindow);
-        pdfDocument.setViewerPreferences(pdfViewerPreferences);
     }
 }
