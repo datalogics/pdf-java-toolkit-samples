@@ -54,7 +54,6 @@ public final class MergeDocuments {
         if (args.length > 0) {
             run(args[0]);
         } else {
-            // If nothing was passed in, use our default list of files.
             run(outputPDFPath);
         }
     }
@@ -92,9 +91,9 @@ public final class MergeDocuments {
                 // too.
                 final String documentBookmarkRootName = pdfFileName.substring(0, pdfFileName.length() - 4);
 
-                // Here's the interesting part. PMMOptions control what elements of the source document are copied into
-                // the target. "All" will copy bookmarks, links, annotations, layer content (though not the layers
-                // themselves), form fields, and structure.
+                // PMMOptions control what elements of the source document are copied into the target. "newInstanceAll"
+                // will copy bookmarks, links, annotations, layer content (though not the layers themselves), form
+                // fields, and structure.
                 //
                 // Form fields with the same name will be merged and assume the value of the first field encountered
                 // during the appends.
