@@ -41,7 +41,7 @@ public class MergeDocumentsTest extends SampleTest {
 
         // Confirm that we have all the pages we think we should have
         assertEquals("The merged document should contain pages equal to the sum of the source documents",
-                     doc.requirePages().getCount(), 38);
+                     26, doc.requirePages().getCount());
 
         final PDFInteractiveForm pdfForm = doc.getInteractiveForm();
         final Iterator<PDFField> fieldIterator = pdfForm.iterator();
@@ -52,7 +52,7 @@ public class MergeDocumentsTest extends SampleTest {
             fieldIterator.next();
             counter++;
         }
-        assertEquals("All form fields should remain intact", counter, 12);
+        assertEquals("All form fields should remain intact", 10, counter);
 
         final PDFCatalog catalog = doc.requireCatalog();
         final PDFBookmarkNode.Iterator bookmarkIterator = catalog.getBookmarkRoot().iterator();
@@ -63,6 +63,6 @@ public class MergeDocumentsTest extends SampleTest {
             bookmarkIterator.next();
             counter++;
         }
-        assertEquals("All bookmarks should remain intact", counter, 52);
+        assertEquals("All bookmarks should remain intact", 35, counter);
     }
 }
