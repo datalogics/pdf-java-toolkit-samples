@@ -5,13 +5,16 @@
 package com.datalogics.pdf.samples.editing;
 
 import com.adobe.internal.io.ByteReader;
+import com.adobe.internal.io.ByteWriter;
 import com.adobe.internal.io.InputStreamByteReader;
+import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
+import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.fontset.PDFFontSet;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASDate;
@@ -27,14 +30,19 @@ import com.adobe.pdfjt.services.ap.AppearanceService;
 import com.adobe.pdfjt.services.ap.spi.APContext;
 import com.adobe.pdfjt.services.ap.spi.APResources;
 import com.adobe.pdfjt.services.fontresources.PDFFontSetUtil;
+import com.adobe.pdfjt.services.redaction.RedactionOptions;
+import com.adobe.pdfjt.services.redaction.RedactionService;
 import com.adobe.pdfjt.services.textextraction.TextExtractor;
 import com.adobe.pdfjt.services.textextraction.Word;
 import com.adobe.pdfjt.services.textextraction.WordsIterator;
 
 import com.datalogics.pdf.document.FontSetLoader;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.nio.file.Files;
 import java.util.EnumSet;
 import java.util.Locale;
 
@@ -64,12 +72,14 @@ public class RedactAndSanitizeDocument {
         run(path);
     }
 
+
     static void run(final String inputPath) throws Exception {
         PDFDocument document = null;
 
         try {
             document = openPdfDocument(inputPath);
             markTextForRedaction(document, searchString);
+            applyRedaction(document);
         } finally {
             if (document != null) {
                 document.close();
@@ -164,6 +174,29 @@ public class RedactAndSanitizeDocument {
                                                      .of(PDFAnnotationEnum.Redact));
 
         AppearanceService.generateAppearances(document, apContext, null);
+    }
+
+    private static void applyRedaction(final PDFDocument document)
+                    throws PDFInvalidParameterException, PDFInvalidDocumentException, PDFIOException,
+                    PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
+        ByteWriter writer = null;
+        RedactionOptions redactionOptions = null;
+
+        redactionOptions = new RedactionOptions(null);
+
+        // Applying redaction
+        writer = getByteWriterFromFile(outputPDFPath);
+        RedactionService.applyRedaction(document, redactionOptions, writer);
+    }
+
+    private static ByteWriter getByteWriterFromFile(final String outputPath) throws IOException {
+        final File file = new File(outputPath);
+        if (file.exists()) {
+            Files.delete(file.toPath());
+        }
+
+        final RandomAccessFile outputPdfFile = new RandomAccessFile(file, "rw");
+        return new RandomAccessFileByteWriter(outputPdfFile);
     }
 
     private static PDFDocument openPdfDocument(final String inputPath)
