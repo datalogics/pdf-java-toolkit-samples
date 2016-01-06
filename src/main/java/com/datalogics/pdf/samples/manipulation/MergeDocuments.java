@@ -24,8 +24,8 @@ import java.io.InputStream;
 public final class MergeDocuments {
 
     private static final String outputPDFPath = "MergedDocument.pdf";
-    private static final String firstDocument = "Merge1.pdf";
-    private static final String secondDocument = "Merge2.pdf";
+    public static final String firstDocument = "Merge1.pdf";
+    public static final String secondDocument = "Merge2.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -77,16 +77,14 @@ public final class MergeDocuments {
      * @throws Exception a general exception was thrown
      */
     private static void appendDocument(final String resourceName, final PDFDocument pdfDocument) throws Exception {
-        InputStream is = null;
         ByteReader byteReader = null;
         PDFDocument pdfToAppend = null;
 
         // Create the new PMMService that will be used to manipulate the pages.
         final PMMService pmmService = new PMMService(pdfDocument);
 
-        try {
+        try (final InputStream is = MergeDocuments.class.getResourceAsStream(resourceName)) {
             // Read in the input file.
-            is = MergeDocuments.class.getResourceAsStream(resourceName);
             byteReader = new InputStreamByteReader(is);
             pdfToAppend = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
 
@@ -106,9 +104,6 @@ public final class MergeDocuments {
             // Bookmark destinations and links will be automatically resolved.
             pmmService.appendPages(pdfToAppend, documentBookmarkRootName, PMMOptions.newInstanceAll());
         } finally {
-            if (is != null) {
-                is.close();
-            }
             if (byteReader != null) {
                 byteReader.close();
             }
