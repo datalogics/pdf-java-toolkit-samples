@@ -59,21 +59,27 @@ public final class DocSigning {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        run();
+        String path;
+        if (args.length > 0) {
+            path = args[0];
+        } else {
+            path = outSignedPDFPath;
+        }
+        run(path);
     }
 
-    static void run() throws Exception {
-        // Print info on all of the signature fields.
-        signExistingSignatureFields(unsigned_pdf);
+    static void run(final String outputPath) throws Exception {
+        // Query and sign all permissible signature fields.
+        signExistingSignatureFields(outputPath);
     }
 
-    private static void signExistingSignatureFields(final String filePath) throws Exception {
+    private static void signExistingSignatureFields(final String outputPath) throws Exception {
         PDFDocument pdfDoc = null;
         ByteReader byteReader = null;
         sigFieldIndex = 1;
         try {
             // Get the PDF file.
-            final InputStream inputStream = DocSigning.class.getResourceAsStream(filePath);
+            final InputStream inputStream = DocSigning.class.getResourceAsStream(inputUnsignedPDFPath);
             byteReader = new InputStreamByteReader(inputStream);
             pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
 
@@ -84,7 +90,7 @@ public final class DocSigning {
                 final Iterator<SignatureFieldInterface> iter = sigService.getDocSignatureFieldIterator();
                 while (iter.hasNext()) {
                     final SignatureFieldInterface sigField = iter.next();
-                    signDocument(sigService, sigField);
+                    signDocument(sigService, sigField, outputPath);
                 }
             }
         } finally {
@@ -102,7 +108,8 @@ public final class DocSigning {
     }
 
     private static void signDocument(final SignatureManager sigMgr,
-                                     final SignatureFieldInterface sigField) throws Exception {
+                                     final SignatureFieldInterface sigField, final String outputPath)
+                                                     throws Exception {
 
         final String qualifiedName = "Fully Qualified Name: " + sigField.getQualifiedName();
         LOGGER.info(qualifiedName);
