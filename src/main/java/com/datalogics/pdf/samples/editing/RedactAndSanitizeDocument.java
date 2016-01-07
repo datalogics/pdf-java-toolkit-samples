@@ -16,10 +16,13 @@ import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.fontset.PDFFontSet;
+import com.adobe.pdfjt.core.fontset.PDFFontSetManager;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASDate;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
+import com.adobe.pdfjt.pdf.document.PDFSaveLinearOptions;
+import com.adobe.pdfjt.pdf.document.PDFSaveOptions;
 import com.adobe.pdfjt.pdf.document.PDFVersion;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotation;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationEnum;
@@ -32,6 +35,8 @@ import com.adobe.pdfjt.services.ap.spi.APResources;
 import com.adobe.pdfjt.services.fontresources.PDFFontSetUtil;
 import com.adobe.pdfjt.services.redaction.RedactionOptions;
 import com.adobe.pdfjt.services.redaction.RedactionService;
+import com.adobe.pdfjt.services.sanitization.SanitizationOptions;
+import com.adobe.pdfjt.services.sanitization.SanitizationService;
 import com.adobe.pdfjt.services.textextraction.TextExtractor;
 import com.adobe.pdfjt.services.textextraction.Word;
 import com.adobe.pdfjt.services.textextraction.WordsIterator;
@@ -52,7 +57,7 @@ import java.util.Locale;
 public class RedactAndSanitizeDocument {
     private static final String searchString = "Reader";
     private static final String inputPDFPath = "pdfjavatoolkit-ds.pdf";
-    private static final String outputPDFPath = "pdfjavatoolkit-ds-redacted.pdf";
+    private static final String outputPDFPath = "pdfjavatoolkit-ds-out.pdf";
 
     private static final double[] color = { 1.0, 0, 0 }; // RGB Red
     private static final double[] incolor = { 0, 0, 0 }; // RGB Black
@@ -63,29 +68,32 @@ public class RedactAndSanitizeDocument {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        String path;
-        if (args.length > 0) {
-            path = args[0];
+        String inputPath;
+        String outputPath;
+        if (args.length > 1) {
+            inputPath = args[0];
+            outputPath = args[1];
         } else {
-            path = inputPDFPath;
+            inputPath = inputPDFPath;
+            outputPath = outputPDFPath;
         }
-        run(path);
+        run(inputPath, outputPath);
     }
 
 
-    static void run(final String inputPath) throws Exception {
+    static void run(final String inputPath, final String outputPath) throws Exception {
         PDFDocument document = null;
 
         try {
             document = openPdfDocument(inputPath);
             markTextForRedaction(document, searchString);
-            applyRedaction(document);
+            applyRedaction(document, outputPath);
+            sanitizeDocument(document, outputPath);
         } finally {
             if (document != null) {
                 document.close();
             }
         }
-
     }
 
     private static void markTextForRedaction(final PDFDocument document, final String searchTerm)
@@ -133,7 +141,6 @@ public class RedactAndSanitizeDocument {
         sysFontSet = fontSetLoader.getFontSet();
         return PDFFontSetUtil.buildWorkingFontSet(document,
                                                   sysFontSet, document.getDocumentLocale(), null);
-
     }
 
     private static void addRedactionAnnotationToWord(final PDFDocument document, final Word word,
@@ -176,17 +183,30 @@ public class RedactAndSanitizeDocument {
         AppearanceService.generateAppearances(document, apContext, null);
     }
 
-    private static void applyRedaction(final PDFDocument document)
+    private static void applyRedaction(final PDFDocument document, final String outputPath)
                     throws PDFInvalidParameterException, PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
-        ByteWriter writer = null;
+        final ByteWriter writer = getByteWriterFromFile(outputPath);
         RedactionOptions redactionOptions = null;
 
         redactionOptions = new RedactionOptions(null);
 
         // Applying redaction
-        writer = getByteWriterFromFile(outputPDFPath);
         RedactionService.applyRedaction(document, redactionOptions, writer);
+    }
+
+    private static PDFDocument sanitizeDocument(final PDFDocument document, final String sanitizedPath)
+                    throws IOException, PDFFontException, PDFInvalidDocumentException, PDFIOException,
+                    PDFSecurityException, PDFInvalidParameterException, PDFConfigurationException,
+                    PDFUnableToCompleteOperationException {
+        final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
+        final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
+        //the document for fast web viewing. This is a part of sanitization.
+        saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
+        final SanitizationOptions options = new SanitizationOptions();
+        options.setPDFFontSet(PDFFontSetManager.getPDFFontSetInstance());
+        options.setSaveOptions(saveOptions);
+        return SanitizationService.sanitizeDocument(document, options, writer);// API to start the sanitization.
     }
 
     private static ByteWriter getByteWriterFromFile(final String outputPath) throws IOException {
