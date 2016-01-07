@@ -36,9 +36,8 @@ public final class DocSigning {
 
     private static final String der_key_path = "pdfjt-key.der";
     private static final String der_cert_path = "pdfjt-cert.der";
-    private static final String unsigned_pdf = "UnSignedDoc.pdf";
-    private static final String signed_pdf = "Signed";
-    private static final String output_dir = "target/";
+    private static final String inputUnsignedPDFPath = "UnSignedDoc.pdf";
+    private static final String outSignedPDFPath = "SignedField";
 
     private static int sigFieldIndex;
 
@@ -119,11 +118,12 @@ public final class DocSigning {
             final Credentials credentials = createCredentials();
             // Must be permitted to sign doc and field must be visible.
             if (sigField.isSigningPermitted()) {
-                // Create output file to hold the signed PDF data.
-                final RandomAccessFile outputRaf = new RandomAccessFile(output_dir + signed_pdf + "_field_"
-                                                                        + sigFieldIndex++ + ".pdf", "rw");
-                byteWriter = new RandomAccessFileByteWriter(outputRaf);
                 if (sigField.isVisible()) {
+                    // Create output file to hold the signed PDF data.
+                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath + sigFieldIndex++ + ".pdf",
+                                                                            "rw");
+                    byteWriter = new RandomAccessFileByteWriter(outputRaf);
+                    // Sign the document.
                     sigMgr.sign(sigField, credentials, byteWriter);
                 } else {
                     throw new PDFIOException("Signature field is not visible");
