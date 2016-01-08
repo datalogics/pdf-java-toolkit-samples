@@ -89,7 +89,7 @@ public final class DocSigning {
                 final Iterator<SignatureFieldInterface> iter = sigService.getDocSignatureFieldIterator();
                 while (iter.hasNext()) {
                     final SignatureFieldInterface sigField = iter.next();
-                    signDocument(sigService, sigField, outputPath);
+                    signField(sigService, sigField, outputPath);
                 }
             }
         } finally {
@@ -106,7 +106,7 @@ public final class DocSigning {
         }
     }
 
-    private static void signDocument(final SignatureManager sigMgr,
+    private static void signField(final SignatureManager sigMgr,
                                      final SignatureFieldInterface sigField, final String outputPath)
                                                      throws Exception {
 
