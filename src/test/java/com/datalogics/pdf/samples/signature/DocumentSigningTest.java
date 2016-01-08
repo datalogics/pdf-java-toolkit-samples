@@ -2,7 +2,7 @@
  * Copyright 2015 Datalogics, Inc.
  */
 
-package com.datalogics.pdf.samples.sig;
+package com.datalogics.pdf.samples.signature;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -23,9 +23,9 @@ import java.nio.file.Files;
 import java.util.Iterator;
 
 /**
- * Tests the DocSigning Sample.
+ * Tests the DocumentSigning Sample.
  */
-public class DocSigningTest extends SampleTest {
+public class DocumentSigningTest extends SampleTest {
     static final String FILE_NAME = "SignedField1.pdf";
     static final String QUALIFIED_SIGNATURE_FIELD_NAME = "SB1_Sig1";
 
@@ -38,7 +38,7 @@ public class DocSigningTest extends SampleTest {
         // The complete file name will be set in the DocSigning class.
         final String path = file.getCanonicalPath().replaceAll("1.pdf", "");
 
-        DocSigning.main(path);
+        DocumentSigning.main(path);
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 

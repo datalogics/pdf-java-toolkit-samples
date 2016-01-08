@@ -2,7 +2,7 @@
  * Copyright 2015 Datalogics, Inc.
  */
 
-package com.datalogics.pdf.samples.sig;
+package com.datalogics.pdf.samples.signature;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.ByteWriter;
@@ -30,8 +30,8 @@ import java.util.logging.Logger;
  * This is a sample that demonstrates how to find a specific signature field in a document so that API users can sign
  * the correct field.
  */
-public final class DocSigning {
-    private static final Logger LOGGER = Logger.getLogger(DocSigning.class.getName());
+public final class DocumentSigning {
+    private static final Logger LOGGER = Logger.getLogger(DocumentSigning.class.getName());
 
 
     private static final String der_key_path = "pdfjt-key.der";
@@ -44,7 +44,7 @@ public final class DocSigning {
     /**
      * This is a utility class, and won't be instantiated.
      */
-    private DocSigning() {}
+    private DocumentSigning() {}
 
     /**
      * Main program.
@@ -78,7 +78,7 @@ public final class DocSigning {
         sigFieldIndex = 1;
         try {
             // Get the PDF file.
-            final InputStream inputStream = DocSigning.class.getResourceAsStream(inputUnsignedPDFPath);
+            final InputStream inputStream = DocumentSigning.class.getResourceAsStream(inputUnsignedPDFPath);
             byteReader = new InputStreamByteReader(inputStream);
             pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
 
@@ -141,8 +141,8 @@ public final class DocSigning {
     private static Credentials createCredentials() throws Exception {
 
         final String sigAlgorithm = "RSA";
-        final InputStream certStream = DocSigning.class.getResourceAsStream(der_cert_path);
-        final InputStream keyStream = DocSigning.class.getResourceAsStream(der_key_path);
+        final InputStream certStream = DocumentSigning.class.getResourceAsStream(der_cert_path);
+        final InputStream keyStream = DocumentSigning.class.getResourceAsStream(der_key_path);
 
         return createCredentialsFromDerBytes(certStream, keyStream, sigAlgorithm);
     }
