@@ -27,11 +27,13 @@ import com.adobe.pdfjt.pdf.document.PDFVersion;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotation;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationEnum;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationRedaction;
+import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
 import com.adobe.pdfjt.services.ap.AppearanceService;
 import com.adobe.pdfjt.services.ap.spi.APContext;
 import com.adobe.pdfjt.services.ap.spi.APResources;
+import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.fontresources.PDFFontSetUtil;
 import com.adobe.pdfjt.services.redaction.RedactionOptions;
 import com.adobe.pdfjt.services.redaction.RedactionService;
@@ -210,7 +212,8 @@ public final class RedactAndSanitizeDocument {
      * @param document The document to apply the redaction to
      * @param outputPath The redacted output document
      * @throws PDFInvalidParameterException One or more of the parameters passed to a method is invalid
-     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException A ge neral problem with the PDF document, which may now be in an invalid
+     *         state
      * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException Some general security issue occurred during the processing of the request
      * @throws PDFUnableToCompleteOperationException A general issue occurred during the processing of the request
@@ -234,19 +237,14 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document to be sanitized
      * @param sanitizedPath The sanitized output document
-     * @throws IOException An I/O operation failed or was interrupted
-     * @throws PDFFontException There was an error in the font set or an individual font
-     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
-     * @throws PDFInvalidParameterException One or more of the parameters passed to a method is invalid
-     * @throws PDFConfigurationException There was a system problem configuring PDF support
-     * @throws PDFUnableToCompleteOperationException A general issue occurred during the processing of the request
+     * @throws Exception The document can't/shouldn't be sanitized
      */
     private static void sanitizeDocument(final PDFDocument document, final String sanitizedPath)
-                    throws IOException, PDFFontException, PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException, PDFInvalidParameterException, PDFConfigurationException,
-                    PDFUnableToCompleteOperationException {
+                    throws Exception {
+        if (!canSanitizeDocument(document)) {
+            throw new Exception("This document shouldn't be sanitized");
+        }
+
         final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
         final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
         // Optimize the document for fast web viewing. This is a part of sanitization.
@@ -257,6 +255,48 @@ public final class RedactAndSanitizeDocument {
         SanitizationService.sanitizeDocument(document, options, writer);// API to start the sanitization.
     }
 
+    /**
+     * Checks if a PDF document can/should be sanitized. Throws an error if it can't/should be sanitized.
+     *
+     * @param document A PDF document, to check if it can be sanitized
+     * @return Returns true of the document can/should be sanitized
+     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
+     * @throws PDFFontException There was an error in the font set or an individual font
+     * @throws PDFConfigurationException There was a system problem configuring PDF support
+     * @throws PDFInvalidParameterException One or more of the parameters passed to a method is invalid
+     */
+    private static boolean canSanitizeDocument(final PDFDocument document)
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
+                    PDFConfigurationException, PDFInvalidParameterException {
+        if (document.requireCatalog().getCollection() != null) {
+            throw new PDFInvalidDocumentException("This document has collections."
+                                                  + " Shouldn't call sanitization on this.");
+        }
+
+        final SignatureManager sigMgr = SignatureManager.newInstance(document);
+
+        if (sigMgr.hasSignedSignatureFields() || sigMgr.hasUsageRights()) {
+            throw new PDFInvalidDocumentException("This document is digitally signed."
+                                                  + " Shouldn't call sanitization on this.");
+        }
+
+        final PDFInteractiveForm acroform = document.requireCatalog().getInteractiveForm();
+        if (acroform != null) {
+            // Acrobat reports an error while performing sanitization in XFA documents.
+            if (acroform.hasXFA()) {
+                throw new PDFInvalidDocumentException("This document has XFA content."
+                                                          + " Shouldn't call sanitization on this.");
+            }
+
+            if (acroform.getNeedAppearances()) {
+                AppearanceService.generateAppearances(document, null, null);
+            }
+        }
+
+        return true;
+    }
     /**
      * Generate appearance streams for redactin annotations.
      *
