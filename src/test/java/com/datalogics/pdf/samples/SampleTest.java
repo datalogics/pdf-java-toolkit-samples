@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
 import java.util.Scanner;
 
 /**
@@ -239,5 +240,21 @@ public class SampleTest {
      */
     protected static File newOutputFile(final String filename) {
         return new File(new File(new File("target"), "test-output"), filename);
+    }
+
+    /**
+     * Create a {@link File} with the specified name in <tt>target/test-output</tt>. If the file already exists, delete
+     * it.
+     *
+     * @param filename the name of the file to create
+     * @return a {@link File} object containing the file location
+     * @throws IOException an I/O operation failed or was interrupted
+     */
+    protected static File newOutputFileWithDelete(final String filename) throws IOException {
+        final File file = newOutputFile(filename);
+        if (file.exists()) {
+            Files.delete(file.toPath());
+        }
+        return file;
     }
 }
