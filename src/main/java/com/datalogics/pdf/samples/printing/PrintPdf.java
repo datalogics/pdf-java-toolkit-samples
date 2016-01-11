@@ -40,9 +40,9 @@ import javax.print.attribute.standard.PrinterResolution;
  * This sample shows how to rasterize a PDF page so it can be reliably printed. The code will attempt to detect the
  * resolution of your printer. The higher the resolution, the larger heap you'll need.
  */
-public class PrintPDF {
+public class PrintPdf {
 
-    private static final Logger LOGGER = Logger.getLogger(PrintPDF.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PrintPdf.class.getName());
 
     private static List<BufferedImage> images = new ArrayList<BufferedImage>();
     private static final String inputPDF = "http://dev.datalogics.com/cookbook/document/pdfjavatoolkit-ds.pdf";
@@ -50,7 +50,7 @@ public class PrintPDF {
     /**
      * This is a utility class, and won't be instantiated.
      */
-    private PrintPDF() {}
+    private PrintPdf() {}
 
     public static void main(final String... args) throws Exception {
         try {
