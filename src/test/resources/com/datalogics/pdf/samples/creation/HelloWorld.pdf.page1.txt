@@ -1,0 +1,7 @@
+q
+BT
+72.0 710.004 Td
+/F0 12.0 Tf
+(Hello World) Tj
+ET
+Q
