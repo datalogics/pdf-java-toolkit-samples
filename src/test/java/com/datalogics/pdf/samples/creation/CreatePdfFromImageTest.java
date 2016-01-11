@@ -28,11 +28,13 @@ public class CreatePdfFromImageTest extends SampleTest {
     @Test
     public void testMain() throws Exception {
 
+        // Instantiate an object for each output file. This will first delete the files if they currently exist on disc.
         final File outputBmp = newOutputFileWithDelete(CreatePdfFromImage.outputBmp);
         final File outputGif = newOutputFileWithDelete(CreatePdfFromImage.outputGif);
         final File outputPng = newOutputFileWithDelete(CreatePdfFromImage.outputPng);
         final File outputJpg = newOutputFileWithDelete(CreatePdfFromImage.outputJpg);
 
+        // Create a PDF from each test image, confirm the file exists, then make sure it contains an image.
         CreatePdfFromImage.main(outputBmp.getCanonicalPath(), CreatePdfFromImage.inputBmp);
         assertTrue(outputBmp.getPath() + " must exist after run", outputBmp.exists());
         checkImageExists(outputBmp);
@@ -50,6 +52,8 @@ public class CreatePdfFromImageTest extends SampleTest {
         checkImageExists(outputJpg);
     }
 
+    // Open a PDF from a File, get the resources on the first (should be only) page, and make sure we've got exactly
+    // one image there.
     private void checkImageExists(final File file) throws Exception {
         final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
 

@@ -37,7 +37,7 @@ import javax.imageio.metadata.IIOMetadataNode;
  * This sample shows how to create a PDF document from an image file. The file formats demonstrated here include PNG,
  * JPG/JPEG, GIF, and BMP.
  */
-public class CreatePdfFromImage {
+public final class CreatePdfFromImage {
 
     // Image from pixabay.com, public domain images
     public static final String inputPng = "ducky.png";
@@ -63,6 +63,7 @@ public class CreatePdfFromImage {
      * @throws Exception Throws a general exception
      */
     public static void main(final String... args) throws Exception {
+        // If we have more than one argument, get the output destination, get the image name, and parse the format.
         if (args.length > 1) {
             final String outputFile = args[0];
             final String inputImage = args[1];
@@ -100,31 +101,37 @@ public class CreatePdfFromImage {
      * @throws Exception A general exception was thrown
      */
     public static void createPdfFromImage(final String imageFormat, final String inputImage, final String outputPdf)
-                    throws IOException, PDFInvalidDocumentException, PDFIOException, PDFSecurityException,
-                    PDFInvalidParameterException {
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException,
+                    PDFInvalidParameterException, IOException {
+        // Get an image reader for the given format. We'll use this to look at image metadata.
         ImageReader reader = null;
         final Iterator<ImageReader> imageReaders = ImageIO.getImageReadersByFormatName(imageFormat);
         if (imageReaders.hasNext()) {
             reader = imageReaders.next();
         }
 
-        final InputStream resourceStream = CreatePdfFromImage.class.getResourceAsStream(inputImage);
+        // If imageReaders is empty, or if we somehow got a null value out of it, stop here.
+        if (reader == null) {
+            throw new PDFIOException("Unable to get a " + imageFormat + " reader");
+        }
+
+        // Get the image for the reader to use. We'll try to use the sample's resource (default behavior) or, failing
+        // that, we'll treat the input as a file to be opened. Set the BufferedImage to be used here as well.
+        final BufferedImage bufferedImage;
+        final InputStream resourceStream;
+
+        resourceStream = CreatePdfFromImage.class.getResourceAsStream(inputImage);
         if (resourceStream == null) {
             reader.setInput(ImageIO.createImageInputStream(new File(inputImage)));
-        } else {
-            reader.setInput(ImageIO
-                            .createImageInputStream(CreatePdfFromImage.class.getResourceAsStream(inputImage)));
-        }
-
-
-        final BufferedImage bufferedImage;
-        if (resourceStream == null) {
             bufferedImage = ImageIO.read(new File(inputImage));
         } else {
+            reader.setInput(ImageIO
+                               .createImageInputStream(CreatePdfFromImage.class.getResourceAsStream(inputImage)));
             bufferedImage = ImageIO.read(ImageIO
-                                    .createImageInputStream(CreatePdfFromImage.class.getResourceAsStream(inputImage)));
+                               .createImageInputStream(CreatePdfFromImage.class.getResourceAsStream(inputImage)));
             resourceStream.close();
         }
+
 
         // Try to find the pixel density from the metadata. If it's missing, we'll just have to make do without. We'll
         // maintain the aspect ratio of the image while fitting it within a basic 612px x 792px page.
