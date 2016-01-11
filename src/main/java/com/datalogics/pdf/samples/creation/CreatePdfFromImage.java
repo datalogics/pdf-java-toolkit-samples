@@ -18,8 +18,6 @@ import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.document.DocumentHelper;
 
-import org.w3c.dom.NodeList;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -29,9 +27,6 @@ import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
-import javax.imageio.metadata.IIOMetadata;
-import javax.imageio.metadata.IIOMetadataFormatImpl;
-import javax.imageio.metadata.IIOMetadataNode;
 
 /**
  * This sample shows how to create a PDF document from an image file. The file formats demonstrated here include PNG,
@@ -48,7 +43,6 @@ public final class CreatePdfFromImage {
     public static final String outputJpg = "PDF_from_JPG.pdf";
     public static final String outputGif = "PDF_from_GIF.pdf";
     public static final String outputBmp = "PDF_from_BMP.pdf";
-    private static final Double mmPerIn = 25.4; // millimeters per inch
     private static final Double ptsPerIn = 72.0; // points per inch
 
     /**
@@ -64,6 +58,7 @@ public final class CreatePdfFromImage {
      */
     public static void main(final String... args) throws Exception {
         // If we have more than one argument, get the output destination, get the image name, and parse the format.
+        // If we don't, just use the defaults included in the sample.
         if (args.length > 1) {
             final String outputFile = args[0];
             final String inputImage = args[1];
@@ -101,8 +96,7 @@ public final class CreatePdfFromImage {
      * @throws Exception A general exception was thrown
      */
     public static void createPdfFromImage(final String imageFormat, final String inputImage, final String outputPdf)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException,
-                    PDFInvalidParameterException, IOException {
+                    throws Exception {
         // Get an image reader for the given format. We'll use this to look at image metadata.
         ImageReader reader = null;
         final Iterator<ImageReader> imageReaders = ImageIO.getImageReadersByFormatName(imageFormat);
@@ -112,51 +106,50 @@ public final class CreatePdfFromImage {
 
         // If imageReaders is empty, or if we somehow got a null value out of it, stop here.
         if (reader == null) {
-            throw new PDFIOException("Unable to get a " + imageFormat + " reader");
+            throw new IOException("Unable to get a " + imageFormat + " image reader");
         }
 
         // Get the image for the reader to use. We'll try to use the sample's resource (default behavior) or, failing
         // that, we'll treat the input as a file to be opened. Set the BufferedImage to be used here as well.
         final BufferedImage bufferedImage;
-        final InputStream resourceStream;
+        final InputStream resourceStream = CreatePdfFromImage.class.getResourceAsStream(inputImage);
+        try {
+            if (resourceStream == null) {
+                reader.setInput(ImageIO.createImageInputStream(new File(inputImage)));
+                bufferedImage = ImageIO.read(new File(inputImage));
+            } else {
+                reader.setInput(ImageIO
+                                   .createImageInputStream(CreatePdfFromImage.class.getResourceAsStream(inputImage)));
+                bufferedImage = ImageIO.read(ImageIO
+                                   .createImageInputStream(CreatePdfFromImage.class.getResourceAsStream(inputImage)));
+                resourceStream.close();
+            }
+        } finally {
+            if (resourceStream != null) {
+                resourceStream.close();
+            }
+        }
 
-        resourceStream = CreatePdfFromImage.class.getResourceAsStream(inputImage);
-        if (resourceStream == null) {
-            reader.setInput(ImageIO.createImageInputStream(new File(inputImage)));
-            bufferedImage = ImageIO.read(new File(inputImage));
-        } else {
-            reader.setInput(ImageIO
-                               .createImageInputStream(CreatePdfFromImage.class.getResourceAsStream(inputImage)));
-            bufferedImage = ImageIO.read(ImageIO
-                               .createImageInputStream(CreatePdfFromImage.class.getResourceAsStream(inputImage)));
+        if (resourceStream != null) {
             resourceStream.close();
         }
 
 
-        // Try to find the pixel density from the metadata. If it's missing, we'll just have to make do without. We'll
-        // maintain the aspect ratio of the image while fitting it within a basic 612px x 792px page.
-        final Double pixelsPerMm = getPixelsPerMm(reader.getImageMetadata(0));
+        // Fit the image to a 792pt by 612pt page, maintaining at least a 1/2 inch (72 pt) margin.
         final Double pageWidth;
         final Double pageHeight;
-        if (pixelsPerMm == -1) {
-            final int w = bufferedImage.getWidth();
-            final int h = bufferedImage.getHeight();
-            if ((w / h) >= 1) {
-                pageWidth = 792.0;
-                pageHeight = (h * 792.0) / w;
-            } else {
-                pageHeight = 792.0;
-                pageWidth = (w * 792.0) / h;
-            }
+        final int w = bufferedImage.getWidth();
+        final int h = bufferedImage.getHeight();
+        if ((w / h) >= 1) {
+            pageWidth = ASRectangle.US_LETTER.height() - ptsPerIn;
+            pageHeight = (h * (ASRectangle.US_LETTER.height() - ptsPerIn)) / w;
         } else {
-            // Convert pixels per millimeter to points
-            pageWidth = Math.floor((ptsPerIn * bufferedImage.getWidth()) / (pixelsPerMm * mmPerIn));
-            pageHeight = Math.floor((ptsPerIn * bufferedImage.getHeight()) / (pixelsPerMm * mmPerIn));
+            pageHeight = ASRectangle.US_LETTER.height() - ptsPerIn;
+            pageWidth = (w * (ASRectangle.US_LETTER.height() - ptsPerIn)) / h;
         }
 
         // Create a PDF document with the first page being the proper size to contain our image.
-        final PDFDocument pdfDocument = PDFDocument.newInstance(new ASRectangle(new double[] { 0, 0, pageWidth,
-            pageHeight }), PDFOpenOptions.newInstance());
+        final PDFDocument pdfDocument = PDFDocument.newInstance(ASRectangle.US_LETTER, PDFOpenOptions.newInstance());
 
         // Convert the BufferedImage to a PDFXObjectImage
         final PDFXObjectImage image = ImageManager.getPDFImage(bufferedImage, pdfDocument);
@@ -164,29 +157,14 @@ public final class CreatePdfFromImage {
         // Create a default external graphics state which describes how graphics are to be rendered on a device.
         final PDFExtGState pdfExtGState = PDFExtGState.newInstance(pdfDocument);
 
-        // Create a transformation matrix which maps positions from user coordinates to device coordinates. There is no
-        // transform taking place here though but it is a required parameter.
-        final ASMatrix asMatrix = new ASMatrix(pageWidth, 0, 0, pageHeight, 0, 0);
+        // Create a transformation matrix which maps positions from user coordinates to device coordinates. We're just
+        // translating the image 1/2 inch from the origin to get a margin.
+        final ASMatrix asMatrix = new ASMatrix(pageWidth, 0, 0, pageHeight, ptsPerIn / 2, ptsPerIn / 2);
 
-        /*
-         * Now add the image to the first PDF page using the graphics state and the transformation matrix.
-         */
+        // Now add the image to the first PDF page using the graphics state and the transformation matrix.
         ImageManager.insertImageInPDF(image, pdfDocument.requirePages().getPage(0), pdfExtGState, asMatrix);
 
         // Save the file.
         DocumentHelper.saveFullAndClose(pdfDocument, outputPdf);
-    }
-
-    private static Double getPixelsPerMm(final IIOMetadata metadata) {
-        // This code assumes square pixels so it only gets the horizontal measurement
-        final IIOMetadataNode standardTree = (IIOMetadataNode) metadata
-                        .getAsTree(IIOMetadataFormatImpl.standardMetadataFormatName);
-        final NodeList pixelSizes = standardTree.getElementsByTagName("HorizontalPixelSize");
-        // If there is no "HorizontalPixelSize" element, return now. We'll need to handle this later.
-        if (pixelSizes.getLength() == 0) {
-            return -1.0;
-        }
-        final IIOMetadataNode pixelSize = (IIOMetadataNode) pixelSizes.item(0);
-        return Double.parseDouble(pixelSize.getAttribute("value"));
     }
 }
