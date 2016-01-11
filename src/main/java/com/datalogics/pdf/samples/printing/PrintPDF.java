@@ -63,11 +63,8 @@ public class PrintPDF {
             // Only log info messages and above
             LOGGER.setLevel(Level.INFO);
 
-            /*
-             * Read the PDF input file and detect the page size of the first
-             * page. This sample assumes all pages in the document are the same
-             * size.
-             */
+            // Read the PDF input file and detect the page size of the first page. This sample assumes all pages in
+            // the document are the same size.
             final InputStream fis = new URL(inputPDF).openStream();
             final ByteReader byteReader = new InputStreamByteReader(fis);
             final PDFDocument pdfDocument = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
@@ -75,9 +72,7 @@ public class PrintPDF {
             final int pdfPageWidth = (int) pdfPage.getMediaBox().width();
             final int pdfPageHeight = (int) pdfPage.getMediaBox().height();
 
-            /*
-             * Detect the resolution of the default printer.
-             */
+            // Detect the resolution of the default printer.
             final PrintService printService = PrintServiceLookup.lookupDefaultPrintService();
             if (LOGGER.isLoggable(Level.INFO)) {
                 LOGGER.info("Printer: " + printService.getName());
@@ -93,34 +88,26 @@ public class PrintPDF {
                 LOGGER.info("Resolution: " + resolution + " DPI");
             }
 
-            /*
-             * Create a default FontSetLoader. This will include the Base 14 fonts, plus all fonts in the standard
-             * system locations.
-             */
+            // Create a default FontSetLoader. This will include the Base 14 fonts, plus all fonts in the standard
+            // system locations.
             final FontSetLoader fontSetLoader = FontSetLoader.newInstance();
 
-            /*
-             * Create a set of options that will be used to rasterize the pages. We use the page width, height, and the
-             * printer resolution to tell the Java Toolkit what dimensions the bitmap should be. Matching the resolution
-             * of the printer will give us as high a quality output as the device is capable of.
-             */
+            // Create a set of options that will be used to rasterize the pages. We use the page width, height, and the
+            // printer resolution to tell the Java Toolkit what dimensions the bitmap should be. Matching the resolution
+            // of the printer will give us as high a quality output as the device is capable of.
             final RasterizationOptions rasterizationOptions = new RasterizationOptions();
             rasterizationOptions.setFontSet(fontSetLoader.getFontSet());
             rasterizationOptions.setWidth(pdfPageWidth / 72 * resolution);
             rasterizationOptions.setHeight(pdfPageHeight / 72 * resolution);
 
-            /*
-             * Create a bitmap for each page. NOTE: Acrobat and Reader will also create bitmaps when normal printing
-             * does not produce the desired results.
-             */
+            // Create a bitmap for each page. NOTE: Acrobat and Reader will also create bitmaps when normal printing
+            // does not produce the desired results.
             final PageRasterizer pageRasterizer = new PageRasterizer(pdfDocument.requirePages(), rasterizationOptions);
             while (pageRasterizer.hasNext()) {
                 images.add(pageRasterizer.next());
             }
 
-            /*
-             * Print the images
-             */
+            // Print the images.
             final PrinterJob printerJob = PrinterJob.getPrinterJob();
             if (printerJob.printDialog()) {
                 final PageFormat pageFormat = printerJob.defaultPage();
