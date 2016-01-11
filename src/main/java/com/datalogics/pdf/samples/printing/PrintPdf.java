@@ -24,9 +24,9 @@ import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -45,7 +45,7 @@ public class PrintPdf {
     private static final Logger LOGGER = Logger.getLogger(PrintPdf.class.getName());
 
     private static List<BufferedImage> images = new ArrayList<BufferedImage>();
-    private static final String inputPDF = "http://dev.datalogics.com/cookbook/document/pdfjavatoolkit-ds.pdf";
+    private static final String defaultInputPDF = "pdfjavatoolkit-ds.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -59,19 +59,34 @@ public class PrintPdf {
      * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
-        try {
-            // If you are using an evaluation version of the product (License Managed, or LM), set the path to where
-            // PDFJT can find the license file.
-            //
-            // If you are not using an evaluation version of the product you can ignore or remove this code.
-            LicenseManager.setLicensePath(".");
+        // If you are using an evaluation version of the product (License Managed, or LM), set the path to where
+        // PDFJT can find the license file.
+        //
+        // If you are not using an evaluation version of the product you can ignore or remove this code.
+        LicenseManager.setLicensePath(".");
+        String path;
+        if (args.length > 0) {
+            path = args[0];
+        } else {
+            path = PrintPdf.class.getResource(defaultInputPDF).getPath();
+        }
+        printPdf(path);
+    }
 
+    /**
+     * Print the specified PDF.
+     *
+     * @param inputPath path to the PDF to print
+     * @throws Exception a general exception was thrown
+     */
+    private static void printPdf(final String inputPath) throws Exception {
+        try {
             // Only log info messages and above
             LOGGER.setLevel(Level.INFO);
 
             // Read the PDF input file and detect the page size of the first page. This sample assumes all pages in
             // the document are the same size.
-            final InputStream fis = new URL(inputPDF).openStream();
+            final InputStream fis = new FileInputStream(inputPath);
             final ByteReader byteReader = new InputStreamByteReader(fis);
             final PDFDocument pdfDocument = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
             final PDFPage pdfPage = pdfDocument.requirePages().getPage(0);
