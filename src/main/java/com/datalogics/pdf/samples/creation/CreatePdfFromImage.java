@@ -22,11 +22,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.Locale;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
 
 /**
  * This sample shows how to create a PDF document from an image file. The file formats demonstrated here include PNG,
@@ -64,11 +62,15 @@ public final class CreatePdfFromImage {
             final String inputImage = args[1];
             final String[] split = inputImage.split("\\.");
             final String format = split[split.length - 1];
-            if ("JPG".equalsIgnoreCase(format)
-                || "JPEG".equalsIgnoreCase(format)
-                || "GIF".equalsIgnoreCase(format)
-                || "PNG".equalsIgnoreCase(format)
-                || "BMP".equalsIgnoreCase(format)) {
+            final String[] supportedFormats = ImageIO.getReaderFileSuffixes();
+            boolean supported = false;
+            for (int i = 0; i < supportedFormats.length; i++) {
+                if (supportedFormats[i].equalsIgnoreCase(format)) {
+                    supported = true;
+                    break;
+                }
+            }
+            if (supported) {
                 createPdfFromImage(format.toUpperCase(Locale.ENGLISH), inputImage, outputFile);
             } else {
                 throw new Exception("Image format of " + format + "not supported");
@@ -97,31 +99,21 @@ public final class CreatePdfFromImage {
      */
     public static void createPdfFromImage(final String imageFormat, final String inputImage, final String outputPdf)
                     throws Exception {
-        // Get an image reader for the given format. We'll use this to look at image metadata.
-        ImageReader reader = null;
-        final Iterator<ImageReader> imageReaders = ImageIO.getImageReadersByFormatName(imageFormat);
-        if (imageReaders.hasNext()) {
-            reader = imageReaders.next();
-        }
-
-        // If imageReaders is empty, or if we somehow got a null value out of it, stop here.
-        if (reader == null) {
-            throw new IOException("Unable to get a " + imageFormat + " image reader");
-        }
-
         // Get the image for the reader to use. We'll try to use the sample's resource (default behavior) or, failing
         // that, we'll treat the input as a file to be opened. Set the BufferedImage to be used here as well.
         final BufferedImage bufferedImage;
 
         try (final InputStream resourceStream = CreatePdfFromImage.class.getResourceAsStream(inputImage)) {
             if (resourceStream == null) {
-                reader.setInput(ImageIO.createImageInputStream(new File(inputImage)));
                 bufferedImage = ImageIO.read(new File(inputImage));
             } else {
-                reader.setInput(ImageIO.createImageInputStream(resourceStream));
                 bufferedImage = ImageIO.read(ImageIO.createImageInputStream(resourceStream));
                 resourceStream.close();
             }
+        }
+
+        if (bufferedImage == null) {
+            throw new IOException("Unable to read " + imageFormat + "image: " + inputImage);
         }
 
         // Fit the image to a 792pt by 612pt page, maintaining at least a 1/2 inch (72 pt) margin.
