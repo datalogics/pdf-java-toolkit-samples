@@ -134,7 +134,6 @@ public final class CreatePdfFromImage {
             resourceStream.close();
         }
 
-
         // Fit the image to a 792pt by 612pt page, maintaining at least a 1/2 inch (72 pt) margin.
         final Double pageWidth;
         final Double pageHeight;
