@@ -135,14 +135,14 @@ public class PrintPdf {
 
     private static class BufferedImagePrintable implements Printable {
         @Override
-        public int print(final Graphics g, final PageFormat pageFormat, final int pageIndex) throws PrinterException {
+        public int print(final Graphics gfx, final PageFormat pageFormat, final int pageIndex) throws PrinterException {
             if (pageIndex < images.size()) {
-                final Graphics2D g2d = (Graphics2D) g;
-                g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-                g2d.drawImage(images.get(pageIndex), 0, 0, (int) pageFormat.getImageableWidth(),
+                final Graphics2D gfx2d = (Graphics2D) gfx;
+                gfx2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+                gfx2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+                gfx2d.drawImage(images.get(pageIndex), 0, 0, (int) pageFormat.getImageableWidth(),
                               (int) pageFormat.getImageableHeight(), null);
-                g2d.dispose();
+                gfx2d.dispose();
                 return PAGE_EXISTS;
             } else {
                 return NO_SUCH_PAGE;
