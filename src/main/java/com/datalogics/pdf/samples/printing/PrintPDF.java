@@ -42,7 +42,7 @@ import javax.print.attribute.standard.PrinterResolution;
  */
 public class PrintPDF {
 
-    private static final Logger logger = Logger.getLogger(PrintPDF.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PrintPDF.class.getName());
 
     private static List<BufferedImage> images = new ArrayList<BufferedImage>();
     private static final String inputPDF = "http://dev.datalogics.com/cookbook/document/pdfjavatoolkit-ds.pdf";
@@ -61,7 +61,7 @@ public class PrintPDF {
             LicenseManager.setLicensePath(".");
 
             // Only log info messages and above
-            logger.setLevel(Level.INFO);
+            LOGGER.setLevel(Level.INFO);
 
             /*
              * Read the PDF input file and detect the page size of the first
@@ -79,8 +79,8 @@ public class PrintPDF {
              * Detect the resolution of the default printer.
              */
             final PrintService printService = PrintServiceLookup.lookupDefaultPrintService();
-            if (logger.isLoggable(Level.INFO)) {
-                logger.info("Printer: " + printService.getName());
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info("Printer: " + printService.getName());
             }
 
             final PrinterResolution printerResolution =
@@ -89,8 +89,8 @@ public class PrintPDF {
             if (printerResolution != null) {
                 resolution = printerResolution.getResolution(PrinterResolution.DPI)[0];
             }
-            if (logger.isLoggable(Level.INFO)) {
-                logger.info("Resolution: " + resolution + " DPI");
+            if (LOGGER.isLoggable(Level.INFO)) {
+                LOGGER.info("Resolution: " + resolution + " DPI");
             }
 
             /*
@@ -134,8 +134,8 @@ public class PrintPDF {
                 printerJob.print();
             }
         } catch (final IOException | PrinterException exp) {
-            if (logger.isLoggable(Level.WARNING)) {
-                logger.warning(exp.getMessage());
+            if (LOGGER.isLoggable(Level.WARNING)) {
+                LOGGER.warning(exp.getMessage());
             }
         }
     }
