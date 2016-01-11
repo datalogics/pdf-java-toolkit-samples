@@ -52,6 +52,12 @@ public class PrintPdf {
      */
     private PrintPdf() {}
 
+    /**
+     * Main program.
+     *
+     * @param args command line arguments
+     * @throws Exception a general exception was thrown
+     */
     public static void main(final String... args) throws Exception {
         try {
             // If you are using an evaluation version of the product (License Managed, or LM), set the path to where
