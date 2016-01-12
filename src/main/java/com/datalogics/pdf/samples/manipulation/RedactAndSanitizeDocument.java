@@ -113,21 +113,23 @@ public final class RedactAndSanitizeDocument {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
+        String inputPath = null;
         String outputPath = null;
         String searchString = null;
         PDFDocument document = null;
 
-        if (args.length > 1) {
-            outputPath = args[0];
-            searchString = args[1];
+        if (args.length > 2) {
+            inputPath = args[0];
+            outputPath = args[1];
+            searchString = args[2];
         } else {
-
+            inputPath = inputPDFPath;
             outputPath = outputPDFPath;
             searchString = searchPDFString;
         }
 
         try {
-            document = openPdfDocument(inputPDFPath);
+            document = openPdfDocument(inputPath);
 
             markTextForRedaction(document, searchString);
 
@@ -273,6 +275,7 @@ public final class RedactAndSanitizeDocument {
 
         if (!canSanitizeDocument(document)) {
             logger.warning("The document was not sanitized");
+            return;
         }
         final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
         final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();

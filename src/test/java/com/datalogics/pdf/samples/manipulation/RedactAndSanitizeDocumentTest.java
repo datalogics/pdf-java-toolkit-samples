@@ -5,6 +5,7 @@
 package com.datalogics.pdf.samples.manipulation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -13,7 +14,6 @@ import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.navigation.PDFBookmarkRoot;
 
 import com.datalogics.pdf.samples.SampleTest;
-import com.datalogics.pdf.samples.manipulation.RedactAndSanitizeDocument;
 
 import org.junit.Test;
 
@@ -26,6 +26,9 @@ import java.nio.file.Files;
 public class RedactAndSanitizeDocumentTest extends SampleTest {
     private static final String searchString = "Reader";
     private static final String outputPDFPath = "pdfjavatoolkit-ds-out.pdf";
+    private static final String inputPDFPath = "pdfjavatoolkit-ds.pdf";
+    private static final String inputPDFPathWithSignature = "pdfjavatoolkit-ds-signature.pdf";
+    private static final String inputPDFPathNotSanitized = "pdfjavatoolkit-ds_NotSanitized.pdf";
 
     @Test
     public void testMain() throws Exception {
@@ -34,7 +37,7 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
             Files.delete(file.toPath());
         }
 
-        RedactAndSanitizeDocument.main(file.getCanonicalPath(), searchString);
+        RedactAndSanitizeDocument.main(inputPDFPath, file.getCanonicalPath(), searchString);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         final PDFDocument document = openPdfDocument(file.getCanonicalPath());
@@ -51,5 +54,23 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
         final PDFCatalog catalog = document.requireCatalog();
         final PDFBookmarkRoot bmRoot = catalog.getBookmarkRoot();
         assertNull("The Outlines entry in the catalog should not exist", bmRoot);
+    }
+
+    @Test
+    public void testCantSanitizeDocument() throws Exception {
+        final File file = newOutputFile(inputPDFPathNotSanitized);
+        if (file.exists()) {
+            Files.delete(file.toPath());
+        }
+
+        RedactAndSanitizeDocument.main(inputPDFPathWithSignature, file.getCanonicalPath(), searchString);
+        assertTrue(file.getPath() + " must exist after run", file.exists());
+
+        final PDFDocument document = openPdfDocument(file.getCanonicalPath());
+
+        // // Test sanitization
+        final PDFCatalog catalog = document.requireCatalog();
+        final PDFBookmarkRoot bmRoot = catalog.getBookmarkRoot();
+        assertNotNull("The Outlines entry in the catalog should not exist", bmRoot);
     }
 }
