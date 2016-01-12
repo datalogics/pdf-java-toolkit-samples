@@ -35,8 +35,11 @@ import com.adobe.pdfjt.services.ap.spi.APContext;
 import com.adobe.pdfjt.services.ap.spi.APResources;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.fontresources.PDFFontSetUtil;
+import com.adobe.pdfjt.services.redaction.RedactionHandler;
 import com.adobe.pdfjt.services.redaction.RedactionOptions;
 import com.adobe.pdfjt.services.redaction.RedactionService;
+import com.adobe.pdfjt.services.redaction.handler.PDFColorSpaceContainer;
+import com.adobe.pdfjt.services.redaction.handler.RedactedObjectInfo;
 import com.adobe.pdfjt.services.sanitization.SanitizationOptions;
 import com.adobe.pdfjt.services.sanitization.SanitizationService;
 import com.adobe.pdfjt.services.textextraction.TextExtractor;
@@ -52,13 +55,40 @@ import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.util.EnumSet;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 /**
  * This sample demonstrates how to open a document, add redaction annotations to it, and then apply the redaction. The
  * document is then sanitized.
+ *
+ * <p>
+ * Redaction and sanitization is done in three steps. Redaction annotations are first added to the document. Those
+ * annocations mark where the redaction will take place. Note that this step does not apply the actual redaction. Once
+ * the annotations are in place, they are applied to the document. This step removes the content below the annotations,
+ * and replaces it with black boxes.
+ *
+ * <p>
+ * The third step of the process is sanitization. It removes the following items from the document:
+ * <ul>
+ * <li>Metadata
+ * <li>Embedded content and attached files
+ * <li>Scripts
+ * <li>Hidden layers
+ * <li>Embedded search indexes
+ * <li>Stored form data
+ * <li>Review and comment data
+ * <li>Hidden data from previous document saves
+ * <li>Obscured text and images
+ * <li>Comments hidden within the body of the PDF file
+ * <li>Unreferenced data
+ * <li>Links, actions and JavaScript
+ * <li>Overlapping objects
+ * </ul>
  */
 public final class RedactAndSanitizeDocument {
-    private static final String searchString = "Reader";
+    private static final Logger logger = Logger.getLogger(RedactAndSanitizeDocument.class.getName());
+
+    private static final String searchPDFString = "Reader";
     private static final String inputPDFPath = "pdfjavatoolkit-ds.pdf";
     private static final String outputPDFPath = "pdfjavatoolkit-ds-out.pdf";
 
@@ -74,7 +104,7 @@ public final class RedactAndSanitizeDocument {
     /**
      * Main program.
      *
-     * @param args Two command line arguments - input path and output path
+     * @param args Two command line arguments - output path and search string
      * @throws Exception A general exception was thrown
      */
     public static void main(final String... args) throws Exception {
@@ -83,30 +113,21 @@ public final class RedactAndSanitizeDocument {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        String inputPath;
-        String outputPath;
-        if (args.length > 1) {
-            inputPath = args[0];
-            outputPath = args[1];
-        } else {
-            inputPath = inputPDFPath;
-            outputPath = outputPDFPath;
-        }
-        run(inputPath, outputPath);
-    }
-
-    /**
-     * Mark text in the input document for redaction, and apply the redaction. Then sanitize the document.
-     *
-     * @param inputPath The PDF document to be redacted and sanitized
-     * @param outputPath The redacted and sanitized output document
-     * @throws Exception A general exception was thrown
-     */
-    static void run(final String inputPath, final String outputPath) throws Exception {
+        String outputPath = null;
+        String searchString = null;
         PDFDocument document = null;
 
+        if (args.length > 1) {
+            outputPath = args[0];
+            searchString = args[1];
+        } else {
+
+            outputPath = outputPDFPath;
+            searchString = searchPDFString;
+        }
+
         try {
-            document = openPdfDocument(inputPath);
+            document = openPdfDocument(inputPDFPath);
 
             markTextForRedaction(document, searchString);
 
@@ -225,8 +246,8 @@ public final class RedactAndSanitizeDocument {
                     PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
         final ByteWriter writer = getByteWriterFromFile(outputPath);
         RedactionOptions redactionOptions = null;
-
-        redactionOptions = new RedactionOptions(null);
+        // final LocalRedactionHandler redactionHandler = new LocalRedactionHandler();
+        redactionOptions = new RedactionOptions(new LocalRedactionHandler());
 
         // Applying redaction
         RedactionService.applyRedaction(document, redactionOptions, writer);
@@ -237,22 +258,30 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document to be sanitized
      * @param sanitizedPath The sanitized output document
-     * @throws Exception The document can't/shouldn't be sanitized
+     * @throws IOException There was an error reading or writing a PDF file or temporary caches
+     * @throws PDFUnableToCompleteOperationException A general issue occurred during the processing of the request
+     * @throws PDFInvalidParameterException One or more of the parameters passed to a method is invalid
+     * @throws PDFConfigurationException There was a system problem configuring PDF support
+     * @throws PDFFontException There was an error in the font set or an individual font
+     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
+     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
+     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
      */
     private static void sanitizeDocument(final PDFDocument document, final String sanitizedPath)
-                    throws Exception {
-        if (!canSanitizeDocument(document)) {
-            throw new Exception("This document shouldn't be sanitized");
-        }
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
+                    PDFConfigurationException, PDFInvalidParameterException, PDFUnableToCompleteOperationException,
+                    IOException {
 
-        final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
-        final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
+        if (canSanitizeDocument(document)) {
+            final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
+            final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
         // Optimize the document for fast web viewing. This is a part of sanitization.
-        saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
-        final SanitizationOptions options = new SanitizationOptions();
-        options.setPDFFontSet(PDFFontSetManager.getPDFFontSetInstance());
-        options.setSaveOptions(saveOptions);
-        SanitizationService.sanitizeDocument(document, options, writer);// API to start the sanitization.
+            saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
+            final SanitizationOptions options = new SanitizationOptions();
+            options.setPDFFontSet(PDFFontSetManager.getPDFFontSetInstance());
+            options.setSaveOptions(saveOptions);
+            SanitizationService.sanitizeDocument(document, options, writer);// API to start the sanitization.
+        }
     }
 
     /**
@@ -297,6 +326,7 @@ public final class RedactAndSanitizeDocument {
 
         return true;
     }
+
     /**
      * Generate appearance streams for redactin annotations.
      *
@@ -380,5 +410,29 @@ public final class RedactAndSanitizeDocument {
         document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
 
         return document;
+    }
+
+    /**
+     * An implementation of the RedactionHandler class. Most commonly used to receive callbacks when an object is
+     * redacted
+     */
+    private static class LocalRedactionHandler implements RedactionHandler {
+
+        /**
+         * Returns true, if client wants the JPXDecoded image to be redacted. otherwise return false
+         */
+        @Override
+        public boolean getColorSpaceBasedOnColorComponents(final int arg0, final PDFColorSpaceContainer arg1) {
+            return false;
+        }
+
+        /**
+         * A callback used when an object is redacted.
+         */
+        @Override
+        public void objectRedacted(final RedactedObjectInfo redactedObject) {
+            logger.info(redactedObject.toString());
+        }
+
     }
 }
