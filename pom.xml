@@ -34,7 +34,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tools.version>1.7.0</tools.version>
-    <checkstyle-config.version>2.0.0-SNAPSHOT</checkstyle-config.version>
+    <checkstyle-config.version>2.0.1-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>1.0.0-SNAPSHOT</pmdconfig.version>
     <talkeetna-pmdconfig.version>2.0.0-SNAPSHOT</talkeetna-pmdconfig.version>
   </properties>
@@ -176,7 +176,7 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>6.13</version>
+            <version>6.14.1</version>
           </dependency>
         </dependencies>
       </plugin>
