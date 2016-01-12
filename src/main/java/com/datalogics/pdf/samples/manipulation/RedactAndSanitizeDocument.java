@@ -328,7 +328,7 @@ public final class RedactAndSanitizeDocument {
     }
 
     /**
-     * Generate appearance streams for redactin annotations.
+     * Generate appearance streams for redaction annotations.
      *
      * @param document The document that needs appearances generated for it's redaction annotations
      * @param docFontSet A fontset with the appropriate fonts added from the PDFDocument
