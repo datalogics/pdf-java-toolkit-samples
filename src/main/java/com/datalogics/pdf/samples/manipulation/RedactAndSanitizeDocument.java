@@ -272,16 +272,17 @@ public final class RedactAndSanitizeDocument {
                     PDFConfigurationException, PDFInvalidParameterException, PDFUnableToCompleteOperationException,
                     IOException {
 
-        if (canSanitizeDocument(document)) {
-            final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
-            final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
-        // Optimize the document for fast web viewing. This is a part of sanitization.
-            saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
-            final SanitizationOptions options = new SanitizationOptions();
-            options.setPDFFontSet(PDFFontSetManager.getPDFFontSetInstance());
-            options.setSaveOptions(saveOptions);
-            SanitizationService.sanitizeDocument(document, options, writer);// API to start the sanitization.
+        if (!canSanitizeDocument(document)) {
+            logger.warning("The document was not sanitized");
         }
+        final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
+        final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
+        // Optimize the document for fast web viewing. This is a part of sanitization.
+        saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
+        final SanitizationOptions options = new SanitizationOptions();
+        options.setPDFFontSet(PDFFontSetManager.getPDFFontSetInstance());
+        options.setSaveOptions(saveOptions);
+        SanitizationService.sanitizeDocument(document, options, writer);// API to start the sanitization.
     }
 
     /**
@@ -300,23 +301,20 @@ public final class RedactAndSanitizeDocument {
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
                     PDFConfigurationException, PDFInvalidParameterException {
         if (document.requireCatalog().getCollection() != null) {
-            throw new PDFInvalidDocumentException("This document has collections."
-                                                  + " Shouldn't call sanitization on this.");
+            return false;
         }
 
         final SignatureManager sigMgr = SignatureManager.newInstance(document);
 
         if (sigMgr.hasSignedSignatureFields() || sigMgr.hasUsageRights()) {
-            throw new PDFInvalidDocumentException("This document is digitally signed."
-                                                  + " Shouldn't call sanitization on this.");
+            return false;
         }
 
         final PDFInteractiveForm acroform = document.requireCatalog().getInteractiveForm();
         if (acroform != null) {
             // Acrobat reports an error while performing sanitization in XFA documents.
             if (acroform.hasXFA()) {
-                throw new PDFInvalidDocumentException("This document has XFA content."
-                                                          + " Shouldn't call sanitization on this.");
+                return false;
             }
 
             if (acroform.getNeedAppearances()) {
