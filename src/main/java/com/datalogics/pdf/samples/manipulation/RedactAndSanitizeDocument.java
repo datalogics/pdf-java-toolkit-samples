@@ -246,7 +246,6 @@ public final class RedactAndSanitizeDocument {
                     PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
         final ByteWriter writer = getByteWriterFromFile(outputPath);
         RedactionOptions redactionOptions = null;
-        // final LocalRedactionHandler redactionHandler = new LocalRedactionHandler();
         redactionOptions = new RedactionOptions(new LocalRedactionHandler());
 
         // Applying redaction
