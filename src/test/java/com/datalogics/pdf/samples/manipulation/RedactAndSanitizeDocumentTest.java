@@ -2,7 +2,7 @@
  * Copyright 2015 Datalogics, Inc.
  */
 
-package com.datalogics.pdf.samples.editing;
+package com.datalogics.pdf.samples.manipulation;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -13,6 +13,7 @@ import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.navigation.PDFBookmarkRoot;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.manipulation.RedactAndSanitizeDocument;
 
 import org.junit.Test;
 
