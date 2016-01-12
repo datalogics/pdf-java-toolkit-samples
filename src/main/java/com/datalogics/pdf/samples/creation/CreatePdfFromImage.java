@@ -33,15 +33,15 @@ import javax.imageio.ImageIO;
 public final class CreatePdfFromImage {
 
     // Image from pixabay.com, public domain images
-    public static final String inputPng = "ducky.png";
-    public static final String inputJpg = "ducky.jpg";
-    public static final String inputGif = "ducky.gif";
-    public static final String inputBmp = "ducky.bmp";
-    public static final String outputPng = "PDF_from_PNG.pdf";
-    public static final String outputJpg = "PDF_from_JPG.pdf";
-    public static final String outputGif = "PDF_from_GIF.pdf";
-    public static final String outputBmp = "PDF_from_BMP.pdf";
-    private static final Double ptsPerIn = 72.0; // points per inch
+    public static final String INPUT_PNG = "ducky.png";
+    public static final String INPUT_JPG = "ducky.jpg";
+    public static final String INPUT_GIF = "ducky.gif";
+    public static final String INPUT_BMP = "ducky.bmp";
+    public static final String OUTPUT_PNG = "PDF_from_PNG.pdf";
+    public static final String OUTPUT_JPG = "PDF_from_JPG.pdf";
+    public static final String OUTPUT_GIF = "PDF_from_GIF.pdf";
+    public static final String OUTPUT_BMP = "PDF_from_BMP.pdf";
+    private static final Double PTS_PER_IN = 72.0; // points per inch
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -76,10 +76,10 @@ public final class CreatePdfFromImage {
                 throw new Exception("Image format of " + format + "not supported");
             }
         } else {
-            createPdfFromImage("JPG", inputJpg, outputJpg);
-            createPdfFromImage("PNG", inputPng, outputPng);
-            createPdfFromImage("GIF", inputGif, outputGif);
-            createPdfFromImage("BMP", inputBmp, outputBmp);
+            createPdfFromImage("JPG", INPUT_JPG, OUTPUT_JPG);
+            createPdfFromImage("PNG", INPUT_PNG, OUTPUT_PNG);
+            createPdfFromImage("GIF", INPUT_GIF, OUTPUT_GIF);
+            createPdfFromImage("BMP", INPUT_BMP, OUTPUT_BMP);
         }
     }
 
@@ -122,11 +122,11 @@ public final class CreatePdfFromImage {
         final int w = bufferedImage.getWidth();
         final int h = bufferedImage.getHeight();
         if ((w / h) >= 1) {
-            pageWidth = ASRectangle.US_LETTER.height() - ptsPerIn;
-            pageHeight = (h * (ASRectangle.US_LETTER.height() - ptsPerIn)) / w;
+            pageWidth = ASRectangle.US_LETTER.height() - PTS_PER_IN;
+            pageHeight = (h * (ASRectangle.US_LETTER.height() - PTS_PER_IN)) / w;
         } else {
-            pageHeight = ASRectangle.US_LETTER.height() - ptsPerIn;
-            pageWidth = (w * (ASRectangle.US_LETTER.height() - ptsPerIn)) / h;
+            pageHeight = ASRectangle.US_LETTER.height() - PTS_PER_IN;
+            pageWidth = (w * (ASRectangle.US_LETTER.height() - PTS_PER_IN)) / h;
         }
 
         // Create a PDF document with the first page being the proper size to contain our image.
@@ -140,7 +140,7 @@ public final class CreatePdfFromImage {
 
         // Create a transformation matrix which maps positions from user coordinates to device coordinates. We're just
         // translating the image 1/2 inch from the origin to get a margin.
-        final ASMatrix asMatrix = new ASMatrix(pageWidth, 0, 0, pageHeight, ptsPerIn / 2, ptsPerIn / 2);
+        final ASMatrix asMatrix = new ASMatrix(pageWidth, 0, 0, pageHeight, PTS_PER_IN / 2, PTS_PER_IN / 2);
 
         // Now add the image to the first PDF page using the graphics state and the transformation matrix.
         ImageManager.insertImageInPDF(image, pdfDocument.requirePages().getPage(0), pdfExtGState, asMatrix);

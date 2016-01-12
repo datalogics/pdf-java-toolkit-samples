@@ -30,32 +30,32 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     @Test
     public void testBmp() throws Exception {
-        final File outputBmp = newOutputFileWithDelete(CreatePdfFromImage.outputBmp);
-        CreatePdfFromImage.main(outputBmp.getCanonicalPath(), CreatePdfFromImage.inputBmp);
+        final File outputBmp = newOutputFileWithDelete(CreatePdfFromImage.OUTPUT_BMP);
+        CreatePdfFromImage.main(outputBmp.getCanonicalPath(), CreatePdfFromImage.INPUT_BMP);
         assertTrue(outputBmp.getPath() + " must exist after run", outputBmp.exists());
         checkImageExists(outputBmp);
     }
 
     @Test
     public void testGif() throws Exception {
-        final File outputGif = newOutputFileWithDelete(CreatePdfFromImage.outputGif);
-        CreatePdfFromImage.main(outputGif.getCanonicalPath(), CreatePdfFromImage.inputGif);
+        final File outputGif = newOutputFileWithDelete(CreatePdfFromImage.OUTPUT_GIF);
+        CreatePdfFromImage.main(outputGif.getCanonicalPath(), CreatePdfFromImage.INPUT_GIF);
         assertTrue(outputGif.getPath() + " must exist after run", outputGif.exists());
         checkImageExists(outputGif);
     }
 
     @Test
     public void testPng() throws Exception {
-        final File outputPng = newOutputFileWithDelete(CreatePdfFromImage.outputPng);
-        CreatePdfFromImage.main(outputPng.getCanonicalPath(), CreatePdfFromImage.inputPng);
+        final File outputPng = newOutputFileWithDelete(CreatePdfFromImage.OUTPUT_PNG);
+        CreatePdfFromImage.main(outputPng.getCanonicalPath(), CreatePdfFromImage.INPUT_PNG);
         assertTrue(outputPng.getPath() + " must exist after run", outputPng.exists());
         checkImageExists(outputPng);
     }
 
     @Test
     public void testJpg() throws Exception {
-        final File outputJpg = newOutputFileWithDelete(CreatePdfFromImage.outputJpg);
-        CreatePdfFromImage.main(outputJpg.getCanonicalPath(), CreatePdfFromImage.inputJpg);
+        final File outputJpg = newOutputFileWithDelete(CreatePdfFromImage.OUTPUT_JPG);
+        CreatePdfFromImage.main(outputJpg.getCanonicalPath(), CreatePdfFromImage.INPUT_JPG);
         assertTrue(outputJpg.getPath() + " must exist after run", outputJpg.exists());
         checkImageExists(outputJpg);
     }
