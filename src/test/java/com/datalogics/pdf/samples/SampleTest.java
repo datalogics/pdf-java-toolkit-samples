@@ -125,7 +125,7 @@ public class SampleTest {
     /**
      * Open a PDF document from the resources folder given a path.
      * 
-     * @param path
+     * @param path the path inside of the resources folder to the PDF file to open
      * @return the open PDF document
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
