@@ -43,8 +43,8 @@ import javax.imageio.ImageIO;
  *
  */
 public final class MakeWhiteFangBook {
-    private static final String inputImagePath = "WhiteFangCover.jpg";
-    private static final String outputPDFPath = "WhiteFang.pdf";
+    private static final String INPUT_IMAGE_PATH = "WhiteFangCover.jpg";
+    private static final String OUTPUT_PDF_PATH = "WhiteFang.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -67,7 +67,7 @@ public final class MakeWhiteFangBook {
         if (args.length > 0) {
             path = args[0];
         } else {
-            path = outputPDFPath;
+            path = OUTPUT_PDF_PATH;
         }
         run(path);
     }
@@ -104,7 +104,7 @@ public final class MakeWhiteFangBook {
     private static void addCoverPage(final PDFDocument document)
                     throws IOException, PDFIOException, PDFSecurityException, PDFInvalidDocumentException {
         // Create an image decoder and decode the image file
-        final InputStream imageStream = MakeWhiteFangBook.class.getResourceAsStream(inputImagePath);
+        final InputStream imageStream = MakeWhiteFangBook.class.getResourceAsStream(INPUT_IMAGE_PATH);
         final BufferedImage bim = ImageIO.read(imageStream);
         // Create PDFXObjectImage from bufferedImage
         final PDFXObjectImage image = ImageManager.getPDFImage(bim, document);

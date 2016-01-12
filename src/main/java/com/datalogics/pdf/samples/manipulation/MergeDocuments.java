@@ -23,9 +23,9 @@ import java.io.InputStream;
  */
 public final class MergeDocuments {
 
-    private static final String outputPDFPath = "MergedDocument.pdf";
-    public static final String firstDocument = "Merge1.pdf";
-    public static final String secondDocument = "Merge2.pdf";
+    private static final String OUTPUT_PDF_PATH = "MergedDocument.pdf";
+    public static final String FIRST_DOCUMENT = "Merge1.pdf";
+    public static final String SECOND_DOCUMENT = "Merge2.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -48,7 +48,7 @@ public final class MergeDocuments {
         if (args.length > 0) {
             run(args[0]);
         } else {
-            run(outputPDFPath);
+            run(OUTPUT_PDF_PATH);
         }
     }
 
@@ -59,8 +59,8 @@ public final class MergeDocuments {
                                                                    PDFOpenOptions.newInstance());
 
         // Append each document to the blank one.
-        appendDocument(firstDocument, mergedDocument);
-        appendDocument(secondDocument, mergedDocument);
+        appendDocument(FIRST_DOCUMENT, mergedDocument);
+        appendDocument(SECOND_DOCUMENT, mergedDocument);
 
         // Remove the first page. We don't need it anymore.
         mergedDocument.requirePages().removePage(mergedDocument.requirePages().getPage(0));
