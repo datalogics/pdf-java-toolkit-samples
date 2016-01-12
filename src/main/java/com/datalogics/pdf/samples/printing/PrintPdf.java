@@ -128,19 +128,19 @@ public class PrintPdf {
                 images.add(pageRasterizer.next());
             }
 
-            // Print the images.
+            // Print the images. We send them to the default printer without presenting a dialog panel to the user.
+            // If we wanted to let the user select a printer, we could do so with "printerJob.printDialog()"
+            // or similar.
             final PrinterJob printerJob = PrinterJob.getPrinterJob();
-            if (printerJob.printDialog()) {
-                final PageFormat pageFormat = printerJob.defaultPage();
-                final Paper paper = pageFormat.getPaper();
-                paper.setSize(pdfPageWidth, pdfPageHeight);
-                paper.setImageableArea(0, 0, pdfPageWidth, pdfPageHeight);
-                pageFormat.setOrientation(PageFormat.PORTRAIT);
-                pageFormat.setPaper(paper);
-                final PageFormat validatePage = printerJob.validatePage(pageFormat);
-                printerJob.setPrintable(new BufferedImagePrintable(), validatePage);
-                printerJob.print();
-            }
+            final PageFormat pageFormat = printerJob.defaultPage();
+            final Paper paper = pageFormat.getPaper();
+            paper.setSize(pdfPageWidth, pdfPageHeight);
+            paper.setImageableArea(0, 0, pdfPageWidth, pdfPageHeight);
+            pageFormat.setOrientation(PageFormat.PORTRAIT);
+            pageFormat.setPaper(paper);
+            final PageFormat validatePage = printerJob.validatePage(pageFormat);
+            printerJob.setPrintable(new BufferedImagePrintable(), validatePage);
+            printerJob.print();
         } catch (final IOException | PrinterException exp) {
             if (LOGGER.isLoggable(Level.WARNING)) {
                 LOGGER.warning(exp.getMessage());
