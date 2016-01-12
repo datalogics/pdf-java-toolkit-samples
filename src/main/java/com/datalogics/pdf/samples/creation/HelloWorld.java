@@ -17,7 +17,7 @@ import com.datalogics.pdf.text.Paragraph;
  *
  */
 public final class HelloWorld {
-    private static final String outputPDFPath = "HelloWorld.pdf";
+    private static final String OUTPUT_PDF_PATH = "HelloWorld.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -40,7 +40,7 @@ public final class HelloWorld {
         if (args.length > 0) {
             path = args[0];
         } else {
-            path = outputPDFPath;
+            path = OUTPUT_PDF_PATH;
         }
         run(path);
     }

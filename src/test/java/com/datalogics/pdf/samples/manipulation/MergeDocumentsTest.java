@@ -55,8 +55,8 @@ public class MergeDocumentsTest extends SampleTest {
 
     // Compare the output page count to the sum of the input file page counts
     private void checkPages(final PDFDocument outputDoc) throws Exception {
-        final int pagesFirst = getPdfFromResource(MergeDocuments.firstDocument).requirePages().getCount();
-        final int pagesSecond = getPdfFromResource(MergeDocuments.secondDocument).requirePages().getCount();
+        final int pagesFirst = getPdfFromResource(MergeDocuments.FIRST_DOCUMENT).requirePages().getCount();
+        final int pagesSecond = getPdfFromResource(MergeDocuments.SECOND_DOCUMENT).requirePages().getCount();
         assertEquals("The merged document should contain pages equal to the sum of the source documents",
                      pagesFirst + pagesSecond, outputDoc.requirePages().getCount());
     }
@@ -73,7 +73,7 @@ public class MergeDocumentsTest extends SampleTest {
         }
 
         // Check the first input doc
-        PDFDocument inputDoc = getPdfFromResource(MergeDocuments.firstDocument);
+        PDFDocument inputDoc = getPdfFromResource(MergeDocuments.FIRST_DOCUMENT);
         pdfForm = inputDoc.getInteractiveForm();
         fieldIterator = pdfForm.iterator();
         int inputCountFirst = 0;
@@ -83,7 +83,7 @@ public class MergeDocumentsTest extends SampleTest {
         }
 
         // Check the second input doc
-        inputDoc = getPdfFromResource(MergeDocuments.secondDocument);
+        inputDoc = getPdfFromResource(MergeDocuments.SECOND_DOCUMENT);
         pdfForm = inputDoc.getInteractiveForm();
         fieldIterator = pdfForm.iterator();
         int inputCountSecond = 0;
@@ -107,7 +107,7 @@ public class MergeDocumentsTest extends SampleTest {
         }
 
         // Check the first input doc
-        PDFDocument inputDoc = getPdfFromResource(MergeDocuments.firstDocument);
+        PDFDocument inputDoc = getPdfFromResource(MergeDocuments.FIRST_DOCUMENT);
         catalog = inputDoc.requireCatalog();
         bookmarkIterator = catalog.getBookmarkRoot().iterator();
         // Start at 1 because the merge adds a bookmark to the start of this document
@@ -118,7 +118,7 @@ public class MergeDocumentsTest extends SampleTest {
         }
 
         // Check the second input doc
-        inputDoc = getPdfFromResource(MergeDocuments.secondDocument);
+        inputDoc = getPdfFromResource(MergeDocuments.SECOND_DOCUMENT);
         catalog = inputDoc.requireCatalog();
         bookmarkIterator = catalog.getBookmarkRoot().iterator();
         // Start at 1 because the merge adds a bookmark to the start of this document
