@@ -35,8 +35,8 @@ import java.util.Iterator;
  */
 public final class ImageDownsampling {
 
-    private static final String inputImagePath = "ducky.pdf";
-    private static final String outputImagePath = "_resampled_ducky.pdf";
+    private static final String INPUT_IMAGE_PATH = "ducky.pdf";
+    private static final String OUTPUT_IMAGE_PATH = "Resampled_ducky_";
 
 
     /**
@@ -60,7 +60,7 @@ public final class ImageDownsampling {
         if (args.length > 0) {
             path = args[0];
         } else {
-            path = outputImagePath;
+            path = OUTPUT_IMAGE_PATH;
         }
         run(path);
     }
@@ -73,7 +73,7 @@ public final class ImageDownsampling {
         for (final int method : resampleMethods) {
             final PDFDocument pdfDoc = getPdfDocument();
             downsampleImage(pdfDoc, method);
-            DocumentHelper.saveFullAndClose(pdfDoc, getResampleMethodString(method) + outputPath);
+            DocumentHelper.saveFullAndClose(pdfDoc, outputPath + getResampleMethodString(method) + ".pdf");
         }
     }
 
@@ -117,7 +117,7 @@ public final class ImageDownsampling {
 
     private static PDFDocument getPdfDocument() throws PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFUnableToCompleteOperationException, IOException {
-        final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(inputImagePath);
+        final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(INPUT_IMAGE_PATH);
         if (inputStream == null) {
             throw new PDFIOException("ImageDownsampling: Could not find input pdf file.");
         }
