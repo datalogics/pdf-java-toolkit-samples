@@ -129,8 +129,6 @@ public final class DocumentSigning {
                     throw new PDFIOException("Signature field is not visible");
                 }
             }
-            byteWriter = null;
-
         } finally {
             if (byteWriter != null) {
                 byteWriter.close();
