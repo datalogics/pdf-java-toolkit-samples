@@ -86,14 +86,14 @@ import java.util.logging.Logger;
  * </ul>
  */
 public final class RedactAndSanitizeDocument {
-    private static final Logger logger = Logger.getLogger(RedactAndSanitizeDocument.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(RedactAndSanitizeDocument.class.getName());
 
-    private static final String searchPDFString = "Reader";
-    private static final String inputPDFPath = "pdfjavatoolkit-ds.pdf";
-    private static final String outputPDFPath = "pdfjavatoolkit-ds-out.pdf";
+    private static final String SEARCH_PDF_STRING = "Reader";
+    private static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";
+    private static final String OUTPUT_PDF_PATH = "pdfjavatoolkit-ds-out.pdf";
 
-    private static final double[] color = { 1.0, 0, 0 }; // RGB Red
-    private static final double[] incolor = { 0, 0, 0 }; // RGB Black
+    private static final double[] COLOR = { 1.0, 0, 0 }; // RGB Red
+    private static final double[] INTERIOR_COLOR = { 0, 0, 0 }; // RGB Black
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -123,9 +123,9 @@ public final class RedactAndSanitizeDocument {
             outputPath = args[1];
             searchString = args[2];
         } else {
-            inputPath = inputPDFPath;
-            outputPath = outputPDFPath;
-            searchString = searchPDFString;
+            inputPath = INPUT_PDF_PATH;
+            outputPath = OUTPUT_PDF_PATH;
+            searchString = SEARCH_PDF_STRING;
         }
 
         try {
@@ -213,8 +213,8 @@ public final class RedactAndSanitizeDocument {
         // generate its Appearance
         annot.setQuads(word.getBoundingQuads());
         annot.setRect(annot.getRedactionAreaBBox());
-        annot.setColor(color);
-        annot.setInteriorColor(incolor[0], incolor[1], incolor[2]);
+        annot.setColor(COLOR);
+        annot.setInteriorColor(INTERIOR_COLOR[0], INTERIOR_COLOR[1], INTERIOR_COLOR[2]);
 
         // Set the Annotation's creation and modification date.
         final ASDate now = new ASDate();
@@ -274,7 +274,7 @@ public final class RedactAndSanitizeDocument {
                     IOException {
 
         if (!canSanitizeDocument(document)) {
-            logger.warning("The document was not sanitized");
+            LOGGER.warning("The document was not sanitized");
             return;
         }
         final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
@@ -431,7 +431,7 @@ public final class RedactAndSanitizeDocument {
          */
         @Override
         public void objectRedacted(final RedactedObjectInfo redactedObject) {
-            logger.info(redactedObject.toString());
+            LOGGER.info(redactedObject.toString());
         }
 
     }
