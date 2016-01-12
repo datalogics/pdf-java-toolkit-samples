@@ -47,9 +47,10 @@ public class DocumentSigningTest extends SampleTest {
         try {
             // Make sure that Signature field is signed.
             final SignatureFieldInterface sigField = getSignedSignatureField(doc);
-            assertTrue(sigField.isSigned());
-            assertTrue(sigField.isVisible());
-            assertEquals(QUALIFIED_SIGNATURE_FIELD_NAME, sigField.getQualifiedName());
+            assertTrue("Signature field must be signed", sigField.isSigned());
+            assertTrue("Signature field must be visible", sigField.isVisible());
+            assertEquals("Qualified field names must match", QUALIFIED_SIGNATURE_FIELD_NAME,
+                         sigField.getQualifiedName());
 
         } finally {
             doc.close();
