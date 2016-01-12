@@ -71,6 +71,6 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
         // // Test sanitization
         final PDFCatalog catalog = document.requireCatalog();
         final PDFBookmarkRoot bmRoot = catalog.getBookmarkRoot();
-        assertNotNull("The Outlines entry in the catalog should not exist", bmRoot);
+        assertNotNull("The Outlines entry in the catalog should exist, and bookmarks should not be removed.", bmRoot);
     }
 }
