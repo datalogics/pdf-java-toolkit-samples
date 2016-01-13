@@ -76,7 +76,7 @@ public class ImageDownsamplingTest extends SampleTest {
                 add(new Object[] { params });
             }
 
-            // Instance initalization block
+            // Instance initialization block
             {
                 final DownsamplingTest.Builder builder = new DownsamplingTest.Builder(FILE_NAME);
                 builder.imageColorSpace(ASName.k_ICCBased).imageCompression(ASName.k_FlateDecode);
@@ -93,6 +93,9 @@ public class ImageDownsamplingTest extends SampleTest {
         return parameters;
     }
 
+    /**
+     * The method runs the ImageDownsampling Sample.
+     */
     @BeforeClass
     public static void runSample() throws Exception {
         /*
@@ -111,7 +114,7 @@ public class ImageDownsamplingTest extends SampleTest {
             Files.delete(file.toPath());
         }
         /*
-         * /* Run sample which generates files using all three methods below: {NearestNeighbor, Bicubic, Linear}
+         * Run sample which generates files using all three methods: {NearestNeighbor, Bicubic, Linear}
          */
         final String path = newOutputFile(FILE_NAME).getCanonicalPath();
         ImageDownsampling.main(path);
@@ -152,7 +155,6 @@ public class ImageDownsamplingTest extends SampleTest {
         }
         assertThat(images, equalTo(1));
 
-
         // Read the document output from the ImageDownsampling Sample.
         pdfDoc = openPdfDocument(file.getCanonicalPath());
         page = pdfDoc.requirePages().getPage(0);
@@ -191,7 +193,7 @@ public class ImageDownsamplingTest extends SampleTest {
     }
 
     /**
-     * Check that a {@link PDFXObjectImage} has a particular checksum
+     * Check that a {@link PDFXObjectImage} has a particular checksum.
      *
      * @param checksum the image checksum to check for
      * @return a {@link Matcher}
@@ -214,28 +216,25 @@ public class ImageDownsamplingTest extends SampleTest {
 
         private void throwChecksumError(final Throwable exception) {
             throw new IllegalStateException("Getting an image checksum threw " + exception, exception);
-            }
+        }
 
-            @Override
-            protected String featureValueOf(final PDFXObjectImage image) {
-                final PDFXObjectImage xObjectImage = image;
-                try {
-                    return MD5Checksum.getMD5Checksum(xObjectImage.getImageStreamData());
-                } catch (final PDFInvalidDocumentException e) {
-                    throwChecksumError(e);
-                } catch (final PDFIOException e) {
-                    throwChecksumError(e);
-                } catch (final PDFSecurityException e) {
-                    throwChecksumError(e);
-                } catch (final Exception e) {
-                    throwChecksumError(e);
-                }
-                return null;
+        @Override
+        protected String featureValueOf(final PDFXObjectImage image) {
+            final PDFXObjectImage xObjectImage = image;
+            try {
+                return MD5Checksum.getMD5Checksum(xObjectImage.getImageStreamData());
+            } catch (final PDFInvalidDocumentException e) {
+                throwChecksumError(e);
+            } catch (final PDFIOException e) {
+                throwChecksumError(e);
+            } catch (final PDFSecurityException e) {
+                throwChecksumError(e);
+            } catch (final Exception e) {
+                throwChecksumError(e);
             }
-        };
+            return null;
+        }
     }
-
-
 
     /**
      * Parameters for tests. Note that there are no setters; this class should be built with its Builder.
@@ -251,40 +250,54 @@ public class ImageDownsamplingTest extends SampleTest {
         private DownsamplingTest() {}
 
         /**
-         * @return the method
+         * Get downsampling method (int).
+         *
+         * @return int
          */
         public int getMethod() {
             return method;
         }
 
+        /**
+         * Get downsampling method (String).
+         *
+         * @return String
+         */
         public String getMethodString() {
             return methodStrings[method];
         }
 
         /**
-         * @return the imageChecksum
+         * Get the image checksum.
+         *
+         * @return String
          */
         public String getImageChecksum() {
             return imageChecksum;
         }
 
         /**
-        /**
-         * @return the fileName
+         * Get the file name.
+         *
+         * @return String
          */
         public String getFileName() {
             return fileName;
         }
 
         /**
-         * @return the imageColorSpace
+         * Get image Colorspace.
+         *
+         * @return ASName
          */
         public ASName getImageColorSpace() {
             return imageColorSpace;
         }
 
         /**
-         * @return the imageCompression
+         * Get image compression.
+         *
+         * @return ASName
          */
         public ASName getImageCompression() {
             return imageCompression;
