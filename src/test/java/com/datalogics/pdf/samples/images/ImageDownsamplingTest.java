@@ -8,8 +8,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertTrue;
 
 import com.adobe.internal.io.ByteReader;
@@ -187,25 +185,6 @@ public class ImageDownsamplingTest extends SampleTest {
                            resampledImage.getBitsPerComponent(), equalTo(8));
                 assertThat("resampled image has expected color space",
                            resampledImage.getColorSpace().getName(), equalTo(params.getImageColorSpace()));
-
-                // Check characteristics of the soft mask
-                final PDFXObjectImage sMask = resampledImage.getSMask();
-                if (params.getSMaskChecksum() == null) {
-                    assertThat("there is no soft mask", sMask, nullValue());
-                } else {
-                    assertThat("resampled soft mask has expected size and contents", sMask,
-                               allOf(notNullValue(),
-                                     hasProperty("width", equalTo(newWidth)),
-                                     hasProperty("height", equalTo(newHeight)),
-                                     hasChecksum(params.getSMaskChecksum())));
-                    assertThat("resampled soft mask has one input filter", sMask.getInputFilters().size(), equalTo(1));
-                    assertThat("resampled soft mask is compressed with /FlateDecode",
-                               sMask.getInputFilters().get(0).getFilterName(), equalTo(ASName.k_FlateDecode));
-                    assertThat("resampled soft mask has 8 bits per component",
-                               sMask.getBitsPerComponent(), equalTo(8));
-                    assertThat("resampled soft mask has /DeviceGray color space",
-                               sMask.getColorSpace().getName(), equalTo(ASName.k_DeviceGray));
-                }
             }
         }
         assertThat(images, equalTo(1));
@@ -253,7 +232,6 @@ public class ImageDownsamplingTest extends SampleTest {
         private String fileName;
         private int method;
         private String imageChecksum;
-        private String sMaskChecksum;
         private ASName imageColorSpace;
         private ASName imageCompression;
 
@@ -278,12 +256,6 @@ public class ImageDownsamplingTest extends SampleTest {
         }
 
         /**
-         * @return the sMaskChecksum
-         */
-        public String getSMaskChecksum() {
-            return sMaskChecksum;
-        }
-
         /**
          * @return the fileName
          */
@@ -318,7 +290,6 @@ public class ImageDownsamplingTest extends SampleTest {
         public static class Builder {
             private final String fileName;
             private String imageChecksum = null;
-            private String sMaskChecksum = null;
             private int method = 0;
             private ASName imageColorSpace = null;
             private ASName imageCompression = null;
@@ -334,11 +305,6 @@ public class ImageDownsamplingTest extends SampleTest {
 
             public Builder imageChecksum(final String imageChecksum) {
                 this.imageChecksum = imageChecksum;
-                return this;
-            }
-
-            public Builder sMaskChecksum(final String sMaskChecksum) {
-                this.sMaskChecksum = sMaskChecksum;
                 return this;
             }
 
@@ -360,7 +326,6 @@ public class ImageDownsamplingTest extends SampleTest {
         private DownsamplingTest(final Builder builder) {
             fileName = builder.fileName;
             imageChecksum = builder.imageChecksum;
-            sMaskChecksum = builder.sMaskChecksum;
             method = builder.method;
             imageCompression = builder.imageCompression;
             imageColorSpace = builder.imageColorSpace;
