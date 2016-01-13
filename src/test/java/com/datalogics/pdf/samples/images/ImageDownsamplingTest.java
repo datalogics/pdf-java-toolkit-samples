@@ -85,14 +85,11 @@ public class ImageDownsamplingTest extends SampleTest {
 
                 // Note that you can modify the builder repeatedly and use it to make more tests.
                 add(builder.method(Resampler.kResampleNearestNeighbor)
-                           .imageChecksum("377bc9e590ea7daf73e8b51e004b000a")
-                           .sMaskChecksum("87f1f30b8aea6fc4af38ca38ac704aa1").build());
+                           .imageChecksum("cf579314e426ed32b8f8540370c9c6bb").build());
                 add(builder.method(Resampler.kResampleBicubic)
-                           .imageChecksum("b20ff7d5e8ea5d10f182a5ab16fb805a")
-                           .sMaskChecksum("26f3a11e01443fb37d5262d03ed0b25f").build());
+                           .imageChecksum("7c4651f8bb345d08e55c3f096ce183c9").build());
                 add(builder.method(Resampler.kResampleLinear)
-                           .imageChecksum("7c31d029bb30e01c123f5b6b35967ab2")
-                           .sMaskChecksum("935f91749a7dbea9685def4a81ecc365").build());
+                           .imageChecksum("7618d10cd67b6b3e89b2ddfd03322ba7").build());
             }
         };
         return parameters;
