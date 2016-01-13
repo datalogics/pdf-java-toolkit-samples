@@ -26,7 +26,6 @@ import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectMap;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.services.imageconversion.ImageManager;
-import com.adobe.pdfjt.test.util.DocumentUtils;
 import com.adobe.pdfjt.test.util.MD5Checksum;
 
 import com.datalogics.pdf.samples.SampleTest;
@@ -160,7 +159,7 @@ public class ImageDownsamplingTest extends SampleTest {
 
 
         // Read the document output from the ImageDownsampling Sample.
-        pdfDoc = DocumentUtils.openPdfDocument(file.getCanonicalPath());
+        pdfDoc = openPdfDocument(file.getCanonicalPath());
         page = pdfDoc.requirePages().getPage(0);
         objMap = page.getResources().getXObjectMap();
         images = 0;
