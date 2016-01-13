@@ -198,9 +198,22 @@ public class ImageDownsamplingTest extends SampleTest {
      */
     private Matcher<PDFXObjectImage> hasChecksum(final String checksum) {
         // see http://www.planetgeek.ch/2012/03/07/create-your-own-matcher/ for an explanation
-        return new FeatureMatcher<PDFXObjectImage, String>(equalTo(checksum), "has checksum", "checksum") {
-            private void throwChecksumError(final Throwable e) {
-                throw new IllegalStateException("Getting an image checksum threw " + e, e);
+        return new ImageFeatureMatcher(equalTo(checksum), "has checksum", "checksum");
+    }
+
+
+    /**
+     * Supporting class for matching feature of an image.
+     */
+    private static final class ImageFeatureMatcher extends FeatureMatcher<PDFXObjectImage, String> {
+
+        private ImageFeatureMatcher(final Matcher<? super String> subMatcher, final String featureDescription,
+                                    final String featureName) {
+            super(subMatcher, featureDescription, featureName);
+        }
+
+        private void throwChecksumError(final Throwable exception) {
+            throw new IllegalStateException("Getting an image checksum threw " + exception, exception);
             }
 
             @Override
