@@ -38,7 +38,7 @@ public class PrintPdfTest extends SampleTest {
     public <T extends PrinterJob, U extends Printable> void testMain() throws Exception {
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
         new MockUp<PrintServiceLookup>() {
-            @Mock
+            @Mock(invocations = 2)
             PrintService lookupDefaultPrintService() {
                 return new TestPrintService();
             }
