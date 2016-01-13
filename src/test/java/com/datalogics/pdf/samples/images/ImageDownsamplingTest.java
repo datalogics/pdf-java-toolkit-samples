@@ -38,7 +38,6 @@ import org.junit.runners.Parameterized.Parameters;
 
 import java.io.File;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,18 +100,10 @@ public class ImageDownsamplingTest extends SampleTest {
         /*
          * Make sure that existing files are deleted
          */
-        File file = newOutputFile(FILE_NAME + "NearestNeighbor.pdf");
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
-        file = newOutputFile(FILE_NAME + "Bicubic.pdf");
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
-        file = newOutputFile(FILE_NAME + "Linear.pdf");
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
+        newOutputFileWithDelete(FILE_NAME + "NearestNeighbor.pdf");
+        newOutputFileWithDelete(FILE_NAME + "Bicubic.pdf");
+        newOutputFileWithDelete(FILE_NAME + "Linear.pdf");
+
         /*
          * Run sample which generates files using all three methods: {NearestNeighbor, Bicubic, Linear}
          */
@@ -149,7 +140,6 @@ public class ImageDownsamplingTest extends SampleTest {
                 newWidth = (int) Math.round(originalImage.getWidth() * SCALE_FACTOR);
                 newHeight = (int) Math.round(originalImage.getHeight() * SCALE_FACTOR);
 
-                // Put in the resampled image so it can be viewed in the document
                 objMap.set(name, resampledImage);
             }
         }
