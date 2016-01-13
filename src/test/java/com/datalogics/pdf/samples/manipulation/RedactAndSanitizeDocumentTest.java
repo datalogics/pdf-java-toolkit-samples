@@ -24,20 +24,20 @@ import java.nio.file.Files;
  * Tests the RedactAndSanitizeDocuments sample.
  */
 public class RedactAndSanitizeDocumentTest extends SampleTest {
-    private static final String searchString = "Reader";
-    private static final String outputPDFPath = "pdfjavatoolkit-ds-out.pdf";
-    private static final String inputPDFPath = "pdfjavatoolkit-ds.pdf";
-    private static final String inputPDFPathWithSignature = "pdfjavatoolkit-ds-signature.pdf";
-    private static final String inputPDFPathNotSanitized = "pdfjavatoolkit-ds_NotSanitized.pdf";
+    private static final String SEARCH_STRING = "Reader";
+    private static final String OUTPUT_PDF_PATH = "pdfjavatoolkit-ds-out.pdf";
+    private static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";
+    private static final String INPUT_PDF_PATH_WITH_SIGNATURE = "pdfjavatoolkit-ds-signature.pdf";
+    private static final String INPUT_PDF_PATH_NOT_SANITIZED = "pdfjavatoolkit-ds_NotSanitized.pdf";
 
     @Test
     public void testMain() throws Exception {
-        final File file = newOutputFile(outputPDFPath);
+        final File file = newOutputFile(OUTPUT_PDF_PATH);
         if (file.exists()) {
             Files.delete(file.toPath());
         }
 
-        RedactAndSanitizeDocument.main(inputPDFPath, file.getCanonicalPath(), searchString);
+        RedactAndSanitizeDocument.main(INPUT_PDF_PATH, file.getCanonicalPath(), SEARCH_STRING);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         final PDFDocument document = openPdfDocument(file.getCanonicalPath());
@@ -58,12 +58,12 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
 
     @Test
     public void testCantSanitizeDocument() throws Exception {
-        final File file = newOutputFile(inputPDFPathNotSanitized);
+        final File file = newOutputFile(INPUT_PDF_PATH_NOT_SANITIZED);
         if (file.exists()) {
             Files.delete(file.toPath());
         }
 
-        RedactAndSanitizeDocument.main(inputPDFPathWithSignature, file.getCanonicalPath(), searchString);
+        RedactAndSanitizeDocument.main(INPUT_PDF_PATH_WITH_SIGNATURE, file.getCanonicalPath(), SEARCH_STRING);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         final PDFDocument document = openPdfDocument(file.getCanonicalPath());
