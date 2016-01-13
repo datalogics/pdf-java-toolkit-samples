@@ -288,7 +288,7 @@ public final class RedactAndSanitizeDocument {
     }
 
     /**
-     * Checks if a PDF document can/should be sanitized. Throws an error if it can't/should be sanitized.
+     * Checks if a PDF document can/should be sanitized. Throws an error if it can't/shouldn't be sanitized.
      *
      * @param document A PDF document, to check if it can be sanitized
      * @return Returns true of the document can/should be sanitized
