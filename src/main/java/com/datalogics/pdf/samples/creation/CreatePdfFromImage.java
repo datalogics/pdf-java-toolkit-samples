@@ -119,14 +119,14 @@ public final class CreatePdfFromImage {
         // Fit the image to a 792pt by 612pt page, maintaining at least a 1/2 inch (72 pt) margin.
         final Double pageWidth;
         final Double pageHeight;
-        final int w = bufferedImage.getWidth();
-        final int h = bufferedImage.getHeight();
-        if ((w / h) >= 1) {
+        final int imageWidth = bufferedImage.getWidth();
+        final int imageHeight = bufferedImage.getHeight();
+        if ((imageWidth / imageHeight) >= 1) {
             pageWidth = ASRectangle.US_LETTER.height() - PTS_PER_IN;
-            pageHeight = (h * (ASRectangle.US_LETTER.height() - PTS_PER_IN)) / w;
+            pageHeight = (imageHeight * (ASRectangle.US_LETTER.height() - PTS_PER_IN)) / imageWidth;
         } else {
             pageHeight = ASRectangle.US_LETTER.height() - PTS_PER_IN;
-            pageWidth = (w * (ASRectangle.US_LETTER.height() - PTS_PER_IN)) / h;
+            pageWidth = (imageWidth * (ASRectangle.US_LETTER.height() - PTS_PER_IN)) / imageHeight;
         }
 
         // Create a PDF document with the first page being the proper size to contain our image.
