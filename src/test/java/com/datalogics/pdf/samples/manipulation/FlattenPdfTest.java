@@ -24,13 +24,14 @@ import java.nio.file.Files;
  */
 public class FlattenPdfTest extends SampleTest {
 
-    private static final String OUTPUT_FLATTENED_PDF_PATH = "Flattened.pdf";
+    private static final String OUTPUT_FLATTENED_FORM_PDF_PATH = "FlattenedForm.pdf";
+    private static final String OUTPUT_FLATTENED_ANNOTATION_PDF_PATH = "FlattenedAnnotation.pdf";
     private static final String INPUT_FORM_PDF_PATH = "Acroform.pdf";
     private static final String INPUT_ANNOTATION_PDF_PATH = "annotations.pdf";
 
     @Test
     public void testFlattenForm() throws Exception {
-        final File file = newOutputFile(OUTPUT_FLATTENED_PDF_PATH);
+        final File file = newOutputFile(OUTPUT_FLATTENED_FORM_PDF_PATH);
         if (file.exists()) {
             Files.delete(file.toPath());
         }
@@ -46,7 +47,7 @@ public class FlattenPdfTest extends SampleTest {
 
     @Test
     public void testFlattenAnnotations() throws Exception {
-        final File file = newOutputFile(OUTPUT_FLATTENED_PDF_PATH);
+        final File file = newOutputFile(OUTPUT_FLATTENED_ANNOTATION_PDF_PATH);
         if (file.exists()) {
             Files.delete(file.toPath());
         }
@@ -64,11 +65,6 @@ public class FlattenPdfTest extends SampleTest {
         for (int i = 0; i < list.size(); i++) {
             assertEquals("Flattened annotations should not have content", list.get(i).getContents(), null);
         }
-
-    }
-
-    @Test
-    public void testFlattenLayers() {
 
     }
 }
