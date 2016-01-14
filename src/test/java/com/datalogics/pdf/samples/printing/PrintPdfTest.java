@@ -11,8 +11,11 @@ import mockit.MockUp;
 
 import org.junit.Test;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.HeadlessException;
+import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
+import java.awt.print.Pageable;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -35,29 +38,20 @@ import javax.print.event.PrintServiceAttributeListener;
  */
 public class PrintPdfTest extends SampleTest {
     @Test
-    public <T extends PrinterJob, U extends Printable> void testMain() throws Exception {
+    public <T extends PrinterJob> void testMain() throws Exception {
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
         new MockUp<PrintServiceLookup>() {
-            @Mock(invocations = 2)
+            @Mock(invocations = 1)
             PrintService lookupDefaultPrintService() {
                 return new TestPrintService();
             }
         };
 
-        // Mock the PrinterJob class
+        // Mock the PrinterJob.getPrinterJob() method to return a TestPrinterJob object
         new MockUp<T>() {
-            @Mock
-            public void print() throws PrinterException {
-                // Do nothing...
-            }
-        };
-
-        // Mock implementors of Printable
-        new MockUp<U>() {
             @Mock(invocations = 1)
-            int print(final Graphics graphics, final PageFormat pageFormat, final int pageIndex)
-                            throws PrinterException {
-                return Printable.NO_SUCH_PAGE;
+            public PrinterJob getPrinterJob() {
+                return new TestPrinterJob();
             }
         };
 
@@ -155,6 +149,109 @@ public class PrintPdfTest extends SampleTest {
         @Override
         public ServiceUIFactory getServiceUIFactory() {
             return null;
+        }
+    }
+
+    /*
+     * TestPrinterJob implements a 'fake' PrinterJob to intercept print requests.
+     */
+    private static class TestPrinterJob extends PrinterJob {
+
+        private Printable painter;
+        private PageFormat format;
+
+        /*
+         * Clones the PageFormat argument and alters the clone to a default page. No changes are required in this case.
+         */
+        @Override
+        public PageFormat defaultPage(final PageFormat page) {
+            return (PageFormat) page.clone();
+        }
+
+        /*
+         * Return a validated page format.
+         */
+        @Override
+        public PageFormat validatePage(final PageFormat page) {
+            return (PageFormat) page.clone();
+        }
+
+        /*
+         * Print the document.
+         */
+        @Override
+        public void print() throws PrinterException {
+            // Create a BufferedImage to render into
+            final int width = (int) (format.getImageableWidth() - format.getImageableX());
+            final int height = (int) (format.getImageableHeight() - format.getImageableY());
+            final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+            Graphics2D gfx2d = image.createGraphics();
+            int pageIndex = 0;
+
+            while (painter.print(gfx2d, format, pageIndex) == Printable.PAGE_EXISTS) {
+                // painter.print() disposed of the Graphics2D, obtain a new one
+                gfx2d = image.createGraphics();
+                pageIndex++;
+                // TODO: Save buffered image to disk and checksum
+            }
+        }
+
+        /*
+         * Calls painter to render the pages in the specified format.
+         */
+        @Override
+        public void setPrintable(final Printable painter, final PageFormat format) {
+            this.painter = painter;
+            this.format = format;
+        }
+
+        /*
+         * The following methods are not used in the test, and are given stub implementations.
+         */
+        @Override
+        public void setPrintable(final Printable painter) {}
+
+        @Override
+        public void setPageable(final Pageable document) throws NullPointerException {}
+
+        @Override
+        public boolean printDialog() throws HeadlessException {
+            return false;
+        }
+
+        @Override
+        public PageFormat pageDialog(final PageFormat page) throws HeadlessException {
+            return null;
+        }
+
+        @Override
+        public void setCopies(final int copies) {}
+
+        @Override
+        public int getCopies() {
+            return 0;
+        }
+
+        @Override
+        public String getUserName() {
+            return null;
+        }
+
+        @Override
+        public void setJobName(final String jobName) {}
+
+        @Override
+        public String getJobName() {
+            return null;
+        }
+
+        @Override
+        public void cancel() {}
+
+        @Override
+        public boolean isCancelled() {
+            return false;
         }
     }
 }
