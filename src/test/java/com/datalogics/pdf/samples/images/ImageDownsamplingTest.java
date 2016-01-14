@@ -24,9 +24,9 @@ import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectMap;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.services.imageconversion.ImageManager;
-import com.adobe.pdfjt.test.util.MD5Checksum;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.Checksum;
 
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
@@ -212,7 +212,7 @@ public class ImageDownsamplingTest extends SampleTest {
         protected String featureValueOf(final PDFXObjectImage image) {
             final PDFXObjectImage xObjectImage = image;
             try {
-                return MD5Checksum.getMD5Checksum(xObjectImage.getImageStreamData());
+                return Checksum.getMD5Checksum(xObjectImage.getImageStreamData());
             } catch (final PDFInvalidDocumentException e) {
                 throwChecksumError(e);
             } catch (final PDFIOException e) {
