@@ -25,7 +25,7 @@ public class Checksum {
      * @return the bytes comprising the checksum
      * @throws NoSuchAlgorithmException a particular cryptographic algorithm is requested but is not available in the
      *         environment
-     * @throws IOException an I/O exception of some sort has occurred
+     * @throws IOException an I/O operation failed or was interrupted
      */
     public static byte[] createChecksum(final InputStream is, final String algorithm)
                     throws NoSuchAlgorithmException, IOException {
@@ -51,7 +51,7 @@ public class Checksum {
      * @return the MD5 checksum as hex digits
      * @throws NoSuchAlgorithmException a particular cryptographic algorithm is requested but is not available in the
      *         environment
-     * @throws IOException an I/O exception of some sort has occurred
+     * @throws IOException an I/O operation failed or was interrupted
      */
     public static String getMD5Checksum(final InputStream is) throws NoSuchAlgorithmException, IOException {
         final byte[] b = createChecksum(is, "MD5");
@@ -65,7 +65,7 @@ public class Checksum {
      * @return the SHA-1 checksum as hex digits
      * @throws NoSuchAlgorithmException a particular cryptographic algorithm is requested but is not available in the
      *         environment
-     * @throws IOException an I/O exception of some sort has occurred
+     * @throws IOException an I/O operation failed or was interrupted
      */
     public static String getSha1Checksum(final InputStream is) throws NoSuchAlgorithmException, IOException {
         final byte[] b = createChecksum(is, "SHA-1");

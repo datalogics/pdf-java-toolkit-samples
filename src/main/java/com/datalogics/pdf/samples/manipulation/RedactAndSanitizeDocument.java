@@ -105,7 +105,7 @@ public final class RedactAndSanitizeDocument {
      * Main program.
      *
      * @param args Two command line arguments - output path and search string
-     * @throws Exception A general exception was thrown
+     * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
         // If you are using an evaluation version of the product (License Managed, or LM), set the path to where PDFJT
@@ -148,12 +148,12 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document to receive PDF annotations
      * @param searchTerm The term to be redacted
-     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFFontException There was an error in the font set or an individual font
-     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
-     * @throws PDFConfigurationException There was a system problem configuring PDF support
-     * @throws PDFInvalidParameterException One or more of the parameters passed to a method is invalid
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFConfigurationException there was a system problem configuring PDF support
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      */
     private static void markTextForRedaction(final PDFDocument document, final String searchTerm)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
@@ -199,9 +199,9 @@ public final class RedactAndSanitizeDocument {
      * @param document The document to receive a redaction annotation
      * @param word The word to be redacted
      * @param currentPage The current page that contains the word to be redacted
-     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     private static void addRedactionAnnotationToWord(final PDFDocument document, final Word word,
                                                      final PDFPage currentPage) throws PDFInvalidDocumentException,
@@ -234,14 +234,14 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document to apply the redaction to
      * @param outputPath The redacted output document
-     * @throws PDFInvalidParameterException One or more of the parameters passed to a method is invalid
-     * @throws PDFInvalidDocumentException A ge neral problem with the PDF document, which may now be in an invalid
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      *         state
-     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
-     * @throws PDFUnableToCompleteOperationException A general issue occurred during the processing of the request
-     * @throws PDFFontException There was an error in the font set or an individual font
-     * @throws IOException An I/O operation failed or was interrupted
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws IOException an I/O operation failed or was interrupted
      */
     private static void applyRedaction(final PDFDocument document, final String outputPath)
                     throws PDFInvalidParameterException, PDFInvalidDocumentException, PDFIOException,
@@ -259,14 +259,14 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document to be sanitized
      * @param sanitizedPath The sanitized output document
-     * @throws IOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFUnableToCompleteOperationException A general issue occurred during the processing of the request
-     * @throws PDFInvalidParameterException One or more of the parameters passed to a method is invalid
-     * @throws PDFConfigurationException There was a system problem configuring PDF support
-     * @throws PDFFontException There was an error in the font set or an individual font
-     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
-     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
+     * @throws IOException an I/O operation failed or was interrupted
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
+     * @throws PDFConfigurationException there was a system problem configuring PDF support
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      */
     private static void sanitizeDocument(final PDFDocument document, final String sanitizedPath)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
@@ -292,12 +292,12 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document A PDF document, to check if it can be sanitized
      * @return Returns true of the document can/should be sanitized
-     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
-     * @throws PDFFontException There was an error in the font set or an individual font
-     * @throws PDFConfigurationException There was a system problem configuring PDF support
-     * @throws PDFInvalidParameterException One or more of the parameters passed to a method is invalid
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws PDFConfigurationException there was a system problem configuring PDF support
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      */
     private static boolean canSanitizeDocument(final PDFDocument document)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
@@ -332,12 +332,12 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document that needs appearances generated for it's redaction annotations
      * @param docFontSet A fontset with the appropriate fonts added from the PDFDocument
-     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
-     * @throws PDFFontException There was an error in the font set or an individual font
-     * @throws PDFConfigurationException There was a system problem configuring PDF support
-     * @throws PDFInvalidParameterException One or more of the parameters passed to a method is invalid
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws PDFConfigurationException there was a system problem configuring PDF support
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      */
     private static void generateAnnotationAppearances(final PDFDocument document, final PDFFontSet docFontSet)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
@@ -358,10 +358,10 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document whose fonts need to be loaded
      * @return A fontset with the appropriate fonts added from the PDFDocument
-     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFFontException There was an error in the font set or an individual font
-     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     private static PDFFontSet setupDocFontSet(final PDFDocument document)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException {
@@ -378,7 +378,7 @@ public final class RedactAndSanitizeDocument {
      *
      * @param outputPath The path ByteWriter should write to
      * @return A ByteWrite for the otputPath
-     * @throws IOException An I/O operation failed or was interrupted
+     * @throws IOException an I/O operation failed or was interrupted
      */
     private static ByteWriter getByteWriterFromFile(final String outputPath) throws IOException {
         final File file = new File(outputPath);
@@ -395,10 +395,10 @@ public final class RedactAndSanitizeDocument {
      *
      * @param inputPath The PDF file to open
      * @return A new PDFDocument instance of the input document
-     * @throws PDFInvalidDocumentException A general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException There was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException Some general security issue occurred during the processing of the request
-     * @throws IOException An I/O operation failed or was interrupted
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws IOException an I/O operation failed or was interrupted
      */
     private static PDFDocument openPdfDocument(final String inputPath)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
