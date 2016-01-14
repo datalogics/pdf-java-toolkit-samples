@@ -52,7 +52,7 @@ public final class CreatePdfFromImage {
      * Main program for creating PDFs from images.
      *
      * @param args The name of the output file and the image file to be used
-     * @throws Exception Throws a general exception
+     * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
         // If we have more than one argument, get the output destination, get the image name, and parse the format.
@@ -91,11 +91,11 @@ public final class CreatePdfFromImage {
      * @param inputImage The name of the image resource to use
      * @param outputPdf The name of the output file to be created
      * @throws IOException an I/O operation failed or was interrupted
-     * @throws PDFInvalidParameterException one or more parameters passed were invalid
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws Exception A general exception was thrown
+     * @throws Exception a general exception was thrown
      */
     public static void createPdfFromImage(final String imageFormat, final String inputImage, final String outputPdf)
                     throws Exception {
