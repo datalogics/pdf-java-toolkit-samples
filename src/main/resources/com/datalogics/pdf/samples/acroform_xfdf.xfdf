@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xfdf xmlns="http://ns.adobe.com/xfdf/" xml:space="preserve"
+><f href="/dl/pdf-java-toolkit/pdfjt/src/test/resources/com/adobe/pdfjt/services/ap/ImportFormDataAndCreateBarcodes.pdf"
+/><fields
+><field name="calculatedNumber"
+><value
+>0</value
+></field
+><field name="company"
+><value
+>Datalogics, Inc.</value
+></field
+><field name="location"
+><field name="address"
+><value
+>101 N. Wacker Dr. Ste 1800</value
+></field
+><field name="city"
+><value
+>Chicago</value
+></field
+><field name="state"
+><value
+>IL</value
+></field
+><field name="zip"
+><value
+>60606</value
+></field
+></field
+><field name="name"
+><field name="first"
+><value
+>Datalogics</value
+></field
+><field name="last"
+><value
+>Ducky</value
+></field
+></field
+></fields
+><ids original="04FE695A7CFA30449E7CC4B320AB79D7" modified="D1447B96D23D1941B4532CE8E3ABCCC5"
+/></xfdf
+>
