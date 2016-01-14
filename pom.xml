@@ -36,7 +36,6 @@
     <tools.version>1.7.0</tools.version>
     <checkstyle-config.version>2.0.1-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>1.0.0-SNAPSHOT</pmdconfig.version>
-    <talkeetna-pmdconfig.version>2.0.0-SNAPSHOT</talkeetna-pmdconfig.version>
   </properties>
   <dependencies>
     <dependency>
@@ -226,18 +225,12 @@
             <artifactId>pmd-config</artifactId>
             <version>${pmdconfig.version}</version>
           </dependency>
-          <dependency>
-            <groupId>com.datalogics.pdf</groupId>
-            <artifactId>talkeetna-pmd-config</artifactId>
-            <version>${talkeetna-pmdconfig.version}</version>
-          </dependency>
         </dependencies>
         <configuration>
           <linkXRef>false</linkXRef>
           <rulesets>
             <!-- <ruleset>/com/datalogics/pmd_ruleset.xml</ruleset> -->
             <ruleset>${project.build.directory}/dependency/pmd-config/com/datalogics/pmd_ruleset.xml</ruleset>
-            <ruleset>${project.build.directory}/dependency/talkeetna-pmd-config/com/datalogics/pdf/talkeetna_pmd_ruleset.xml</ruleset>
           </rulesets>
         </configuration>
       </plugin>
@@ -260,13 +253,6 @@
                   <version>${pmdconfig.version}</version>
                   <type>jar</type>
                   <outputDirectory>${project.build.directory}/dependency/pmd-config</outputDirectory>
-                </artifactItem>
-                <artifactItem>
-                  <groupId>com.datalogics.pdf</groupId>
-                  <artifactId>talkeetna-pmd-config</artifactId>
-                  <version>${talkeetna-pmdconfig.version}</version>
-                  <type>jar</type>
-                  <outputDirectory>${project.build.directory}/dependency/talkeetna-pmd-config</outputDirectory>
                 </artifactItem>
               </artifactItems>
             </configuration>
