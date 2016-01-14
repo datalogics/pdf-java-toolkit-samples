@@ -37,6 +37,18 @@ Code formatting is checked with [Checkstyle](http://checkstyle.sourceforge.net).
 - Checkstyle issues warnings. You can see these in Eclipse if you use the Checkstyle plugin mentioned above. Because they're warnings, they won't cause problems building or running code or tests while your work is in progress.
 - The Maven ``validate`` phase will **fail** if there are style errors, and Maven will not even continue to the compile phase.
 
+### Exception documentation
+
+Writing Javadoc for ``@throws`` is tedious and we end up with inconsistent messages. You'll note that we have ``fix_throws_javadoc.sh``, which calls ``fix_throws_javadoc.sed``.
+
+Instead of using ad-hoc messages for ``@throws``, put in just the exception name, and do:
+
+```bash
+$ sh fix_throws_javadoc.sh
+```
+
+This should add standard messages for your ``@throws`` documentation tags. If you're using a heretofore unused exception, then add a good standard documentation snippet to ``fix_throws_javadoc.sed``.
+
 ## Commit messages
 
 - See [A Note About Git Commit Messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
