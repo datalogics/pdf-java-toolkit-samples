@@ -77,6 +77,16 @@ public final class ImageDownsampling {
         }
     }
 
+    /**
+     * This method is used to downsample an image using a valid resampler method.
+     *
+     * @param pdfDoc PDFDocument
+     * @param method Valid resampler method
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFInvalidParameterException one or more parameters passed were invalid
+     */
     public static void downsampleImage(final PDFDocument pdfDoc, final int method)
                     throws PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException {
@@ -110,6 +120,12 @@ public final class ImageDownsampling {
         }
     }
 
+    /**
+     * Returns a valid string resampler method representation.
+     *
+     * @param method Numeric resampler method
+     * @return String
+     */
     public static String getResampleMethodString(final int method) {
         final String[] methodStrings = new String[] { "**invalid**", "NearestNeighbor", "Bicubic", "Linear" };
         return methodStrings[method];
