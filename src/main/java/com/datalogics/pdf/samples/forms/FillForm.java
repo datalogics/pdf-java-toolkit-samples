@@ -6,6 +6,7 @@ package com.datalogics.pdf.samples.forms;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.InputStreamByteReader;
+import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
@@ -104,6 +105,11 @@ public final class FillForm {
      */
     public static void fillPdfForm(final String pdf, final String form, final String formType, final String output)
                     throws Exception {
+        // If you are using an evaluation version of the product (License Managed, or LM), set the path to where PDFJT
+        // can find the license file.
+        //
+        // If you are not using an evaluation version of the product you can ignore or remove this code.
+        LicenseManager.setLicensePath(".");
 
         final PDFDocument pdfDocument = openPdfDocument(pdf);
 
