@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Datalogics, Inc.
+ * Copyright 2016 Datalogics, Inc.
  */
 
 package com.datalogics.pdf.samples.forms;
@@ -56,6 +56,10 @@ public final class FillForm {
     public static final String XFA_XML_DATA = "xfa_data.xml";
     public static final String XFA_OUTPUT = "xfa_output.pdf";
 
+    // Some XML constants
+    private static final String XFA_DATA_NS_URI = "http://www.xfa.org/schema/xfa-data/1.0/";
+    private static final String XFA_DATA_ROOT_NODE = "xfa:datasets";
+
     /**
      * This is a utility class, and won't be instantiated.
      */
@@ -69,6 +73,8 @@ public final class FillForm {
      */
     public static void main(final String... args) throws Exception {
 
+        // If we've been given enough arguments, get the input PDF, the input form data file, and the output file.
+        // Try to parse the form data file type.
         if (args.length > 2) {
             final String inputForm = args[1];
             final String[] split = inputForm.split("\\.");
@@ -88,7 +94,7 @@ public final class FillForm {
     }
 
     /**
-     * Fill a PDF form with provided form data.
+     * Fill a PDF form with the provided data.
      *
      * @param pdf The form to be filled
      * @param form The data with which to fill the form
@@ -105,66 +111,18 @@ public final class FillForm {
         final PDFDocumentType documentType = XFAService.getDocumentType(pdfDocument);
 
         if (documentType == PDFDocumentType.Acroform) {
-
+            // If this is an Acroform, make sure the form data is either FDF for XFDF.
             if ("FDF".equalsIgnoreCase(formType)) {
-                // If this is an Acroform and the data file is FDF, use the FDFService to fill the form.
-                final FDFService fdfService = new FDFService(pdfDocument);
-                InputStream formStream = FillForm.class.getResourceAsStream(form);
-                if (formStream == null) {
-                    formStream = new FileInputStream(form);
-                }
-                final ByteReader formByteReader = new InputStreamByteReader(formStream);
-                final FDFDocument fd = FDFDocument.newInstance(formByteReader);
-                fdfService.importForm(fd);
-                // Run calculations on the AcroForm.
-                FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
-                // Run formatting on the AcroForm.
-                FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
-                // Generate appearances on the AcroForm.
-                AppearanceService.generateAppearances(pdfDocument, null, null);
-                // Save the file.
-                DocumentHelper.saveFullAndClose(pdfDocument, output);
-                System.out.println("Successfully saved a form with FDF data");
+                fillAcroformFdf(pdfDocument, form, output);
             } else if ("XFDF".equalsIgnoreCase(formType)) {
-                // If this is XFDF form data, fill the form using the XFDFService, which uses a slightly different
-                // process than the FDFService
-                InputStream formStream = FillForm.class.getResourceAsStream(form);
-                if (formStream == null) {
-                    formStream = new FileInputStream(form);
-                }
-                XFDFService.importFormData(pdfDocument, formStream);
-                // Run calculations on the AcroForm.
-                FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
-                // Run formatting on the AcroForm.
-                FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
-                // Generate appearances on the AcroForm.
-                AppearanceService.generateAppearances(pdfDocument, null, null);
-                // Save the file.
-                DocumentHelper.saveFullAndClose(pdfDocument, output);
-                System.out.println("Successfully saved a form with XFDF data");
+                fillAcroformXfdf(pdfDocument, form, output);
             } else {
                 throw new IllegalArgumentException("Invalid formData type for Acroform document.");
             }
         } else if (documentType.isXFA()) {
             // If the document has an XFA form, make sure that we were passed an XML data file.
             if ("XML".equalsIgnoreCase(formType)) {
-                InputStream formStream = FillForm.class.getResourceAsStream(form);
-                if (formStream == null) {
-                    final File formFile = new File(form);
-                    if (!hasXfaHeaders(formFile)) {
-                        addXfaHeaders(formFile);
-                    }
-                    formStream = new FileInputStream(formFile);
-                }
-                XFAService.importElement(pdfDocument, XFAElement.DATASETS, formStream);
-                // Run calculations on the AcroForm.
-                FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
-                // Run formatting on the AcroForm.
-                FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
-                // Generate appearances on the AcroForm.
-                AppearanceService.generateAppearances(pdfDocument, null, null);
-                DocumentHelper.saveFullAndClose(pdfDocument, output);
-                System.out.println("Successfully saved a form with XML data");
+                fillXfa(pdfDocument, form, output);
             } else {
                 throw new IllegalArgumentException("Invalid formData type for XFA document.");
             }
@@ -175,13 +133,110 @@ public final class FillForm {
     }
 
     /**
+     * Fill an Acroform with FDF form data.
+     *
+     * @param pdfDocument The form to be filled
+     * @param form The data with which to fill the form
+     * @param output The file to which the filled form will be saved
+     * @throws Exception Throws a general exception
+     */
+    public static void fillAcroformFdf(final PDFDocument pdfDocument, final String form, final String output)
+                    throws Exception {
+
+        final FDFService fdfService = new FDFService(pdfDocument);
+        InputStream formStream = FillForm.class.getResourceAsStream(form);
+        if (formStream == null) {
+            formStream = new FileInputStream(form);
+        }
+
+        final ByteReader formByteReader = new InputStreamByteReader(formStream);
+        final FDFDocument fd = FDFDocument.newInstance(formByteReader);
+        fdfService.importForm(fd);
+
+        // Run calculations on the AcroForm.
+        FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+        // Run formatting on the AcroForm.
+        FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
+        // Generate appearances on the AcroForm.
+        AppearanceService.generateAppearances(pdfDocument, null, null);
+
+        // Save the file.
+        DocumentHelper.saveFullAndClose(pdfDocument, output);
+    }
+
+    /**
+     * Fill an Acroform with XFDF form data.
+     *
+     * @param pdfDocument The form to be filled
+     * @param form The data with which to fill the form
+     * @param output The file to which the filled form will be saved
+     * @throws Exception Throws a general exception
+     */
+    public static void fillAcroformXfdf(final PDFDocument pdfDocument, final String form, final String output)
+                    throws Exception {
+
+        // If this is XFDF form data, fill the form using the XFDFService, which uses a slightly different
+        // process than the FDFService
+        InputStream formStream = FillForm.class.getResourceAsStream(form);
+        if (formStream == null) {
+            formStream = new FileInputStream(form);
+        }
+
+        XFDFService.importFormData(pdfDocument, formStream);
+
+        // Run calculations on the AcroForm.
+        FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+        // Run formatting on the AcroForm.
+        FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
+        // Generate appearances on the AcroForm.
+        AppearanceService.generateAppearances(pdfDocument, null, null);
+
+        // Save the file.
+        DocumentHelper.saveFullAndClose(pdfDocument, output);
+    }
+
+    /**
+     * Fill an XFA form with XML form data.
+     *
+     * @param pdfDocument The form to be filled
+     * @param form The data with which to fill the form
+     * @param output The file to which the filled form will be saved
+     * @throws Exception Throws a general exception
+     */
+    public static void fillXfa(final PDFDocument pdfDocument, final String form, final String output)
+                    throws Exception {
+
+        InputStream formStream = FillForm.class.getResourceAsStream(form);
+        if (formStream == null) {
+            final File formFile = new File(form);
+            if (!hasXfaHeaders(formFile)) {
+                addXfaHeaders(formFile);
+            }
+            formStream = new FileInputStream(formFile);
+        }
+
+        XFAService.importElement(pdfDocument, XFAElement.DATASETS, formStream);
+
+        // Run calculations on the AcroForm.
+        FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+        // Run formatting on the AcroForm.
+        FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
+        // Generate appearances on the AcroForm.
+        AppearanceService.generateAppearances(pdfDocument, null, null);
+
+        // Save the file.
+        DocumentHelper.saveFullAndClose(pdfDocument, output);
+    }
+
+    /**
      * Open a PDF file using an input path.
      *
      * @param inputPath The PDF file to open
      * @return A new PDFDocument instance of the input document
      * @throws Exception Throws a general exception
      */
-    private static PDFDocument openPdfDocument(final String inputPath) throws Exception {
+    public static PDFDocument openPdfDocument(final String inputPath) throws Exception {
+
         ByteReader reader = null;
         PDFDocument document = null;
 
@@ -197,7 +252,7 @@ public final class FillForm {
     }
 
     /**
-     * This method determines if the first element is the xfa-data root element expected.
+     * Determine if the first element is the XFA-data root element as expected.
      *
      * @param xfaData - a file containing XML form data
      * @return a boolean indicating the presence of XFA header tags.
@@ -211,13 +266,13 @@ public final class FillForm {
         final Document xmlDoc = builder.parse(xfaData);
         final String xmlRootName = xmlDoc.getDocumentElement().getNodeName();
 
-        return xmlRootName.equals("xfa:datasets");
+        return xmlRootName.equals(XFA_DATA_ROOT_NODE);
     }
 
     /**
-     * If the XML data file does not contain xfa headers, this method is called to add them
+     * Add XFA headers to an XML data file. This should only be called after determining that the headers aren't there.
      *
-     * @param xfaData - xml data that xfa headers will be added to
+     * @param xfaData - XML data that XFA headers will be added to
      * @throws Exception - IO, ParserConfiguration, Transformer, etc.
      */
     private static void addXfaHeaders(final File xfaData) throws Exception {
@@ -228,10 +283,10 @@ public final class FillForm {
         final Document oldDoc = builder.parse(xfaData);
         final Node oldRoot = oldDoc.getDocumentElement();
         final Document newDoc = builder.newDocument();
-        final Element newRoot = newDoc.createElementNS("http://www.xfa.org/schema/xfa-data/1.0/", "xfa:datasets");
+        final Element newRoot = newDoc.createElementNS(XFA_DATA_NS_URI, XFA_DATA_ROOT_NODE);
 
         newDoc.appendChild(newRoot);
-        final Node dataNode = newRoot.appendChild(newDoc.createElement("xfa:data"));
+        final Node dataNode = newRoot.appendChild(newDoc.createElement(XFA_DATA_ROOT_NODE));
         dataNode.appendChild(newDoc.importNode(oldRoot, true));
 
         final Transformer transformer = TransformerFactory.newInstance().newTransformer();
