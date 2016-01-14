@@ -77,12 +77,12 @@ public final class ImageDownsampling {
         }
     }
 
-    private static void downsampleImage(final PDFDocument pdfDoc, final int method)
+    public static void downsampleImage(final PDFDocument pdfDoc, final int method)
                     throws PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException {
         final double scaleFactor = 0.5;
         /*
-         * Downsample all image in the doc and replace the original images with the resampled images.
+         * Downsample all images in the doc and replace the original images with the resampled images.
          */
         final Iterator<PDFPage> pagesIter = pdfDoc.requirePages().iterator();
         while (pagesIter.hasNext()) {
@@ -110,7 +110,7 @@ public final class ImageDownsampling {
         }
     }
 
-    private static String getResampleMethodString(final int method) {
+    public static String getResampleMethodString(final int method) {
         final String[] methodStrings = new String[] { "**invalid**", "NearestNeighbor", "Bicubic", "Linear" };
         return methodStrings[method];
     }
