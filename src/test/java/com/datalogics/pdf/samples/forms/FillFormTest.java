@@ -119,6 +119,5 @@ public class FillFormTest extends SampleTest {
             }
         }
         assertEquals("Form data should match expected values", sb.toString().trim(), compare);
-        // System.out.println(sb.toString().trim());
     }
 }
