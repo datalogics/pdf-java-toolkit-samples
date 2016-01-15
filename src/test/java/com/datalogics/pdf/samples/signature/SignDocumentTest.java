@@ -36,7 +36,7 @@ public class DocumentSigningTest extends SampleTest {
             Files.delete(file.toPath());
         }
         // The complete file name will be set in the DocSigning class.
-        final String path = file.getCanonicalPath().replaceAll("1.pdf", "");
+        final String path = file.getCanonicalPath().replaceAll(".pdf", "");
 
         DocumentSigning.main(path);
         // Make sure the Output file exists.

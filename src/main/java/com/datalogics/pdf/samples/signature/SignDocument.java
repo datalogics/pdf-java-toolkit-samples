@@ -39,8 +39,6 @@ public final class SignDocument {
     private static final String INPUT_UNSIGNED_PDF_PATH = "UnsignedDocument.pdf";
     private static final String OUTPUT_SIGNED_PDF_PATH = "SignedField";
 
-    private static int sigFieldIndex;
-
     /**
      * This is a utility class, and won't be instantiated.
      */
@@ -75,7 +73,6 @@ public final class SignDocument {
     private static void signExistingSignatureFields(final String outputPath) throws Exception {
         PDFDocument pdfDoc = null;
         ByteReader byteReader = null;
-        sigFieldIndex = 1;
         try {
             // Get the PDF file.
             final InputStream inputStream = SignDocument.class.getResourceAsStream(INPUT_UNSIGNED_PDF_PATH);
@@ -120,8 +117,7 @@ public final class SignDocument {
             if (sigField.isSigningPermitted()) {
                 if (sigField.isVisible()) {
                     // Create output file to hold the signed PDF data.
-                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath + sigFieldIndex++ + ".pdf",
-                                                                            "rw");
+                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath + ".pdf", "rw");
                     byteWriter = new RandomAccessFileByteWriter(outputRaf);
                     // Sign the document.
                     sigMgr.sign(sigField, credentials, byteWriter);
