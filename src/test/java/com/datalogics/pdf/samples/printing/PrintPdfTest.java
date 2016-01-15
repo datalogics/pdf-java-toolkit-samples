@@ -4,7 +4,7 @@
 
 package com.datalogics.pdf.samples.printing;
 
-import static com.datalogics.pdf.samples.util.Matchers.inputStreamHasChecksum;
+import static com.datalogics.pdf.samples.util.Matchers.bufferedImageHasChecksum;
 
 import static org.junit.Assert.assertThat;
 
@@ -18,7 +18,6 @@ import org.junit.Test;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Paper;
@@ -26,10 +25,8 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.print.DocFlavor;
@@ -222,8 +219,8 @@ public class PrintPdfTest extends SampleTest {
             int pageIndex = 0;
 
             while (painter.print(gfx2d, format, pageIndex) == Printable.PAGE_EXISTS) {
+                assertThat(image, bufferedImageHasChecksum(PAGE_IMAGE_CHECKSUMS[pageIndex]));
                 savePageImage(image, pageIndex);
-                checksumImage(image, PAGE_IMAGE_CHECKSUMS[pageIndex]);
 
                 // painter.print() disposed of the Graphics2D, obtain a new one
                 gfx2d = image.createGraphics();
@@ -242,12 +239,6 @@ public class PrintPdfTest extends SampleTest {
             } catch (final IOException ioe) {
                 throw new PrinterIOException(ioe);
             }
-        }
-
-        private void checksumImage(final BufferedImage image, final String checksum) {
-            final DataBufferByte imageData = (DataBufferByte) image.getRaster().getDataBuffer();
-            final InputStream imageStream = new ByteArrayInputStream(imageData.getData(0));
-            assertThat(imageStream, inputStreamHasChecksum(checksum));
         }
 
         /*
