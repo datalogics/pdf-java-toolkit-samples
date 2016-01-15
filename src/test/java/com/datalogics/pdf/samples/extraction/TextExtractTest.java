@@ -15,7 +15,7 @@ import java.io.File;
 import java.nio.file.Files;
 
 /**
- * Tests the TextExtract sample
+ * Tests the TextExtract sample.
  */
 public class TextExtractTest extends SampleTest {
 
