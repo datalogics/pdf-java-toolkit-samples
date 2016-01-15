@@ -4,6 +4,7 @@
 
 package com.datalogics.pdf.samples.forms;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.adobe.pdfjt.pdf.document.PDFDocument;
@@ -50,6 +51,18 @@ public class FillFormTest extends SampleTest {
                     + "location.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
                     + "Datalogics, Inc.\tDatalogics\tDucky\t101 N. Wacker Dr. Ste 1800\tChicago\tIL\t60606\tnull\t"
                     + "null\t0";
+    private static final String XFA_FORM_DATA = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xfa:datasets "
+                    + "xmlns:xfa=\"http://www.xfa.org/schema/xfa-data/1.0/\"><xfa:data><form1><Name>John "
+                    + "Doe</Name><Title>Software Engineer</Title><Deptartment>Engineering</Deptartment>"
+                    + "<Phone>1-312-853-8200</Phone><Date>2016-01-01</Date><DateNeeded>2016-02-01</DateNeeded>"
+                    + "<Reason>Travel</Reason><Payee>John Doe</Payee><Amount>1234</Amount><Date/><DateNeeded/>"
+                    + "<Reason/><Payee/><Amount/><Date/><DateNeeded/><Reason/><Payee/><Amount/><Date/><DateNeeded/>"
+                    + "<Reason/><Payee/><Amount/><Date/><DateNeeded/><Reason/><Payee/><Amount/><Date/><DateNeeded/>"
+                    + "<Reason/><Payee/><Amount/><DeliveryInstructions>Direct Deposit</DeliveryInstructions>"
+                    + "<Comments/><AmountPaid/><CheckNo/><DateReceived/></form1></xfa:data></xfa:datasets>";
+
+    // Each test will check that an output file has been created, then it will compare the form data in that file
+    // to the values that we expect to see.
 
     @Test
     public void testAcroformFdf() throws Exception {
@@ -57,7 +70,7 @@ public class FillFormTest extends SampleTest {
         FillForm.main(FillForm.ACROFORM_FDF_INPUT, FillForm.ACROFORM_FDF_DATA, outputPdf.getCanonicalPath());
         assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
 
-        // checkForms(outputPdf, ACROFORM_FDF_DATA);
+        checkForms(outputPdf, ACROFORM_FDF_DATA);
     }
 
     @Test
@@ -66,7 +79,7 @@ public class FillFormTest extends SampleTest {
         FillForm.main(FillForm.ACROFORM_XFDF_INPUT, FillForm.ACROFORM_XFDF_DATA, outputPdf.getCanonicalPath());
         assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
 
-        // checkForms(outputPdf, ACROFORM_XFDF_DATA);
+        checkForms(outputPdf, ACROFORM_XFDF_DATA);
     }
 
     @Test
@@ -75,7 +88,7 @@ public class FillFormTest extends SampleTest {
         FillForm.main(FillForm.XFA_PDF_INPUT, FillForm.XFA_XML_DATA, outputPdf.getCanonicalPath());
         assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
 
-        checkForms(outputPdf, ACROFORM_FDF_DATA);
+        checkForms(outputPdf, XFA_FORM_DATA);
     }
 
     private void checkForms(final File outputFile, final String compare) throws Exception {
@@ -83,23 +96,29 @@ public class FillFormTest extends SampleTest {
         final PDFDocument outputDoc = FillForm.openPdfDocument(outputFile.getCanonicalPath());
         final PDFInteractiveForm pdfForm = outputDoc.getInteractiveForm();
         final Iterator<PDFField> fieldIterator = pdfForm.iterator();
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         while (fieldIterator.hasNext()) {
             final PDFField field = fieldIterator.next();
             if (field.getValueList() != null) {
+                // Turn the list of values in each field into a string. Get rid of the brackets that List.toString()
+                // puts in there.
                 sb.append(field.getValueList().toString().replace("[", "").replace("]", "") + " ");
-            } else {
-                final OutputStream xfaFields = new FileOutputStream(TEMP_OUTPUT);
+            }
+        }
+        // If we didn't get anything out of the form with the above method, this is probably an XFA form. Get the form
+        // data into a temporary file and compare that.
+        if (sb.toString().equals("")) {
+            try (final OutputStream xfaFields = new FileOutputStream(TEMP_OUTPUT)) {
                 XFAService.exportElement(outputDoc, XFAElement.DATASETS, xfaFields);
                 xfaFields.close();
 
-                final File f = new File(TEMP_OUTPUT);
-                final byte[] b = Files.readAllBytes(Paths.get(f.getCanonicalPath()));
-                System.out.println(new String(b, "UTF-8"));
-
+                final File tempOutFile = new File(TEMP_OUTPUT);
+                final byte[] fileBytes = Files.readAllBytes(Paths.get(tempOutFile.getCanonicalPath()));
+                sb.append(new String(fileBytes, "UTF-8"));
+                Files.delete(tempOutFile.toPath());
             }
         }
-        // assertEquals(sb.toString().trim(), compare);
-        System.out.println(sb.toString().trim());
+        assertEquals("Form data should match expected values", sb.toString().trim(), compare);
+        // System.out.println(sb.toString().trim());
     }
 }
