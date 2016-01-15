@@ -24,6 +24,7 @@ import com.adobe.pdfjt.services.formflattener.FormFlattener;
 
 import com.datalogics.pdf.document.DocumentHelper;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.EnumSet;
@@ -98,8 +99,13 @@ public final class FlattenPdf {
         PDFDocument pdfDoc = null;
         ByteReader byteReader = null;
         // Get the PDF file.
-        final InputStream inputStream = FlattenPdf.class.getResourceAsStream(inputPath);
-        byteReader = new InputStreamByteReader(inputStream);
+        try (final InputStream inputStream = FlattenPdf.class.getResourceAsStream(inputPath);) {
+            if (inputStream == null) {
+                byteReader = new InputStreamByteReader(new FileInputStream(inputPath));
+            } else {
+                byteReader = new InputStreamByteReader(inputStream);
+            }
+        }
         pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
 
         // Flatten all the pages of the given input PDF Document, with the
