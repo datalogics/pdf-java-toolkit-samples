@@ -30,8 +30,8 @@ import java.util.logging.Logger;
  * This is a sample that demonstrates how to find a specific signature field in a document so that API users can sign
  * the correct field.
  */
-public final class DocumentSigning {
-    private static final Logger LOGGER = Logger.getLogger(DocumentSigning.class.getName());
+public final class SignDocument {
+    private static final Logger LOGGER = Logger.getLogger(SignDocument.class.getName());
 
 
     private static final String DER_KEY_PATH = "pdfjt-key.der";
@@ -44,7 +44,7 @@ public final class DocumentSigning {
     /**
      * This is a utility class, and won't be instantiated.
      */
-    private DocumentSigning() {}
+    private SignDocument() {}
 
     /**
      * Main program.
@@ -78,7 +78,7 @@ public final class DocumentSigning {
         sigFieldIndex = 1;
         try {
             // Get the PDF file.
-            final InputStream inputStream = DocumentSigning.class.getResourceAsStream(INPUT_UNSIGNED_PDF_PATH);
+            final InputStream inputStream = SignDocument.class.getResourceAsStream(INPUT_UNSIGNED_PDF_PATH);
             byteReader = new InputStreamByteReader(inputStream);
             pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
 
@@ -139,8 +139,8 @@ public final class DocumentSigning {
     private static Credentials createCredentials() throws Exception {
 
         final String sigAlgorithm = "RSA";
-        final InputStream certStream = DocumentSigning.class.getResourceAsStream(DER_CERT_PATH);
-        final InputStream keyStream = DocumentSigning.class.getResourceAsStream(DER_KEY_PATH);
+        final InputStream certStream = SignDocument.class.getResourceAsStream(DER_CERT_PATH);
+        final InputStream keyStream = SignDocument.class.getResourceAsStream(DER_KEY_PATH);
 
         return createCredentialsFromDerBytes(certStream, keyStream, sigAlgorithm);
     }
