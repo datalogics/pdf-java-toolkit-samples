@@ -73,9 +73,14 @@ public final class FillForm {
      * @throws Exception Throws a general exception
      */
     public static void main(final String... args) throws Exception {
+        // If you are using an evaluation version of the product (License Managed, or LM), set the path to where PDFJT
+        // can find the license file.
+        //
+        // If you are not using an evaluation version of the product you can ignore or remove this code.
+        LicenseManager.setLicensePath(".");
 
-        // If we've been given enough arguments, get the input PDF, the input form data file, and the output file.
-        // Try to parse the form data file type.
+        // If we've been given enough arguments, get the input PDF, the input form data file, and the name of the output
+        // file. Try to parse the form data file type.
         if (args.length > 2) {
             final String inputForm = args[1];
             final String[] split = inputForm.split("\\.");
@@ -85,7 +90,8 @@ public final class FillForm {
                 || "XFDF".equalsIgnoreCase(format)) {
                 fillPdfForm(args[0], inputForm, format.toUpperCase(Locale.US), args[2]);
             } else {
-                throw new IllegalArgumentException("Form data format of " + format + " is not supported");
+                throw new IllegalArgumentException("Form data format of " + format
+                                                   + " is not supported. Supported types: XML, FDF, and XFDF.");
             }
         } else {
             fillPdfForm(ACROFORM_FDF_INPUT, ACROFORM_FDF_DATA, "FDF", ACROFORM_FDF_OUTPUT);
@@ -105,12 +111,6 @@ public final class FillForm {
      */
     public static void fillPdfForm(final String pdf, final String form, final String formType, final String output)
                     throws Exception {
-        // If you are using an evaluation version of the product (License Managed, or LM), set the path to where PDFJT
-        // can find the license file.
-        //
-        // If you are not using an evaluation version of the product you can ignore or remove this code.
-        LicenseManager.setLicensePath(".");
-
         final PDFDocument pdfDocument = openPdfDocument(pdf);
 
         // There are two types of forms that we can fill, so find out which kind we have here.
@@ -152,21 +152,23 @@ public final class FillForm {
     public static void fillAcroformFdf(final PDFDocument pdfDocument, final String form, final String output)
                     throws Exception {
 
-        final FDFService fdfService = new FDFService(pdfDocument);
+        // Open the input form data file.
         InputStream formStream = FillForm.class.getResourceAsStream(form);
         if (formStream == null) {
             formStream = new FileInputStream(form);
         }
-
         final ByteReader formByteReader = new InputStreamByteReader(formStream);
-        final FDFDocument fd = FDFDocument.newInstance(formByteReader);
-        fdfService.importForm(fd);
+        final FDFDocument fdfDocument = FDFDocument.newInstance(formByteReader);
 
-        // Run calculations on the AcroForm.
+        // Use the FDFService to get the form data into the PDF.
+        final FDFService fdfService = new FDFService(pdfDocument);
+        fdfService.importForm(fdfDocument);
+
+        // Run calculations on the AcroForm...
         FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
-        // Run formatting on the AcroForm.
+        // Run formatting...
         FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
-        // Generate appearances on the AcroForm.
+        // And generate appearances.
         AppearanceService.generateAppearances(pdfDocument, null, null);
 
         // Save the file.
@@ -185,19 +187,19 @@ public final class FillForm {
                     throws Exception {
 
         // If this is XFDF form data, fill the form using the XFDFService, which uses a slightly different
-        // process than the FDFService
+        // process than the FDFService. Just get the data file into an InputStream, then import the data into the PDF
+        // document.
         InputStream formStream = FillForm.class.getResourceAsStream(form);
         if (formStream == null) {
             formStream = new FileInputStream(form);
         }
-
         XFDFService.importFormData(pdfDocument, formStream);
 
-        // Run calculations on the AcroForm.
+        // Run calculations on the AcroForm...
         FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
-        // Run formatting on the AcroForm.
+        // Run formatting...
         FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
-        // Generate appearances on the AcroForm.
+        // And generate appearances.
         AppearanceService.generateAppearances(pdfDocument, null, null);
 
         // Save the file.
@@ -215,18 +217,24 @@ public final class FillForm {
     public static void fillXfa(final PDFDocument pdfDocument, final String form, final String output)
                     throws Exception {
 
+        // Start by getting the form data into an InputStream.
         InputStream formStream = FillForm.class.getResourceAsStream(form);
         if (formStream == null) {
             final File formFile = new File(form);
+            // For robustness's sake, we'll check that document looks about how we expect it to. If it doesn't, we'll
+            // add some extra information to make it more compatible. These two functions just do Java XML stuff and
+            // don't require any special knowledge of PDF Java Toolkit.
             if (!hasXfaHeaders(formFile)) {
                 addXfaHeaders(formFile);
             }
             formStream = new FileInputStream(formFile);
         }
 
+        // Once we have an XML file with the proper header, use the XFAService to get the data into the PDF.
         XFAService.importElement(pdfDocument, XFAElement.DATASETS, formStream);
 
-        // Save the file.
+        // Just save the file. Generating appearances and running calculations aren't supported for XFA forms, so
+        // there's no need to try it.
         DocumentHelper.saveFullAndClose(pdfDocument, output);
     }
 
