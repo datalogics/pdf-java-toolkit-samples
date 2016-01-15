@@ -216,13 +216,19 @@ public class PrintPdfTest extends SampleTest {
                 pageIndex++;
 
                 // TODO: Save buffered image to disk and checksum
-                final String outputName = String.format(RENDERED_IMAGE_NAME, pageIndex);
-                final File outputFile = newOutputFile(outputName);
-                try {
-                    ImageIO.write(image, "png", outputFile);
-                } catch (final IOException exp) {
-                    throw new PrinterIOException(exp);
-                }
+                savePageImage(image, pageIndex);
+            }
+        }
+
+        // Based on a code snippet from the Java tutorials:
+        // https://docs.oracle.com/javase/tutorial/2d/images/saveimage.html
+        private void savePageImage(final BufferedImage image, final int pageIndex) throws PrinterIOException {
+            final String outputName = String.format(RENDERED_IMAGE_NAME, pageIndex);
+            final File outputFile = newOutputFile(outputName);
+            try {
+                ImageIO.write(image, "png", outputFile);
+            } catch (final IOException ioe) {
+                throw new PrinterIOException(ioe);
             }
         }
 
