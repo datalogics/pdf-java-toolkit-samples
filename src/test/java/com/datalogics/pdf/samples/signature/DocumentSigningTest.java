@@ -27,7 +27,7 @@ import java.util.Iterator;
  */
 public class DocumentSigningTest extends SampleTest {
     static final String FILE_NAME = "SignedField1.pdf";
-    static final String QUALIFIED_SIGNATURE_FIELD_NAME = "SB1_Sig1";
+    static final String QUALIFIED_SIGNATURE_FIELD_NAME = "Approver";
 
     @Test
     public void testMain() throws Exception {
