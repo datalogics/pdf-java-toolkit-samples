@@ -227,6 +227,7 @@ public class PrintPdfTest extends SampleTest {
 
                 // painter.print() disposed of the Graphics2D, obtain a new one
                 gfx2d = image.createGraphics();
+                gfx2d.clearRect(0, 0, width, height);
                 pageIndex++;
             }
         }
