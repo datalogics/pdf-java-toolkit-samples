@@ -8,7 +8,6 @@ import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
-import com.adobe.pdfjt.core.exceptions.PDFUnsupportedFeatureException;
 import com.adobe.pdfjt.core.types.ASMatrix;
 import com.adobe.pdfjt.core.types.ASRectangle;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
@@ -26,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -35,7 +33,6 @@ import javax.imageio.ImageIO;
  * JPG/JPEG, GIF, and BMP.
  */
 public final class CreatePdfFromImage {
-    private static final Logger LOGGER = Logger.getLogger(CreatePdfFromImage.class.getName());
 
     // Image from pixabay.com, public domain images
     public static final String INPUT_PNG = "PDF-Java-Toolkit-Icon.png";
@@ -77,14 +74,10 @@ public final class CreatePdfFromImage {
                     }
                 }
                 if (supported) {
-                    try {
-                        outputDocument = createPdfFromImage(format.toUpperCase(Locale.ENGLISH), inputImage,
+                    outputDocument = createPdfFromImage(format.toUpperCase(Locale.ENGLISH), inputImage,
                                                             outputDocument);
-                    } catch (final PDFUnsupportedFeatureException e) {
-                        LOGGER.warning("There was a problem processing the image: " + e.getMessage());
-                    }
                 } else {
-                    LOGGER.warning("Image format of " + format + "not supported");
+                    throw new PDFInvalidParameterException("Image format of " + format + "not supported");
                 }
             }
         } else {
