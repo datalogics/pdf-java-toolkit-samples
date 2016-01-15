@@ -18,8 +18,12 @@ import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
 import javax.print.PrintService;
@@ -37,6 +41,7 @@ import javax.print.event.PrintServiceAttributeListener;
  * Tests the PrintPdf sample.
  */
 public class PrintPdfTest extends SampleTest {
+    private static final String RENDERED_IMAGE_NAME = "renderedImage_page%d.png";
     @Test
     public <T extends PrinterJob> void testMain() throws Exception {
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
@@ -193,7 +198,15 @@ public class PrintPdfTest extends SampleTest {
                 // painter.print() disposed of the Graphics2D, obtain a new one
                 gfx2d = image.createGraphics();
                 pageIndex++;
+
                 // TODO: Save buffered image to disk and checksum
+                final String outputName = String.format(RENDERED_IMAGE_NAME, pageIndex);
+                final File outputFile = newOutputFile(outputName);
+                try {
+                    ImageIO.write(image, "png", outputFile);
+                } catch (final IOException exp) {
+                    throw new PrinterIOException(exp);
+                }
             }
         }
 
