@@ -61,6 +61,11 @@ public final class FillForm {
     public static final String XFA_DATA_NS_URI = "http://www.xfa.org/schema/xfa-data/1.0/";
     public static final String XFA_DATA_ROOT_NODE = "xfa:datasets";
 
+    // Accepted formats
+    public static final String XML_FORMAT = "XML";
+    public static final String FDF_FORMAT = "FDF";
+    public static final String XFDF_FORMAT = "XFDF";
+
     /**
      * This is a utility class, and won't be instantiated.
      */
@@ -85,9 +90,9 @@ public final class FillForm {
             final String inputForm = args[1];
             final String[] split = inputForm.split("\\.");
             final String format = split[split.length - 1];
-            if ("XML".equalsIgnoreCase(format)
-                || "FDF".equalsIgnoreCase(format)
-                || "XFDF".equalsIgnoreCase(format)) {
+            if (XML_FORMAT.equalsIgnoreCase(format)
+                || FDF_FORMAT.equalsIgnoreCase(format)
+                || XFDF_FORMAT.equalsIgnoreCase(format)) {
                 fillPdfForm(args[0], inputForm, format.toUpperCase(Locale.US), args[2]);
             } else {
                 throw new IllegalArgumentException("Form data format of " + format
