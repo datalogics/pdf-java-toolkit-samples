@@ -17,7 +17,6 @@ import com.datalogics.pdf.samples.SampleTest;
 import org.junit.Test;
 
 import java.io.File;
-import java.nio.file.Files;
 
 /**
  * Tests the FlattenPdf sample.
@@ -31,10 +30,7 @@ public class FlattenPdfTest extends SampleTest {
 
     @Test
     public void testFlattenForm() throws Exception {
-        final File file = newOutputFile(OUTPUT_FLATTENED_FORM_PDF_PATH);
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
+        final File file = SampleTest.newOutputFileWithDelete(OUTPUT_FLATTENED_FORM_PDF_PATH);
 
         FlattenPdf.main(INPUT_FORM_PDF_PATH, file.getCanonicalPath());
         assertTrue(file.getPath() + " must exist after run", file.exists());
@@ -47,10 +43,7 @@ public class FlattenPdfTest extends SampleTest {
 
     @Test
     public void testFlattenAnnotations() throws Exception {
-        final File file = newOutputFile(OUTPUT_FLATTENED_ANNOTATION_PDF_PATH);
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
+        final File file = SampleTest.newOutputFileWithDelete(OUTPUT_FLATTENED_FORM_PDF_PATH);
 
         FlattenPdf.main(INPUT_ANNOTATION_PDF_PATH, file.getCanonicalPath());
         assertTrue(file.getPath() + " must exist after run", file.exists());
@@ -62,9 +55,7 @@ public class FlattenPdfTest extends SampleTest {
 
         final PDFAnnotationList list = currentPage.getAnnotationList();
 
-        for (int i = 0; i < list.size(); i++) {
-            assertEquals("Flattened annotations should not have content", list.get(i).getContents(), null);
-        }
+        assertEquals("Properly flattened annotations should not appear in the annotation list", list.size(), 0);
 
     }
 }
