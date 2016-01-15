@@ -8,6 +8,7 @@ import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
+import com.adobe.pdfjt.core.exceptions.PDFUnsupportedFeatureException;
 import com.adobe.pdfjt.core.types.ASMatrix;
 import com.adobe.pdfjt.core.types.ASRectangle;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
@@ -15,6 +16,8 @@ import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.graphics.PDFExtGState;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
 import com.adobe.pdfjt.services.imageconversion.ImageManager;
+import com.adobe.pdfjt.services.manipulations.PMMOptions;
+import com.adobe.pdfjt.services.manipulations.PMMService;
 
 import com.datalogics.pdf.document.DocumentHelper;
 
@@ -39,11 +42,7 @@ public final class CreatePdfFromImage {
     public static final String INPUT_JPG = "PDF-Java-Toolkit-Icon.jpg";
     public static final String INPUT_GIF = "PDF-Java-Toolkit-Icon.gif";
     public static final String INPUT_BMP = "PDF-Java-Toolkit-Icon.bmp";
-    public static final String[] INPUT_ARRAY = { INPUT_PNG, INPUT_JPG, INPUT_GIF, INPUT_BMP };
-    public static final String OUTPUT_PNG = "PDF_from_PNG.pdf";
-    public static final String OUTPUT_JPG = "PDF_from_JPG.pdf";
-    public static final String OUTPUT_GIF = "PDF_from_GIF.pdf";
-    public static final String OUTPUT_BMP = "PDF_from_BMP.pdf";
+    public static final String OUTPUT_PDF = "PDF_from_Images.pdf";
     private static final Double PTS_PER_IN = 72.0; // points per inch
 
     /**
@@ -52,42 +51,50 @@ public final class CreatePdfFromImage {
     private CreatePdfFromImage() {}
 
     /**
-     * Main program for creating PDFs from images.
+     * Main program for creating a PDF from images. If passed more than one image, each image will make become new page
+     * in the document.
      *
-     * @param args The name of the output file and the image file to be used
+     * @param args The name of the output file and a number of images (1 or more) to be used to create a PDF
      * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
-        // If we have more than one argument, get the output destination, get the image name, and parse the format.
+        PDFDocument outputDocument = null;
+        final String outputFile;
+        // If we have more than one argument, get the output destination, get the image names, and parse the formats.
         // If we don't, just use the defaults included in the sample.
         if (args.length > 1) {
-            final String outputFile = args[0];
-            final String inputImage = args[1];
-            final String[] split = inputImage.split("\\.");
-            final String format = split[split.length - 1];
-            final String[] supportedFormats = ImageIO.getReaderFileSuffixes();
-            boolean supported = false;
-            for (int i = 0; i < supportedFormats.length; i++) {
-                if (supportedFormats[i].equalsIgnoreCase(format)) {
-                    supported = true;
-                    break;
+            outputFile = args[0];
+            for (int i = 1; i < args.length; i++) {
+                final String inputImage = args[i];
+                final String[] split = inputImage.split("\\.");
+                final String format = split[split.length - 1];
+                final String[] supportedFormats = ImageIO.getReaderFileSuffixes();
+                boolean supported = false;
+                for (int j = 0; j < supportedFormats.length; j++) {
+                    if (supportedFormats[j].equalsIgnoreCase(format)) {
+                        supported = true;
+                        break;
+                    }
                 }
-            }
-            if (supported) {
-                try {
-                    createPdfFromImage(format.toUpperCase(Locale.ENGLISH), inputImage, outputFile);
-                } catch (final Exception e) {
-                    LOGGER.warning("There was a problem processing the image: " + e.getMessage());
+                if (supported) {
+                    try {
+                        outputDocument = createPdfFromImage(format.toUpperCase(Locale.ENGLISH), inputImage,
+                                                            outputDocument);
+                    } catch (final PDFUnsupportedFeatureException e) {
+                        LOGGER.warning("There was a problem processing the image: " + e.getMessage());
+                    }
+                } else {
+                    LOGGER.warning("Image format of " + format + "not supported");
                 }
-            } else {
-                throw new Exception("Image format of " + format + "not supported");
             }
         } else {
-            createPdfFromImage("BMP", INPUT_BMP, OUTPUT_BMP);
-            createPdfFromImage("PNG", INPUT_PNG, OUTPUT_PNG);
-            createPdfFromImage("JPG", INPUT_JPG, OUTPUT_JPG);
-            createPdfFromImage("GIF", INPUT_GIF, OUTPUT_GIF);
+            outputDocument = createPdfFromImage("BMP", INPUT_BMP, null);
+            outputDocument = createPdfFromImage("PNG", INPUT_PNG, outputDocument);
+            outputDocument = createPdfFromImage("JPG", INPUT_JPG, outputDocument);
+            outputDocument = createPdfFromImage("GIF", INPUT_GIF, outputDocument);
+            outputFile = OUTPUT_PDF;
         }
+        DocumentHelper.saveFullAndClose(outputDocument, outputFile);
     }
 
 
@@ -96,7 +103,8 @@ public final class CreatePdfFromImage {
      *
      * @param imageFormat The format the image is in - PNG, JPG, GIF, BMP are supported
      * @param inputImage The name of the image resource to use
-     * @param outputPdf The name of the output file to be created
+     * @param inputPdf If the output of this call should be appended to an existing PDF, pass it here, otherwise use
+     *        null
      * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
@@ -104,8 +112,8 @@ public final class CreatePdfFromImage {
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws Exception a general exception was thrown
      */
-    public static void createPdfFromImage(final String imageFormat, final String inputImage, final String outputPdf)
-                    throws Exception {
+    public static PDFDocument createPdfFromImage(final String imageFormat, final String inputImage,
+                                                 final PDFDocument inputPdf) throws Exception {
         // Get the image for the reader to use. We'll try to use the sample's resource (default behavior) or, failing
         // that, we'll treat the input as a file to be opened. Set the BufferedImage to be used here as well.
         final BufferedImage bufferedImage;
@@ -130,7 +138,7 @@ public final class CreatePdfFromImage {
         final Double pageHeight;
         final int imageWidth = bufferedImage.getWidth();
         final int imageHeight = bufferedImage.getHeight();
-        final PDFDocument pdfDocument;
+        PDFDocument pdfDocument;
         if ((imageWidth / imageHeight) > 1) {
             // The image's width is greater than its height. Fit the height to fill an 11 x 8.5 page, then scale the
             // width. If the width goes off the page, fit the width to fill the page and then scale the height.
@@ -143,6 +151,12 @@ public final class CreatePdfFromImage {
             // Create a letter sized PDF document in landscape mode.
             pdfDocument = PDFDocument.newInstance(new ASRectangle(0, 0, ASRectangle.US_LETTER.height(),
                                                   ASRectangle.US_LETTER.width()), PDFOpenOptions.newInstance());
+            if (inputPdf != null) {
+                final PMMService pmmService = new PMMService(inputPdf);
+                pmmService.appendPages(pdfDocument, "", PMMOptions.newInstanceAll());
+                pdfDocument = inputPdf;
+            }
+
             pageWidth = ASRectangle.US_LETTER.height();
             pageHeight = ASRectangle.US_LETTER.width();
         } else {
@@ -157,6 +171,13 @@ public final class CreatePdfFromImage {
             }
             // Create a letter sized PDF document in portrait mode.
             pdfDocument = PDFDocument.newInstance(ASRectangle.US_LETTER, PDFOpenOptions.newInstance());
+
+            if (inputPdf != null) {
+                final PMMService pmmService = new PMMService(inputPdf);
+                pmmService.appendPages(pdfDocument, "", PMMOptions.newInstanceAll());
+                pdfDocument = inputPdf;
+            }
+
             pageWidth = ASRectangle.US_LETTER.width();
             pageHeight = ASRectangle.US_LETTER.height();
         }
@@ -175,9 +196,9 @@ public final class CreatePdfFromImage {
                                                                      .translate(translateX, translateY);
 
         // Now add the image to the first PDF page using the graphics state and the transformation matrix.
-        ImageManager.insertImageInPDF(image, pdfDocument.requirePages().getPage(0), pdfExtGState, asMatrix);
+        final int numPages = pdfDocument.requirePages().getCount();
+        ImageManager.insertImageInPDF(image, pdfDocument.requirePages().getPage(numPages - 1), pdfExtGState, asMatrix);
 
-        // Save the file.
-        DocumentHelper.saveFullAndClose(pdfDocument, outputPdf);
+        return PDFDocument.newInstance(pdfDocument.finish());
     }
 }

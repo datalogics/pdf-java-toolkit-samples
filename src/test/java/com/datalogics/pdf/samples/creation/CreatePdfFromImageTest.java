@@ -25,12 +25,17 @@ import java.io.File;
  */
 public class CreatePdfFromImageTest extends SampleTest {
 
+    public static final String OUTPUT_PNG = "PDF_from_PNG.pdf";
+    public static final String OUTPUT_JPG = "PDF_from_JPG.pdf";
+    public static final String OUTPUT_GIF = "PDF_from_GIF.pdf";
+    public static final String OUTPUT_BMP = "PDF_from_BMP.pdf";
+
     // Each test will check to see that an output file is successfully created and that the first page contains exactly
     // one image.
 
     @Test
     public void testBmp() throws Exception {
-        final File outputBmp = newOutputFileWithDelete(CreatePdfFromImage.OUTPUT_BMP);
+        final File outputBmp = newOutputFileWithDelete(OUTPUT_BMP);
         CreatePdfFromImage.main(outputBmp.getCanonicalPath(), CreatePdfFromImage.INPUT_BMP);
         assertTrue(outputBmp.getPath() + " must exist after run", outputBmp.exists());
         checkImageExists(outputBmp);
@@ -38,7 +43,7 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     @Test
     public void testGif() throws Exception {
-        final File outputGif = newOutputFileWithDelete(CreatePdfFromImage.OUTPUT_GIF);
+        final File outputGif = newOutputFileWithDelete(OUTPUT_GIF);
         CreatePdfFromImage.main(outputGif.getCanonicalPath(), CreatePdfFromImage.INPUT_GIF);
         assertTrue(outputGif.getPath() + " must exist after run", outputGif.exists());
         checkImageExists(outputGif);
@@ -46,7 +51,7 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     @Test
     public void testPng() throws Exception {
-        final File outputPng = newOutputFileWithDelete(CreatePdfFromImage.OUTPUT_PNG);
+        final File outputPng = newOutputFileWithDelete(OUTPUT_PNG);
         CreatePdfFromImage.main(outputPng.getCanonicalPath(), CreatePdfFromImage.INPUT_PNG);
         assertTrue(outputPng.getPath() + " must exist after run", outputPng.exists());
         checkImageExists(outputPng);
@@ -54,7 +59,7 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     @Test
     public void testJpg() throws Exception {
-        final File outputJpg = newOutputFileWithDelete(CreatePdfFromImage.OUTPUT_JPG);
+        final File outputJpg = newOutputFileWithDelete(OUTPUT_JPG);
         CreatePdfFromImage.main(outputJpg.getCanonicalPath(), CreatePdfFromImage.INPUT_JPG);
         assertTrue(outputJpg.getPath() + " must exist after run", outputJpg.exists());
         checkImageExists(outputJpg);
