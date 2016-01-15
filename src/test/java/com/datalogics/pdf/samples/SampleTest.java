@@ -183,7 +183,7 @@ public class SampleTest {
      * content streams
      *
      * @param resourceName name of the resource to copy to a string
-     * @return string containing the contents of the file, with CR translated to LF
+     * @return string containing the contents of the file, with LF translated to CR
      * @throws IOException an I/O operation failed or was interrupted
      */
     protected String contentsOfResource(final String resourceName) throws IOException {
@@ -202,7 +202,7 @@ public class SampleTest {
      * A text file is passed in, and copied to a string. LF characters are replaced with CR to match PDF content streams
      *
      * @param file a text file
-     * @return string containing the contents of the file, with CR translated to LF
+     * @return string containing the contents of the file, with LF translated to CR
      * @throws IOException an I/O operation failed or was interrupted
      */
     protected String contentsOfTextFile(final File file) throws IOException {
