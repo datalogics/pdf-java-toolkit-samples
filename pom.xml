@@ -60,6 +60,42 @@
       <version>[3.0,4.0)</version>
     </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </snapshots>
+      <id>pdfjt</id>
+      <name>Local PDFJT repository</name>
+      <url>file://\${basedir}/../repo</url>
+      <layout>default</layout>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>always</updatePolicy>
+        <checksumPolicy>warn</checksumPolicy>
+      </snapshots>
+      <id>pdfjt</id>
+      <name>Local PDFJT repository</name>
+      <url>file://\${basedir}/../repo</url>
+      <layout>default</layout>
+    </pluginRepository>
+  </pluginRepositories>
   <build>
     <pluginManagement>
       <plugins>
