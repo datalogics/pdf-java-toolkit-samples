@@ -36,7 +36,7 @@ public class SignDocumentTest extends SampleTest {
             Files.delete(file.toPath());
         }
         // The complete file name will be set in the SignDocument class.
-        final String path = file.getCanonicalPath().replaceAll(".pdf", "");
+        final String path = file.getCanonicalPath().replaceAll("\\.pdf", "");
 
         SignDocument.main(path);
         // Make sure the Output file exists.
