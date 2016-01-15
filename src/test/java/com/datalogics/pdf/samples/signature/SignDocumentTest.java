@@ -23,10 +23,10 @@ import java.nio.file.Files;
 import java.util.Iterator;
 
 /**
- * Tests the DocumentSigning Sample.
+ * Tests the SignDocument Sample.
  */
-public class DocumentSigningTest extends SampleTest {
-    static final String FILE_NAME = "SignedField1.pdf";
+public class SignDocumentTest extends SampleTest {
+    static final String FILE_NAME = "SignedField.pdf";
     static final String QUALIFIED_SIGNATURE_FIELD_NAME = "Approver";
 
     @Test
@@ -35,10 +35,10 @@ public class DocumentSigningTest extends SampleTest {
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-        // The complete file name will be set in the DocSigning class.
-        final String path = file.getCanonicalPath().replaceAll("1.pdf", "");
+        // The complete file name will be set in the SignDocument class.
+        final String path = file.getCanonicalPath().replaceAll("\\.pdf", "");
 
-        DocumentSigning.main(path);
+        SignDocument.main(path);
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
