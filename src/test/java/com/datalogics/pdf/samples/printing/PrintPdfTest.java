@@ -16,6 +16,7 @@ import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.awt.print.PageFormat;
 import java.awt.print.Pageable;
+import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterIOException;
@@ -42,6 +43,9 @@ import javax.print.event.PrintServiceAttributeListener;
  */
 public class PrintPdfTest extends SampleTest {
     private static final String RENDERED_IMAGE_NAME = "renderedImage_page%d.png";
+    private static final double DOTS_PER_INCH = 400.0;
+    private static final double DOTS_PER_POINT = DOTS_PER_INCH / 72.0;
+
     @Test
     public <T extends PrinterJob> void testMain() throws Exception {
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
@@ -74,7 +78,7 @@ public class PrintPdfTest extends SampleTest {
          */
         @Override
         public String getName() {
-            return "Virtual Test Printer";
+            return "Virtual Test Printer (400 DPI)";
         }
 
         /*
@@ -84,7 +88,7 @@ public class PrintPdfTest extends SampleTest {
         @Override
         public Object getDefaultAttributeValue(final Class<? extends Attribute> category) {
             if (category == PrinterResolution.class) {
-                return new PrinterResolution(400, 400, ResolutionSyntax.DPI);
+                return new PrinterResolution((int) DOTS_PER_INCH, (int) DOTS_PER_INCH, ResolutionSyntax.DPI);
             } else {
                 return null;
             }
@@ -178,7 +182,19 @@ public class PrintPdfTest extends SampleTest {
          */
         @Override
         public PageFormat validatePage(final PageFormat page) {
-            return (PageFormat) page.clone();
+            // Factor our reported DPI into the final page size
+            final PageFormat stretchedPageFormat = (PageFormat) page.clone();
+            final Paper paper = stretchedPageFormat.getPaper();
+
+            final double x = stretchedPageFormat.getImageableX();
+            final double y = stretchedPageFormat.getImageableY();
+            final double width = (stretchedPageFormat.getImageableWidth() - x) * DOTS_PER_POINT;
+            final double height = (stretchedPageFormat.getImageableHeight() - y) * DOTS_PER_POINT;
+
+            paper.setSize(width, height);
+            paper.setImageableArea(x, y, width, height);
+            stretchedPageFormat.setPaper(paper);
+            return stretchedPageFormat;
         }
 
         /*
