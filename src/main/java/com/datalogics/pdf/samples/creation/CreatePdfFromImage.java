@@ -33,10 +33,10 @@ import javax.imageio.ImageIO;
 public final class CreatePdfFromImage {
 
     // Image from pixabay.com, public domain images
-    public static final String INPUT_PNG = "ducky.png";
-    public static final String INPUT_JPG = "ducky.jpg";
-    public static final String INPUT_GIF = "ducky.gif";
-    public static final String INPUT_BMP = "ducky.bmp";
+    public static final String INPUT_PNG = "PDF-Java-Toolkit-Icon.png";
+    public static final String INPUT_JPG = "PDF-Java-Toolkit-Icon.jpg";
+    public static final String INPUT_GIF = "PDF-Java-Toolkit-Icon.gif";
+    public static final String INPUT_BMP = "PDF-Java-Toolkit-Icon.bmp";
     public static final String OUTPUT_PNG = "PDF_from_PNG.pdf";
     public static final String OUTPUT_JPG = "PDF_from_JPG.pdf";
     public static final String OUTPUT_GIF = "PDF_from_GIF.pdf";
