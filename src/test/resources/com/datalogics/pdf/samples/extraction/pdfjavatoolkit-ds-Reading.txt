@@ -1,0 +1,202 @@
+Datasheet
+
+ Datalogics PDF Java Toolkit
+
+ The Datalogics PDF Java Toolkit is core technology
+from Adobe and powers much of its server-based PDF
+and forms functionality.
+
+ Overview The Datalogics PDF Java Toolkit is a
+Java API, developed and refined for
+years at Adobe Systems, and is now
+available to application developers
+and systems integrators exclusively
+through Datalogics. It allows the proven
+functionality of Adobe PDF and forms
+capabilities to be embedded within your
+custom application to automate business
+workflows.
+
+ PDF Forms Support
+PDF Java Toolkit includes the most
+comprehensive support available for
+working with all PDF form types:
+AcroForm, Dynamic XFA, and Static
+XFA. Use high level classes to simplify
+the process of:
+• Importing data to AcroForms and
+XFA forms
+• Exporting data from AcroForms
+and XFA forms
+• Flattening AcroForms
+
+ Digital Signatures
+Sign or certify PDF files or validate
+signed PDF documents. Create
+digital signatures compliant with
+PDF Advanced Electronic Signatures
+(PAdES).
+
+ Additional Functionality
+PDF Java Toolkit provides a broad range
+of functionality for working with PDF
+files, including:
+• PDF creation and manipulation
+• Text, image and data extraction
+• Java filestream support for improved
+performance
+• Rich text string formatting
+• PDF Portfolios and PDF Packages
+• Import and export of bookmarks
+and annotations in XML format
+• Create PDF/A compliant documents
+
+ Reader Enablement
+Reader Enablement opens up additional
+functionality within the free Adobe
+Reader to your users allowing them to:
+• Save forms data locally
+• Import or export form data
+• Create or modify annotations
+• Apply digital signatures
+• Dynamically embed data in a 2D
+barcode
+• Integrate with SOAP-based web
+services
+
+Which Java-based PDF toolkit is right for you?
+Datalogics offers two Java-based PDF toolkits for software developers: the Adobe PDF Library (PDFL), the core API underlying the
+Adobe Acrobat family of products which includes a java interface; and the PDF Java Toolkit, which is a native Java SDK. Each SDK
+offers its own set of functionality. Refer to the table below for details, or contact us to discuss your requirements in a free consolation.
+
+ FUNCTIONALITY General Attributes
+Pure Java Implementation
+PDF Capabilities: General
+Print PDFs
+Render PDFs
+Color convert PDFs
+Text extraction
+PDF/A conversion
+PDF/A validation
+PDF portfolio support
+PDF forms support
+AcroForm creation support
+Access AcroForm element information
+Export AcroForm data as FDF file
+Import FDF data file into AcroForm
+Generate static XFA form appearances
+Generate dynamic XFA form appearances
+Flatten static XFA forms
+Generate AcroForm appearances
+XFA form access and change
+AcroForm access and change
+Annotation support
+Annotation creation in PDF files
+Annotation information access
+
+ Datalogics, Inc.
+101 N. Wacker Drive, Suite 1800
+Chicago, IL 60606
+USA www.datalogics.com
+
+ PDFL
+
+ No
+
+ Yes
+Yes Yes Yes
+Yes No
+Yes
+
+ No
+Yes No No No No
+No No No
+Yes
+
+ Yes Yes
+
+ PDFJT
+
+ Yes
+
+ No No No
+Yes Yes Yes Yes
+
+ Yes Yes Yes Yes Yes No
+Yes Yes Yes Yes
+
+ Yes Yes
+
+ FUNCTIONALITY
+Digital signature support
+Digitally sign PDF files
+Validate digitally signed PDF files
+Create Long-Term Validation digital signatures
+Remove digital signatures from PDF files
+Create PAdES compliant digital signatures
+PDF security and encryption
+Encrypt and decrypt PDF files
+Password protect PDF files
+Restrict PDF editing and printing capabilities
+Remove passwords from PDF files
+Supports both owner and user passwords
+PDF creation and editing
+Add text to PDF files
+Insert images into PDFs
+Edit PDF page contents
+Rich text placement
+Watermark PDF pages
+Create PDFs from XPS files
+Merge PDF pages and files
+Extract images from PDFs
+Reader Enablement
+Reader Enable PDF files
+Remove Reader Enablement from PDF files
+
+ PDFL
+
+ No No No
+Yes No
+
+ Yes Yes Yes Yes Yes
+
+ Yes Yes Yes No
+Yes Yes
+Yes Yes
+
+ No
+Yes
+
+ PDFJT
+
+ Yes Yes Yes Yes Yes
+
+ Yes Yes Yes Yes Yes
+
+ Yes Yes Yes Yes Yes No
+Yes Yes
+
+ Yes Yes
+
+ Availability The PDF Java Toolkit is available to OEMs, ISVs, systems integrators, and enterprise
+IT customers and partners through a license agreement. To discuss pricing
+with a Datalogics Sales Representative, please fill out our ‘Contact Us’ form at
+www.datalogics.com/company/contact-us/ or call us directly at +1 (312) 853-8200.
+
+ Support and maintenance
+Full developer support is available for all PDF Java Toolkit licensees. PDF Java Toolkit
+maintenance updates are released on a regular basis and are available to all current
+licensees under a maintenance plan.
+
+ For more information
+For more details about the PDF Java Toolkit, including our interactive forms detector,
+please visit our product web page at:
+
+ www.datalogics.com/products/pdf/pdfjavatoolkit/
+
+ Datalogics and the Datalogics logo are registered trademarks of Datalogics Incorporated. Adobe and the Adobe logo are either registered trademarks or
+trademarks of Adobe Systems Incorporated in the United States and/or other countries. All other trademarks are the property of their respective owners.
+
+ ©2015 Datalogics, Inc.
+GMNB05
+

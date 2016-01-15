@@ -33,6 +33,7 @@ import org.junit.After;
 import org.junit.Before;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -191,6 +192,31 @@ public class SampleTest {
              Scanner s = new Scanner(is, "UTF-8")) {
             s.useDelimiter("\\A");
             return s.hasNext() ? s.next().replace("\n", "\r") : "";
+        }
+    }
+
+    /**
+     * Return contents of a file as a string.
+     *
+     * <p>
+     * A text file is passed in, and copied to a string. LF characters are replaced with CR to match PDF content streams
+     *
+     * @param file a text file
+     * @return string containing the contents of the file, with CR translated to LF
+     * @throws IOException an I/O operation failed or was interrupted
+     */
+    protected String contentsOfTextFile(final File file) throws IOException {
+        Scanner scanner = null;
+        try {
+            final InputStream is = new FileInputStream(file);
+            scanner = new Scanner(is, "UTF-8");
+
+            scanner.useDelimiter("\\A");
+            return scanner.hasNext() ? scanner.next().replace("\n", "\r") : "";
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
     }
 
