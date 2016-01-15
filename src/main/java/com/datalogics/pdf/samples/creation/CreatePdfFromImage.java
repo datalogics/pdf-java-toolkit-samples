@@ -77,7 +77,9 @@ public final class CreatePdfFromImage {
                     outputDocument = createPdfFromImage(format.toUpperCase(Locale.ENGLISH), inputImage,
                                                             outputDocument);
                 } else {
-                    throw new PDFInvalidParameterException("Image format of " + format + "not supported");
+                    throw new PDFInvalidParameterException("Image format of " + format
+                                                           + " not supported. Valid image formats are JPG/JPEG"
+                                                           + ", PNG, BMP, and GIF.");
                 }
             }
         } else {
