@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -31,12 +32,14 @@ import javax.imageio.ImageIO;
  * JPG/JPEG, GIF, and BMP.
  */
 public final class CreatePdfFromImage {
+    private static final Logger LOGGER = Logger.getLogger(CreatePdfFromImage.class.getName());
 
     // Image from pixabay.com, public domain images
     public static final String INPUT_PNG = "PDF-Java-Toolkit-Icon.png";
     public static final String INPUT_JPG = "PDF-Java-Toolkit-Icon.jpg";
     public static final String INPUT_GIF = "PDF-Java-Toolkit-Icon.gif";
     public static final String INPUT_BMP = "PDF-Java-Toolkit-Icon.bmp";
+    public static final String[] INPUT_ARRAY = { INPUT_PNG, INPUT_JPG, INPUT_GIF, INPUT_BMP };
     public static final String OUTPUT_PNG = "PDF_from_PNG.pdf";
     public static final String OUTPUT_JPG = "PDF_from_JPG.pdf";
     public static final String OUTPUT_GIF = "PDF_from_GIF.pdf";
@@ -71,15 +74,19 @@ public final class CreatePdfFromImage {
                 }
             }
             if (supported) {
-                createPdfFromImage(format.toUpperCase(Locale.ENGLISH), inputImage, outputFile);
+                try {
+                    createPdfFromImage(format.toUpperCase(Locale.ENGLISH), inputImage, outputFile);
+                } catch (final Exception e) {
+                    LOGGER.warning("There was a problem processing the image: " + e.getMessage());
+                }
             } else {
                 throw new Exception("Image format of " + format + "not supported");
             }
         } else {
-            createPdfFromImage("JPG", INPUT_JPG, OUTPUT_JPG);
-            createPdfFromImage("PNG", INPUT_PNG, OUTPUT_PNG);
-            createPdfFromImage("GIF", INPUT_GIF, OUTPUT_GIF);
             createPdfFromImage("BMP", INPUT_BMP, OUTPUT_BMP);
+            createPdfFromImage("PNG", INPUT_PNG, OUTPUT_PNG);
+            createPdfFromImage("JPG", INPUT_JPG, OUTPUT_JPG);
+            createPdfFromImage("GIF", INPUT_GIF, OUTPUT_GIF);
         }
     }
 
@@ -117,20 +124,42 @@ public final class CreatePdfFromImage {
         }
 
         // Fit the image to a 792pt by 612pt page, maintaining at least a 1/2 inch (72 pt) margin.
+        Double newImageWidth;
+        Double newImageHeight;
         final Double pageWidth;
         final Double pageHeight;
         final int imageWidth = bufferedImage.getWidth();
         final int imageHeight = bufferedImage.getHeight();
-        if ((imageWidth / imageHeight) >= 1) {
-            pageWidth = ASRectangle.US_LETTER.height() - PTS_PER_IN;
-            pageHeight = (imageHeight * (ASRectangle.US_LETTER.height() - PTS_PER_IN)) / imageWidth;
+        final PDFDocument pdfDocument;
+        if ((imageWidth / imageHeight) > 1) {
+            // The image's width is greater than its height. Fit the height to fill an 11 x 8.5 page, then scale the
+            // width. If the width goes off the page, fit the width to fill the page and then scale the height.
+            newImageHeight = ASRectangle.US_LETTER.width() - PTS_PER_IN;
+            newImageWidth = (newImageHeight / imageHeight) * imageWidth;
+            if (newImageWidth > ASRectangle.US_LETTER.height() - PTS_PER_IN) {
+                newImageWidth = ASRectangle.US_LETTER.height() - PTS_PER_IN;
+                newImageHeight = (newImageWidth / imageWidth) * imageHeight;
+            }
+            // Create a letter sized PDF document in landscape mode.
+            pdfDocument = PDFDocument.newInstance(new ASRectangle(0, 0, ASRectangle.US_LETTER.height(),
+                                                  ASRectangle.US_LETTER.width()), PDFOpenOptions.newInstance());
+            pageWidth = ASRectangle.US_LETTER.height();
+            pageHeight = ASRectangle.US_LETTER.width();
         } else {
-            pageHeight = ASRectangle.US_LETTER.height() - PTS_PER_IN;
-            pageWidth = (imageWidth * (ASRectangle.US_LETTER.height() - PTS_PER_IN)) / imageHeight;
+            // The image is square or its height is greater than its width. Fit the width to fill an 8.5 x 11 page,
+            // then scale the height. If the height goes off the page, fit the height to fill the page and then scale
+            // the width.
+            newImageWidth = ASRectangle.US_LETTER.width() - PTS_PER_IN;
+            newImageHeight = (newImageWidth / imageWidth) * imageHeight;
+            if (newImageHeight > ASRectangle.US_LETTER.height() - PTS_PER_IN) {
+                newImageHeight = ASRectangle.US_LETTER.height() - PTS_PER_IN;
+                newImageWidth = (newImageHeight / imageHeight) * imageWidth;
+            }
+            // Create a letter sized PDF document in portrait mode.
+            pdfDocument = PDFDocument.newInstance(ASRectangle.US_LETTER, PDFOpenOptions.newInstance());
+            pageWidth = ASRectangle.US_LETTER.width();
+            pageHeight = ASRectangle.US_LETTER.height();
         }
-
-        // Create a PDF document with the first page being the proper size to contain our image.
-        final PDFDocument pdfDocument = PDFDocument.newInstance(ASRectangle.US_LETTER, PDFOpenOptions.newInstance());
 
         // Convert the BufferedImage to a PDFXObjectImage
         final PDFXObjectImage image = ImageManager.getPDFImage(bufferedImage, pdfDocument);
@@ -138,9 +167,12 @@ public final class CreatePdfFromImage {
         // Create a default external graphics state which describes how graphics are to be rendered on a device.
         final PDFExtGState pdfExtGState = PDFExtGState.newInstance(pdfDocument);
 
-        // Create a transformation matrix which maps positions from user coordinates to device coordinates. We're just
-        // translating the image 1/2 inch from the origin to get a margin.
-        final ASMatrix asMatrix = new ASMatrix(pageWidth, 0, 0, pageHeight, PTS_PER_IN / 2, PTS_PER_IN / 2);
+        // Create a transformation matrix which maps positions from user coordinates to device coordinates. Translate
+        // so that the image is centered with at least a 1/2" margin.
+        final double translateX = (pageWidth - newImageWidth) / 2.0;
+        final double translateY = (pageHeight - newImageHeight) / 2.0;
+        final ASMatrix asMatrix = ASMatrix.createIdentityMatrix().scale(newImageWidth, newImageHeight)
+                                                                     .translate(translateX, translateY);
 
         // Now add the image to the first PDF page using the graphics state and the transformation matrix.
         ImageManager.insertImageInPDF(image, pdfDocument.requirePages().getPage(0), pdfExtGState, asMatrix);
