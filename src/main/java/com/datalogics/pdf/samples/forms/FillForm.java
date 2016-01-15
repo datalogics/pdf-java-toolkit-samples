@@ -58,8 +58,8 @@ public final class FillForm {
     public static final String XFA_OUTPUT = "xfa_output.pdf";
 
     // Some XML constants
-    private static final String XFA_DATA_NS_URI = "http://www.xfa.org/schema/xfa-data/1.0/";
-    private static final String XFA_DATA_ROOT_NODE = "xfa:datasets";
+    public static final String XFA_DATA_NS_URI = "http://www.xfa.org/schema/xfa-data/1.0/";
+    public static final String XFA_DATA_ROOT_NODE = "xfa:datasets";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -127,6 +127,9 @@ public final class FillForm {
             }
         } else if (documentType.isXFA()) {
             // If the document has an XFA form, make sure that we were passed an XML data file.
+            // Note that PDF Java Toolkit doesn't support generating appearances or running calculations on XFA forms
+            // (though field formatting is supported), so be sure to use Acrobat or another full-featured PDF viewer
+            // to verify the output. A viewer like OSX's Preview won't cut it.
             if ("XML".equalsIgnoreCase(formType)) {
                 fillXfa(pdfDocument, form, output);
             } else {
@@ -202,7 +205,7 @@ public final class FillForm {
     }
 
     /**
-     * Fill an XFA form with XML form data.
+     * Fill an XFA form with XML form data. Will not generate appearances or run calculations on the form.
      *
      * @param pdfDocument The form to be filled
      * @param form The data with which to fill the form
@@ -222,13 +225,6 @@ public final class FillForm {
         }
 
         XFAService.importElement(pdfDocument, XFAElement.DATASETS, formStream);
-
-        // Run calculations on the AcroForm.
-        FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
-        // Run formatting on the AcroForm.
-        FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
-        // Generate appearances on the AcroForm.
-        AppearanceService.generateAppearances(pdfDocument, null, null);
 
         // Save the file.
         DocumentHelper.saveFullAndClose(pdfDocument, output);

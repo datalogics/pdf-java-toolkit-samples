@@ -9,12 +9,18 @@ import static org.junit.Assert.assertTrue;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFField;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
+import com.adobe.pdfjt.services.xfa.XFAService;
+import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 
 import com.datalogics.pdf.samples.SampleTest;
 
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 
 /**
@@ -22,6 +28,7 @@ import java.util.Iterator;
  */
 public class FillFormTest extends SampleTest {
 
+    private static final String TEMP_OUTPUT = "temp.xml";
     private static final String ACROFORM_FDF_DATA = "123456 Joel Geraci 101 N. Wacker Dr, Suite 1800 Chicago IL 60606 "
                     + "1-312-853-8200 joel@datalogics.com 2 20 15.75 55.75 Yes Off Yes Off Yes";
     private static final String ACROFORM_XFDF_DATA = "Datalogics, Inc. Datalogics Ducky 101 N. Wacker Dr. Ste 1800 "
@@ -81,6 +88,15 @@ public class FillFormTest extends SampleTest {
             final PDFField field = fieldIterator.next();
             if (field.getValueList() != null) {
                 sb.append(field.getValueList().toString().replace("[", "").replace("]", "") + " ");
+            } else {
+                final OutputStream xfaFields = new FileOutputStream(TEMP_OUTPUT);
+                XFAService.exportElement(outputDoc, XFAElement.DATASETS, xfaFields);
+                xfaFields.close();
+
+                final File f = new File(TEMP_OUTPUT);
+                final byte[] b = Files.readAllBytes(Paths.get(f.getCanonicalPath()));
+                System.out.println(new String(b, "UTF-8"));
+
             }
         }
         // assertEquals(sb.toString().trim(), compare);
