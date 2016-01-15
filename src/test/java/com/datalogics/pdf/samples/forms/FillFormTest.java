@@ -30,8 +30,8 @@ import java.util.Iterator;
 public class FillFormTest extends SampleTest {
 
     private static final String TEMP_OUTPUT = "temp.xml";
-    private static final String ACROFORM_FDF_DATA = "123456 Joel Geraci 101 N. Wacker Dr, Suite 1800 Chicago IL 60606 "
-                    + "1-312-853-8200 joel@datalogics.com 2 20 15.75 55.75 Yes Off Yes Off Yes";
+    private static final String ACROFORM_FDF_DATA = "123456 John Doe 101 N. Wacker Dr, Suite 1800 Chicago IL 60606 "
+                    + "1-312-853-8200 johnd@datalogics.com 2 20 15.75 55.75 Yes Off Yes Off Yes";
     private static final String ACROFORM_XFDF_DATA = "Datalogics, Inc. John Doe 101 N. Wacker Dr. Ste 1800 "
                     + "Chicago IL 60606 0.0 company\tname.first\tname.last\tlocation.address\tlocation.city\tlocation"
                     + ".state\tlocation.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
