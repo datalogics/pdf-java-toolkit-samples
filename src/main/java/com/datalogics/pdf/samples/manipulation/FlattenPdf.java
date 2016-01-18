@@ -31,7 +31,9 @@ import java.util.EnumSet;
 
 /**
  * This sample demonstrates how to use the flattening functions to flatten the interactive elements of a PDF. The
- * flattening functionality currently handles forms, annotations, and layers. It does not currently flatten
+ * flattening functionality currently handles forms and annotations. All flattening is done through the FormFlattener's
+ * flattenDocument() method, and specific element types can be flattened or ignored by specifying them in the
+ * setAnnotationsToBeProcessed() method of the APContext passed in. Note that PDFJT does not currently flatten
  * transparency.
  */
 public final class FlattenPdf {
