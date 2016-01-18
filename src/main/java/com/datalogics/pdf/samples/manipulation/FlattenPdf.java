@@ -39,7 +39,7 @@ import java.util.EnumSet;
 public final class FlattenPdf {
 
     private static final String OUTPUT_FLATTENED_PDF_PATH = "Flattened.pdf";
-    private static final String INPUT_PDF_PATH = "Acroform.pdf";
+    private static final String INPUT_PDF_PATH = "FormDocument.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
