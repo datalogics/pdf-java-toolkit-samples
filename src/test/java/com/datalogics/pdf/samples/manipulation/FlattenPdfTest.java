@@ -43,7 +43,7 @@ public class FlattenPdfTest extends SampleTest {
 
     @Test
     public void testFlattenAnnotations() throws Exception {
-        final File file = SampleTest.newOutputFileWithDelete(OUTPUT_FLATTENED_FORM_PDF_PATH);
+        final File file = SampleTest.newOutputFileWithDelete(OUTPUT_FLATTENED_ANNOTATION_PDF_PATH);
 
         FlattenPdf.main(INPUT_ANNOTATION_PDF_PATH, file.getCanonicalPath());
         assertTrue(file.getPath() + " must exist after run", file.exists());
