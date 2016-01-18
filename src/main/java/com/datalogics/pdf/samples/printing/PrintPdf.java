@@ -43,9 +43,9 @@ import javax.print.attribute.standard.PrinterResolution;
 public class PrintPdf {
 
     private static final Logger LOGGER = Logger.getLogger(PrintPdf.class.getName());
+    private static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
 
     private static List<BufferedImage> images = new ArrayList<BufferedImage>();
-    private static final String defaultInputPDF = "pdfjavatoolkit-ds.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -68,7 +68,7 @@ public class PrintPdf {
         if (args.length > 0) {
             path = args[0];
         } else {
-            path = PrintPdf.class.getResource(defaultInputPDF).getPath();
+            path = PrintPdf.class.getResource(DEFAULT_INPUT).getPath();
         }
         printPdf(path);
     }
