@@ -4,8 +4,6 @@
 
 package com.datalogics.pdf.samples.extraction;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
@@ -13,19 +11,16 @@ import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.fontset.PDFFontSet;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
-import com.adobe.pdfjt.services.fontresources.PDFFontSetUtil;
 import com.adobe.pdfjt.services.readingorder.ReadingOrderTextExtractor;
 import com.adobe.pdfjt.services.textextraction.Word;
 import com.adobe.pdfjt.services.textextraction.WordsIterator;
 
-import com.datalogics.pdf.document.FontSetLoader;
-import com.datalogics.pdf.samples.manipulation.RedactAndSanitizeDocument;
+import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.FontUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 
@@ -34,7 +29,7 @@ import java.nio.file.Files;
  * to a text file.
  */
 public final class TextExtract {
-    private static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";
+    private static final String INPUT_PDF_PATH = "/com/datalogics/pdf/extraction/pdfjavatoolkit-ds.pdf";
     private static final String OUTPUT_TEXT_PATH = "TextExtract.txt";
 
     /**
@@ -73,7 +68,7 @@ public final class TextExtract {
                 Files.delete(outputFile.toPath());
             }
             outputStream = new FileOutputStream(outputFile);
-            document = openPdfDocument(inputPath);
+            document = DocumentUtils.openPdfDocument(inputPath);
             extractTextReadingOrder(document, outputStream);
         } finally {
             if (document != null) {
@@ -101,7 +96,7 @@ public final class TextExtract {
     private static void extractTextReadingOrder(final PDFDocument document, final FileOutputStream outputStream)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
                     UnsupportedEncodingException, IOException {
-        final PDFFontSet docFontSet = setupDocFontSet(document);
+        final PDFFontSet docFontSet = FontUtils.setupDocFontSet(document);
         final ReadingOrderTextExtractor extractor = ReadingOrderTextExtractor
                                                                              .newInstance(document, docFontSet);
         // final LayoutModeTextExtractor extractor = LayoutModeTextExtractor.newInstance(document, docFontSet);
@@ -112,47 +107,4 @@ public final class TextExtract {
             outputStream.write(word.toString().getBytes("UTF-8"));
         }
     }
-
-    /**
-     * Create a PDFFontSet that contains fonts used in the original document.
-     *
-     * @param document The document whose fonts need to be loaded
-     * @return A fontset with the appropriate fonts added from the PDFDocument
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFFontException there was an error in the font set or an individual font
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     */
-    private static PDFFontSet setupDocFontSet(final PDFDocument document)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException {
-        PDFFontSet sysFontSet = null;
-        final FontSetLoader fontSetLoader = FontSetLoader.newInstance();
-
-        sysFontSet = fontSetLoader.getFontSet();
-        return PDFFontSetUtil.buildWorkingFontSet(document,
-                                                  sysFontSet, document.getDocumentLocale(), null);
-    }
-
-    /**
-     * Open a PDF file using an input path.
-     *
-     * @param inputPath The PDF file to open
-     * @return A new PDFDocument instance of the input document
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws IOException an I/O operation failed or was interrupted
-     */
-    private static PDFDocument openPdfDocument(final String inputPath)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
-        ByteReader reader = null;
-        PDFDocument document = null;
-
-        final InputStream inputStream = RedactAndSanitizeDocument.class.getResourceAsStream(inputPath);
-        reader = new InputStreamByteReader(inputStream);
-        document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
-
-        return document;
-    }
-
 }
