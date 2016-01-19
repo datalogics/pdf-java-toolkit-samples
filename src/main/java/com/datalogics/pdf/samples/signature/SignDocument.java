@@ -37,7 +37,7 @@ public final class SignDocument {
     private static final String DER_KEY_PATH = "pdfjt-key.der";
     private static final String DER_CERT_PATH = "pdfjt-cert.der";
     private static final String INPUT_UNSIGNED_PDF_PATH = "UnsignedDocument.pdf";
-    private static final String OUTPUT_SIGNED_PDF_PATH = "SignedField";
+    private static final String OUTPUT_SIGNED_PDF_PATH = "SignedField.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -47,7 +47,8 @@ public final class SignDocument {
     /**
      * Main program.
      *
-     * @param args command line arguments
+     * @param args command line arguments. Only one is expected in order to specify the output path. If no arguments are
+     *        given, the sample will output to the root of the samples directory by default.
      * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
@@ -117,7 +118,7 @@ public final class SignDocument {
             if (sigField.isSigningPermitted()) {
                 if (sigField.isVisible()) {
                     // Create output file to hold the signed PDF data.
-                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath + ".pdf", "rw");
+                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath, "rw");
                     byteWriter = new RandomAccessFileByteWriter(outputRaf);
                     // Sign the document.
                     sigMgr.sign(sigField, credentials, byteWriter);
