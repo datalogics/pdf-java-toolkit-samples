@@ -223,8 +223,8 @@ public class PrintPdfTest extends SampleTest {
             int pageIndex = 0;
 
             while (painter.print(gfx2d, format, pageIndex) == Printable.PAGE_EXISTS) {
-                assertThat(image, bufferedImageHasChecksum(PAGE_IMAGE_CHECKSUMS[pageIndex]));
                 savePageImage(image, pageIndex);
+                assertThat(image, bufferedImageHasChecksum(PAGE_IMAGE_CHECKSUMS[pageIndex]));
 
                 // painter.print() disposed of the Graphics2D, obtain a new one
                 gfx2d = image.createGraphics();
