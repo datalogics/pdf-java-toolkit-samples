@@ -10,6 +10,7 @@ import static org.junit.Assert.assertThat;
 
 import com.datalogics.pdf.samples.SampleTest;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mockit.Mock;
 import mockit.MockUp;
 
@@ -45,6 +46,9 @@ import javax.print.event.PrintServiceAttributeListener;
 /**
  * Tests the PrintPdf sample.
  */
+@SuppressFBWarnings(value = { "SIC_INNER_SHOULD_BE_STATIC_ANON", "UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS" },
+                    justification = "JMockit coding pattern depends on anonymous classes "
+                                    + "and methods with no discernable call site")
 public class PrintPdfTest extends SampleTest {
     private static final String RENDERED_IMAGE_NAME = "renderedImage_page%d.png";
     private static final double DOTS_PER_INCH = 400.0;
