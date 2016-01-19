@@ -57,11 +57,19 @@ public final class ImageDownsampling {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
+
         String path;
-        if (args.length > 0) {
+        int method;
+        if (args.length > 1) {
             path = args[0];
+            try {
+                method = Integer.parseInt(args[1]);
+            } catch (final NumberFormatException e) {
+                method = DEFAULT_SAMPLING_METHOD;
+            }
         } else {
             path = OUTPUT_IMAGE_PATH;
+            method = DEFAULT_SAMPLING_METHOD;
         }
         run(path);
     }
