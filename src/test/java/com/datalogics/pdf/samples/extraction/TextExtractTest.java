@@ -19,9 +19,9 @@ import java.nio.file.Files;
  */
 public class TextExtractTest extends SampleTest {
 
-    private static final String OUTPUT_FILE_PATH = "pdfjavatoolkit-ds-out.txt";
-    private static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";
-    private static final String EXTRACTED_DOCUMENT_NAME = "pdfjavatoolkit-ds-Reading.txt";
+    private static final String OUTPUT_FILE_PATH = "TextExtractTest.txt";
+    private static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
+    private static final String EXTRACTED_DOCUMENT_NAME = "TextExtractTest-ReadingOrder.txt";
 
     @Test
     public void testMain() throws Exception {

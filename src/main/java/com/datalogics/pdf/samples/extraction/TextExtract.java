@@ -29,7 +29,7 @@ import java.nio.file.Files;
  * to a text file.
  */
 public final class TextExtract {
-    private static final String INPUT_PDF_PATH = "/com/datalogics/pdf/extraction/pdfjavatoolkit-ds.pdf";
+    private static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
     private static final String OUTPUT_TEXT_PATH = "TextExtract.txt";
 
     /**
@@ -54,7 +54,7 @@ public final class TextExtract {
         PDFDocument document = null;
         FileOutputStream outputStream = null;
 
-        if (args.length > 0) {
+        if (args.length > 1) {
             inputPath = args[0];
             outputPath = args[1];
         } else {
@@ -96,7 +96,7 @@ public final class TextExtract {
     private static void extractTextReadingOrder(final PDFDocument document, final FileOutputStream outputStream)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
                     UnsupportedEncodingException, IOException {
-        final PDFFontSet docFontSet = FontUtils.setupDocFontSet(document);
+        final PDFFontSet docFontSet = FontUtils.getDocFontSet(document);
         final ReadingOrderTextExtractor extractor = ReadingOrderTextExtractor
                                                                              .newInstance(document, docFontSet);
         // final LayoutModeTextExtractor extractor = LayoutModeTextExtractor.newInstance(document, docFontSet);

@@ -28,8 +28,8 @@ public final class DocumentUtils {
     /**
      * Open a PDF file using an input path.
      *
-     * @param inputPath The PDF file to open
-     * @return A new PDFDocument instance of the input document
+     * @param inputPath The PDF resource to open
+     * @return A new {@link PDFDocument} instance of the input document
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request

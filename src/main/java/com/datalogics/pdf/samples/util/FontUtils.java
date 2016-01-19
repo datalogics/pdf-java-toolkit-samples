@@ -34,7 +34,7 @@ public final class FontUtils {
      * @throws PDFFontException there was an error in the font set or an individual font
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
-    public static PDFFontSet setupDocFontSet(final PDFDocument document)
+    public static PDFFontSet getDocFontSet(final PDFDocument document)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException {
         PDFFontSet sysFontSet = null;
         final FontSetLoader fontSetLoader = FontSetLoader.newInstance();
