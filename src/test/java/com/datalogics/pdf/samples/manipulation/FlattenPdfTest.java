@@ -25,7 +25,7 @@ public class FlattenPdfTest extends SampleTest {
 
     private static final String OUTPUT_FLATTENED_FORM_PDF_PATH = "FlattenedForm.pdf";
     private static final String OUTPUT_FLATTENED_ANNOTATION_PDF_PATH = "FlattenedAnnotation.pdf";
-    private static final String INPUT_FORM_PDF_PATH = "Acroform.pdf";
+    private static final String INPUT_FORM_PDF_PATH = "FormDocument.pdf";
     private static final String INPUT_ANNOTATION_PDF_PATH = "annotations.pdf";
 
     @Test
@@ -43,7 +43,7 @@ public class FlattenPdfTest extends SampleTest {
 
     @Test
     public void testFlattenAnnotations() throws Exception {
-        final File file = SampleTest.newOutputFileWithDelete(OUTPUT_FLATTENED_FORM_PDF_PATH);
+        final File file = SampleTest.newOutputFileWithDelete(OUTPUT_FLATTENED_ANNOTATION_PDF_PATH);
 
         FlattenPdf.main(INPUT_ANNOTATION_PDF_PATH, file.getCanonicalPath());
         assertTrue(file.getPath() + " must exist after run", file.exists());
