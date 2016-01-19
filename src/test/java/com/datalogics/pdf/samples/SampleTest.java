@@ -193,7 +193,6 @@ public class SampleTest {
             if (s.hasNext()) {
                 String returnVal = s.next();
                 returnVal = returnVal.replace("\r\n", "\r");
-                returnVal = returnVal.replace("\n\r", "\r");
                 returnVal = returnVal.replace("\n", "\r");
                 return returnVal;
             } else {
