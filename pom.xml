@@ -57,6 +57,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>findbugs</artifactId>
+      <version>3.0.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.adobe.pdfjt</groupId>
       <artifactId>pdfjt</artifactId>
       <version>[2.0,3.0)</version>
