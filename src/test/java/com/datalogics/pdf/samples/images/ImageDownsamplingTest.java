@@ -30,7 +30,6 @@ import com.datalogics.pdf.samples.util.Checksum;
 
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -46,7 +45,7 @@ import java.util.List;
  */
 @RunWith(Parameterized.class)
 public class ImageDownsamplingTest extends SampleTest {
-    private static final String FILE_NAME = "Resampled_ducky_";
+    private static final String FILE_NAME = "downsampled_ducky_";
     private static final String ORIGINAL_FILE_NAME = "ducky.pdf";
     private static final double SCALE_FACTOR = 0.5;
 
@@ -57,11 +56,10 @@ public class ImageDownsamplingTest extends SampleTest {
     }
 
     /**
-     * Return an iterable with all the parameters for running these tests.
-     * In a parameterized test, a test case object is instantiated with each set of parameters, and then the runner runs
-     * the tests in the case.
-     * The beauty is that the name listed in the Parameters annotation is shown for each test, so it's easy to associate
-     * each font with the errors it gives.
+     * Return an iterable with all the parameters for running these tests. In a parameterized test, a test case object
+     * is instantiated with each set of parameters, and then the runner runs the tests in the case. The beauty is that
+     * the name listed in the Parameters annotation is shown for each test, so it's easy to associate each image with
+     * the errors it gives.
      *
      * @return Iterable
      * @throws Exception This method return a general Exception.
@@ -92,28 +90,17 @@ public class ImageDownsamplingTest extends SampleTest {
         return parameters;
     }
 
-    /**
-     * The method runs the ImageDownsampling Sample.
-     */
-    @BeforeClass
-    public static void runSample() throws Exception {
-        /*
-         * Make sure that existing files are deleted
-         */
-        newOutputFileWithDelete(FILE_NAME + "NearestNeighbor.pdf");
-        newOutputFileWithDelete(FILE_NAME + "Bicubic.pdf");
-        newOutputFileWithDelete(FILE_NAME + "Linear.pdf");
+    @Test
+    public void testMain() throws Exception {
+        final File file = newOutputFileWithDelete(params.getFileName() + params.getMethodString() + ".pdf");
 
         /*
          * Run sample which generates files using all three methods: {NearestNeighbor, Bicubic, Linear}
          */
         final String path = newOutputFile(FILE_NAME).getCanonicalPath();
-        ImageDownsampling.main(path);
-    }
+        final String method = String.valueOf(params.getMethod());
 
-    @Test
-    public void testResampledImage() throws Exception {
-        final File file = newOutputFile(params.getFileName() + params.getMethodString() + ".pdf");
+        ImageDownsampling.main(path, method);
 
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
