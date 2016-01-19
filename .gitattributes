@@ -1,5 +1,7 @@
 * text=auto
 *.fdf binary
+*.pdf binary
+*.xfdf text
 
 *.java text eol=lf
 *.md text eol=lf
