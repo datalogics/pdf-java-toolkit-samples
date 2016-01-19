@@ -34,7 +34,6 @@ import javax.imageio.ImageIO;
  */
 public final class CreatePdfFromImage {
 
-    // Image from pixabay.com, public domain images
     public static final String INPUT_PNG = "PDF-Java-Toolkit-Icon.png";
     public static final String INPUT_JPG = "PDF-Java-Toolkit-Icon.jpg";
     public static final String INPUT_GIF = "PDF-Java-Toolkit-Icon.gif";
