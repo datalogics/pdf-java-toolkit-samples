@@ -6,6 +6,11 @@ package com.datalogics.pdf.samples.printing;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.InputStreamByteReader;
+import com.adobe.pdfjt.core.exceptions.PDFFontException;
+import com.adobe.pdfjt.core.exceptions.PDFIOException;
+import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
+import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
+import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
@@ -27,8 +32,6 @@ import java.awt.print.PrinterJob;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,7 +48,7 @@ public class PrintPdf {
     private static final Logger LOGGER = Logger.getLogger(PrintPdf.class.getName());
     private static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
 
-    private static List<BufferedImage> images = new ArrayList<BufferedImage>();
+    private static PageRasterizer pageRasterizer;
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -121,12 +124,9 @@ public class PrintPdf {
             rasterizationOptions.setWidth(pdfPageWidth / 72 * resolution);
             rasterizationOptions.setHeight(pdfPageHeight / 72 * resolution);
 
-            // Create a bitmap for each page. NOTE: Acrobat and Reader will also create bitmaps when normal printing
-            // does not produce the desired results.
-            final PageRasterizer pageRasterizer = new PageRasterizer(pdfDocument.requirePages(), rasterizationOptions);
-            while (pageRasterizer.hasNext()) {
-                images.add(pageRasterizer.next());
-            }
+            // Use a PageRasterizer to create a bitmap for each page. NOTE: Acrobat and Reader will also create bitmaps
+            // when normal printing does not produce the desired results.
+            pageRasterizer = new PageRasterizer(pdfDocument.requirePages(), rasterizationOptions);
 
             // Print the images. We send them to the default printer without presenting a dialog panel to the user.
             // If we wanted to let the user select a printer, we could do so with "printerJob.printDialog()"
@@ -151,11 +151,20 @@ public class PrintPdf {
     private static class BufferedImagePrintable implements Printable {
         @Override
         public int print(final Graphics gfx, final PageFormat pageFormat, final int pageIndex) throws PrinterException {
-            if (pageIndex < images.size()) {
+            if (pageRasterizer.hasNext()) {
+                BufferedImage page = null;
+                try {
+                    page = pageRasterizer.next();
+                } catch (PDFFontException | PDFInvalidDocumentException | PDFInvalidParameterException
+                         | PDFIOException | PDFSecurityException e) {
+                    if (LOGGER.isLoggable(Level.SEVERE)) {
+                        LOGGER.severe(e.getMessage());
+                    }
+                }
                 final Graphics2D gfx2d = (Graphics2D) gfx;
                 gfx2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
                 gfx2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-                gfx2d.drawImage(images.get(pageIndex), 0, 0, (int) pageFormat.getImageableWidth(),
+                gfx2d.drawImage(page, 0, 0, (int) pageFormat.getImageableWidth(),
                               (int) pageFormat.getImageableHeight(), null);
                 gfx2d.dispose();
                 return PAGE_EXISTS;
