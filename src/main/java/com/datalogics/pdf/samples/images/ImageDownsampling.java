@@ -71,20 +71,12 @@ public final class ImageDownsampling {
             path = OUTPUT_IMAGE_PATH;
             method = DEFAULT_SAMPLING_METHOD;
         }
-        run(path);
+
+        final PDFDocument pdfDoc = getPdfDocument();
+        downsampleImage(pdfDoc, method);
+        DocumentHelper.saveFullAndClose(pdfDoc, path + getResampleMethodString(method) + ".pdf");
     }
 
-    static void run(final String outputPath) throws Exception {
-
-        final int[] resampleMethods = { Resampler.kResampleNearestNeighbor, Resampler.kResampleBicubic,
-            Resampler.kResampleLinear };
-
-        for (final int method : resampleMethods) {
-            final PDFDocument pdfDoc = getPdfDocument();
-            downsampleImage(pdfDoc, method);
-            DocumentHelper.saveFullAndClose(pdfDoc, outputPath + getResampleMethodString(method) + ".pdf");
-        }
-    }
 
     /**
      * This method is used to downsample an image using a valid resampler method.
