@@ -19,7 +19,6 @@ import com.datalogics.pdf.samples.SampleTest;
 import org.junit.Test;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.Iterator;
 
 /**
@@ -31,12 +30,10 @@ public class SignDocumentTest extends SampleTest {
 
     @Test
     public void testMain() throws Exception {
-        final File file = newOutputFile(FILE_NAME);
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
+        final File file = SampleTest.newOutputFileWithDelete(FILE_NAME);
+
         // The complete file name will be set in the SignDocument class.
-        final String path = file.getCanonicalPath().replaceAll("\\.pdf", "");
+        final String path = file.getCanonicalPath();
 
         SignDocument.main(path);
         // Make sure the Output file exists.
