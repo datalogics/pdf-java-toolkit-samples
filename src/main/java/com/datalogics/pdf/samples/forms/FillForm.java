@@ -99,9 +99,9 @@ public final class FillForm {
                                                    + " is not supported. Supported types: XML, FDF, and XFDF.");
             }
         } else {
-            fillPdfForm(ACROFORM_FDF_INPUT, ACROFORM_FDF_DATA, "FDF", ACROFORM_FDF_OUTPUT);
-            fillPdfForm(ACROFORM_XFDF_INPUT, ACROFORM_XFDF_DATA, "XFDF", ACROFORM_XFDF_OUTPUT);
-            fillPdfForm(XFA_PDF_INPUT, XFA_XML_DATA, "XML", XFA_OUTPUT);
+            fillPdfForm(ACROFORM_FDF_INPUT, ACROFORM_FDF_DATA, FDF_FORMAT, ACROFORM_FDF_OUTPUT);
+            fillPdfForm(ACROFORM_XFDF_INPUT, ACROFORM_XFDF_DATA, XFDF_FORMAT, ACROFORM_XFDF_OUTPUT);
+            fillPdfForm(XFA_PDF_INPUT, XFA_XML_DATA, XML_FORMAT, XFA_OUTPUT);
         }
     }
 
@@ -123,9 +123,9 @@ public final class FillForm {
 
         if (documentType == PDFDocumentType.Acroform) {
             // If this is an Acroform, make sure the form data is either FDF for XFDF.
-            if ("FDF".equalsIgnoreCase(formType)) {
+            if (FDF_FORMAT.equalsIgnoreCase(formType)) {
                 fillAcroformFdf(pdfDocument, form, output);
-            } else if ("XFDF".equalsIgnoreCase(formType)) {
+            } else if (XFDF_FORMAT.equalsIgnoreCase(formType)) {
                 fillAcroformXfdf(pdfDocument, form, output);
             } else {
                 throw new IllegalArgumentException("Invalid formData type for Acroform document.");
@@ -135,7 +135,7 @@ public final class FillForm {
             // Note that PDF Java Toolkit doesn't support generating appearances or running calculations on XFA forms
             // (though field formatting is supported), so be sure to use Acrobat or another full-featured PDF viewer
             // to verify the output. A viewer like OSX's Preview won't cut it.
-            if ("XML".equalsIgnoreCase(formType)) {
+            if (XML_FORMAT.equalsIgnoreCase(formType)) {
                 fillXfa(pdfDocument, form, output);
             } else {
                 throw new IllegalArgumentException("Invalid formData type for XFA document.");
