@@ -36,9 +36,9 @@ import java.util.EnumSet;
 import java.util.logging.Logger;
 
 /**
- * This utility class opens a document and use the PDFAService to convert it to a PDF/A-1b document.
+ * This utility class opens a document and uses the PDFAService to convert it to a PDF/A-1b document.
  * PDFAConversionHandler derives from a default implementation (i.e., PDFADefaultConversionHandler). The non-public
- * class, MyPDFAConversionHandler, only overrides those methods that it needs.
+ * class MyPDFAConversionHandler, only overrides those methods that it needs.
  *
  */
 public final class ConvertPdfA1Util {
@@ -82,7 +82,7 @@ public final class ConvertPdfA1Util {
             iccCMYKProfile = ICC_Profile.getInstance(ConvertPdfA1Util.class.getResourceAsStream(CMYK_PROFILE));
             iccGrayProfile = ICC_Profile.getInstance(ConvertPdfA1Util.class.getResourceAsStream(GRAY_PROFILE));
 
-            // Convert the document to a PDF/A-1b document.
+            // Setup the conversion options and handler.
             final PDFAConversionOptions options = createConversionOptions(pdfDoc);
             final MyPdfAConversionHandler handler = new MyPdfAConversionHandler();
 
@@ -221,12 +221,10 @@ public final class ConvertPdfA1Util {
     }
 
     /**
-     * Static inner class MyPDFAConversionHandler overrides the methods from PDFAConversionHandler that it needs in
-     * order to produce an easily readable report of what modifications were made to the document to make it compliant
-     * and what errors remain if it was not made compliant.
+     * Static inner class MyPDFAConversionHandler overrides the methods from PDFAConversionHandler that it needs.
      *
      */
-    public static class MyPdfAConversionHandler extends PDFADefaultConversionHandler {
+    private static class MyPdfAConversionHandler extends PDFADefaultConversionHandler {
         private static final Logger LOGGER = Logger.getLogger(MyPdfAConversionHandler.class.getName());
 
         private boolean decompressObjectStreams;
