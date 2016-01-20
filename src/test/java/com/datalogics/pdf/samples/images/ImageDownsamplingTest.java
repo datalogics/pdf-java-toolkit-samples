@@ -226,6 +226,14 @@ public class ImageDownsamplingTest extends SampleTest {
 
         private DownsamplingTest() {}
 
+        private DownsamplingTest(final Builder builder) {
+            fileName = builder.fileName;
+            imageChecksum = builder.imageChecksum;
+            method = builder.method;
+            imageCompression = builder.imageCompression;
+            imageColorSpace = builder.imageColorSpace;
+        }
+
         /**
          * Get downsampling method (int).
          *
@@ -324,14 +332,6 @@ public class ImageDownsamplingTest extends SampleTest {
             public DownsamplingTest build() {
                 return new DownsamplingTest(this);
             }
-        }
-
-        private DownsamplingTest(final Builder builder) {
-            fileName = builder.fileName;
-            imageChecksum = builder.imageChecksum;
-            method = builder.method;
-            imageCompression = builder.imageCompression;
-            imageColorSpace = builder.imageColorSpace;
         }
     }
 }
