@@ -179,20 +179,20 @@ public class SampleTest {
      * Return contents of a resource file as a string.
      *
      * <p>
-     * The resource is found via the class, and copied to a string. LF characters are replaced with CR to match PDF
+     * The resource is found via the class, and copied to a string. LF characters are replaced with CR LF to match PDF
      * content streams
      *
      * @param resourceName name of the resource to copy to a string
-     * @return string containing the contents of the file, with LF translated to CR
+     * @return string containing the contents of the file, with LF translated to CR LF
      * @throws IOException an I/O operation failed or was interrupted
      */
     protected String contentsOfResource(final String resourceName) throws IOException {
         // Scanner trick: http://stackoverflow.com/a/5445161
         try (InputStream is = this.getClass().getResourceAsStream(resourceName);
-             Scanner s = new Scanner(is, "UTF-8")) {
-            s.useDelimiter("\\A");
-            if (s.hasNext()) {
-                String returnVal = s.next();
+             Scanner scanner = new Scanner(is, "UTF-8")) {
+            scanner.useDelimiter("\\A");
+            if (scanner.hasNext()) {
+                String returnVal = scanner.next();
                 returnVal = returnVal.replace("\r\n", "\r");
                 returnVal = returnVal.replace("\n", "\r");
                 return returnVal;
@@ -206,10 +206,11 @@ public class SampleTest {
      * Return contents of a file as a string.
      *
      * <p>
-     * A text file is passed in, and copied to a string. LF characters are replaced with CR to match PDF content streams
+     * A text file is passed in, and copied to a string. LF characters are replaced with CR LF to match PDF content
+     * streams
      *
      * @param file a text file
-     * @return string containing the contents of the file, with LF translated to CR
+     * @return string containing the contents of the file, with LF translated to CR LF
      * @throws IOException an I/O operation failed or was interrupted
      */
     protected String contentsOfTextFile(final File file) throws IOException {
@@ -219,7 +220,14 @@ public class SampleTest {
             scanner = new Scanner(is, "UTF-8");
 
             scanner.useDelimiter("\\A");
-            return scanner.hasNext() ? scanner.next().replace("\n", "\r") : "";
+            if (scanner.hasNext()) {
+                String returnVal = scanner.next();
+                returnVal = returnVal.replace("\r\n", "\r");
+                returnVal = returnVal.replace("\n", "\r");
+                return returnVal;
+            } else {
+                return "";
+            }
         } finally {
             if (scanner != null) {
                 scanner.close();
