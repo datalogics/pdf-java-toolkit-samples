@@ -125,7 +125,7 @@ public class SampleTest {
 
     /**
      * Open a PDF document from the resources folder given a path.
-     * 
+     *
      * @param path the path inside of the resources folder to the PDF file to open
      * @return the open PDF document
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
@@ -190,7 +190,14 @@ public class SampleTest {
         try (InputStream is = this.getClass().getResourceAsStream(resourceName);
              Scanner s = new Scanner(is, "UTF-8")) {
             s.useDelimiter("\\A");
-            return s.hasNext() ? s.next().replace("\n", "\r") : "";
+            if (s.hasNext()) {
+                String returnVal = s.next();
+                returnVal = returnVal.replace("\r\n", "\r");
+                returnVal = returnVal.replace("\n", "\r");
+                return returnVal;
+            } else {
+                return "";
+            }
         }
     }
 
