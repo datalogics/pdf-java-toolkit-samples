@@ -19,26 +19,23 @@ import com.datalogics.pdf.samples.SampleTest;
 import org.junit.Test;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.Iterator;
 
 /**
- * Tests the DocumentSigning Sample.
+ * Tests the SignDocument Sample.
  */
-public class DocumentSigningTest extends SampleTest {
-    static final String FILE_NAME = "SignedField1.pdf";
+public class SignDocumentTest extends SampleTest {
+    static final String FILE_NAME = "SignedField.pdf";
     static final String QUALIFIED_SIGNATURE_FIELD_NAME = "Approver";
 
     @Test
     public void testMain() throws Exception {
-        final File file = newOutputFile(FILE_NAME);
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
-        // The complete file name will be set in the DocSigning class.
-        final String path = file.getCanonicalPath().replaceAll("1.pdf", "");
+        final File file = SampleTest.newOutputFileWithDelete(FILE_NAME);
 
-        DocumentSigning.main(path);
+        // The complete file name will be set in the SignDocument class.
+        final String path = file.getCanonicalPath();
+
+        SignDocument.main(path);
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 

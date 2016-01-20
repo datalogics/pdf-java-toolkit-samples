@@ -30,26 +30,25 @@ import java.util.logging.Logger;
  * This is a sample that demonstrates how to find a specific signature field in a document so that API users can sign
  * the correct field.
  */
-public final class DocumentSigning {
-    private static final Logger LOGGER = Logger.getLogger(DocumentSigning.class.getName());
+public final class SignDocument {
+    private static final Logger LOGGER = Logger.getLogger(SignDocument.class.getName());
 
 
     private static final String DER_KEY_PATH = "pdfjt-key.der";
     private static final String DER_CERT_PATH = "pdfjt-cert.der";
     private static final String INPUT_UNSIGNED_PDF_PATH = "UnsignedDocument.pdf";
-    private static final String OUTPUT_SIGNED_PDF_PATH = "SignedField";
-
-    private static int sigFieldIndex;
+    private static final String OUTPUT_SIGNED_PDF_PATH = "SignedField.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
      */
-    private DocumentSigning() {}
+    private SignDocument() {}
 
     /**
      * Main program.
      *
-     * @param args command line arguments
+     * @param args command line arguments. Only one is expected in order to specify the output path. If no arguments are
+     *        given, the sample will output to the root of the samples directory by default.
      * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
@@ -75,10 +74,9 @@ public final class DocumentSigning {
     private static void signExistingSignatureFields(final String outputPath) throws Exception {
         PDFDocument pdfDoc = null;
         ByteReader byteReader = null;
-        sigFieldIndex = 1;
         try {
             // Get the PDF file.
-            final InputStream inputStream = DocumentSigning.class.getResourceAsStream(INPUT_UNSIGNED_PDF_PATH);
+            final InputStream inputStream = SignDocument.class.getResourceAsStream(INPUT_UNSIGNED_PDF_PATH);
             byteReader = new InputStreamByteReader(inputStream);
             pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
 
@@ -120,8 +118,7 @@ public final class DocumentSigning {
             if (sigField.isSigningPermitted()) {
                 if (sigField.isVisible()) {
                     // Create output file to hold the signed PDF data.
-                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath + sigFieldIndex++ + ".pdf",
-                                                                            "rw");
+                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath, "rw");
                     byteWriter = new RandomAccessFileByteWriter(outputRaf);
                     // Sign the document.
                     sigMgr.sign(sigField, credentials, byteWriter);
@@ -139,8 +136,8 @@ public final class DocumentSigning {
     private static Credentials createCredentials() throws Exception {
 
         final String sigAlgorithm = "RSA";
-        final InputStream certStream = DocumentSigning.class.getResourceAsStream(DER_CERT_PATH);
-        final InputStream keyStream = DocumentSigning.class.getResourceAsStream(DER_KEY_PATH);
+        final InputStream certStream = SignDocument.class.getResourceAsStream(DER_CERT_PATH);
+        final InputStream keyStream = SignDocument.class.getResourceAsStream(DER_KEY_PATH);
 
         return createCredentialsFromDerBytes(certStream, keyStream, sigAlgorithm);
     }
