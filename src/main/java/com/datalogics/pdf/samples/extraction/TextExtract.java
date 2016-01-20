@@ -97,9 +97,7 @@ public final class TextExtract {
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
                     UnsupportedEncodingException, IOException {
         final PDFFontSet docFontSet = FontUtils.getDocFontSet(document);
-        final ReadingOrderTextExtractor extractor = ReadingOrderTextExtractor
-                                                                             .newInstance(document, docFontSet);
-        // final LayoutModeTextExtractor extractor = LayoutModeTextExtractor.newInstance(document, docFontSet);
+        final ReadingOrderTextExtractor extractor = ReadingOrderTextExtractor.newInstance(document, docFontSet);
         final WordsIterator wordsIter = extractor.getWordsIterator();
 
         while (wordsIter.hasNext()) {
