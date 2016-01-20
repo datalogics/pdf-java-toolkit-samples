@@ -76,15 +76,15 @@ public class ImageDownsamplingTest extends SampleTest {
             // Instance initialization block
             {
                 final DownsamplingTest.Builder builder = new DownsamplingTest.Builder(FILE_NAME);
-                builder.imageColorSpace(ASName.k_ICCBased).imageCompression(ASName.k_FlateDecode);
+                builder.imageColorSpace(ASName.k_ICCBased).imageCompression(ASName.k_DCTDecode);
 
                 // Note that you can modify the builder repeatedly and use it to make more tests.
                 add(builder.method(Resampler.kResampleNearestNeighbor)
-                           .imageChecksum("cf579314e426ed32b8f8540370c9c6bb").build());
+                           .imageChecksum("90dfd47d5e672079f5632eda8703f47d").build());
                 add(builder.method(Resampler.kResampleBicubic)
-                           .imageChecksum("7c4651f8bb345d08e55c3f096ce183c9").build());
+                           .imageChecksum("f214dfd6bf398b1a66cf569350335d2c").build());
                 add(builder.method(Resampler.kResampleLinear)
-                           .imageChecksum("7618d10cd67b6b3e89b2ddfd03322ba7").build());
+                           .imageChecksum("f269656f7dd51c3f4ee14e9ed2fbf789").build());
             }
         };
         return parameters;
