@@ -45,7 +45,7 @@ import java.util.List;
  */
 @RunWith(Parameterized.class)
 public class ImageDownsamplingTest extends SampleTest {
-    private static final String FILE_NAME = "downsampled_ducky_";
+    private static final String FILE_NAME = "downsampled_ducky.pdf";
     private static final String ORIGINAL_FILE_NAME = "ducky.pdf";
     private static final double SCALE_FACTOR = 0.5;
 
@@ -92,7 +92,7 @@ public class ImageDownsamplingTest extends SampleTest {
 
     @Test
     public void testMain() throws Exception {
-        final File file = newOutputFileWithDelete(params.getFileName() + params.getMethodString() + ".pdf");
+        final File file = newOutputFileWithDelete(params.getFileName());
 
         /*
          * Run sample which generates files using all three methods: {NearestNeighbor, Bicubic, Linear}
