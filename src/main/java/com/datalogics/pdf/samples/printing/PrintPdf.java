@@ -28,6 +28,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
+import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -160,7 +161,7 @@ public class PrintPdf {
                     if (LOGGER.isLoggable(Level.SEVERE)) {
                         LOGGER.log(Level.SEVERE, "Error rasterizing a page", e);
                     }
-                    throw new PrinterException("Error rasterizing a page, see more information in the log");
+                    throw new PrinterIOException(new IOException("Error rasterizing a page", e));
                 }
                 final Graphics2D gfx2d = (Graphics2D) gfx;
                 gfx2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
