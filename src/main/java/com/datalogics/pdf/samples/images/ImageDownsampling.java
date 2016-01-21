@@ -47,7 +47,6 @@ public final class ImageDownsampling {
     private static final String INPUT_IMAGE_PATH = "ducky.pdf";
     private static final String OUTPUT_IMAGE_PATH = "downsampled_ducky.pdf";
 
-    private static final int DEFAULT_SAMPLING_METHOD = Resampler.kResampleNearestNeighbor;
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -68,39 +67,32 @@ public final class ImageDownsampling {
         LicenseManager.setLicensePath(".");
 
         String path;
-        int method;
-        if (args.length > 1) {
+        if (args.length > 0) {
             path = args[0];
-            try {
-                method = Integer.parseInt(args[1]);
-            } catch (final NumberFormatException e) {
-                method = DEFAULT_SAMPLING_METHOD;
-            }
         } else {
             path = OUTPUT_IMAGE_PATH;
-            method = DEFAULT_SAMPLING_METHOD;
         }
 
         final PDFDocument pdfDoc = getPdfDocument();
-        downsampleImage(pdfDoc, method);
-        DocumentHelper.saveFullAndClose(pdfDoc, path + getResampleMethodString(method) + ".pdf");
+        downsampleImage(pdfDoc);
+        DocumentHelper.saveFullAndClose(pdfDoc, path);
     }
 
 
     /**
-     * This method is used to downsample an image using a valid resampler method.
+     * This method is used to downsample an image using the Resample NearestNeighbor method.
      *
      * @param pdfDoc PDFDocument
-     * @param method Valid resampler method
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFInvalidParameterException one or more parameters passed were invalid
      */
-    public static void downsampleImage(final PDFDocument pdfDoc, final int method)
+    public static void downsampleImage(final PDFDocument pdfDoc)
                     throws PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException {
-        final double scaleFactor = 0.5;
+        final double scaleFactor = 0.5; /* Valid range between 0-1 */
+        final int method = Resampler.kResampleNearestNeighbor;
         /*
          * Downsample all images in the doc and replace the original images with the resampled images.
          */
@@ -128,17 +120,6 @@ public final class ImageDownsampling {
                 }
             }
         }
-    }
-
-    /**
-     * Returns a valid string resampler method representation.
-     *
-     * @param method Numeric resampler method
-     * @return String
-     */
-    public static String getResampleMethodString(final int method) {
-        final String[] methodStrings = new String[] { "**invalid**", "NearestNeighbor", "Bicubic", "Linear" };
-        return methodStrings[method];
     }
 
     private static PDFDocument getPdfDocument() throws PDFInvalidDocumentException, PDFIOException,
