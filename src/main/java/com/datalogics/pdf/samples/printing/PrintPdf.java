@@ -161,6 +161,7 @@ public class PrintPdf {
                     if (LOGGER.isLoggable(Level.SEVERE)) {
                         LOGGER.log(Level.SEVERE, "Error rasterizing a page", e);
                     }
+                    // This double-wrap allows us to throw the rasterizer exception to the PrinterJob.
                     throw new PrinterIOException(new IOException("Error rasterizing a page", e));
                 }
                 final Graphics2D gfx2d = (Graphics2D) gfx;
