@@ -16,7 +16,6 @@ import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.fontset.PDFFontSet;
-import com.adobe.pdfjt.core.fontset.PDFFontSetManager;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASDate;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
@@ -282,7 +281,7 @@ public final class RedactAndSanitizeDocument {
         // Optimize the document for fast web viewing. This is a part of sanitization.
         saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
         final SanitizationOptions options = new SanitizationOptions();
-        options.setPDFFontSet(PDFFontSetManager.getPDFFontSetInstance());
+        options.setPDFFontSet(FontSetLoader.newInstance().getFontSet());
         options.setSaveOptions(saveOptions);
         SanitizationService.sanitizeDocument(document, options, writer);// API to start the sanitization.
     }
