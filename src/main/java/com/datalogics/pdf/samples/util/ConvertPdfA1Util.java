@@ -86,13 +86,10 @@ public final class ConvertPdfA1Util {
             final PDFAConversionOptions options = createConversionOptions(pdfDoc);
             final MyPdfAConversionHandler handler = new MyPdfAConversionHandler();
 
-            handler.setDefaultColorSpaceProfiles(iccRGBProfile,
-                                                 iccCMYKProfile, iccGrayProfile);
+            handler.setDefaultColorSpaceProfiles(iccRGBProfile, iccCMYKProfile, iccGrayProfile);
 
             // attempt to convert the PDF to PDF/A-1b
-            if (PDFAService.convert(pdfDoc, PDFAConformanceLevel.Level_1b,
-                                    options, handler)) {
-
+            if (PDFAService.convert(pdfDoc, PDFAConformanceLevel.Level_1b, options, handler)) {
                 final PDFSaveOptions saveOpt = PDFSaveFullOptions.newInstance();
 
                 // if the pdf contains compressed object streams, we should
@@ -133,11 +130,8 @@ public final class ConvertPdfA1Util {
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      */
-    private static PDFAConversionOptions createConversionOptions(
-                                                                 final PDFDocument doc)
-                                                                                 throws PDFInvalidDocumentException,
-                                                                                 PDFIOException, PDFSecurityException,
-                                                                                 IOException {
+    private static PDFAConversionOptions createConversionOptions(final PDFDocument doc)
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
 
         final PDFAConversionOptions options = new PDFAConversionOptions();
 
@@ -154,8 +148,7 @@ public final class ConvertPdfA1Util {
         options.setRemoveIllegalActions(true);
         options.setRemoveIllegalAdditionalActions(true);
         options.setRemoveJavaScriptNameTree(true);
-        options.setOverrideRenderingIntent(
-                                           PDFRenderingIntent.RELATIVE_COLORIMETRIC);
+        options.setOverrideRenderingIntent(PDFRenderingIntent.RELATIVE_COLORIMETRIC);
         options.setRemoveFormXObjectPSData(true);
         options.setRemoveIllegalInterpolation(true);
         options.setRemoveImageAlternates(true);
@@ -185,9 +178,8 @@ public final class ConvertPdfA1Util {
      * @throws IOException an I/O operation failed or was interrupted
      * @throws Exception a general exception was thrown
      */
-    private static void setPdfAOutputIntent(final PDFDocument doc,
-                                            final PDFAConversionOptions options) throws PDFInvalidDocumentException,
-                                                            PDFIOException, PDFSecurityException, IOException {
+    private static void setPdfAOutputIntent(final PDFDocument doc, final PDFAConversionOptions options)
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
 
         final PDFOutputIntent outputIntent = PDFOutputIntent.newInstance(doc, "GTS_PDFA1", "CGATS TR 001");
         outputIntent.setOutputCondition("U.S. Web Coated(SWOP)v2");
@@ -209,15 +201,13 @@ public final class ConvertPdfA1Util {
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
-    private static void setDefaultColorSpaces(final PDFDocument doc,
-                                              final PDFAConversionOptions options) throws PDFInvalidDocumentException,
-                                                              PDFIOException, PDFSecurityException {
+    private static void setDefaultColorSpaces(final PDFDocument doc, final PDFAConversionOptions options)
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
 
         final PDFColorSpaceICCBased defaultRgbProfile = PDFColorSpaceICCBased.newInstance(doc, iccRGBProfile);
         final PDFColorSpaceICCBased defaultCmykProfile = PDFColorSpaceICCBased.newInstance(doc, iccCMYKProfile);
         final PDFColorSpaceICCBased defaultGrayProfile = PDFColorSpaceICCBased.newInstance(doc, iccGrayProfile);
-        options.setDefaultColorSpaces(defaultRgbProfile, defaultCmykProfile,
-                                      defaultGrayProfile);
+        options.setDefaultColorSpaces(defaultRgbProfile, defaultCmykProfile, defaultGrayProfile);
     }
 
     /**
@@ -266,19 +256,15 @@ public final class ConvertPdfA1Util {
          * @return true
          */
         @Override
-        public boolean fileStructureErrorsFixed(
-                                                final PDFAErrorSetFileStructure errorsFound,
+        public boolean fileStructureErrorsFixed(final PDFAErrorSetFileStructure errorsFound,
                                                 final PDFAErrorSetFileStructure errorsFixed) {
 
             @SuppressWarnings("unchecked")
-            final EnumSet<PDFAFileStructureErrorCode> errorCodes = errorsFound
-                                                                              .getErrorCodes();
-            if (errorCodes
-                          .contains(PDFAFileStructureErrorCode.nonCompressedXRefNotPresent)) {
+            final EnumSet<PDFAFileStructureErrorCode> errorCodes = errorsFound.getErrorCodes();
+            if (errorCodes.contains(PDFAFileStructureErrorCode.nonCompressedXRefNotPresent)) {
                 // this problem is resolved in a post-processing step.
                 this.decompressObjectStreams = true;
-                errorsFound
-                           .unSetErrorFlag(PDFAFileStructureErrorCode.nonCompressedXRefNotPresent);
+                errorsFound.unSetErrorFlag(PDFAFileStructureErrorCode.nonCompressedXRefNotPresent);
             }
             return true;
         }
@@ -296,18 +282,15 @@ public final class ConvertPdfA1Util {
 
             try {
                 if (pdficcProfile.getNumberOfComponents() == 1) {
-                    fixedProfile = PDFICCProfile.newInstance(
-                                                             pdficcProfile.getPDFDocument(), iccGrayProfile);
+                    fixedProfile = PDFICCProfile.newInstance(pdficcProfile.getPDFDocument(), iccGrayProfile);
                 }
 
                 if (pdficcProfile.getNumberOfComponents() == 2) {
-                    fixedProfile = PDFICCProfile.newInstance(
-                                                             pdficcProfile.getPDFDocument(), iccRgbProfile);
+                    fixedProfile = PDFICCProfile.newInstance(pdficcProfile.getPDFDocument(), iccRgbProfile);
                 }
 
                 if (pdficcProfile.getNumberOfComponents() == 4) {
-                    fixedProfile = PDFICCProfile.newInstance(
-                                                             pdficcProfile.getPDFDocument(), iccCmykProfile);
+                    fixedProfile = PDFICCProfile.newInstance(pdficcProfile.getPDFDocument(), iccCmykProfile);
                 }
 
             } catch (PDFIOException | PDFSecurityException | PDFInvalidDocumentException e) {
