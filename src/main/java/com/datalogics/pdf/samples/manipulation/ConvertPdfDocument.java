@@ -14,11 +14,11 @@ import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.fontset.PDFFontSet;
-import com.adobe.pdfjt.core.fontset.PDFFontSetManager;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 
+import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.ConvertPdfA1Util;
 
 import java.io.IOException;
@@ -72,7 +72,7 @@ public final class ConvertPdfDocument {
         reader = new InputStreamByteReader(inputStream);
 
         // attach font set to PDF
-        final PDFFontSet pdfaFontSet = PDFFontSetManager.getPDFFontSetInstance();
+        final PDFFontSet pdfaFontSet = FontSetLoader.newInstance().getFontSet();
         final PDFOpenOptions openOptions = PDFOpenOptions.newInstance();
         openOptions.setFontSet(pdfaFontSet);
 
