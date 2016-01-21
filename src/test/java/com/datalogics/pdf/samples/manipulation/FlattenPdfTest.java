@@ -35,10 +35,17 @@ public class FlattenPdfTest extends SampleTest {
         FlattenPdf.main(INPUT_FORM_PDF_PATH, file.getCanonicalPath());
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument document = openPdfDocument(file.getCanonicalPath());
+        PDFDocument document = null;
+        try {
+            document = openPdfDocument(file.getCanonicalPath());
 
-        assertEquals("There should not be an Acroform dictionary in a flattened form document",
+            assertEquals("There should not be an Acroform dictionary in a flattened form document",
                      document.getInteractiveForm(), null);
+        } finally {
+            if (document != null) {
+                document.close();
+            }
+        }
     }
 
     @Test
@@ -48,14 +55,21 @@ public class FlattenPdfTest extends SampleTest {
         FlattenPdf.main(INPUT_ANNOTATION_PDF_PATH, file.getCanonicalPath());
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument document = openPdfDocument(file.getCanonicalPath());
+        PDFDocument document = null;
+        try {
+            document = openPdfDocument(file.getCanonicalPath());
 
-        final PDFPageTree pgTree = document.requirePages();
-        final PDFPage currentPage = pgTree.getPage(0);
+            final PDFPageTree pgTree = document.requirePages();
+            final PDFPage currentPage = pgTree.getPage(0);
 
-        final PDFAnnotationList list = currentPage.getAnnotationList();
+            final PDFAnnotationList list = currentPage.getAnnotationList();
 
-        assertEquals("Properly flattened annotations should not appear in the annotation list", list.size(), 0);
+            assertEquals("Properly flattened annotations should not appear in the annotation list", list.size(), 0);
+        } finally {
+            if (document != null) {
+                document.close();
+            }
+        }
 
     }
 }
