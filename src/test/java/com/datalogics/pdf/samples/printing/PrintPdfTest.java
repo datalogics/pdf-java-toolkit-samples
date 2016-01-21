@@ -6,7 +6,9 @@ package com.datalogics.pdf.samples.printing;
 
 import static com.datalogics.pdf.samples.util.Matchers.bufferedImageHasChecksum;
 
+import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assume.assumeThat;
 
 import com.datalogics.pdf.samples.SampleTest;
 
@@ -58,6 +60,8 @@ public class PrintPdfTest extends SampleTest {
 
     @Test
     public <T extends PrinterJob> void testMain() throws Exception {
+        assumeThat("This test requires a Java 7 JRE for the checksums to work",
+                   System.getProperty("java.runtime.version"), startsWith("1.7."));
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
         new MockUp<PrintServiceLookup>() {
             @Mock(invocations = 1)
