@@ -33,7 +33,7 @@ import java.util.Iterator;
  * This sample demonstrates how to downsample images that are in a PDF and replace the originals with the downsampled
  * versions.
  * <p>
- * The input PDFXObjectImage is down-sampled using the Nearest Neighbor downsampling method by default.
+ * The images in the input document are down-sampled using the Nearest Neighbor downsampling method by default.
  * </p>
  * Supported downsampling methods are:
  * <ul>
