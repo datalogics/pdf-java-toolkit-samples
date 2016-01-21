@@ -39,7 +39,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 /**
- * This sample will demonstrate how to fill different types of PDF forms.
+ * This sample will demonstrate how to fill different types of PDF forms. For Acroforms, FDF and XFDF form data formats
+ * are accepted. For XFA Forms, only XML form data files are accepted.
  */
 public final class FillForm {
     // These sample files demonstrate filling an Acroform with FDF form data.
@@ -128,7 +129,8 @@ public final class FillForm {
             } else if (XFDF_FORMAT.equalsIgnoreCase(formType)) {
                 fillAcroformXfdf(pdfDocument, form, output);
             } else {
-                throw new IllegalArgumentException("Invalid formData type for Acroform document.");
+                throw new IllegalArgumentException("Invalid formData type for Acroform document. "
+                                                   + "FDF and XFDF supported.");
             }
         } else if (documentType.isXFA()) {
             // If the document has an XFA form, make sure that we were passed an XML data file.
@@ -138,7 +140,7 @@ public final class FillForm {
             if (XML_FORMAT.equalsIgnoreCase(formType)) {
                 fillXfa(pdfDocument, form, output);
             } else {
-                throw new IllegalArgumentException("Invalid formData type for XFA document.");
+                throw new IllegalArgumentException("Invalid formData type for XFA document. XML supported.");
             }
         } else {
             // If the form document is not XFA or Acroform, it's either not a form or it's something we don't support.
