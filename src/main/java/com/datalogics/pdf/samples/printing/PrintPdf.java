@@ -158,8 +158,9 @@ public class PrintPdf {
                 } catch (PDFFontException | PDFInvalidDocumentException | PDFInvalidParameterException
                          | PDFIOException | PDFSecurityException e) {
                     if (LOGGER.isLoggable(Level.SEVERE)) {
-                        LOGGER.severe(e.getMessage());
+                        LOGGER.log(Level.SEVERE, "Error rasterizing a page", e);
                     }
+                    throw new PrinterException("Error rasterizing a page, see more information in the log");
                 }
                 final Graphics2D gfx2d = (Graphics2D) gfx;
                 gfx2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
