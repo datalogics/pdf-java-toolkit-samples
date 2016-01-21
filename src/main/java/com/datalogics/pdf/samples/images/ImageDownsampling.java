@@ -45,7 +45,7 @@ import java.util.Iterator;
 public final class ImageDownsampling {
 
     private static final String INPUT_IMAGE_PATH = "ducky.pdf";
-    private static final String OUTPUT_IMAGE_PATH = "downsampled_ducky_";
+    private static final String OUTPUT_IMAGE_PATH = "downsampled_ducky.pdf";
 
     private static final int DEFAULT_SAMPLING_METHOD = Resampler.kResampleNearestNeighbor;
 
