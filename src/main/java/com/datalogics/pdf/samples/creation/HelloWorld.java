@@ -42,10 +42,16 @@ public final class HelloWorld {
         } else {
             path = OUTPUT_PDF_PATH;
         }
-        run(path);
+        helloWorld(path);
     }
 
-    static void run(final String outputPath) throws Exception {
+    /**
+     * Create a "Hello, World" document.
+     *
+     * @param outputPath the path to the file to contain the output document
+     * @throws Exception a general exception was thrown
+     */
+    public static void helloWorld(final String outputPath) throws Exception {
         PDFDocument document = null;
 
         try {
