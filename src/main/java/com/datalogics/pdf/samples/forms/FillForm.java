@@ -76,7 +76,7 @@ public final class FillForm {
      * Main program for filling PDF forms.
      *
      * @param args The input PDF, the input form, and the output PDF
-     * @throws Exception Throws a general exception
+     * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
         // If you are using an evaluation version of the product (License Managed, or LM), set the path to where PDFJT
@@ -113,7 +113,7 @@ public final class FillForm {
      * @param form The data with which to fill the form
      * @param formType The type of form passed in
      * @param output The file to which the filled form will be saved
-     * @throws Exception Throws a general exception
+     * @throws Exception a general exception was thrown
      */
     public static void fillPdfForm(final String pdf, final String form, final String formType, final String output)
                     throws Exception {
@@ -154,7 +154,7 @@ public final class FillForm {
      * @param pdfDocument The form to be filled
      * @param form The data with which to fill the form
      * @param output The file to which the filled form will be saved
-     * @throws Exception Throws a general exception
+     * @throws Exception a general exception was thrown
      */
     public static void fillAcroformFdf(final PDFDocument pdfDocument, final String form, final String output)
                     throws Exception {
@@ -188,7 +188,7 @@ public final class FillForm {
      * @param pdfDocument The form to be filled
      * @param form The data with which to fill the form
      * @param output The file to which the filled form will be saved
-     * @throws Exception Throws a general exception
+     * @throws Exception a general exception was thrown
      */
     public static void fillAcroformXfdf(final PDFDocument pdfDocument, final String form, final String output)
                     throws Exception {
@@ -219,7 +219,7 @@ public final class FillForm {
      * @param pdfDocument The form to be filled
      * @param form The data with which to fill the form
      * @param output The file to which the filled form will be saved
-     * @throws Exception Throws a general exception
+     * @throws Exception a general exception was thrown
      */
     public static void fillXfa(final PDFDocument pdfDocument, final String form, final String output)
                     throws Exception {
@@ -250,7 +250,7 @@ public final class FillForm {
      *
      * @param inputPath The PDF file to open
      * @return A new PDFDocument instance of the input document
-     * @throws Exception Throws a general exception
+     * @throws Exception a general exception was thrown
      */
     public static PDFDocument openPdfDocument(final String inputPath) throws Exception {
 
@@ -273,7 +273,7 @@ public final class FillForm {
      *
      * @param xfaData - a file containing XML form data
      * @return a boolean indicating the presence of XFA header tags.
-     * @throws Exception - SAX, IO, ParserConfiguration
+     * @throws Exception a general exception was thrown
      */
     private static boolean hasXfaHeaders(final File xfaData) throws Exception {
 
@@ -290,7 +290,7 @@ public final class FillForm {
      * Add XFA headers to an XML data file. This should only be called after determining that the headers aren't there.
      *
      * @param xfaData - XML data that XFA headers will be added to
-     * @throws Exception - IO, ParserConfiguration, Transformer, etc.
+     * @throws Exception a general exception was thrown
      */
     private static void addXfaHeaders(final File xfaData) throws Exception {
 

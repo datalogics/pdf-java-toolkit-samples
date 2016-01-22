@@ -90,7 +90,7 @@ public final class ImageDownsampling {
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws PDFInvalidParameterException one or more parameters passed were invalid
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      */
     public static void downsampleImage(final PDFDocument pdfDoc)
                     throws PDFInvalidDocumentException, PDFIOException,
