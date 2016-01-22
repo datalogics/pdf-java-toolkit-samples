@@ -34,10 +34,16 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <tools.version>1.7.0</tools.version>
-    <checkstyle-config.version>2.0.1-SNAPSHOT</checkstyle-config.version>
+    <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>1.0.0-SNAPSHOT</pmdconfig.version>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>org.jmockit</groupId>
+      <artifactId>jmockit</artifactId>
+      <version>1.21</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -48,6 +54,12 @@
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-library</artifactId>
       <version>1.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>findbugs</artifactId>
+      <version>3.0.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
