@@ -16,7 +16,9 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mockit.Mock;
 import mockit.MockUp;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
@@ -58,6 +60,9 @@ public class PrintPdfTest extends SampleTest {
     private static final String[] PAGE_IMAGE_CHECKSUMS = { "897ac162b0ab9e798771250ca8fdd7997f03cbd1",
         "f2e86261405b8e6e1a1d94f9f67571d4a8f7fef6" };
 
+    @Rule
+    public ExpectedException expected = ExpectedException.none();
+
     @Test
     public <T extends PrinterJob> void testMain() throws Exception {
         assumeThat("This test requires a Java 7 JRE for the checksums to work",
@@ -95,6 +100,8 @@ public class PrintPdfTest extends SampleTest {
 
         // Call the main method
         final String[] args = new String[0];
+        expected.expect(PrinterException.class);
+        expected.expectMessage("Printer failed to exist.");
         PrintPdf.main(args);
     }
 
