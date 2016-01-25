@@ -93,9 +93,9 @@ public class ImageDownsamplingTest extends SampleTest {
         /*
          * Run sample which generates files using all three methods: {NearestNeighbor, Bicubic, Linear}
          */
-        final String path = newOutputFile(FILE_NAME).getCanonicalPath();
+        final String outputPath = newOutputFile(FILE_NAME).getCanonicalPath();
 
-        ImageDownsampling.main(path);
+        ImageDownsampling.main(ORIGINAL_FILE_NAME, outputPath);
 
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());

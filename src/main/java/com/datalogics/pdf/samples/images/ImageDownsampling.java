@@ -25,6 +25,7 @@ import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.document.DocumentHelper;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -66,16 +67,19 @@ public final class ImageDownsampling {
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
 
-        String path;
-        if (args.length > 0) {
-            path = args[0];
+        String inputPath = null;
+        String outputPath = null;
+        if (args.length > 1) {
+            inputPath = args[0];
+            outputPath = args[1];
         } else {
-            path = OUTPUT_IMAGE_PATH;
+            inputPath = INPUT_IMAGE_PATH;
+            outputPath = OUTPUT_IMAGE_PATH;
         }
 
-        final PDFDocument pdfDoc = getPdfDocument();
+        final PDFDocument pdfDoc = getPdfDocument(inputPath);
         downsampleImage(pdfDoc);
-        DocumentHelper.saveFullAndClose(pdfDoc, path);
+        DocumentHelper.saveFullAndClose(pdfDoc, outputPath);
     }
 
 
@@ -122,17 +126,19 @@ public final class ImageDownsampling {
         }
     }
 
-    private static PDFDocument getPdfDocument() throws PDFInvalidDocumentException, PDFIOException,
+    private static PDFDocument getPdfDocument(final String inputPath)
+                    throws PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFUnableToCompleteOperationException, IOException {
-        final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(INPUT_IMAGE_PATH);
-        if (inputStream == null) {
-            throw new PDFIOException("ImageDownsampling: Could not find input pdf file.");
-        }
-
         PDFDocument pdfDoc = null;
         ByteReader byteReader = null;
 
-        byteReader = new InputStreamByteReader(inputStream);
+        try (final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(inputPath);) {
+            if (inputStream == null) {
+                byteReader = new InputStreamByteReader(new FileInputStream(inputPath));
+            } else {
+                byteReader = new InputStreamByteReader(inputStream);
+            }
+        }
         pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
 
         return pdfDoc;
