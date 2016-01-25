@@ -83,6 +83,21 @@ public class PrintPdfTest extends SampleTest {
         PrintPdf.main(args);
     }
 
+    @Test
+    public void testMainNoPrinter() throws Exception {
+        // Mock the PrinterServiceLookup.lookupDefaultPrintService() method to return nothing (no printer available)
+        new MockUp<PrintServiceLookup>() {
+            @Mock(invocations = 1)
+            PrintService lookupDefaultPrintService() {
+                return null;
+            }
+        };
+
+        // Call the main method
+        final String[] args = new String[0];
+        PrintPdf.main(args);
+    }
+
     /*
      * TestPrintService implements a 'fake' PrintService to be returned by our mock PrintServiceLookup.
      */
