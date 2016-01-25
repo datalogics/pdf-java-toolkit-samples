@@ -12,6 +12,8 @@ import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -41,6 +43,29 @@ public final class DocumentUtils {
         PDFDocument document = null;
 
         final InputStream inputStream = DocumentUtils.class.getResourceAsStream(inputPath);
+        reader = new InputStreamByteReader(inputStream);
+        document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
+
+        return document;
+    }
+
+    /**
+     * Open a PDF file using an input path.
+     *
+     * @param inputPath The path to a PDF file to open
+     * @return A new PDFDocument instance of the input document
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws IOException an I/O operation failed or was interrupted
+     */
+    public static PDFDocument openPdfDocumentFromPath(final String inputPath)
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
+        ByteReader reader = null;
+        PDFDocument document = null;
+
+        final File file = new File(inputPath);
+        final InputStream inputStream = new FileInputStream(file);
         reader = new InputStreamByteReader(inputStream);
         document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
 

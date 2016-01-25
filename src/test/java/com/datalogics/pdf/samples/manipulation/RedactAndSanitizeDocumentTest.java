@@ -25,10 +25,10 @@ import java.nio.file.Files;
  */
 public class RedactAndSanitizeDocumentTest extends SampleTest {
     private static final String SEARCH_STRING = "Reader";
-    private static final String OUTPUT_PDF_PATH = "pdfjavatoolkit-ds-out.pdf";
+    private static final String OUTPUT_PDF_PATH = "RedactAndSanitizeTest.pdf";
     private static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";
     private static final String INPUT_PDF_PATH_WITH_SIGNATURE = "pdfjavatoolkit-ds-signature.pdf";
-    private static final String INPUT_PDF_PATH_NOT_SANITIZED = "pdfjavatoolkit-ds_NotSanitized.pdf";
+    private static final String OUTPUT_PDF_PATH_NOT_SANITIZED = "NotSanitized.pdf";
 
     @Test
     public void testMain() throws Exception {
@@ -39,26 +39,33 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
 
         RedactAndSanitizeDocument.main(INPUT_PDF_PATH, file.getCanonicalPath(), SEARCH_STRING);
         assertTrue(file.getPath() + " must exist after run", file.exists());
+        PDFDocument document = null;
+        try {
+            document = openPdfDocument(file.getCanonicalPath());
 
-        final PDFDocument document = openPdfDocument(file.getCanonicalPath());
+            // Test redaction
+            for (int i = 0; i < 2; i++) {
+                final String contentsAsString = pageContentsAsString(document, i);
+                final String resourceName = String.format("pdfjavatoolkit-ds.pdf.page%d.txt", i);
 
-        // Test redaction
-        for (int i = 0; i < 2; i++) {
-            final String contentsAsString = pageContentsAsString(document, i);
-            final String resourceName = String.format("pdfjavatoolkit-ds.pdf.page%d.txt", i);
+                assertEquals(contentsOfResource(resourceName), contentsAsString);
+            }
 
-            assertEquals(contentsOfResource(resourceName), contentsAsString);
+            // Test sanitization
+            final PDFCatalog catalog = document.requireCatalog();
+            final PDFBookmarkRoot bmRoot = catalog.getBookmarkRoot();
+            assertNull("The Outlines entry in the catalog should not exist", bmRoot);
+
+        } finally {
+            if (document != null) {
+                document.close();
+            }
         }
-
-        // // Test sanitization
-        final PDFCatalog catalog = document.requireCatalog();
-        final PDFBookmarkRoot bmRoot = catalog.getBookmarkRoot();
-        assertNull("The Outlines entry in the catalog should not exist", bmRoot);
     }
 
     @Test
     public void testCantSanitizeDocument() throws Exception {
-        final File file = newOutputFile(INPUT_PDF_PATH_NOT_SANITIZED);
+        final File file = newOutputFile(OUTPUT_PDF_PATH_NOT_SANITIZED);
         if (file.exists()) {
             Files.delete(file.toPath());
         }

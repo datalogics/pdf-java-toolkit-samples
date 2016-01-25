@@ -46,6 +46,7 @@ import com.adobe.pdfjt.services.textextraction.Word;
 import com.adobe.pdfjt.services.textextraction.WordsIterator;
 
 import com.datalogics.pdf.document.FontSetLoader;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -89,7 +90,7 @@ public final class RedactAndSanitizeDocument {
 
     private static final String SEARCH_PDF_STRING = "Reader";
     private static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";
-    private static final String OUTPUT_PDF_PATH = "pdfjavatoolkit-ds-out.pdf";
+    private static final String OUTPUT_PDF_PATH = "RedactAndSanitize.pdf";
 
     private static final double[] COLOR = { 1.0, 0, 0 }; // RGB Red
     private static final double[] INTERIOR_COLOR = { 0, 0, 0 }; // RGB Black
@@ -133,6 +134,15 @@ public final class RedactAndSanitizeDocument {
             markTextForRedaction(document, searchString);
 
             applyRedaction(document, outputPath);
+            document.close();
+        } finally {
+            if (document != null) {
+                document.close();
+            }
+        }
+
+        try {
+            document = DocumentUtils.openPdfDocumentFromPath(outputPath);
 
             sanitizeDocument(document, outputPath);
         } finally {
@@ -245,12 +255,20 @@ public final class RedactAndSanitizeDocument {
     private static void applyRedaction(final PDFDocument document, final String outputPath)
                     throws PDFInvalidParameterException, PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
-        final ByteWriter writer = getByteWriterFromFile(outputPath);
-        RedactionOptions redactionOptions = null;
-        redactionOptions = new RedactionOptions(new LocalRedactionHandler());
+        ByteWriter writer = null;
+        try {
+            writer = getByteWriterFromFile(outputPath);
+            RedactionOptions redactionOptions = null;
+            redactionOptions = new RedactionOptions(new LocalRedactionHandler());
 
-        // Applying redaction
-        RedactionService.applyRedaction(document, redactionOptions, writer);
+            // Applying redaction
+            RedactionService.applyRedaction(document, redactionOptions, writer);
+            writer.close();
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
     }
 
     /**
@@ -380,12 +398,14 @@ public final class RedactAndSanitizeDocument {
      * @throws IOException an I/O operation failed or was interrupted
      */
     private static ByteWriter getByteWriterFromFile(final String outputPath) throws IOException {
+        RandomAccessFile outputPdfFile = null;
+
         final File file = new File(outputPath);
         if (file.exists()) {
             Files.delete(file.toPath());
         }
 
-        final RandomAccessFile outputPdfFile = new RandomAccessFile(file, "rw");
+        outputPdfFile = new RandomAccessFile(file, "rw");
         return new RandomAccessFileByteWriter(outputPdfFile);
     }
 
