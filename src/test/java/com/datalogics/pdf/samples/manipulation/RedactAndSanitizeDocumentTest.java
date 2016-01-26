@@ -37,7 +37,8 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
             Files.delete(file.toPath());
         }
 
-        RedactAndSanitizeDocument.main(INPUT_PDF_PATH, file.getCanonicalPath(), SEARCH_STRING);
+        final String inputPath = RedactAndSanitizeDocumentTest.class.getResource(INPUT_PDF_PATH).getPath();
+        RedactAndSanitizeDocument.main(inputPath, file.getCanonicalPath(), SEARCH_STRING);
         assertTrue(file.getPath() + " must exist after run", file.exists());
         PDFDocument document = null;
         try {
@@ -70,7 +71,9 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
             Files.delete(file.toPath());
         }
 
-        RedactAndSanitizeDocument.main(INPUT_PDF_PATH_WITH_SIGNATURE, file.getCanonicalPath(), SEARCH_STRING);
+        final String inputPath = RedactAndSanitizeDocumentTest.class.getResource(INPUT_PDF_PATH_WITH_SIGNATURE)
+                                                                    .getPath();
+        RedactAndSanitizeDocument.main(inputPath, file.getCanonicalPath(), SEARCH_STRING);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         final PDFDocument document = openPdfDocument(file.getCanonicalPath());
