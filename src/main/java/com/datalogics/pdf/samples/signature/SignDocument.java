@@ -6,7 +6,6 @@ package com.datalogics.pdf.samples.signature;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.credentials.CredentialFactory;
 import com.adobe.pdfjt.core.credentials.Credentials;
@@ -16,9 +15,10 @@ import com.adobe.pdfjt.core.exceptions.PDFException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
+
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -75,12 +75,11 @@ public final class SignDocument {
      */
     public static void signExistingSignatureFields(final String outputPath) throws Exception {
         PDFDocument pdfDoc = null;
-        ByteReader byteReader = null;
+        final ByteReader byteReader = null;
         try {
             // Get the PDF file.
-            final InputStream inputStream = SignDocument.class.getResourceAsStream(INPUT_UNSIGNED_PDF_PATH);
-            byteReader = new InputStreamByteReader(inputStream);
-            pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
+            final String inputPath = SignDocument.class.getResource(INPUT_UNSIGNED_PDF_PATH).getPath();
+            pdfDoc = DocumentUtils.openPdfDocument(inputPath);
 
             // Set up a signature service and iterate over all of the
             // signature fields.

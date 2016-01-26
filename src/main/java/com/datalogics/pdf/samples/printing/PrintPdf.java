@@ -4,8 +4,6 @@
 
 package com.datalogics.pdf.samples.printing;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
@@ -13,12 +11,12 @@ import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.services.rasterizer.PageRasterizer;
 import com.adobe.pdfjt.services.rasterizer.RasterizationOptions;
 
 import com.datalogics.pdf.document.FontSetLoader;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -30,9 +28,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -100,10 +96,8 @@ public class PrintPdf {
 
         try {
             // Read the PDF input file and detect the page size of the first page. This sample assumes all pages in
-            // the document are the same size.
-            final InputStream fis = new FileInputStream(inputPath);
-            final ByteReader byteReader = new InputStreamByteReader(fis);
-            final PDFDocument pdfDocument = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
+            // the document are the same size
+            final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(inputPath);
             final PDFPage pdfPage = pdfDocument.requirePages().getPage(0);
             final int pdfPageWidth = (int) pdfPage.getMediaBox().width();
             final int pdfPageHeight = (int) pdfPage.getMediaBox().height();

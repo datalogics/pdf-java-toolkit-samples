@@ -4,18 +4,14 @@
 
 package com.datalogics.pdf.samples.images;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
-import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASName;
 import com.adobe.pdfjt.image.Resampler;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.document.PDFResources;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObject;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
@@ -24,17 +20,15 @@ import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Iterator;
 
 /**
  * This sample demonstrates how to downsample images that are in a PDF and replace the originals with the downsampled
  * versions.
  * <p>
- * The images in the input document are down-sampled using the Bicubic downsampling method by default.
+ * The input PDFXObjectImage is down-sampled using the Nearest Neighbor downsampling method by default.
  * </p>
  * Supported downsampling methods are:
  * <ul>
@@ -46,8 +40,9 @@ import java.util.Iterator;
 public final class ImageDownsampling {
 
     private static final String INPUT_IMAGE_PATH = "ducky.pdf";
-    private static final String OUTPUT_IMAGE_PATH = "downsampled_ducky.pdf";
+    private static final String OUTPUT_IMAGE_PATH = "downsampled_ducky_";
 
+    private static final int DEFAULT_SAMPLING_METHOD = Resampler.kResampleNearestNeighbor;
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -67,36 +62,41 @@ public final class ImageDownsampling {
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
 
-        String inputPath = null;
-        String outputPath = null;
+        String path;
+        int method;
         if (args.length > 1) {
-            inputPath = args[0];
-            outputPath = args[1];
+            path = args[0];
+            try {
+                method = Integer.parseInt(args[1]);
+            } catch (final NumberFormatException e) {
+                method = DEFAULT_SAMPLING_METHOD;
+            }
         } else {
-            inputPath = INPUT_IMAGE_PATH;
-            outputPath = OUTPUT_IMAGE_PATH;
+            path = OUTPUT_IMAGE_PATH;
+            method = DEFAULT_SAMPLING_METHOD;
         }
 
-        final PDFDocument pdfDoc = getPdfDocument(inputPath);
-        downsampleImage(pdfDoc);
-        DocumentHelper.saveFullAndClose(pdfDoc, outputPath);
+        final String inputPath = ImageDownsampling.class.getResource(INPUT_IMAGE_PATH).getPath();
+        final PDFDocument pdfDoc = DocumentUtils.openPdfDocument(inputPath);
+        downsampleImage(pdfDoc, method);
+        DocumentHelper.saveFullAndClose(pdfDoc, path + getResampleMethodString(method) + ".pdf");
     }
 
 
     /**
-     * This method is used to downsample an image using the Resample Bicubic method.
+     * This method is used to downsample an image using a valid resampler method.
      *
      * @param pdfDoc PDFDocument
+     * @param method Valid resampler method
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      */
-    public static void downsampleImage(final PDFDocument pdfDoc)
+    public static void downsampleImage(final PDFDocument pdfDoc, final int method)
                     throws PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException {
-        final double scaleFactor = 0.5; /* Valid range between 0-1 */
-        final int method = Resampler.kResampleBicubic;
+        final double scaleFactor = 0.5;
         /*
          * Downsample all images in the doc and replace the original images with the resampled images.
          */
@@ -126,21 +126,14 @@ public final class ImageDownsampling {
         }
     }
 
-    private static PDFDocument getPdfDocument(final String inputPath)
-                    throws PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException, PDFUnableToCompleteOperationException, IOException {
-        PDFDocument pdfDoc = null;
-        ByteReader byteReader = null;
-
-        try (final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(inputPath);) {
-            if (inputStream == null) {
-                byteReader = new InputStreamByteReader(new FileInputStream(inputPath));
-            } else {
-                byteReader = new InputStreamByteReader(inputStream);
-            }
-        }
-        pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
-
-        return pdfDoc;
+    /**
+     * Returns a valid string resampler method representation.
+     *
+     * @param method Numeric resampler method
+     * @return String
+     */
+    public static String getResampleMethodString(final int method) {
+        final String[] methodStrings = new String[] { "**invalid**", "NearestNeighbor", "Bicubic", "Linear" };
+        return methodStrings[method];
     }
 }

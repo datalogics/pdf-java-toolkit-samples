@@ -19,6 +19,7 @@ import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 import com.adobe.pdfjt.services.xfdf.XFDFService;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -100,9 +101,12 @@ public final class FillForm {
                                                    + " is not supported. Supported types: XML, FDF, and XFDF.");
             }
         } else {
-            fillPdfForm(ACROFORM_FDF_INPUT, ACROFORM_FDF_DATA, FDF_FORMAT, ACROFORM_FDF_OUTPUT);
-            fillPdfForm(ACROFORM_XFDF_INPUT, ACROFORM_XFDF_DATA, XFDF_FORMAT, ACROFORM_XFDF_OUTPUT);
-            fillPdfForm(XFA_PDF_INPUT, XFA_XML_DATA, XML_FORMAT, XFA_OUTPUT);
+            final String acroformFdfInput = FillForm.class.getResource(ACROFORM_FDF_INPUT).getPath();
+            final String acroformXfdfInput = FillForm.class.getResource(ACROFORM_XFDF_INPUT).getPath();
+            final String xfaPdfInput = FillForm.class.getResource(XFA_PDF_INPUT).getPath();
+            fillPdfForm(acroformFdfInput, ACROFORM_FDF_DATA, FDF_FORMAT, ACROFORM_FDF_OUTPUT);
+            fillPdfForm(acroformXfdfInput, ACROFORM_XFDF_DATA, XFDF_FORMAT, ACROFORM_XFDF_OUTPUT);
+            fillPdfForm(xfaPdfInput, XFA_XML_DATA, XML_FORMAT, XFA_OUTPUT);
         }
     }
 
@@ -117,7 +121,7 @@ public final class FillForm {
      */
     public static void fillPdfForm(final String pdf, final String form, final String formType, final String output)
                     throws Exception {
-        final PDFDocument pdfDocument = openPdfDocument(pdf);
+        final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(pdf);
 
         // There are two types of forms that we can fill, so find out which kind we have here.
         final PDFDocumentType documentType = XFAService.getDocumentType(pdfDocument);

@@ -4,9 +4,7 @@
 
 package com.datalogics.pdf.samples.manipulation;
 
-import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
@@ -19,7 +17,6 @@ import com.adobe.pdfjt.core.fontset.PDFFontSet;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASDate;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.document.PDFSaveLinearOptions;
 import com.adobe.pdfjt.pdf.document.PDFSaveOptions;
 import com.adobe.pdfjt.pdf.document.PDFVersion;
@@ -50,7 +47,6 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.util.EnumSet;
@@ -123,13 +119,13 @@ public final class RedactAndSanitizeDocument {
             outputPath = args[1];
             searchString = args[2];
         } else {
-            inputPath = INPUT_PDF_PATH;
+            inputPath = RedactAndSanitizeDocument.class.getResource(INPUT_PDF_PATH).getPath();
             outputPath = OUTPUT_PDF_PATH;
             searchString = SEARCH_PDF_STRING;
         }
 
         try {
-            document = openPdfDocument(inputPath);
+            document = DocumentUtils.openPdfDocument(inputPath);
 
             markTextForRedaction(document, searchString);
 
@@ -142,7 +138,7 @@ public final class RedactAndSanitizeDocument {
         }
 
         try {
-            document = DocumentUtils.openPdfDocumentFromPath(outputPath);
+            document = DocumentUtils.openPdfDocument(outputPath);
 
             sanitizeDocument(document, outputPath);
         } finally {
@@ -407,28 +403,6 @@ public final class RedactAndSanitizeDocument {
 
         outputPdfFile = new RandomAccessFile(file, "rw");
         return new RandomAccessFileByteWriter(outputPdfFile);
-    }
-
-    /**
-     * Open a PDF file using an input path.
-     *
-     * @param inputPath The PDF file to open
-     * @return A new PDFDocument instance of the input document
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws IOException an I/O operation failed or was interrupted
-     */
-    private static PDFDocument openPdfDocument(final String inputPath)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
-        ByteReader reader = null;
-        PDFDocument document = null;
-
-        final InputStream inputStream = RedactAndSanitizeDocument.class.getResourceAsStream(inputPath);
-        reader = new InputStreamByteReader(inputStream);
-        document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
-
-        return document;
     }
 
     /**
