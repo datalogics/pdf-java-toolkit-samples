@@ -20,6 +20,7 @@ import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationEnum;
 import com.adobe.pdfjt.services.ap.spi.APContext;
 import com.adobe.pdfjt.services.ap.spi.APResources;
+import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.formflattener.FormFlattener;
 
 import com.datalogics.pdf.document.DocumentHelper;
@@ -109,6 +110,11 @@ public final class FlattenPdf {
             }
         }
         pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
+
+        // Flatten the signature fields so they can no longer be changed. If you do not want the signature fields
+        // to be flattened the the next two lines should be omitted.
+        final SignatureManager sigMgr = SignatureManager.newInstance(pdfDoc);
+        sigMgr.flattenAllSignatureFields();
 
         // Flatten all the pages of the given input PDF Document, with the
         // default text formatter.
