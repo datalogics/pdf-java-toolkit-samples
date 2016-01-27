@@ -7,9 +7,6 @@ package com.datalogics.pdf.samples;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
-import com.adobe.internal.io.RandomAccessFileByteReader;
 import com.adobe.internal.io.stream.InputByteStream;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
@@ -17,7 +14,6 @@ import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.types.ASName;
 import com.adobe.pdfjt.pdf.document.PDFContents;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.document.PDFResources;
 import com.adobe.pdfjt.pdf.filters.PDFFilter;
 import com.adobe.pdfjt.pdf.graphics.colorspaces.PDFColorSpace;
@@ -29,6 +25,8 @@ import com.adobe.pdfjt.pdf.graphics.font.PDFFontSimple;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
 
+import com.datalogics.pdf.samples.util.DocumentUtils;
+
 import org.junit.After;
 import org.junit.Before;
 
@@ -37,7 +35,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.util.Scanner;
@@ -77,7 +74,7 @@ public class SampleTest {
     protected String pageContentsAsString(final String path, final int pageIndex) throws FileNotFoundException,
                     PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
                     UnsupportedEncodingException {
-        final PDFDocument doc = openPdfDocument(path);
+        final PDFDocument doc = DocumentUtils.openPdfDocument(path);
         return pageContentsAsString(doc, pageIndex);
     }
 
@@ -103,43 +100,6 @@ public class SampleTest {
         stream.read(data);
         final String contentsAsString = new String(data, "cp1252");
         return contentsAsString;
-    }
-
-    /**
-     * Open a PDF document given a path.
-     *
-     * @param path the path of the PDF file to open
-     * @return the open PDF document
-     * @throws FileNotFoundException an attempt to open a file from a pathname has failed
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     */
-    protected PDFDocument openPdfDocument(final String path) throws FileNotFoundException,
-                    PDFInvalidDocumentException,
-                    PDFIOException, PDFSecurityException {
-        final RandomAccessFile raf = new RandomAccessFile(path, "r");
-        final ByteReader byteReader = new RandomAccessFileByteReader(raf);
-        final PDFDocument doc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
-        return doc;
-    }
-
-    /**
-     * Open a PDF document from the resources folder given a path.
-     *
-     * @param path the path inside of the resources folder to the PDF file to open
-     * @return the open PDF document
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws IOException an I/O operation failed or was interrupted
-     */
-    protected PDFDocument openPdfDocumentFromResource(final String path)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
-        final InputStream inputStream = this.getClass().getResourceAsStream(path);
-        final ByteReader byteReader = new InputStreamByteReader(inputStream);
-        final PDFDocument doc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
-        return doc;
     }
 
     /**

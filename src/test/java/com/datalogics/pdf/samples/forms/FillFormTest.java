@@ -14,6 +14,7 @@ import com.adobe.pdfjt.services.xfa.XFAService;
 import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -96,7 +97,7 @@ public class FillFormTest extends SampleTest {
 
     private void checkForms(final File outputFile, final String compare) throws Exception {
         // Check the output doc
-        final PDFDocument outputDoc = FillForm.openPdfDocument(outputFile.getCanonicalPath());
+        final PDFDocument outputDoc = DocumentUtils.openPdfDocument(outputFile.getCanonicalPath());
         final PDFInteractiveForm pdfForm = outputDoc.getInteractiveForm();
         final Iterator<PDFField> fieldIterator = pdfForm.iterator();
         final StringBuilder sb = new StringBuilder();

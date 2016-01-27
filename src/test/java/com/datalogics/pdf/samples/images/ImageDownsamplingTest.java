@@ -10,15 +10,12 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.junit.Assert.assertTrue;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.types.ASName;
 import com.adobe.pdfjt.image.Resampler;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObject;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectMap;
@@ -27,6 +24,7 @@ import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.samples.SampleTest;
 import com.datalogics.pdf.samples.util.Checksum;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
@@ -36,7 +34,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,9 +98,8 @@ public class ImageDownsamplingTest extends SampleTest {
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         // Downsample the original image PDF file.
-        final InputStream inputStream = ImageDownsamplingTest.class.getResourceAsStream(ORIGINAL_FILE_NAME);
-        final ByteReader byteReader = new InputStreamByteReader(inputStream);
-        PDFDocument pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
+        PDFDocument pdfDoc = DocumentUtils.openPdfDocument(ImageDownsampling.class.getResource(ORIGINAL_FILE_NAME)
+                                                                                  .getPath());
         PDFPage page = pdfDoc.requirePages().getPage(0);
         PDFXObjectMap objMap = page.getResources().getXObjectMap();
         int images = 0;
@@ -128,7 +124,7 @@ public class ImageDownsamplingTest extends SampleTest {
         assertThat(images, equalTo(1));
 
         // Read the document output from the ImageDownsampling Sample.
-        pdfDoc = openPdfDocument(file.getCanonicalPath());
+        pdfDoc = DocumentUtils.openPdfDocument(file.getCanonicalPath());
         page = pdfDoc.requirePages().getPage(0);
         objMap = page.getResources().getXObjectMap();
         images = 0;

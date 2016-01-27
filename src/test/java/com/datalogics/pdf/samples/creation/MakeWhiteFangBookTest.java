@@ -21,6 +21,7 @@ import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectMap;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -42,7 +43,7 @@ public class MakeWhiteFangBookTest extends SampleTest {
         MakeWhiteFangBook.main(file.getCanonicalPath());
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(file.getCanonicalPath());
 
         try {
             // Verify the resources

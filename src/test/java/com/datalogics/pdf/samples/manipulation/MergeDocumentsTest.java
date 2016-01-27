@@ -17,6 +17,7 @@ import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
 import com.adobe.pdfjt.pdf.interactive.navigation.PDFBookmarkNode;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -41,7 +42,7 @@ public class MergeDocumentsTest extends SampleTest {
         MergeDocuments.main(file.getCanonicalPath());
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(file.getCanonicalPath());
 
         // Confirm that we have all the pages we think we should have
         checkPages(doc);
