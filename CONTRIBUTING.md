@@ -57,6 +57,25 @@ This should add standard messages for your ``@throws`` documentation tags. If yo
     - If it's necessary to read the code changes to understand what's going on, the message didn't explain enough.
 - Small commits are totally okay. Almost preferred.
 
+## Running tests
+
+### Command line
+
+* Use ``mvn clean verify`` to ensure that all of the unit tests and code quality tests run.
+* Use ``mvn clean verify -P integration-tests`` to also include the integration tests.
+    * At present, this includes a test that all the samples will (merely) run when their ``main`` is called with an empty argument array.
+
+### IDE
+
+(Using Eclipse as the example here)
+
+Running all the tests from the package will likely result in a long test run, as all of the tests will run twice (once in a suite, once on their own) and the lengthy integration tests will run without a font cache.
+
+It is recommended to run either of the test suites:
+
+* ``AllUnitTests.java`` is likely the one you'll run most often. This suite runs just the unit tests.
+* ``AllIntegrationTests.java`` will run the integration tests.
+
 ## Pull requests
 
 - The destination branch of your pull request is usually ``develop``, but if there is extended work, make a feature branch.
@@ -65,9 +84,10 @@ This should add standard messages for your ``@throws`` documentation tags. If yo
 
 Code reviews will be done by a developer who works on the project regularly. Expect the following kind of feedback from a code review.
 
-- The code must build and pass tests. A reviewer will run ``mvn clean verify`` on the code, and it must build successfully.
+- The code must build and pass tests. A reviewer and/or CI system will run ``mvn clean verify`` on the code, and it must build successfully.
    - This includes a Checkstyle pass. Any Checkstyle warnings will cause a failure in the ``validate`` phase, and you'll be asked to correct them.
    - The unit tests on both the code and the samples must pass.
+   - The CI server will run integration tests. These include tests that each sample will run when its ``main`` method is run, with an empty argument array.
 - There may be a review of the code coverage of the library and sample unit tests. Expect the reviewer to check that your new code is covered by some executing code somewhere.
     - Coverage need not be absolute.
     - We're not using any kind of tools to enforce coverage.
