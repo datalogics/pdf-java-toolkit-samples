@@ -424,6 +424,7 @@
                   <systemPropertyVariables>
                     <java.awt.headless>true</java.awt.headless>
                     <java.util.logging.config.file>src/test/resources/logging.properties</java.util.logging.config.file>
+                    <com.datalogics.pdf.FontSetLoader.fontSetCacheName>${project.build.directory}/integration-test-outputs/integration-test-fonts.ser</com.datalogics.pdf.FontSetLoader.fontSetCacheName>
                   </systemPropertyVariables>
                   <classesDirectory>${project.build.directory}/${project.build.finalName}.jar</classesDirectory>
                   <workingDirectory>${project.build.directory}/integration-test-outputs</workingDirectory>
