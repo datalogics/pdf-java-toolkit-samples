@@ -33,6 +33,7 @@
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <tools.version>1.7.0</tools.version>
     <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>1.0.0-SNAPSHOT</pmdconfig.version>
@@ -370,5 +371,59 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>integration-tests</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+              <execution>
+                <id>clean-classes</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>clean</goal>
+                </goals>
+                <configuration>
+                  <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                  <filesets>
+                    <fileset>
+                      <directory>${project.build.directory}/classes</directory>
+                      <followSymlinks>false</followSymlinks>
+                      <useDefaultExcludes>true</useDefaultExcludes>
+                    </fileset>
+                  </filesets>
+                  <verbose>true</verbose>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.19.1</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+                <configuration>
+                  <systemPropertyVariables>
+                    <java.awt.headless>true</java.awt.headless>
+                    <java.util.logging.config.file>src/test/resources/logging.properties</java.util.logging.config.file>
+                  </systemPropertyVariables>
+                  <classesDirectory>${project.build.directory}/${project.build.finalName}.jar</classesDirectory>
+                  <workingDirectory>${project.build.directory}/integration-test-outputs</workingDirectory>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
 <!-- vim: set et sts=2 sw=2 ts=2 : -->
