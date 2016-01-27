@@ -79,8 +79,8 @@ public class ImageDownsamplingTest extends SampleTest {
                 builder.imageColorSpace(ASName.k_ICCBased).imageCompression(ASName.k_DCTDecode);
 
                 // Note that you can modify the builder repeatedly and use it to make more tests.
-                add(builder.method(Resampler.kResampleNearestNeighbor)
-                           .imageChecksum("90dfd47d5e672079f5632eda8703f47d").build());
+                add(builder.method(Resampler.kResampleBicubic)
+                           .imageChecksum("f214dfd6bf398b1a66cf569350335d2c").build());
             }
         };
         return parameters;

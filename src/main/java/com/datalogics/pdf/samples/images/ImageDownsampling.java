@@ -34,7 +34,7 @@ import java.util.Iterator;
  * This sample demonstrates how to downsample images that are in a PDF and replace the originals with the downsampled
  * versions.
  * <p>
- * The images in the input document are down-sampled using the Nearest Neighbor downsampling method by default.
+ * The images in the input document are down-sampled using the Bicubic downsampling method by default.
  * </p>
  * Supported downsampling methods are:
  * <ul>
@@ -84,7 +84,7 @@ public final class ImageDownsampling {
 
 
     /**
-     * This method is used to downsample an image using the Resample NearestNeighbor method.
+     * This method is used to downsample an image using the Resample Bicubic method.
      *
      * @param pdfDoc PDFDocument
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
@@ -96,7 +96,7 @@ public final class ImageDownsampling {
                     throws PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException {
         final double scaleFactor = 0.5; /* Valid range between 0-1 */
-        final int method = Resampler.kResampleNearestNeighbor;
+        final int method = Resampler.kResampleBicubic;
         /*
          * Downsample all images in the doc and replace the original images with the resampled images.
          */
