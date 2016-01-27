@@ -84,10 +84,21 @@ public class PrintPdf {
      * @throws Exception a general exception was thrown
      */
     private static void printPdf(final String inputPath) throws Exception {
-        try {
-            // Only log info messages and above
-            LOGGER.setLevel(Level.INFO);
+        // Only log info messages and above
+        LOGGER.setLevel(Level.INFO);
 
+        // Find the default printer.
+        final PrintService printService = PrintServiceLookup.lookupDefaultPrintService();
+
+        // If no printer is available, give up: we can't go any further.
+        if (printService == null) {
+            if (LOGGER.isLoggable(Level.SEVERE)) {
+                LOGGER.severe("No printer available, aborting.");
+            }
+            throw new PrinterException("Printer failed to exist.");
+        }
+
+        try {
             // Read the PDF input file and detect the page size of the first page. This sample assumes all pages in
             // the document are the same size.
             final InputStream fis = new FileInputStream(inputPath);
@@ -97,8 +108,7 @@ public class PrintPdf {
             final int pdfPageWidth = (int) pdfPage.getMediaBox().width();
             final int pdfPageHeight = (int) pdfPage.getMediaBox().height();
 
-            // Detect the resolution of the default printer.
-            final PrintService printService = PrintServiceLookup.lookupDefaultPrintService();
+            // Describe the selected printer.
             if (LOGGER.isLoggable(Level.INFO)) {
                 LOGGER.info("Printer: " + printService.getName());
             }
