@@ -5,7 +5,6 @@
 package com.datalogics.pdf.samples.signature;
 
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.credentials.CredentialFactory;
 import com.adobe.pdfjt.core.credentials.Credentials;
 import com.adobe.pdfjt.core.credentials.PrivateKeyHolder;
@@ -18,10 +17,10 @@ import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
@@ -114,8 +113,7 @@ public final class SignDocument {
             if (sigField.isSigningPermitted()) {
                 if (sigField.isVisible()) {
                     // Create output file to hold the signed PDF data.
-                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath, "rw");
-                    byteWriter = new RandomAccessFileByteWriter(outputRaf);
+                    byteWriter = IoUtils.getByteWriterFromFile(outputPath);
                     // Sign the document.
                     sigMgr.sign(sigField, credentials, byteWriter);
                 } else {

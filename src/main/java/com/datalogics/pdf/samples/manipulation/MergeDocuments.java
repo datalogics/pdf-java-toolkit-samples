@@ -4,8 +4,6 @@
 
 package com.datalogics.pdf.samples.manipulation;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASRectangle;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
@@ -14,8 +12,7 @@ import com.adobe.pdfjt.services.manipulations.PMMOptions;
 import com.adobe.pdfjt.services.manipulations.PMMService;
 
 import com.datalogics.pdf.document.DocumentHelper;
-
-import java.io.InputStream;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 /**
  * This sample shows how to merge two PDF documents into one. It will also show how to properly merge PDF documents that
@@ -83,16 +80,15 @@ public final class MergeDocuments {
      * @throws Exception a general exception was thrown
      */
     private static void appendDocument(final String resourceName, final PDFDocument pdfDocument) throws Exception {
-        ByteReader byteReader = null;
         PDFDocument pdfToAppend = null;
 
         // Create the new PMMService that will be used to manipulate the pages.
         final PMMService pmmService = new PMMService(pdfDocument);
 
-        try (final InputStream is = MergeDocuments.class.getResourceAsStream(resourceName)) {
+        try {
             // Read in the input file.
-            byteReader = new InputStreamByteReader(is);
-            pdfToAppend = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
+            pdfToAppend = DocumentUtils.openPdfDocument(MergeDocuments.class.getResource(resourceName).getPath());
+
 
             // Create the Bookmark Title String to imitate the behavior of Acrobat. This will be the title of the
             // new bookmark that wraps the bookmarks in the source document before it is added after the last
@@ -110,9 +106,6 @@ public final class MergeDocuments {
             // Bookmark destinations and links will be automatically resolved.
             pmmService.appendPages(pdfToAppend, documentBookmarkRootName, PMMOptions.newInstanceAll());
         } finally {
-            if (byteReader != null) {
-                byteReader.close();
-            }
             if (pdfToAppend != null) {
                 pdfToAppend.close();
             }

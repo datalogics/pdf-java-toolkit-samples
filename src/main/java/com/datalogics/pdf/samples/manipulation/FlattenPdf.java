@@ -4,8 +4,6 @@
 
 package com.datalogics.pdf.samples.manipulation;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
@@ -16,7 +14,6 @@ import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.exceptions.PDFUnsupportedFeatureException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationEnum;
 import com.adobe.pdfjt.services.ap.spi.APContext;
 import com.adobe.pdfjt.services.ap.spi.APResources;
@@ -24,10 +21,9 @@ import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.formflattener.FormFlattener;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.EnumSet;
 
 /**
@@ -99,17 +95,7 @@ public final class FlattenPdf {
         // by setting the enum of the desired element rather than PDFAnnotationEnum.class.
         apContext.setAnnotationsToBeProcessed(EnumSet.allOf(PDFAnnotationEnum.class));
 
-        PDFDocument pdfDoc = null;
-        ByteReader byteReader = null;
-        // Get the PDF file.
-        try (final InputStream inputStream = FlattenPdf.class.getResourceAsStream(inputPath);) {
-            if (inputStream == null) {
-                byteReader = new InputStreamByteReader(new FileInputStream(inputPath));
-            } else {
-                byteReader = new InputStreamByteReader(inputStream);
-            }
-        }
-        pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
+        final PDFDocument pdfDoc = DocumentUtils.openPdfDocument(FlattenPdf.class.getResource(inputPath).getPath());
 
         // Flatten the signature fields so they can no longer be changed. If you do not want the signature fields
         // to be flattened the the next two lines should be omitted.

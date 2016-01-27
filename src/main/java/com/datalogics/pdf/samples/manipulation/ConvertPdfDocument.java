@@ -5,8 +5,6 @@
 package com.datalogics.pdf.samples.manipulation;
 
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
@@ -20,9 +18,9 @@ import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 
 import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.ConvertPdfA1Util;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 
 /**
@@ -64,19 +62,13 @@ public final class ConvertPdfDocument {
     private static void convertToPdfA1(final String outputPath)
                     throws IOException, PDFFontException, PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
-
-        PDFDocument pdfDoc = null;
-        ByteReader reader = null;
-
-        final InputStream inputStream = ConvertPdfDocument.class.getResourceAsStream(INPUT_UNCONVERTED_PDF_PATH);
-        reader = new InputStreamByteReader(inputStream);
-
         // attach font set to PDF
         final PDFFontSet pdfaFontSet = FontSetLoader.newInstance().getFontSet();
         final PDFOpenOptions openOptions = PDFOpenOptions.newInstance();
         openOptions.setFontSet(pdfaFontSet);
 
-        pdfDoc = PDFDocument.newInstance(reader, openOptions);
+        final String pdfPath = ConvertPdfDocument.class.getResource(INPUT_UNCONVERTED_PDF_PATH).getPath();
+        final PDFDocument pdfDoc = DocumentUtils.openPdfDocumentWithOptions(pdfPath, openOptions);
 
         // Note: Transparency is not handled by PDF Java Toolkit
         ConvertPdfA1Util.convertPdfA1(pdfDoc, outputPath);
