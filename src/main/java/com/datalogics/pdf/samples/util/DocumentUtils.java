@@ -40,11 +40,7 @@ public final class DocumentUtils {
     public static PDFDocument openPdfDocument(final String inputPath)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
         // return openPdfDocument(inputPath, null);
-        ByteReader reader = null;
-        InputStream inputStream = null;
-
-        inputStream = getInputStreamFromPath(inputPath);
-        reader = new InputStreamByteReader(inputStream);
+        final ByteReader reader = new InputStreamByteReader(getInputStreamFromPath(inputPath));
         final PDFDocument document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
 
         return document;

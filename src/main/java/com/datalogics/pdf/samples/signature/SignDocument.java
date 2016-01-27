@@ -4,7 +4,6 @@
 
 package com.datalogics.pdf.samples.signature;
 
-import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.ByteWriter;
 import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.credentials.CredentialFactory;
@@ -75,7 +74,6 @@ public final class SignDocument {
      */
     public static void signExistingSignatureFields(final String outputPath) throws Exception {
         PDFDocument pdfDoc = null;
-        final ByteReader byteReader = null;
         try {
             // Get the PDF file.
             final String inputPath = SignDocument.class.getResource(INPUT_UNSIGNED_PDF_PATH).getPath();
@@ -98,9 +96,6 @@ public final class SignDocument {
                 }
             } catch (final PDFException e) {
                 LOGGER.severe(e.getMessage());
-            }
-            if (byteReader != null) {
-                byteReader.close();
             }
         }
     }
