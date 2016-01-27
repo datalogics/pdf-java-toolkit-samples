@@ -210,6 +210,10 @@
             <java.awt.headless>true</java.awt.headless>
             <java.util.logging.config.file>src/test/resources/logging.properties</java.util.logging.config.file>
           </systemPropertyVariables>
+          <excludes>
+            <exclude>**/*IntegrationTest.java</exclude>
+            <exclude>**/*IT.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
