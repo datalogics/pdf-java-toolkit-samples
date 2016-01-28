@@ -45,7 +45,7 @@ import java.util.List;
  */
 @RunWith(Parameterized.class)
 public class ImageDownsamplingTest extends SampleTest {
-    private static final String FILE_NAME = "downsampled_ducky_";
+    private static final String FILE_NAME = "downsampled_ducky.pdf";
     private static final String ORIGINAL_FILE_NAME = "ducky.pdf";
     private static final double SCALE_FACTOR = 0.5;
 
@@ -79,12 +79,8 @@ public class ImageDownsamplingTest extends SampleTest {
                 builder.imageColorSpace(ASName.k_ICCBased).imageCompression(ASName.k_DCTDecode);
 
                 // Note that you can modify the builder repeatedly and use it to make more tests.
-                add(builder.method(Resampler.kResampleNearestNeighbor)
-                           .imageChecksum("90dfd47d5e672079f5632eda8703f47d").build());
                 add(builder.method(Resampler.kResampleBicubic)
                            .imageChecksum("f214dfd6bf398b1a66cf569350335d2c").build());
-                add(builder.method(Resampler.kResampleLinear)
-                           .imageChecksum("f269656f7dd51c3f4ee14e9ed2fbf789").build());
             }
         };
         return parameters;
@@ -92,15 +88,14 @@ public class ImageDownsamplingTest extends SampleTest {
 
     @Test
     public void testMain() throws Exception {
-        final File file = newOutputFileWithDelete(params.getFileName() + params.getMethodString() + ".pdf");
+        final File file = newOutputFileWithDelete(params.getFileName());
 
         /*
          * Run sample which generates files using all three methods: {NearestNeighbor, Bicubic, Linear}
          */
-        final String path = newOutputFile(FILE_NAME).getCanonicalPath();
-        final String method = String.valueOf(params.getMethod());
+        final String outputPath = newOutputFile(FILE_NAME).getCanonicalPath();
 
-        ImageDownsampling.main(path, method);
+        ImageDownsampling.main(ORIGINAL_FILE_NAME, outputPath);
 
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
@@ -217,7 +212,6 @@ public class ImageDownsamplingTest extends SampleTest {
      * Parameters for tests. Note that there are no setters; this class should be built with its Builder.
      */
     private static class DownsamplingTest {
-        private static String[] methodStrings = new String[] { "**invalid**", "NearestNeighbor", "Bicubic", "Linear" };
         private String fileName;
         private int method;
         private String imageChecksum;
@@ -241,15 +235,6 @@ public class ImageDownsamplingTest extends SampleTest {
          */
         public int getMethod() {
             return method;
-        }
-
-        /**
-         * Get downsampling method (String).
-         *
-         * @return String
-         */
-        public String getMethodString() {
-            return methodStrings[method];
         }
 
         /**
@@ -295,7 +280,7 @@ public class ImageDownsamplingTest extends SampleTest {
          */
         @Override
         public String toString() {
-            return "fileName=" + fileName + ", method=" + methodStrings[method];
+            return "fileName=" + fileName;
         }
 
         public static class Builder {
