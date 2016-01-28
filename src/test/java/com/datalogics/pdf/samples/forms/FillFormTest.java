@@ -21,6 +21,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
@@ -68,7 +69,7 @@ public class FillFormTest extends SampleTest {
     @Test
     public void testAcroformFdf() throws Exception {
         final File outputPdf = newOutputFileWithDelete(FillForm.ACROFORM_FDF_OUTPUT);
-        final String inputPath = FillForm.class.getResource(FillForm.ACROFORM_FDF_INPUT).getPath();
+        final String inputPath = new URI(FillForm.class.getResource(FillForm.ACROFORM_FDF_INPUT).toString()).getPath();
         FillForm.main(inputPath, FillForm.ACROFORM_FDF_DATA, outputPdf.getCanonicalPath());
         assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
 
@@ -78,7 +79,8 @@ public class FillFormTest extends SampleTest {
     @Test
     public void testAcroformXfdf() throws Exception {
         final File outputPdf = newOutputFileWithDelete(FillForm.ACROFORM_XFDF_OUTPUT);
-        final String inputPath = FillForm.class.getResource(FillForm.ACROFORM_XFDF_INPUT).getPath();
+        final String inputPath = new URI(FillForm.class.getResource(FillForm.ACROFORM_XFDF_INPUT)
+                                                       .toString()).getPath();
         FillForm.main(inputPath, FillForm.ACROFORM_XFDF_DATA, outputPdf.getCanonicalPath());
         assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
 
@@ -88,7 +90,7 @@ public class FillFormTest extends SampleTest {
     @Test
     public void testXfaXml() throws Exception {
         final File outputPdf = newOutputFileWithDelete(FillForm.XFA_OUTPUT);
-        final String inputPath = FillForm.class.getResource(FillForm.XFA_PDF_INPUT).getPath();
+        final String inputPath = new URI(FillForm.class.getResource(FillForm.XFA_PDF_INPUT).toString()).getPath();
         FillForm.main(inputPath, FillForm.XFA_XML_DATA, outputPdf.getCanonicalPath());
         assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
 

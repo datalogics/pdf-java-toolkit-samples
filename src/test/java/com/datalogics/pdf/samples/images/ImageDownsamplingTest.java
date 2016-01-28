@@ -34,6 +34,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import java.io.File;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,9 +98,9 @@ public class ImageDownsamplingTest extends SampleTest {
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
+        final String inputPath = new URI(ImageDownsampling.class.getResource(ORIGINAL_FILE_NAME).toString()).getPath();
         // Downsample the original image PDF file.
-        PDFDocument pdfDoc = DocumentUtils.openPdfDocument(ImageDownsampling.class.getResource(ORIGINAL_FILE_NAME)
-                                                                                  .getPath());
+        PDFDocument pdfDoc = DocumentUtils.openPdfDocument(inputPath);
         PDFPage page = pdfDoc.requirePages().getPage(0);
         PDFXObjectMap objMap = page.getResources().getXObjectMap();
         int images = 0;
