@@ -28,6 +28,6 @@ public class IoUtilsTest {
 
         final ByteWriter byteWriter = IoUtils.getByteWriterFromFile(inputPath);
 
-        assertNotNull("PDF", byteWriter);
+        assertNotNull("Byte writer should not be null", byteWriter);
     }
 }

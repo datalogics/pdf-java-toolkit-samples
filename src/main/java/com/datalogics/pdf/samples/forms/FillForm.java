@@ -27,6 +27,7 @@ import org.w3c.dom.Node;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -100,9 +101,11 @@ public final class FillForm {
                                                    + " is not supported. Supported types: XML, FDF, and XFDF.");
             }
         } else {
-            final String acroformFdfInput = FillForm.class.getResource(ACROFORM_FDF_INPUT).getPath();
-            final String acroformXfdfInput = FillForm.class.getResource(ACROFORM_XFDF_INPUT).getPath();
-            final String xfaPdfInput = FillForm.class.getResource(XFA_PDF_INPUT).getPath();
+            final String acroformFdfInput = new URI(FillForm.class.getResource(ACROFORM_FDF_INPUT)
+                                                                  .toString()).getPath();
+            final String acroformXfdfInput = new URI(FillForm.class.getResource(ACROFORM_XFDF_INPUT)
+                                                                   .toString()).getPath();
+            final String xfaPdfInput = new URI(FillForm.class.getResource(XFA_PDF_INPUT).toString()).getPath();
             fillPdfForm(acroformFdfInput, ACROFORM_FDF_DATA, FDF_FORMAT, ACROFORM_FDF_OUTPUT);
             fillPdfForm(acroformXfdfInput, ACROFORM_XFDF_DATA, XFDF_FORMAT, ACROFORM_XFDF_OUTPUT);
             fillPdfForm(xfaPdfInput, XFA_XML_DATA, XML_FORMAT, XFA_OUTPUT);

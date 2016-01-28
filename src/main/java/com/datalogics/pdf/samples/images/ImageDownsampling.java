@@ -22,6 +22,7 @@ import com.adobe.pdfjt.services.imageconversion.ImageManager;
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
+import java.net.URI;
 import java.util.Iterator;
 
 /**
@@ -76,7 +77,7 @@ public final class ImageDownsampling {
             method = DEFAULT_SAMPLING_METHOD;
         }
 
-        final String inputPath = ImageDownsampling.class.getResource(INPUT_IMAGE_PATH).getPath();
+        final String inputPath = new URI(ImageDownsampling.class.getResource(INPUT_IMAGE_PATH).toString()).getPath();
         final PDFDocument pdfDoc = DocumentUtils.openPdfDocument(inputPath);
         downsampleImage(pdfDoc, method);
         DocumentHelper.saveFullAndClose(pdfDoc, path + getResampleMethodString(method) + ".pdf");

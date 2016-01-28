@@ -14,6 +14,8 @@ import com.adobe.pdfjt.services.manipulations.PMMService;
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
+import java.net.URI;
+
 /**
  * This sample shows how to merge two PDF documents into one. It will also show how to properly merge PDF documents that
  * contain forms, links, bookmarks, and annotations.
@@ -87,7 +89,8 @@ public final class MergeDocuments {
 
         try {
             // Read in the input file.
-            pdfToAppend = DocumentUtils.openPdfDocument(MergeDocuments.class.getResource(resourceName).getPath());
+            final String inputPath = new URI(MergeDocuments.class.getResource(resourceName).toString()).getPath();
+            pdfToAppend = DocumentUtils.openPdfDocument(inputPath);
 
 
             // Create the Bookmark Title String to imitate the behavior of Acrobat. This will be the title of the

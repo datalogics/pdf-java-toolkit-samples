@@ -24,6 +24,7 @@ import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.EnumSet;
 
 /**
@@ -62,7 +63,7 @@ public final class FlattenPdf {
             inputPath = args[0];
             outputPath = args[1];
         } else {
-            inputPath = INPUT_PDF_PATH;
+            inputPath = new URI(FlattenPdf.class.getResource(INPUT_PDF_PATH).toString()).getPath();
             outputPath = OUTPUT_FLATTENED_PDF_PATH;
         }
         flattenPdf(inputPath, outputPath);
@@ -95,7 +96,7 @@ public final class FlattenPdf {
         // by setting the enum of the desired element rather than PDFAnnotationEnum.class.
         apContext.setAnnotationsToBeProcessed(EnumSet.allOf(PDFAnnotationEnum.class));
 
-        final PDFDocument pdfDoc = DocumentUtils.openPdfDocument(FlattenPdf.class.getResource(inputPath).getPath());
+        final PDFDocument pdfDoc = DocumentUtils.openPdfDocument(inputPath);
 
         // Flatten the signature fields so they can no longer be changed. If you do not want the signature fields
         // to be flattened the the next two lines should be omitted.

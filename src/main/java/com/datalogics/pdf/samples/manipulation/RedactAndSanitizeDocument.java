@@ -46,6 +46,7 @@ import com.datalogics.pdf.samples.util.FontUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.io.IOException;
+import java.net.URI;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -116,7 +117,7 @@ public final class RedactAndSanitizeDocument {
             outputPath = args[1];
             searchString = args[2];
         } else {
-            inputPath = RedactAndSanitizeDocument.class.getResource(INPUT_PDF_PATH).getPath();
+            inputPath = new URI(RedactAndSanitizeDocument.class.getResource(INPUT_PDF_PATH).toString()).getPath();
             outputPath = OUTPUT_PDF_PATH;
             searchString = SEARCH_PDF_STRING;
         }

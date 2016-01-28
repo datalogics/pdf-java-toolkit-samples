@@ -29,6 +29,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
 import java.io.IOException;
+import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,7 +69,7 @@ public class PrintPdf {
         if (args.length > 0) {
             path = args[0];
         } else {
-            path = PrintPdf.class.getResource(DEFAULT_INPUT).getPath();
+            path = new URI(PrintPdf.class.getResource(DEFAULT_INPUT).toString()).getPath();
         }
         printPdf(path);
     }
