@@ -46,13 +46,19 @@ public final class MergeDocuments {
         LicenseManager.setLicensePath(".");
 
         if (args.length > 0) {
-            run(args[0]);
+            mergeTwoDocuments(args[0]);
         } else {
-            run(OUTPUT_PDF_PATH);
+            mergeTwoDocuments(OUTPUT_PDF_PATH);
         }
     }
 
-    static void run(final String outputPath) throws Exception {
+    /**
+     * Merge two sample documents, with the output written to the given path.
+     *
+     * @param outputPath the path to the file to contain the output document
+     * @throws Exception a general exception was thrown
+     */
+    public static void mergeTwoDocuments(final String outputPath) throws Exception {
         // Start by creating a new PDF document that will be used to merge the other documents into. The new document
         // will contain a single blank page but we'll remove this just before saving the merged file.
         final PDFDocument mergedDocument = PDFDocument.newInstance(new ASRectangle(ASRectangle.US_LETTER),

@@ -33,11 +33,18 @@
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <tools.version>1.7.0</tools.version>
     <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>1.0.0-SNAPSHOT</pmdconfig.version>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>org.reflections</groupId>
+      <artifactId>reflections</artifactId>
+      <version>0.9.10</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>org.jmockit</groupId>
       <artifactId>jmockit</artifactId>
@@ -48,6 +55,12 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.junit-toolbox</groupId>
+      <artifactId>junit-toolbox</artifactId>
+      <version>1.10</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -197,6 +210,10 @@
             <java.awt.headless>true</java.awt.headless>
             <java.util.logging.config.file>src/test/resources/logging.properties</java.util.logging.config.file>
           </systemPropertyVariables>
+          <excludes>
+            <exclude>**/*IntegrationTest.java</exclude>
+            <exclude>**/*IT.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -364,5 +381,65 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>integration-tests</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-clean-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+              <execution>
+                <id>clean-classes</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>clean</goal>
+                </goals>
+                <configuration>
+                  <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                  <filesets>
+                    <fileset>
+                      <directory>${project.build.directory}/classes</directory>
+                      <followSymlinks>false</followSymlinks>
+                      <useDefaultExcludes>true</useDefaultExcludes>
+                    </fileset>
+                  </filesets>
+                  <verbose>true</verbose>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <version>2.19.1</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+                <configuration>
+                  <systemPropertyVariables>
+                    <java.awt.headless>true</java.awt.headless>
+                    <java.util.logging.config.file>src/test/resources/logging.properties</java.util.logging.config.file>
+                    <com.datalogics.pdf.FontSetLoader.fontSetCacheName>${project.build.directory}/integration-test-outputs/integration-test-fonts.ser</com.datalogics.pdf.FontSetLoader.fontSetCacheName>
+                  </systemPropertyVariables>
+                  <classesDirectory>${project.build.directory}/${project.build.finalName}.jar</classesDirectory>
+                  <workingDirectory>${project.build.directory}/integration-test-outputs</workingDirectory>
+                  <includes>
+                    <include>**/*IntegrationTest.java</include>
+                    <include>**/*IT.java</include>
+                  </includes>
+                  <trimStackTrace>false</trimStackTrace>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
 <!-- vim: set et sts=2 sw=2 ts=2 : -->

@@ -38,8 +38,8 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
 /**
- * This sample shows how to insert an image from a JPEG file and place it in a new blank page in a new PDF document.
- * Demonstrates obtaining a PDF image from a Java {@link BufferedImage}.
+ * This sample creates a short version of the book White Fang. It uses PDFJT to insert a picture on the first page, then
+ * Talkeetna to flow the text of chapter one.
  *
  */
 public final class MakeWhiteFangBook {
@@ -69,11 +69,18 @@ public final class MakeWhiteFangBook {
         } else {
             path = OUTPUT_PDF_PATH;
         }
-        run(path);
+        makeWhiteFangBook(path);
     }
 
 
-    static void run(final String outputPath) throws Exception {
+    /**
+     * Create a short version of the book White Fang. It uses PDFJT to insert a picture on the first page, then
+     * Talkeetna to flow the text of chapter one.
+     *
+     * @param outputPath the path upon which to write the output
+     * @throws Exception a general exception was thrown
+     */
+    public static void makeWhiteFangBook(final String outputPath) throws Exception {
         PDFDocument document = null;
 
         try {

@@ -63,15 +63,17 @@ public final class SignDocument {
         } else {
             path = OUTPUT_SIGNED_PDF_PATH;
         }
-        run(path);
-    }
-
-    static void run(final String outputPath) throws Exception {
         // Query and sign all permissible signature fields.
-        signExistingSignatureFields(outputPath);
+        signExistingSignatureFields(path);
     }
 
-    private static void signExistingSignatureFields(final String outputPath) throws Exception {
+    /**
+     * Sign existing signature fields found in the example document.
+     *
+     * @param outputPath the path to the file to contain the signed document
+     * @throws Exception a general exception was thrown
+     */
+    public static void signExistingSignatureFields(final String outputPath) throws Exception {
         PDFDocument pdfDoc = null;
         ByteReader byteReader = null;
         try {

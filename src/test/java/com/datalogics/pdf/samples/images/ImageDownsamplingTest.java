@@ -62,7 +62,7 @@ public class ImageDownsamplingTest extends SampleTest {
      * the errors it gives.
      *
      * @return Iterable
-     * @throws Exception This method return a general Exception.
+     * @throws Exception a general exception was thrown
      */
     @Parameters(name = "image: {0}")
     public static Iterable<Object[]> parameters() throws Exception {

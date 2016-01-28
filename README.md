@@ -7,3 +7,7 @@ a license from Datalogics for PDF Java Toolkit in order to run these samples. Pl
 sign up for an evaluation [here](http://www.datalogics.com/products/pdf/pdfjavatoolkit/eval/)
 or [contact us](http://www.datalogics.com/company/contact-us/) to learn more before
 evaluating Datalogics PDF Java Toolkit.
+
+## Contributing
+
+See ``CONTRIBUTING.md``.

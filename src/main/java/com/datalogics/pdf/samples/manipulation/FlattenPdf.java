@@ -81,11 +81,11 @@ public final class FlattenPdf {
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFUnableToCompleteOperationException one of the requested operations could not be completed
-     * @throws PDFInvalidParameterException one of the parameters was invalid
-     * @throws PDFConfigurationException the configuration of the PDF or one of its parts was invalid
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
+     * @throws PDFConfigurationException there was a system problem configuring PDF support
      * @throws PDFUnsupportedFeatureException the requested feature is not currently supported
-     * @throws PDFFontException there was an error using one of the required fonts
+     * @throws PDFFontException there was an error in the font set or an individual font
      */
     private static void flattenPdf(final String inputPath, final String outputPath)
                     throws IOException, PDFIOException, PDFSecurityException, PDFInvalidDocumentException,
