@@ -26,6 +26,7 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
 import java.awt.print.PrinterJob;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
@@ -131,7 +132,17 @@ public class RunMainMethodsFromJarIntegrationTest {
         };
 
         // Invoke the main method of that class
-        mainMethod.invoke(null, new Object[] { new String[] {} });
+        try {
+            mainMethod.invoke(null, new Object[] { new String[] {} });
+        } catch (final InvocationTargetException e) {
+            final Throwable cause = e.getCause();
+            if (cause instanceof Exception) {
+                final Exception causeException = (Exception) cause;
+                throw causeException;
+            } else {
+                throw e;
+            }
+        }
     }
 
 }

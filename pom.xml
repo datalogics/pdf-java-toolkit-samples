@@ -432,6 +432,7 @@
                     <include>**/*IntegrationTest.java</include>
                     <include>**/*IT.java</include>
                   </includes>
+                  <trimStackTrace>false</trimStackTrace>
                 </configuration>
               </execution>
             </executions>
