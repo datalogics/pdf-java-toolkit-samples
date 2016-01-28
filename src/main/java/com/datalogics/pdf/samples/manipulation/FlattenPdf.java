@@ -25,6 +25,7 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.EnumSet;
 
 /**
@@ -63,7 +64,7 @@ public final class FlattenPdf {
             inputPath = args[0];
             outputPath = args[1];
         } else {
-            inputPath = new URI(FlattenPdf.class.getResource(INPUT_PDF_PATH).toString()).getPath();
+            inputPath = INPUT_PDF_PATH;
             outputPath = OUTPUT_FLATTENED_PDF_PATH;
         }
         flattenPdf(inputPath, outputPath);
@@ -83,11 +84,13 @@ public final class FlattenPdf {
      * @throws PDFConfigurationException there was a system problem configuring PDF support
      * @throws PDFUnsupportedFeatureException the requested feature is not currently supported
      * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws URISyntaxException Checked exception thrown to indicate that a string could not be parsed as a URI
+     *         reference
      */
     private static void flattenPdf(final String inputPath, final String outputPath)
                     throws IOException, PDFIOException, PDFSecurityException, PDFInvalidDocumentException,
                     PDFFontException, PDFUnsupportedFeatureException, PDFConfigurationException,
-                    PDFInvalidParameterException, PDFUnableToCompleteOperationException {
+                    PDFInvalidParameterException, PDFUnableToCompleteOperationException, URISyntaxException {
 
         final APResources apResources = new APResources(null, null, null);
         final APContext apContext = new APContext(apResources, true, null);
@@ -96,7 +99,8 @@ public final class FlattenPdf {
         // by setting the enum of the desired element rather than PDFAnnotationEnum.class.
         apContext.setAnnotationsToBeProcessed(EnumSet.allOf(PDFAnnotationEnum.class));
 
-        final PDFDocument pdfDoc = DocumentUtils.openPdfDocument(inputPath);
+        final PDFDocument pdfDoc = DocumentUtils.openPdfDocument(new URI(FlattenPdf.class.getResource(inputPath)
+                                                                                         .toString()).getPath());
 
         // Flatten the signature fields so they can no longer be changed. If you do not want the signature fields
         // to be flattened the the next two lines should be omitted.

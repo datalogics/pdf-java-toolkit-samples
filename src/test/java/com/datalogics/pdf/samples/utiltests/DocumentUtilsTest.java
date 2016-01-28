@@ -23,10 +23,12 @@ public class DocumentUtilsTest extends SampleTest {
 
     @Test
     public void testMain() throws Exception {
-        final URI uri = new URI(DocumentUtilsTest.class.getResource(FILE_NAME).toString());
-        final String inputPath = uri.getPath();
+
+        // Use an URI to handle spaces in file names
+        final String inputPath = new URI(DocumentUtilsTest.class.getResource(FILE_NAME).toString()).getPath();
+
         final PDFDocument document = DocumentUtils.openPdfDocument(inputPath);
 
-        assertNotNull("PDF", document);
+        assertNotNull("The PDF document should not be null", document);
     }
 }
