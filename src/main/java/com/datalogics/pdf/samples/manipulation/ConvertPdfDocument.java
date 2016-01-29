@@ -21,7 +21,7 @@ import com.datalogics.pdf.samples.util.ConvertPdfA1Util;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.io.IOException;
-import java.net.URI;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 
 
@@ -70,9 +70,8 @@ public final class ConvertPdfDocument {
         final PDFOpenOptions openOptions = PDFOpenOptions.newInstance();
         openOptions.setFontSet(pdfaFontSet);
 
-        final String pdfPath = new URI(ConvertPdfDocument.class.getResource(INPUT_UNCONVERTED_PDF_PATH)
-                                                               .toString()).getPath();
-        final PDFDocument pdfDoc = DocumentUtils.openPdfDocumentWithOptions(pdfPath, openOptions);
+        final InputStream inputStream = ConvertPdfDocument.class.getResourceAsStream(INPUT_UNCONVERTED_PDF_PATH);
+        final PDFDocument pdfDoc = DocumentUtils.openPdfDocumentWithStream(inputStream);
 
         // Note: Transparency is not handled by PDF Java Toolkit
         ConvertPdfA1Util.convertPdfA1(pdfDoc, outputPath);

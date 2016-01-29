@@ -19,7 +19,6 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 import org.junit.Test;
 
 import java.io.File;
-import java.net.URI;
 import java.nio.file.Files;
 
 /**
@@ -38,10 +37,7 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-
-        final String inputPath = new URI(RedactAndSanitizeDocumentTest.class.getResource(INPUT_PDF_PATH)
-                                                                            .toString()).getPath();
-        RedactAndSanitizeDocument.main(inputPath, file.getCanonicalPath(), SEARCH_STRING);
+        RedactAndSanitizeDocument.main(INPUT_PDF_PATH, file.getCanonicalPath(), SEARCH_STRING);
         assertTrue(file.getPath() + " must exist after run", file.exists());
         PDFDocument document = null;
         try {
@@ -73,10 +69,7 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-
-        final String inputPath = new URI(RedactAndSanitizeDocumentTest.class.getResource(INPUT_PDF_PATH_WITH_SIGNATURE)
-                                                                            .toString()).getPath();
-        RedactAndSanitizeDocument.main(inputPath, file.getCanonicalPath(), SEARCH_STRING);
+        RedactAndSanitizeDocument.main(INPUT_PDF_PATH_WITH_SIGNATURE, file.getCanonicalPath(), SEARCH_STRING);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         final PDFDocument document = DocumentUtils.openPdfDocument(file.getCanonicalPath());

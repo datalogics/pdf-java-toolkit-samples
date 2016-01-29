@@ -21,7 +21,6 @@ import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
@@ -76,9 +75,8 @@ public final class SignDocument {
         PDFDocument pdfDoc = null;
         try {
             // Get the PDF file.
-            final String inputPath = new URI(SignDocument.class.getResource(INPUT_UNSIGNED_PDF_PATH)
-                                                               .toString()).getPath();
-            pdfDoc = DocumentUtils.openPdfDocument(inputPath);
+            final InputStream inputStream = SignDocument.class.getResourceAsStream(INPUT_UNSIGNED_PDF_PATH);
+            pdfDoc = DocumentUtils.openPdfDocumentWithStream(inputStream);
 
             // Set up a signature service and iterate over all of the
             // signature fields.

@@ -14,7 +14,7 @@ import com.adobe.pdfjt.services.manipulations.PMMService;
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
-import java.net.URI;
+import java.io.InputStream;
 
 /**
  * This sample shows how to merge two PDF documents into one. It will also show how to properly merge PDF documents that
@@ -89,8 +89,9 @@ public final class MergeDocuments {
 
         try {
             // Read in the input file.
-            final String inputPath = new URI(MergeDocuments.class.getResource(resourceName).toString()).getPath();
-            pdfToAppend = DocumentUtils.openPdfDocument(inputPath);
+
+            final InputStream inputStream = MergeDocuments.class.getResourceAsStream(resourceName);
+            pdfToAppend = DocumentUtils.openPdfDocumentWithStream(inputStream);
 
 
             // Create the Bookmark Title String to imitate the behavior of Acrobat. This will be the title of the

@@ -43,6 +43,36 @@ public final class DocumentUtils {
         return openPdfDocumentWithOptions(inputPath, pdfOpenOptions);
     }
 
+
+
+    /**
+     * Opens a PDF document from a stream using passed in {@link PDFOpenOptions}.
+     *
+     * @param inputStream the stream representing the PDF Document
+     * @param pdfOpenOptions The options to use when opening a PDF document.
+     * @return A PDF document opened from the inputPath
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws IOException an I/O operation failed or was interrupted
+     */
+    private static PDFDocument openPdfDocumentWithStream(final InputStream inputStream,
+                                                         final PDFOpenOptions pdfOpenOptions) throws IOException,
+                                                                         PDFInvalidDocumentException, PDFIOException,
+                                                                         PDFSecurityException {
+
+        final ByteReader reader = new InputStreamByteReader(inputStream);
+        final PDFDocument document = PDFDocument.newInstance(reader, pdfOpenOptions);
+
+        return document;
+    }
+
+    public static PDFDocument openPdfDocumentWithStream(final InputStream inputStream)
+                    throws IOException, PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
+        final PDFOpenOptions pdfOpenOptions = PDFOpenOptions.newInstance();
+        return openPdfDocumentWithStream(inputStream, pdfOpenOptions);
+    }
+
     /**
      * Opens a PDF document from a path using passed in {@link PDFOpenOptions}.
      *
@@ -56,10 +86,10 @@ public final class DocumentUtils {
      */
     public static PDFDocument openPdfDocumentWithOptions(final String inputPath, final PDFOpenOptions pdfOpenOptions)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
-        final ByteReader reader = new InputStreamByteReader(getInputStreamFromPath(inputPath));
-        final PDFDocument document = PDFDocument.newInstance(reader, pdfOpenOptions);
+        final InputStream inputStream = getInputStreamFromPath(inputPath);
 
-        return document;
+
+        return openPdfDocumentWithStream(inputStream, pdfOpenOptions);
     }
 
     /**

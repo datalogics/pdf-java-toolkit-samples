@@ -21,6 +21,7 @@ import com.datalogics.pdf.samples.util.FontUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 
@@ -29,7 +30,7 @@ import java.nio.file.Files;
  * to a text file.
  */
 public final class TextExtract {
-    private static final String INPUT_PDF_PATH = "src/main/resources/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
+    private static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
     private static final String OUTPUT_TEXT_PATH = "TextExtract.txt";
 
     /**
@@ -68,7 +69,8 @@ public final class TextExtract {
                 Files.delete(outputFile.toPath());
             }
             outputStream = new FileOutputStream(outputFile);
-            document = DocumentUtils.openPdfDocument(inputPath);
+            final InputStream inputStream = TextExtract.class.getResourceAsStream(inputPath);
+            document = DocumentUtils.openPdfDocumentWithStream(inputStream);
             extractTextReadingOrder(document, outputStream);
         } finally {
             if (document != null) {

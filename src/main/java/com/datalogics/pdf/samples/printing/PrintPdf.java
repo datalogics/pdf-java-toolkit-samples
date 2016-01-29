@@ -29,7 +29,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
 import java.io.IOException;
-import java.net.URI;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -69,7 +69,7 @@ public class PrintPdf {
         if (args.length > 0) {
             path = args[0];
         } else {
-            path = new URI(PrintPdf.class.getResource(DEFAULT_INPUT).toString()).getPath();
+            path = DEFAULT_INPUT;
         }
         printPdf(path);
     }
@@ -98,7 +98,8 @@ public class PrintPdf {
         try {
             // Read the PDF input file and detect the page size of the first page. This sample assumes all pages in
             // the document are the same size
-            final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(inputPath);
+            final InputStream inputStream = PrintPdf.class.getResourceAsStream(inputPath);
+            final PDFDocument pdfDocument = DocumentUtils.openPdfDocumentWithStream(inputStream);
             final PDFPage pdfPage = pdfDocument.requirePages().getPage(0);
             final int pdfPageWidth = (int) pdfPage.getMediaBox().width();
             final int pdfPageHeight = (int) pdfPage.getMediaBox().height();
