@@ -14,6 +14,7 @@ import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.navigation.PDFBookmarkRoot;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -36,12 +37,11 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-
         RedactAndSanitizeDocument.main(INPUT_PDF_PATH, file.getCanonicalPath(), SEARCH_STRING);
         assertTrue(file.getPath() + " must exist after run", file.exists());
         PDFDocument document = null;
         try {
-            document = openPdfDocument(file.getCanonicalPath());
+            document = DocumentUtils.openPdfDocument(file.getCanonicalPath());
 
             // Test redaction
             for (int i = 0; i < 2; i++) {
@@ -69,11 +69,10 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-
         RedactAndSanitizeDocument.main(INPUT_PDF_PATH_WITH_SIGNATURE, file.getCanonicalPath(), SEARCH_STRING);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument document = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument document = DocumentUtils.openPdfDocument(file.getCanonicalPath());
 
         // // Test sanitization
         final PDFCatalog catalog = document.requireCatalog();

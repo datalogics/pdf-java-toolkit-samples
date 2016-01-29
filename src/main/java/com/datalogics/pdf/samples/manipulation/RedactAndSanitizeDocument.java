@@ -4,10 +4,7 @@
 
 package com.datalogics.pdf.samples.manipulation;
 
-import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.InputStreamByteReader;
-import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
@@ -19,7 +16,6 @@ import com.adobe.pdfjt.core.fontset.PDFFontSet;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASDate;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.document.PDFSaveLinearOptions;
 import com.adobe.pdfjt.pdf.document.PDFSaveOptions;
 import com.adobe.pdfjt.pdf.document.PDFVersion;
@@ -33,7 +29,6 @@ import com.adobe.pdfjt.services.ap.AppearanceService;
 import com.adobe.pdfjt.services.ap.spi.APContext;
 import com.adobe.pdfjt.services.ap.spi.APResources;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
-import com.adobe.pdfjt.services.fontresources.PDFFontSetUtil;
 import com.adobe.pdfjt.services.redaction.RedactionHandler;
 import com.adobe.pdfjt.services.redaction.RedactionOptions;
 import com.adobe.pdfjt.services.redaction.RedactionService;
@@ -47,12 +42,11 @@ import com.adobe.pdfjt.services.textextraction.WordsIterator;
 
 import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.FontUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.nio.file.Files;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -118,7 +112,7 @@ public final class RedactAndSanitizeDocument {
         String searchString = null;
         PDFDocument document = null;
 
-        if (args.length > 2) {
+        if (args.length > 1) {
             inputPath = args[0];
             outputPath = args[1];
             searchString = args[2];
@@ -129,12 +123,13 @@ public final class RedactAndSanitizeDocument {
         }
 
         try {
-            document = openPdfDocument(inputPath);
+            final InputStream inputStream = RedactAndSanitizeDocument.class.getResourceAsStream(inputPath);
+
+            document = DocumentUtils.openPdfDocumentWithStream(inputStream);
 
             markTextForRedaction(document, searchString);
 
             applyRedaction(document, outputPath);
-            document.close();
         } finally {
             if (document != null) {
                 document.close();
@@ -142,7 +137,7 @@ public final class RedactAndSanitizeDocument {
         }
 
         try {
-            document = DocumentUtils.openPdfDocumentFromPath(outputPath);
+            document = DocumentUtils.openPdfDocument(outputPath);
 
             sanitizeDocument(document, outputPath);
         } finally {
@@ -168,7 +163,7 @@ public final class RedactAndSanitizeDocument {
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
                     PDFConfigurationException, PDFInvalidParameterException {
         final String searchTermLowerCase = searchTerm.toLowerCase(Locale.ENGLISH);
-        final PDFFontSet docFontSet = setupDocFontSet(document);
+        final PDFFontSet docFontSet = FontUtils.getDocFontSet(document);
 
         final TextExtractor extractor = TextExtractor.newInstance(document,
                                                                   docFontSet);
@@ -257,7 +252,7 @@ public final class RedactAndSanitizeDocument {
                     PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
         ByteWriter writer = null;
         try {
-            writer = getByteWriterFromFile(outputPath);
+            writer = IoUtils.getByteWriterFromFile(outputPath);
             RedactionOptions redactionOptions = null;
             redactionOptions = new RedactionOptions(new LocalRedactionHandler());
 
@@ -294,7 +289,7 @@ public final class RedactAndSanitizeDocument {
             LOGGER.warning("The document was not sanitized");
             return;
         }
-        final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
+        final ByteWriter writer = IoUtils.getByteWriterFromFile(sanitizedPath);
         final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
         // Optimize the document for fast web viewing. This is a part of sanitization.
         saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
@@ -368,67 +363,6 @@ public final class RedactAndSanitizeDocument {
                                                      .of(PDFAnnotationEnum.Redact));
 
         AppearanceService.generateAppearances(document, apContext, null);
-    }
-
-    /**
-     * Create a PDFFontSet that contains fonts used in the original document.
-     *
-     * @param document The document whose fonts need to be loaded
-     * @return A fontset with the appropriate fonts added from the PDFDocument
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFFontException there was an error in the font set or an individual font
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     */
-    private static PDFFontSet setupDocFontSet(final PDFDocument document)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException {
-        PDFFontSet sysFontSet = null;
-        final FontSetLoader fontSetLoader = FontSetLoader.newInstance();
-
-        sysFontSet = fontSetLoader.getFontSet();
-        return PDFFontSetUtil.buildWorkingFontSet(document,
-                                                  sysFontSet, document.getDocumentLocale(), null);
-    }
-
-    /**
-     * Create a ByteWriter from a path to an output file.
-     *
-     * @param outputPath The path ByteWriter should write to
-     * @return A ByteWrite for the otputPath
-     * @throws IOException an I/O operation failed or was interrupted
-     */
-    private static ByteWriter getByteWriterFromFile(final String outputPath) throws IOException {
-        RandomAccessFile outputPdfFile = null;
-
-        final File file = new File(outputPath);
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
-
-        outputPdfFile = new RandomAccessFile(file, "rw");
-        return new RandomAccessFileByteWriter(outputPdfFile);
-    }
-
-    /**
-     * Open a PDF file using an input path.
-     *
-     * @param inputPath The PDF file to open
-     * @return A new PDFDocument instance of the input document
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws IOException an I/O operation failed or was interrupted
-     */
-    private static PDFDocument openPdfDocument(final String inputPath)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
-        ByteReader reader = null;
-        PDFDocument document = null;
-
-        final InputStream inputStream = RedactAndSanitizeDocument.class.getResourceAsStream(inputPath);
-        reader = new InputStreamByteReader(inputStream);
-        document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
-
-        return document;
     }
 
     /**

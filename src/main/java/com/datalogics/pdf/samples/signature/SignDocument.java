@@ -4,10 +4,7 @@
 
 package com.datalogics.pdf.samples.signature;
 
-import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.InputStreamByteReader;
-import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.credentials.CredentialFactory;
 import com.adobe.pdfjt.core.credentials.Credentials;
 import com.adobe.pdfjt.core.credentials.PrivateKeyHolder;
@@ -16,13 +13,14 @@ import com.adobe.pdfjt.core.exceptions.PDFException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 
+import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
@@ -75,12 +73,10 @@ public final class SignDocument {
      */
     public static void signExistingSignatureFields(final String outputPath) throws Exception {
         PDFDocument pdfDoc = null;
-        ByteReader byteReader = null;
         try {
             // Get the PDF file.
             final InputStream inputStream = SignDocument.class.getResourceAsStream(INPUT_UNSIGNED_PDF_PATH);
-            byteReader = new InputStreamByteReader(inputStream);
-            pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
+            pdfDoc = DocumentUtils.openPdfDocumentWithStream(inputStream);
 
             // Set up a signature service and iterate over all of the
             // signature fields.
@@ -100,9 +96,6 @@ public final class SignDocument {
             } catch (final PDFException e) {
                 LOGGER.severe(e.getMessage());
             }
-            if (byteReader != null) {
-                byteReader.close();
-            }
         }
     }
 
@@ -120,8 +113,7 @@ public final class SignDocument {
             if (sigField.isSigningPermitted()) {
                 if (sigField.isVisible()) {
                     // Create output file to hold the signed PDF data.
-                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath, "rw");
-                    byteWriter = new RandomAccessFileByteWriter(outputRaf);
+                    byteWriter = IoUtils.getByteWriterFromFile(outputPath);
                     // Sign the document.
                     sigMgr.sign(sigField, credentials, byteWriter);
                 } else {

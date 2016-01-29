@@ -13,6 +13,7 @@ import com.adobe.pdfjt.services.pdfa.PDFAService;
 import com.adobe.pdfjt.services.pdfa.PDFAValidationOptions;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -34,7 +35,7 @@ public class ConvertPdfDocumentTest extends SampleTest {
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(file.getCanonicalPath());
         try {
             /*
              * Let's validate the converted file to make sure that it's PDFa-1b complaint.

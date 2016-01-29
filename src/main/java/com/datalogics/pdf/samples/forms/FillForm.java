@@ -9,7 +9,6 @@ import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.services.ap.AppearanceService;
 import com.adobe.pdfjt.services.fdf.FDFDocument;
 import com.adobe.pdfjt.services.fdf.FDFService;
@@ -19,6 +18,7 @@ import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 import com.adobe.pdfjt.services.xfdf.XFDFService;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -94,30 +94,38 @@ public final class FillForm {
             if (XML_FORMAT.equalsIgnoreCase(format)
                 || FDF_FORMAT.equalsIgnoreCase(format)
                 || XFDF_FORMAT.equalsIgnoreCase(format)) {
-                fillPdfForm(args[0], inputForm, format.toUpperCase(Locale.US), args[2]);
+                final PDFDocument inputDocument = DocumentUtils.openPdfDocument(args[0]);
+                fillPdfForm(inputDocument, inputForm, format.toUpperCase(Locale.US), args[2]);
             } else {
                 throw new IllegalArgumentException("Form data format of " + format
                                                    + " is not supported. Supported types: XML, FDF, and XFDF.");
             }
         } else {
-            fillPdfForm(ACROFORM_FDF_INPUT, ACROFORM_FDF_DATA, FDF_FORMAT, ACROFORM_FDF_OUTPUT);
-            fillPdfForm(ACROFORM_XFDF_INPUT, ACROFORM_XFDF_DATA, XFDF_FORMAT, ACROFORM_XFDF_OUTPUT);
-            fillPdfForm(XFA_PDF_INPUT, XFA_XML_DATA, XML_FORMAT, XFA_OUTPUT);
+            final InputStream acroformFdfInputStream = FillForm.class.getResourceAsStream(ACROFORM_FDF_INPUT);
+            final InputStream acroformXfdfInputStream = FillForm.class.getResourceAsStream(ACROFORM_XFDF_INPUT);
+            final InputStream xfaPdfInputStream = FillForm.class.getResourceAsStream(XFA_PDF_INPUT);
+            final PDFDocument acroformFdfInput = DocumentUtils.openPdfDocumentWithStream(acroformFdfInputStream);
+            final PDFDocument acroformXfdfInput = DocumentUtils.openPdfDocumentWithStream(acroformXfdfInputStream);
+            final PDFDocument xfaPdfInput = DocumentUtils.openPdfDocumentWithStream(xfaPdfInputStream);
+            fillPdfForm(acroformFdfInput, ACROFORM_FDF_DATA, FDF_FORMAT, ACROFORM_FDF_OUTPUT);
+            fillPdfForm(acroformXfdfInput, ACROFORM_XFDF_DATA, XFDF_FORMAT, ACROFORM_XFDF_OUTPUT);
+            fillPdfForm(xfaPdfInput, XFA_XML_DATA, XML_FORMAT, XFA_OUTPUT);
         }
     }
 
     /**
      * Fill a PDF form with the provided data.
      *
-     * @param pdf The form to be filled
+     * @param pdfDocument The form to be filled
      * @param form The data with which to fill the form
      * @param formType The type of form passed in
      * @param output The file to which the filled form will be saved
      * @throws Exception a general exception was thrown
      */
-    public static void fillPdfForm(final String pdf, final String form, final String formType, final String output)
+    public static void fillPdfForm(final PDFDocument pdfDocument, final String form, final String formType,
+                                   final String output)
                     throws Exception {
-        final PDFDocument pdfDocument = openPdfDocument(pdf);
+
 
         // There are two types of forms that we can fill, so find out which kind we have here.
         final PDFDocumentType documentType = XFAService.getDocumentType(pdfDocument);
@@ -243,29 +251,6 @@ public final class FillForm {
         // Just save the file. Generating appearances and running calculations aren't supported for XFA forms, so
         // there's no need to try it.
         DocumentHelper.saveFullAndClose(pdfDocument, output);
-    }
-
-    /**
-     * Open a PDF file using an input path.
-     *
-     * @param inputPath The PDF file to open
-     * @return A new PDFDocument instance of the input document
-     * @throws Exception a general exception was thrown
-     */
-    public static PDFDocument openPdfDocument(final String inputPath) throws Exception {
-
-        ByteReader reader = null;
-        PDFDocument document = null;
-
-        InputStream inputStream = FillForm.class.getResourceAsStream(inputPath);
-        if (inputStream == null) {
-            inputStream = new FileInputStream(new File(inputPath));
-        }
-
-        reader = new InputStreamByteReader(inputStream);
-        document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
-
-        return document;
     }
 
     /**

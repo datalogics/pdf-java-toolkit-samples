@@ -14,12 +14,14 @@ import com.adobe.pdfjt.services.xfa.XFAService;
 import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
@@ -67,7 +69,8 @@ public class FillFormTest extends SampleTest {
     @Test
     public void testAcroformFdf() throws Exception {
         final File outputPdf = newOutputFileWithDelete(FillForm.ACROFORM_FDF_OUTPUT);
-        FillForm.main(FillForm.ACROFORM_FDF_INPUT, FillForm.ACROFORM_FDF_DATA, outputPdf.getCanonicalPath());
+        final String inputPath = new URI(FillForm.class.getResource(FillForm.ACROFORM_FDF_INPUT).toString()).getPath();
+        FillForm.main(inputPath, FillForm.ACROFORM_FDF_DATA, outputPdf.getCanonicalPath());
         assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
 
         checkForms(outputPdf, ACROFORM_FDF_DATA);
@@ -76,7 +79,9 @@ public class FillFormTest extends SampleTest {
     @Test
     public void testAcroformXfdf() throws Exception {
         final File outputPdf = newOutputFileWithDelete(FillForm.ACROFORM_XFDF_OUTPUT);
-        FillForm.main(FillForm.ACROFORM_XFDF_INPUT, FillForm.ACROFORM_XFDF_DATA, outputPdf.getCanonicalPath());
+        final String inputPath = new URI(FillForm.class.getResource(FillForm.ACROFORM_XFDF_INPUT)
+                                                       .toString()).getPath();
+        FillForm.main(inputPath, FillForm.ACROFORM_XFDF_DATA, outputPdf.getCanonicalPath());
         assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
 
         checkForms(outputPdf, ACROFORM_XFDF_DATA);
@@ -85,7 +90,8 @@ public class FillFormTest extends SampleTest {
     @Test
     public void testXfaXml() throws Exception {
         final File outputPdf = newOutputFileWithDelete(FillForm.XFA_OUTPUT);
-        FillForm.main(FillForm.XFA_PDF_INPUT, FillForm.XFA_XML_DATA, outputPdf.getCanonicalPath());
+        final String inputPath = new URI(FillForm.class.getResource(FillForm.XFA_PDF_INPUT).toString()).getPath();
+        FillForm.main(inputPath, FillForm.XFA_XML_DATA, outputPdf.getCanonicalPath());
         assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
 
         checkForms(outputPdf, XFA_FORM_DATA);
@@ -93,7 +99,7 @@ public class FillFormTest extends SampleTest {
 
     private void checkForms(final File outputFile, final String compare) throws Exception {
         // Check the output doc
-        final PDFDocument outputDoc = FillForm.openPdfDocument(outputFile.getCanonicalPath());
+        final PDFDocument outputDoc = DocumentUtils.openPdfDocument(outputFile.getCanonicalPath());
         final PDFInteractiveForm pdfForm = outputDoc.getInteractiveForm();
         final Iterator<PDFField> fieldIterator = pdfForm.iterator();
         final StringBuilder sb = new StringBuilder();

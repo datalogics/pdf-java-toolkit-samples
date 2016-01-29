@@ -4,18 +4,14 @@
 
 package com.datalogics.pdf.samples.images;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
-import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASName;
 import com.adobe.pdfjt.image.Resampler;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.document.PDFResources;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObject;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
@@ -24,9 +20,8 @@ import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
 
@@ -77,7 +72,8 @@ public final class ImageDownsampling {
             outputPath = OUTPUT_IMAGE_PATH;
         }
 
-        final PDFDocument pdfDoc = getPdfDocument(inputPath);
+        final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(inputPath);
+        final PDFDocument pdfDoc = DocumentUtils.openPdfDocumentWithStream(inputStream);
         downsampleImage(pdfDoc);
         DocumentHelper.saveFullAndClose(pdfDoc, outputPath);
     }
@@ -90,7 +86,7 @@ public final class ImageDownsampling {
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
+     * @throws PDFInvalidParameterException one or more parameters passed were invalid
      */
     public static void downsampleImage(final PDFDocument pdfDoc)
                     throws PDFInvalidDocumentException, PDFIOException,
@@ -124,23 +120,5 @@ public final class ImageDownsampling {
                 }
             }
         }
-    }
-
-    private static PDFDocument getPdfDocument(final String inputPath)
-                    throws PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException, PDFUnableToCompleteOperationException, IOException {
-        PDFDocument pdfDoc = null;
-        ByteReader byteReader = null;
-
-        try (final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(inputPath);) {
-            if (inputStream == null) {
-                byteReader = new InputStreamByteReader(new FileInputStream(inputPath));
-            } else {
-                byteReader = new InputStreamByteReader(inputStream);
-            }
-        }
-        pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
-
-        return pdfDoc;
     }
 }
