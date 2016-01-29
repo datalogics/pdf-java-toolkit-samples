@@ -19,6 +19,8 @@ import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
+import com.adobe.pdfjt.services.digsig.SignatureOptions;
+import com.adobe.pdfjt.services.digsig.UserInfo;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -122,8 +124,18 @@ public final class SignDocument {
                     // Create output file to hold the signed PDF data.
                     final RandomAccessFile outputRaf = new RandomAccessFile(outputPath, "rw");
                     byteWriter = new RandomAccessFileByteWriter(outputRaf);
+
+                    final SignatureOptions signatureOptions = SignatureOptions.newInstance();
+                    final UserInfo userInfo = UserInfo.newInstance();
+
+                    // This name will show up in the signature as "Digitally signed by <name>".
+                    // If no name is specified the signature will say it was signed by whatever name is
+                    // on the credentials used to sign the document.
+                    userInfo.setName("John Doe");
+                    signatureOptions.setUserInfo(userInfo);
+
                     // Sign the document.
-                    sigMgr.sign(sigField, credentials, byteWriter);
+                    sigMgr.sign(sigField, signatureOptions, credentials, byteWriter);
                 } else {
                     throw new PDFIOException("Signature field is not visible");
                 }
