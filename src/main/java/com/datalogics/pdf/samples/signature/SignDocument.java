@@ -131,7 +131,7 @@ public final class SignDocument {
                     // This name will show up in the signature as "Digitally signed by <name>".
                     // If no name is specified the signature will say it was signed by whatever name is
                     // on the credentials used to sign the document.
-                    userInfo.setName("James Westerton");
+                    userInfo.setName("John Doe");
                     signatureOptions.setUserInfo(userInfo);
 
                     // Sign the document.
