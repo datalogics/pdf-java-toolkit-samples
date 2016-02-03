@@ -101,7 +101,7 @@ public final class RedactAndSanitizeDocument {
     /**
      * Main program.
      *
-     * @param args Two command line arguments - output path and search string
+     * @param args Three command line arguments - input URL, output URL and a search string.
      * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
