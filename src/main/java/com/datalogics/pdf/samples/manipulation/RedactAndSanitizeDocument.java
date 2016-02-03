@@ -48,6 +48,7 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.EnumSet;
@@ -409,13 +410,17 @@ public final class RedactAndSanitizeDocument {
      * @throws IOException an I/O operation failed or was interrupted
      */
     private static ByteWriter getByteWriterFromFile(final URL outputUrl) throws IOException {
-        RandomAccessFile outputPdfFile = null;
+        File file = null;
+        try {
+            file = new File(outputUrl.toURI());
+        } catch (final URISyntaxException e) {
+            throw new IOException(e);
+        }
 
-        final File file = new File(outputUrl.getPath());
+        RandomAccessFile outputPdfFile = null;
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-
         outputPdfFile = new RandomAccessFile(file, "rw");
         return new RandomAccessFileByteWriter(outputPdfFile);
     }
