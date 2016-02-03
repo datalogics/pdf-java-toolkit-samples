@@ -22,6 +22,8 @@
         <exclude>%regex[.*\.orig]</exclude>
         <exclude>%regex[.*\.l4je]</exclude>
         <exclude>%regex[.*\.l4j]</exclude>
+        <exclude>LICENSE.md</exclude>
+        <exclude>%regex[^src/test/.*]</exclude>
       </excludes>
       <includes>
         <!-- Eclipse settings -->
