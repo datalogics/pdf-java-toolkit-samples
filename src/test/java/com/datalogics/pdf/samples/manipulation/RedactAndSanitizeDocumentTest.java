@@ -69,7 +69,7 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
     }
 
     @Test
-    public void testCantSanitizeDocument() throws Exception {
+    public void testCannotSanitizeDocument() throws Exception {
         final URL inputUrl = RedactAndSanitizeDocumentTest.class.getResource(INPUT_PDF_PATH_WITH_SIGNATURE);
 
         final File file = newOutputFile(OUTPUT_PDF_PATH_NOT_SANITIZED);
