@@ -4,8 +4,6 @@
 
 package com.datalogics.pdf.samples.images;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
@@ -15,7 +13,6 @@ import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASName;
 import com.adobe.pdfjt.image.Resampler;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.document.PDFResources;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObject;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
@@ -24,10 +21,12 @@ import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Iterator;
 
 /**
@@ -67,80 +66,97 @@ public final class ImageDownsampling {
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
 
-        String inputPath = null;
-        String outputPath = null;
+        URL inputUrl = null;
+        URL outputUrl = null;
         if (args.length > 1) {
-            inputPath = args[0];
-            outputPath = args[1];
+            inputUrl = new URL(args[0]);
+            outputUrl = new URL(args[1]);
         } else {
-            inputPath = INPUT_IMAGE_PATH;
-            outputPath = OUTPUT_IMAGE_PATH;
+            inputUrl = ImageDownsampling.class.getResource(INPUT_IMAGE_PATH);
+            outputUrl = new File(OUTPUT_IMAGE_PATH).toURI().toURL();
         }
 
-        final PDFDocument pdfDoc = getPdfDocument(inputPath);
-        downsampleImage(pdfDoc);
-        DocumentHelper.saveFullAndClose(pdfDoc, outputPath);
+        // final PDFDocument pdfDoc = getPdfDocument(i);
+        downsampleImage(inputUrl, outputUrl);
+        // DocumentHelper.saveFullAndClose(pdfDoc, outputPath);
     }
 
 
     /**
      * This method is used to downsample an image using the Resample Bicubic method.
      *
-     * @param pdfDoc PDFDocument
+     * @param inputUrl the path to the input document
+     * @param outputUrl the path to the output document
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
+     * @throws IOException an I/O operation failed or was interrupted
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
      */
-    public static void downsampleImage(final PDFDocument pdfDoc)
+    public static void downsampleImage(final URL inputUrl, final URL outputUrl)
                     throws PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException, PDFInvalidParameterException {
+                    PDFSecurityException, PDFInvalidParameterException, IOException,
+                    PDFUnableToCompleteOperationException {
         final double scaleFactor = 0.5; /* Valid range between 0-1 */
         final int method = Resampler.kResampleBicubic;
-        /*
-         * Downsample all images in the doc and replace the original images with the resampled images.
-         */
-        final Iterator<PDFPage> pagesIter = pdfDoc.requirePages().iterator();
-        while (pagesIter.hasNext()) {
-            final PDFPage pdfPage = pagesIter.next();
-            final PDFResources pdfResources = pdfPage.getResources();
-            if (pdfResources != null) {
-                final PDFXObjectMap xobjMap = pdfResources.getXObjectMap();
-                if (xobjMap != null) {
-                    final Iterator<ASName> xobjIter = xobjMap.keySet().iterator();
-                    while (xobjIter.hasNext()) {
-                        final ASName key = xobjIter.next();
-                        final PDFXObject xobj = xobjMap.get(key);
-                        if (xobj instanceof PDFXObjectImage) {
-                            final PDFXObjectImage originalImage = (PDFXObjectImage) xobj;
-                            final PDFXObjectImage resampledImage = ImageManager.resampleXObjImage(pdfDoc,
+        PDFDocument pdfDoc = null;
+        try {
+            pdfDoc = DocumentUtils.openPdfDocument(inputUrl);
+            /*
+             * Downsample all images in the doc and replace the original images with the resampled images.
+             */
+            final Iterator<PDFPage> pagesIter = pdfDoc.requirePages().iterator();
+            while (pagesIter.hasNext()) {
+                final PDFPage pdfPage = pagesIter.next();
+                final PDFResources pdfResources = pdfPage.getResources();
+                if (pdfResources != null) {
+                    final PDFXObjectMap xobjMap = pdfResources.getXObjectMap();
+                    if (xobjMap != null) {
+                        final Iterator<ASName> xobjIter = xobjMap.keySet().iterator();
+                        while (xobjIter.hasNext()) {
+                            final ASName key = xobjIter.next();
+                            final PDFXObject xobj = xobjMap.get(key);
+                            if (xobj instanceof PDFXObjectImage) {
+                                final PDFXObjectImage originalImage = (PDFXObjectImage) xobj;
+                                final PDFXObjectImage resampledImage = ImageManager.resampleXObjImage(pdfDoc,
                                                                                                   originalImage,
                                                                                                   scaleFactor,
                                                                                                   scaleFactor,
                                                                                                   method);
-                            xobjMap.set(key, resampledImage);
+                                xobjMap.set(key, resampledImage);
+                            }
                         }
                     }
                 }
             }
-        }
-    }
 
-    private static PDFDocument getPdfDocument(final String inputPath)
-                    throws PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException, PDFUnableToCompleteOperationException, IOException {
-        PDFDocument pdfDoc = null;
-        ByteReader byteReader = null;
-
-        try (final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(inputPath);) {
-            if (inputStream == null) {
-                byteReader = new InputStreamByteReader(new FileInputStream(inputPath));
-            } else {
-                byteReader = new InputStreamByteReader(inputStream);
+            DocumentHelper.saveFullAndClose(pdfDoc, outputUrl.toURI().getPath());
+        } catch (final URISyntaxException e) {
+            throw new PDFIOException(e);
+        } finally {
+            if (pdfDoc != null) {
+                pdfDoc.close();
             }
         }
-        pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
 
-        return pdfDoc;
     }
+
+    // private static PDFDocument getPdfDocument(final String inputPath)
+    // throws PDFInvalidDocumentException, PDFIOException,
+    // PDFSecurityException, PDFUnableToCompleteOperationException, IOException {
+    // PDFDocument pdfDoc = null;
+    // ByteReader byteReader = null;
+    //
+    // try (final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(inputPath);) {
+    // if (inputStream == null) {
+    // byteReader = new InputStreamByteReader(new FileInputStream(inputPath));
+    // } else {
+    // byteReader = new InputStreamByteReader(inputStream);
+    // }
+    // }
+    // pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
+    //
+    // return pdfDoc;
+    // }
 }
