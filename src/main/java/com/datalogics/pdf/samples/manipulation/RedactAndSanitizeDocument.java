@@ -422,11 +422,10 @@ public final class RedactAndSanitizeDocument {
             throw new IOException(e);
         }
 
-        RandomAccessFile outputPdfFile = null;
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-        outputPdfFile = new RandomAccessFile(file, "rw");
+        final RandomAccessFile outputPdfFile = new RandomAccessFile(file, "rw");
         return new RandomAccessFileByteWriter(outputPdfFile);
     }
 
