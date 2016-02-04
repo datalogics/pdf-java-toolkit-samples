@@ -33,7 +33,7 @@ public class RedactAndSanitizeDocumentTest extends SampleTest {
     private static final String OUTPUT_PDF_PATH_NOT_SANITIZED = "NotSanitized.pdf";
 
     @Test
-    public void testMain() throws Exception {
+    public void testRedactAndSanitize() throws Exception {
         final URL inputUrl = RedactAndSanitizeDocumentTest.class.getResource(INPUT_PDF_PATH);
 
         final File file = newOutputFile(OUTPUT_PDF_PATH);
