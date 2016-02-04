@@ -411,7 +411,7 @@ public final class RedactAndSanitizeDocument {
      * Create a ByteWriter from a path to an output file.
      *
      * @param outputPath The path ByteWriter should write to
-     * @return A ByteWrite for the otputPath
+     * @return A ByteWriter for the outputPath
      * @throws IOException an I/O operation failed or was interrupted
      */
     private static ByteWriter getByteWriterFromFile(final URL outputUrl) throws IOException {
