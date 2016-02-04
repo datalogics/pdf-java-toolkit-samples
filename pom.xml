@@ -40,6 +40,16 @@
   </properties>
   <dependencies>
     <dependency>
+      <groupId>com.adobe.pdfjt</groupId>
+      <artifactId>pdfjt</artifactId>
+      <version>[3.0.0-SNAPSHOT,4.0.0)</version>
+    </dependency>
+    <dependency>
+      <groupId>com.datalogics.pdf</groupId>
+      <artifactId>talkeetna</artifactId>
+      <version>[4.0-SNAPSHOT,5.0)</version>
+    </dependency>
+    <dependency>
       <groupId>org.reflections</groupId>
       <artifactId>reflections</artifactId>
       <version>0.9.10</version>
@@ -74,16 +84,6 @@
       <artifactId>findbugs</artifactId>
       <version>3.0.1</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.adobe.pdfjt</groupId>
-      <artifactId>pdfjt</artifactId>
-      <version>[3.0.0-SNAPSHOT,4.0.0)</version>
-    </dependency>
-    <dependency>
-      <groupId>com.datalogics.pdf</groupId>
-      <artifactId>talkeetna</artifactId>
-      <version>[4.0-SNAPSHOT,5.0)</version>
     </dependency>
   </dependencies>
   <repositories>
