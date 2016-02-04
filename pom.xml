@@ -165,6 +165,46 @@
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
+          <includes>
+            <!-- Datalogics sample source files -->
+            <include>com/datalogics/pdf/samples/creation/CreatePdfFromImage.java</include>
+            <include>com/datalogics/pdf/samples/creation/HelloWorld.java</include>
+            <include>com/datalogics/pdf/samples/creation/MakeWhiteFangBook.java</include>
+            <include>com/datalogics/pdf/samples/extraction/TextExtract.java</include>
+            <include>com/datalogics/pdf/samples/forms/FillForm.java</include>
+            <include>com/datalogics/pdf/samples/images/ImageDownsampling.java</include>
+            <include>com/datalogics/pdf/samples/manipulation/ConvertPdfDocument.java</include>
+            <include>com/datalogics/pdf/samples/manipulation/FlattenPdf.java</include>
+            <include>com/datalogics/pdf/samples/manipulation/MergeDocuments.java</include>
+            <include>com/datalogics/pdf/samples/manipulation/RedactAndSanitizeDocument.java</include>
+            <include>com/datalogics/pdf/samples/printing/PrintPdf.java</include>
+            <include>com/datalogics/pdf/samples/signature/SignDocument.java</include>
+            <include>com/datalogics/pdf/samples/util/ConvertPdfA1Util.java</include>
+            <include>com/datalogics/pdf/samples/util/DocumentUtils.java</include>
+            <include>com/datalogics/pdf/samples/util/FontUtils.java</include>
+            <!-- Datalogics sample test files -->
+            <include>com/datalogics/pdf/samples/AllIntegrationTests.java</include>
+            <include>com/datalogics/pdf/samples/AllUnitTests.java</include>
+            <include>com/datalogics/pdf/samples/RunMainMethodsFromJarIntegrationTest.java</include>
+            <include>com/datalogics/pdf/samples/SampleTest.java</include>
+            <include>com/datalogics/pdf/samples/TestFontCacheManager.java</include>
+            <include>com/datalogics/pdf/samples/creation/CreatePdfFromImageTest.java</include>
+            <include>com/datalogics/pdf/samples/creation/HellowWorldTest.java</include>
+            <include>com/datalogics/pdf/samples/creation/MakeWhiteFangBookTest.java</include>
+            <include>com/datalogics/pdf/samples/extraction/TextExtractTest.java</include>
+            <include>com/datalogics/pdf/samples/forms/FillFormTest.java</include>
+            <include>com/datalogics/pdf/samples/images/ImageDownsamplingTest.java</include>
+            <include>com/datalogics/pdf/samples/manipulation/ConvertPdfDocumentTest.java</include>
+            <include>com/datalogics/pdf/samples/manipulation/FlattenPdfTest.java</include>
+            <include>com/datalogics/pdf/samples/manipulation/MergeDocumentsTest.java</include>
+            <include>com/datalogics/pdf/samples/manipulation/RedactAndSanitizeDocumentTest.java</include>
+            <include>com/datalogics/pdf/samples/printing/FakePrinterJob.java</include>
+            <include>com/datalogics/pdf/samples/printing/FakePrintService.java</include>
+            <include>com/datalogics/pdf/samples/printing/PrintPdfTest.java</include>
+            <include>com/datalogics/pdf/samples/signature/SignDocumentTest.java</include>
+            <include>com/datalogics/pdf/samples/util/Checksum.java</include>
+            <include>com/datalogics/pdf/samples/util/Matchers.java</include>
+          </includes>
         </configuration>
       </plugin>
       <plugin>
