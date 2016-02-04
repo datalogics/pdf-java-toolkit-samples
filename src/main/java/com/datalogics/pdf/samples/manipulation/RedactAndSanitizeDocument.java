@@ -306,7 +306,12 @@ public final class RedactAndSanitizeDocument {
             LOGGER.warning("The document was not sanitized");
             return;
         }
-        final ByteWriter writer = getByteWriterFromFile(sanitizedUrl);
+        ByteWriter writer = null;
+        try {
+            writer = getByteWriterFromFile(sanitizedUrl);
+        } catch (final IOException e) {
+            throw new PDFIOException(e);
+        }
         final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
         // Optimize the document for fast web viewing. This is a part of sanitization.
         saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
