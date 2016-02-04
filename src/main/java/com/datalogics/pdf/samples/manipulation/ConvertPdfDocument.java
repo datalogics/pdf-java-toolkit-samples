@@ -52,6 +52,7 @@ public final class ConvertPdfDocument {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
+
         URL inputUrl = null;
         URL outputUrl = null;
         if (args.length > 0) {
