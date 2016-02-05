@@ -276,6 +276,8 @@ public final class RedactAndSanitizeDocument {
             // Applying redaction
             RedactionService.applyRedaction(document, redactionOptions, writer);
             writer.close();
+        } catch (final IOException e) {
+            throw new PDFIOException(e);
         } finally {
             if (writer != null) {
                 writer.close();
@@ -288,7 +290,6 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document to be sanitized
      * @param sanitizedUrl The sanitized output document
-     * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      * @throws PDFConfigurationException there was a system problem configuring PDF support
@@ -299,8 +300,7 @@ public final class RedactAndSanitizeDocument {
      */
     public static void sanitizeDocument(final PDFDocument document, final URL sanitizedUrl)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
-                    PDFConfigurationException, PDFInvalidParameterException, PDFUnableToCompleteOperationException,
-                    IOException {
+                    PDFConfigurationException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
 
         if (!canSanitizeDocument(document)) {
             LOGGER.warning("The document was not sanitized");
