@@ -4,9 +4,7 @@
 
 package com.datalogics.pdf.samples.manipulation;
 
-import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
@@ -19,7 +17,6 @@ import com.adobe.pdfjt.core.fontset.PDFFontSet;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASDate;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.document.PDFSaveLinearOptions;
 import com.adobe.pdfjt.pdf.document.PDFSaveOptions;
 import com.adobe.pdfjt.pdf.document.PDFVersion;
@@ -50,8 +47,9 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.EnumSet;
 import java.util.Locale;
@@ -104,7 +102,7 @@ public final class RedactAndSanitizeDocument {
     /**
      * Main program.
      *
-     * @param args Two command line arguments - output path and search string
+     * @param args Three command line arguments - input URL, output URL and a search string.
      * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
@@ -113,28 +111,42 @@ public final class RedactAndSanitizeDocument {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        String inputPath = null;
-        String outputPath = null;
         String searchString = null;
-        PDFDocument document = null;
+        URL inputUrl = null;
+        URL outputUrl = null;
+
 
         if (args.length > 2) {
-            inputPath = args[0];
-            outputPath = args[1];
+            inputUrl = new URL(args[0]);
+            outputUrl = new URL(args[1]);
             searchString = args[2];
         } else {
-            inputPath = INPUT_PDF_PATH;
-            outputPath = OUTPUT_PDF_PATH;
+            inputUrl = RedactAndSanitizeDocument.class.getResource(INPUT_PDF_PATH);
+            outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
             searchString = SEARCH_PDF_STRING;
         }
 
+        redactAndSanitize(inputUrl, outputUrl, searchString);
+    }
+
+    /**
+     * Redacts and sanitizes a document that's passed in.
+     *
+     * @param inputUrl input URL of the PDF document
+     * @param outputUrl output URL of the PDF document
+     * @param redactionString The text to be redacted
+     * @throws Exception a general exception was thrown
+     */
+    public static void redactAndSanitize(final URL inputUrl, final URL outputUrl, final String redactionString)
+                    throws Exception {
+        PDFDocument document = null;
         try {
-            document = openPdfDocument(inputPath);
+            document = DocumentUtils.openPdfDocument(inputUrl);
 
-            markTextForRedaction(document, searchString);
+            markTextForRedaction(document, redactionString);
 
-            applyRedaction(document, outputPath);
-            document.close();
+            applyRedaction(document, outputUrl);
+
         } finally {
             if (document != null) {
                 document.close();
@@ -142,9 +154,9 @@ public final class RedactAndSanitizeDocument {
         }
 
         try {
-            document = DocumentUtils.openPdfDocumentFromPath(outputPath);
+            document = DocumentUtils.openPdfDocument(outputUrl);
 
-            sanitizeDocument(document, outputPath);
+            sanitizeDocument(document, outputUrl);
         } finally {
             if (document != null) {
                 document.close();
@@ -252,18 +264,20 @@ public final class RedactAndSanitizeDocument {
      * @throws PDFFontException there was an error in the font set or an individual font
      * @throws IOException an I/O operation failed or was interrupted
      */
-    private static void applyRedaction(final PDFDocument document, final String outputPath)
+    private static void applyRedaction(final PDFDocument document, final URL outputUrl)
                     throws PDFInvalidParameterException, PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
         ByteWriter writer = null;
         try {
-            writer = getByteWriterFromFile(outputPath);
+            writer = getByteWriterFromFile(outputUrl);
             RedactionOptions redactionOptions = null;
             redactionOptions = new RedactionOptions(new LocalRedactionHandler());
 
             // Applying redaction
             RedactionService.applyRedaction(document, redactionOptions, writer);
             writer.close();
+        } catch (final IOException e) {
+            throw new PDFIOException(e);
         } finally {
             if (writer != null) {
                 writer.close();
@@ -275,8 +289,7 @@ public final class RedactAndSanitizeDocument {
      * Apply sanitization to a document.
      *
      * @param document The document to be sanitized
-     * @param sanitizedPath The sanitized output document
-     * @throws IOException an I/O operation failed or was interrupted
+     * @param sanitizedUrl The sanitized output document
      * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      * @throws PDFConfigurationException there was a system problem configuring PDF support
@@ -285,16 +298,20 @@ public final class RedactAndSanitizeDocument {
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      */
-    private static void sanitizeDocument(final PDFDocument document, final String sanitizedPath)
+    public static void sanitizeDocument(final PDFDocument document, final URL sanitizedUrl)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
-                    PDFConfigurationException, PDFInvalidParameterException, PDFUnableToCompleteOperationException,
-                    IOException {
+                    PDFConfigurationException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
 
         if (!canSanitizeDocument(document)) {
             LOGGER.warning("The document was not sanitized");
             return;
         }
-        final ByteWriter writer = getByteWriterFromFile(sanitizedPath);
+        ByteWriter writer = null;
+        try {
+            writer = getByteWriterFromFile(sanitizedUrl);
+        } catch (final IOException e) {
+            throw new PDFIOException(e);
+        }
         final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
         // Optimize the document for fast web viewing. This is a part of sanitization.
         saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
@@ -394,41 +411,22 @@ public final class RedactAndSanitizeDocument {
      * Create a ByteWriter from a path to an output file.
      *
      * @param outputPath The path ByteWriter should write to
-     * @return A ByteWrite for the otputPath
+     * @return A ByteWriter for the outputPath
      * @throws IOException an I/O operation failed or was interrupted
      */
-    private static ByteWriter getByteWriterFromFile(final String outputPath) throws IOException {
-        RandomAccessFile outputPdfFile = null;
+    private static ByteWriter getByteWriterFromFile(final URL outputUrl) throws IOException {
+        File file = null;
+        try {
+            file = new File(outputUrl.toURI());
+        } catch (final URISyntaxException e) {
+            throw new IOException(e);
+        }
 
-        final File file = new File(outputPath);
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-
-        outputPdfFile = new RandomAccessFile(file, "rw");
+        final RandomAccessFile outputPdfFile = new RandomAccessFile(file, "rw");
         return new RandomAccessFileByteWriter(outputPdfFile);
-    }
-
-    /**
-     * Open a PDF file using an input path.
-     *
-     * @param inputPath The PDF file to open
-     * @return A new PDFDocument instance of the input document
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws IOException an I/O operation failed or was interrupted
-     */
-    private static PDFDocument openPdfDocument(final String inputPath)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
-        ByteReader reader = null;
-        PDFDocument document = null;
-
-        final InputStream inputStream = RedactAndSanitizeDocument.class.getResourceAsStream(inputPath);
-        reader = new InputStreamByteReader(inputStream);
-        document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
-
-        return document;
     }
 
     /**
