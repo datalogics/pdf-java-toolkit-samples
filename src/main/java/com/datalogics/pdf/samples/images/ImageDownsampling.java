@@ -78,7 +78,6 @@ public final class ImageDownsampling {
 
         // final PDFDocument pdfDoc = getPdfDocument(i);
         downsampleImage(inputUrl, outputUrl);
-        // DocumentHelper.saveFullAndClose(pdfDoc, outputPath);
     }
 
 
