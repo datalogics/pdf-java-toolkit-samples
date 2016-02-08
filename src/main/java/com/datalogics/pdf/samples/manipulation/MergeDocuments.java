@@ -15,7 +15,9 @@ import com.adobe.pdfjt.services.manipulations.PMMService;
 
 import com.datalogics.pdf.document.DocumentHelper;
 
+import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 
 /**
  * This sample shows how to merge two PDF documents into one. It will also show how to properly merge PDF documents that
@@ -45,20 +47,23 @@ public final class MergeDocuments {
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
 
+        URL outputUrl = null;
         if (args.length > 0) {
-            mergeTwoDocuments(args[0]);
+            outputUrl = new URL(args[1]);
         } else {
-            mergeTwoDocuments(OUTPUT_PDF_PATH);
+            outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
         }
+
+        mergeTwoDocuments(outputUrl);
     }
 
     /**
      * Merge two sample documents, with the output written to the given path.
      *
-     * @param outputPath the path to the file to contain the output document
+     * @param outputUrl the path to the file to contain the output document
      * @throws Exception a general exception was thrown
      */
-    public static void mergeTwoDocuments(final String outputPath) throws Exception {
+    public static void mergeTwoDocuments(final URL outputUrl) throws Exception {
         // Start by creating a new PDF document that will be used to merge the other documents into. The new document
         // will contain a single blank page but we'll remove this just before saving the merged file.
         final PDFDocument mergedDocument = PDFDocument.newInstance(new ASRectangle(ASRectangle.US_LETTER),
@@ -72,7 +77,7 @@ public final class MergeDocuments {
         mergedDocument.requirePages().removePage(mergedDocument.requirePages().getPage(0));
 
         // Save the file.
-        DocumentHelper.saveFullAndClose(mergedDocument, outputPath);
+        DocumentHelper.saveFullAndClose(mergedDocument, outputUrl.toURI().getPath());
     }
 
     /**

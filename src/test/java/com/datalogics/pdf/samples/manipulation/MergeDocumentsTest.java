@@ -22,6 +22,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.util.Iterator;
 
@@ -38,7 +39,10 @@ public class MergeDocumentsTest extends SampleTest {
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-        MergeDocuments.main(file.getCanonicalPath());
+
+        final URL outputUrl = file.toURI().toURL();
+
+        MergeDocuments.mergeTwoDocuments(outputUrl);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
