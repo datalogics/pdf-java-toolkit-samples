@@ -141,22 +141,4 @@ public final class ImageDownsampling {
         }
 
     }
-
-    // private static PDFDocument getPdfDocument(final String inputPath)
-    // throws PDFInvalidDocumentException, PDFIOException,
-    // PDFSecurityException, PDFUnableToCompleteOperationException, IOException {
-    // PDFDocument pdfDoc = null;
-    // ByteReader byteReader = null;
-    //
-    // try (final InputStream inputStream = ImageDownsampling.class.getResourceAsStream(inputPath);) {
-    // if (inputStream == null) {
-    // byteReader = new InputStreamByteReader(new FileInputStream(inputPath));
-    // } else {
-    // byteReader = new InputStreamByteReader(inputStream);
-    // }
-    // }
-    // pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
-    //
-    // return pdfDoc;
-    // }
 }

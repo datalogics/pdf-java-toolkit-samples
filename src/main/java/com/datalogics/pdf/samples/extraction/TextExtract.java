@@ -33,7 +33,7 @@ import java.nio.file.Files;
  */
 public final class TextExtract {
     private static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
-    private static final String OUTPUT_TEXT_PATH = "Text Extract.txt";
+    private static final String OUTPUT_TEXT_PATH = "TextExtract.txt";
 
     /**
      * This is a utility class, and won't be instantiated.
