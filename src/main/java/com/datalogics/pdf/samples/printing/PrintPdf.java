@@ -16,7 +16,6 @@ import com.adobe.pdfjt.services.rasterizer.PageRasterizer;
 import com.adobe.pdfjt.services.rasterizer.RasterizationOptions;
 
 import com.datalogics.pdf.document.FontSetLoader;
-import com.datalogics.pdf.samples.manipulation.ConvertPdfDocument;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import java.awt.Graphics;
@@ -70,7 +69,7 @@ public class PrintPdf {
         if (args.length > 0) {
             inputUrl = new URL(args[0]);
         } else {
-            inputUrl = ConvertPdfDocument.class.getResource(DEFAULT_INPUT);
+            inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
         }
 
         printPdf(inputUrl);
