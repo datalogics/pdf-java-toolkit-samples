@@ -49,7 +49,7 @@ public final class MergeDocuments {
 
         URL outputUrl = null;
         if (args.length > 0) {
-            outputUrl = new URL(args[1]);
+            outputUrl = new URL(args[0]);
         } else {
             outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
         }
