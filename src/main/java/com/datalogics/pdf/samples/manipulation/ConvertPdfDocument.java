@@ -61,10 +61,10 @@ public final class ConvertPdfDocument {
             path = OUTPUT_CONVERTED_PDF_PATH;
         }
 
-        convertToPdfA1(path);
+        convertToPdfA1B(path);
     }
 
-    private static void convertToPdfA1(final String outputPath)
+    private static void convertToPdfA1B(final String outputPath)
                     throws IOException, PDFFontException, PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
 
