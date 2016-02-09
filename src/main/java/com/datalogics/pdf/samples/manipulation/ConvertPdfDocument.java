@@ -27,6 +27,9 @@ import java.io.InputStream;
 
 /**
  * Sample that demonstrates how to convert a PDF to PDF/A-1b.
+ * <p>
+ * Note: Transparency is not handled by PDF Java Toolkit.
+ * </p>
  */
 public final class ConvertPdfDocument {
 
