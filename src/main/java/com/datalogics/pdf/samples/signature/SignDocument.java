@@ -22,9 +22,12 @@ import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.digsig.SignatureOptions;
 import com.adobe.pdfjt.services.digsig.UserInfo;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.net.URL;
+import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
@@ -59,23 +62,25 @@ public final class SignDocument {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        String path;
+
+        URL outputUrl = null;
         if (args.length > 0) {
-            path = args[0];
+            outputUrl = new URL(args[1]);
         } else {
-            path = OUTPUT_SIGNED_PDF_PATH;
+            outputUrl = new File(OUTPUT_SIGNED_PDF_PATH).toURI().toURL();
         }
+
         // Query and sign all permissible signature fields.
-        signExistingSignatureFields(path);
+        signExistingSignatureFields(outputUrl);
     }
 
     /**
      * Sign existing signature fields found in the example document.
      *
-     * @param outputPath the path to the file to contain the signed document
+     * @param outputUrl the path to the file to contain the signed document
      * @throws Exception a general exception was thrown
      */
-    public static void signExistingSignatureFields(final String outputPath) throws Exception {
+    public static void signExistingSignatureFields(final URL outputUrl) throws Exception {
         PDFDocument pdfDoc = null;
         ByteReader byteReader = null;
         try {
@@ -91,7 +96,7 @@ public final class SignDocument {
                 final Iterator<SignatureFieldInterface> iter = sigService.getDocSignatureFieldIterator();
                 while (iter.hasNext()) {
                     final SignatureFieldInterface sigField = iter.next();
-                    signField(sigService, sigField, outputPath);
+                    signField(sigService, sigField, outputUrl);
                 }
             }
         } finally {
@@ -109,7 +114,7 @@ public final class SignDocument {
     }
 
     private static void signField(final SignatureManager sigMgr,
-                                     final SignatureFieldInterface sigField, final String outputPath)
+                                  final SignatureFieldInterface sigField, final URL outputUrl)
                                                      throws Exception {
 
         final String qualifiedName = "Fully Qualified Name: " + sigField.getQualifiedName();
@@ -122,8 +127,7 @@ public final class SignDocument {
             if (sigField.isSigningPermitted()) {
                 if (sigField.isVisible()) {
                     // Create output file to hold the signed PDF data.
-                    final RandomAccessFile outputRaf = new RandomAccessFile(outputPath, "rw");
-                    byteWriter = new RandomAccessFileByteWriter(outputRaf);
+                    byteWriter = getByteWriterFromFile(outputUrl);
 
                     final SignatureOptions signatureOptions = SignatureOptions.newInstance();
                     final UserInfo userInfo = UserInfo.newInstance();
@@ -182,5 +186,17 @@ public final class SignDocument {
         inputStream.close();
 
         return derData;
+    }
+
+    private static ByteWriter getByteWriterFromFile(final URL outputUrl) throws IOException {
+        RandomAccessFile outputPdfFile = null;
+
+        final File file = new File(outputUrl.getPath());
+        if (file.exists()) {
+            Files.delete(file.toPath());
+        }
+
+        outputPdfFile = new RandomAccessFile(file, "rw");
+        return new RandomAccessFileByteWriter(outputPdfFile);
     }
 }

@@ -17,6 +17,7 @@ import com.datalogics.pdf.samples.SampleTest;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URL;
 
 /**
  * Tests the FlattenPdf sample.
@@ -30,9 +31,11 @@ public class FlattenPdfTest extends SampleTest {
 
     @Test
     public void testFlattenForm() throws Exception {
-        final File file = SampleTest.newOutputFileWithDelete(OUTPUT_FLATTENED_FORM_PDF_PATH);
+        final URL inputUrl = ConvertPdfDocument.class.getResource(INPUT_FORM_PDF_PATH);
+        final File file = newOutputFileWithDelete(OUTPUT_FLATTENED_FORM_PDF_PATH);
+        final URL outputUrl = file.toURI().toURL();
 
-        FlattenPdf.main(INPUT_FORM_PDF_PATH, file.getCanonicalPath());
+        FlattenPdf.flattenPdf(inputUrl, outputUrl);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         PDFDocument document = null;
@@ -50,9 +53,11 @@ public class FlattenPdfTest extends SampleTest {
 
     @Test
     public void testFlattenAnnotations() throws Exception {
-        final File file = SampleTest.newOutputFileWithDelete(OUTPUT_FLATTENED_ANNOTATION_PDF_PATH);
+        final URL inputUrl = ConvertPdfDocument.class.getResource(INPUT_ANNOTATION_PDF_PATH);
+        final File file = newOutputFileWithDelete(OUTPUT_FLATTENED_ANNOTATION_PDF_PATH);
+        final URL outputUrl = file.toURI().toURL();
 
-        FlattenPdf.main(INPUT_ANNOTATION_PDF_PATH, file.getCanonicalPath());
+        FlattenPdf.flattenPdf(inputUrl, outputUrl);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         PDFDocument document = null;

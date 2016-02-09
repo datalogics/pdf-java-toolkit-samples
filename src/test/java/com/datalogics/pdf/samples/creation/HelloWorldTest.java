@@ -10,6 +10,7 @@ import static org.junit.Assert.assertTrue;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -28,10 +29,10 @@ public class HelloWorldTest extends SampleTest {
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-        HelloWorld.main(file.getCanonicalPath());
+        HelloWorld.helloWorld(file.toURI().toURL());
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(file.toURI().toURL());
 
         try {
 

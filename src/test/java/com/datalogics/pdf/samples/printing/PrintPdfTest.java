@@ -26,6 +26,7 @@ import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.print.PrintService;
@@ -41,6 +42,7 @@ public class PrintPdfTest extends SampleTest {
     private static final String RENDERED_IMAGE_NAME = "renderedImage_page%d.png";
     private static final String[] PAGE_IMAGE_CHECKSUMS = { "897ac162b0ab9e798771250ca8fdd7997f03cbd1",
         "f2e86261405b8e6e1a1d94f9f67571d4a8f7fef6" };
+    private static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
 
     @Rule
     public ExpectedException expected = ExpectedException.none();
@@ -66,8 +68,8 @@ public class PrintPdfTest extends SampleTest {
         };
 
         // Call the main method
-        final String[] args = new String[0];
-        PrintPdf.main(args);
+        final URL inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
+        PrintPdf.printPdf(inputUrl);
     }
 
     @Test
@@ -81,10 +83,10 @@ public class PrintPdfTest extends SampleTest {
         };
 
         // Call the main method
-        final String[] args = new String[0];
         expected.expect(PrinterException.class);
         expected.expectMessage("Printer failed to exist.");
-        PrintPdf.main(args);
+        final URL inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
+        PrintPdf.printPdf(inputUrl);
     }
 
     /*

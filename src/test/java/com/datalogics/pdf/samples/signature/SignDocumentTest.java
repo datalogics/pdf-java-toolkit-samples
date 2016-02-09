@@ -19,6 +19,7 @@ import com.datalogics.pdf.samples.SampleTest;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Iterator;
 
 /**
@@ -33,9 +34,9 @@ public class SignDocumentTest extends SampleTest {
         final File file = SampleTest.newOutputFileWithDelete(FILE_NAME);
 
         // The complete file name will be set in the SignDocument class.
-        final String path = file.getCanonicalPath();
+        final URL outputUrl = file.toURI().toURL();
 
-        SignDocument.main(path);
+        SignDocument.signExistingSignatureFields(outputUrl);
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 

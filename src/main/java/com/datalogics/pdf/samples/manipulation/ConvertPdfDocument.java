@@ -5,8 +5,6 @@
 package com.datalogics.pdf.samples.manipulation;
 
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
@@ -20,9 +18,12 @@ import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 
 import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.ConvertPdfA1Util;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 
 /**
@@ -51,35 +52,54 @@ public final class ConvertPdfDocument {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        String path;
+
+        URL inputUrl = null;
+        URL outputUrl = null;
         if (args.length > 0) {
-            path = args[0];
+            inputUrl = new URL(args[0]);
+            outputUrl = new URL(args[1]);
         } else {
-            path = OUTPUT_CONVERTED_PDF_PATH;
+            inputUrl = ConvertPdfDocument.class.getResource(INPUT_UNCONVERTED_PDF_PATH);
+            outputUrl = new File(OUTPUT_CONVERTED_PDF_PATH).toURI().toURL();
         }
 
-        convertToPdfA1(path);
+        convertToPdfA1(inputUrl, outputUrl);
     }
 
-    private static void convertToPdfA1(final String outputPath)
+    /**
+     * Takes a an URL to a PDF file and converts it to PDF/A-1.
+     *
+     * @param inputUrl The URL to the input PDF file
+     * @param outputUrl The URL to the output PDF file
+     * @throws IOException an I/O operation failed or was interrupted
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     */
+    public static void convertToPdfA1(final URL inputUrl, final URL outputUrl)
                     throws IOException, PDFFontException, PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
-
         PDFDocument pdfDoc = null;
-        ByteReader reader = null;
+        try {
+            // attach font set to PDF
+            final PDFFontSet pdfaFontSet = FontSetLoader.newInstance().getFontSet();
+            final PDFOpenOptions openOptions = PDFOpenOptions.newInstance();
+            openOptions.setFontSet(pdfaFontSet);
 
-        final InputStream inputStream = ConvertPdfDocument.class.getResourceAsStream(INPUT_UNCONVERTED_PDF_PATH);
-        reader = new InputStreamByteReader(inputStream);
+            pdfDoc = DocumentUtils.openPdfDocumentWithOptions(inputUrl, openOptions);
 
-        // attach font set to PDF
-        final PDFFontSet pdfaFontSet = FontSetLoader.newInstance().getFontSet();
-        final PDFOpenOptions openOptions = PDFOpenOptions.newInstance();
-        openOptions.setFontSet(pdfaFontSet);
-
-        pdfDoc = PDFDocument.newInstance(reader, openOptions);
-
-        // Note: Transparency is not handled by PDF Java Toolkit
-        ConvertPdfA1Util.convertPdfA1(pdfDoc, outputPath);
+            // Note: Transparency is not handled by PDF Java Toolkit
+            ConvertPdfA1Util.convertPdfA1(pdfDoc, outputUrl.toURI().getPath());
+        } catch (final URISyntaxException e) {
+            throw new PDFIOException(e);
+        } finally {
+            if (pdfDoc != null) {
+                pdfDoc.close();
+            }
+        }
 
     }
 }
