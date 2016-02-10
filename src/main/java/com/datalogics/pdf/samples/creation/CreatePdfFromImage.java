@@ -26,9 +26,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.imageio.ImageIO;
 
@@ -230,9 +228,9 @@ public final class CreatePdfFromImage {
     private static boolean isImageFormatSupported(final String imageFormat) throws URISyntaxException {
         final String[] supportedFormats = ImageIO.getReaderFileSuffixes();
 
-        final Set<String> supportedFormatsSet = new HashSet<String>(Arrays.asList(supportedFormats));
+        final List<String> supportedFormatList = Arrays.asList(supportedFormats);
 
-        return supportedFormatsSet.contains(imageFormat);
+        return supportedFormatList.contains(imageFormat);
     }
 
     private static URL createUrlFromString(final String inputString) throws MalformedURLException {
