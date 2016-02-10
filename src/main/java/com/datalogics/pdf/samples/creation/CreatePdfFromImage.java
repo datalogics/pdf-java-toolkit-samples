@@ -222,9 +222,9 @@ public final class CreatePdfFromImage {
     private static String getImageFormatFromUrl(final URL imagePath) throws URISyntaxException {
         final String imageStringPath = imagePath.toString();
 
-        final String[] split = imageStringPath.split("\\.");
+        final String[] imagePathSplit = imageStringPath.split("\\.");
 
-        return split[split.length - 1];
+        return imagePathSplit[imagePathSplit.length - 1];
     }
 
     private static boolean isImageFormatSupported(final String imageFormat) throws URISyntaxException {
