@@ -77,7 +77,7 @@ public class FillFormTest extends SampleTest {
         FillForm.fillAcroformFdf(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
         assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
 
-        checkForms(outputPdfFile, ACROFORM_FDF_DATA);
+        checkForms(outputPdfFile.toURI().toURL(), ACROFORM_FDF_DATA);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class FillFormTest extends SampleTest {
         FillForm.fillAcroformXfdf(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
 
         assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
-        checkForms(outputPdfFile, ACROFORM_XFDF_DATA);
+        checkForms(outputPdfFile.toURI().toURL(), ACROFORM_XFDF_DATA);
     }
 
     @Test
@@ -105,12 +105,12 @@ public class FillFormTest extends SampleTest {
         FillForm.fillXfa(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
 
         assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
-        checkForms(outputPdfFile, XFA_FORM_DATA);
+        checkForms(outputPdfFile.toURI().toURL(), XFA_FORM_DATA);
     }
 
-    private void checkForms(final File outputFile, final String compare) throws Exception {
+    private void checkForms(final URL outputFileUrl, final String compare) throws Exception {
         // Check the output doc
-        final PDFDocument outputDoc = FillForm.openPdfDocument(outputFile.getCanonicalPath());
+        final PDFDocument outputDoc = DocumentUtils.openPdfDocument(outputFileUrl);
         final PDFInteractiveForm pdfForm = outputDoc.getInteractiveForm();
         final Iterator<PDFField> fieldIterator = pdfForm.iterator();
         final StringBuilder sb = new StringBuilder();

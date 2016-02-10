@@ -9,7 +9,6 @@ import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.services.ap.AppearanceService;
 import com.adobe.pdfjt.services.fdf.FDFDocument;
 import com.adobe.pdfjt.services.fdf.FDFService;
@@ -245,29 +244,6 @@ public final class FillForm {
         // Just save the file. Generating appearances and running calculations aren't supported for XFA forms, so
         // there's no need to try it.
         DocumentHelper.saveFullAndClose(pdfDocument, outputUrl.toURI().getPath());
-    }
-
-    /**
-     * Open a PDF file using an input path.
-     *
-     * @param inputPath The PDF file to open
-     * @return A new PDFDocument instance of the input document
-     * @throws Exception a general exception was thrown
-     */
-    public static PDFDocument openPdfDocument(final String inputPath) throws Exception {
-
-        ByteReader reader = null;
-        PDFDocument document = null;
-
-        InputStream inputStream = FillForm.class.getResourceAsStream(inputPath);
-        if (inputStream == null) {
-            inputStream = new FileInputStream(new File(inputPath));
-        }
-
-        reader = new InputStreamByteReader(inputStream);
-        document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
-
-        return document;
     }
 
     /**
