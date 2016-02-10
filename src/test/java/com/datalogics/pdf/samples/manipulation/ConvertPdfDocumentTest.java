@@ -17,7 +17,6 @@ import com.datalogics.pdf.samples.SampleTest;
 import org.junit.Test;
 
 import java.io.File;
-import java.net.URL;
 
 
 /**
@@ -25,16 +24,13 @@ import java.net.URL;
  */
 public class ConvertPdfDocumentTest extends SampleTest {
 
-    private static final String INPUT_UNCONVERTED_PDF_PATH = "UnConvertedPdf.pdf";
-    private static final String OUTPUT_FILE_NAME = "ConvertedPdfa-1b.pdf";
+    private static final String FILE_NAME = "ConvertedPdfa-1b.pdf";
 
     @Test
     public void testMain() throws Exception {
-        final URL inputUrl = ConvertPdfDocument.class.getResource(INPUT_UNCONVERTED_PDF_PATH);
-        final File file = newOutputFileWithDelete(OUTPUT_FILE_NAME);
-        final URL outputUrl = file.toURI().toURL();
+        final File file = newOutputFileWithDelete(FILE_NAME);
 
-        ConvertPdfDocument.convertToPdfA1(inputUrl, outputUrl);
+        ConvertPdfDocument.main(file.getCanonicalPath());
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 

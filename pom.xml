@@ -40,6 +40,16 @@
   </properties>
   <dependencies>
     <dependency>
+      <groupId>com.adobe.pdfjt</groupId>
+      <artifactId>pdfjt</artifactId>
+      <version>[3.0.0-SNAPSHOT,4.0.0)</version>
+    </dependency>
+    <dependency>
+      <groupId>com.datalogics.pdf</groupId>
+      <artifactId>talkeetna</artifactId>
+      <version>[4.0-SNAPSHOT,5.0)</version>
+    </dependency>
+    <dependency>
       <groupId>org.reflections</groupId>
       <artifactId>reflections</artifactId>
       <version>0.9.10</version>
@@ -74,21 +84,6 @@
       <artifactId>findbugs</artifactId>
       <version>3.0.1</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.adobe.pdfjt</groupId>
-      <artifactId>pdfjt</artifactId>
-      <version>[2.0,3.0)</version>
-    </dependency>
-    <dependency>
-      <groupId>com.adobe.pdfjt</groupId>
-      <artifactId>pdfjt-support</artifactId>
-      <version>[2.0,3.0)</version>
-    </dependency>
-    <dependency>
-      <groupId>com.datalogics.pdf</groupId>
-      <artifactId>talkeetna</artifactId>
-      <version>[3.0,4.0)</version>
     </dependency>
   </dependencies>
   <repositories>
@@ -382,6 +377,33 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>distributed-samples</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.5.3</version>
+            <executions>
+              <execution>
+                <id>make-assembly</id>
+                <!-- this is used for inheritance merges -->
+                <phase>package</phase>
+                <!-- bind to the packaging phase -->
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptors>
+                    <descriptor>src/assembly/distributed-samples.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>integration-tests</id>
       <build>

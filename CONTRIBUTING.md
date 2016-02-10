@@ -10,7 +10,7 @@ Currently, all of the developers are using Macs. Some of the scripts assume the 
 
 You can use whatever editing tools or IDE you want, but Eclipse is strongly recommended. Eclipse will check your style as you go, and has settings that will help you conform to the coding style.
 
-* Maven
+* Maven 3.3.9
 * JDK 1.7
 * Eclipse with [M2Eclipse](http://eclipse.org/m2e/) installed.
     * [JAutodoc](http://jautodoc.sourceforge.net/) also recommended. Makes writing Javadoc much easier.
