@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -63,8 +64,7 @@ public final class CreatePdfFromImage {
             outputFileUrl = new URL(args[0]);
             final List<URL> inputImages = new ArrayList<URL>();
             for (int i = 1; i < args.length; i++) {
-                final URL imageUrl = new URL(args[i]);
-                inputImages.add(imageUrl);
+                inputImages.add(createUrlFromString(args[i]));
             }
             createPdfFromImages(inputImages, outputFileUrl);
         } else {
@@ -73,11 +73,7 @@ public final class CreatePdfFromImage {
             final URL jpgImageUrl = CreatePdfFromImage.class.getResource(INPUT_JPG);
             final URL gifImageUrl = CreatePdfFromImage.class.getResource(INPUT_GIF);
 
-            final List<URL> inputImages = new ArrayList<URL>();
-            inputImages.add(bmpImageUrl);
-            inputImages.add(pngImageUrl);
-            inputImages.add(jpgImageUrl);
-            inputImages.add(gifImageUrl);
+            final List<URL> inputImages = Arrays.asList(bmpImageUrl, pngImageUrl, jpgImageUrl, gifImageUrl);
 
             outputFileUrl = new File(OUTPUT_PDF).toURI().toURL();
 
@@ -237,5 +233,9 @@ public final class CreatePdfFromImage {
         final Set<String> supportedFormatsSet = new HashSet<String>(Arrays.asList(supportedFormats));
 
         return supportedFormatsSet.contains(imageFormat);
+    }
+
+    private static URL createUrlFromString(final String inputString) throws MalformedURLException {
+        return new URL(inputString);
     }
 }

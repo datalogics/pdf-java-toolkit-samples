@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -91,12 +91,7 @@ public class CreatePdfFromImageTest extends SampleTest {
         final URL inputUrlGif = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_GIF);
         final URL inputUrlPng = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_PNG);
         final URL inputUrlJpg = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_JPG);
-        final List<URL> inputImages = new ArrayList<URL>();
-
-        inputImages.add(inputUrlBmp);
-        inputImages.add(inputUrlGif);
-        inputImages.add(inputUrlPng);
-        inputImages.add(inputUrlJpg);
+        final List<URL> inputImages = Arrays.asList(inputUrlBmp, inputUrlGif, inputUrlPng, inputUrlJpg);
 
         final File outputAll = newOutputFileWithDelete(OUTPUT_ALL);
         final URL outputUrl = outputAll.toURI().toURL();
