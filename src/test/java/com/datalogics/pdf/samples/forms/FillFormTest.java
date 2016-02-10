@@ -14,12 +14,14 @@ import com.adobe.pdfjt.services.xfa.XFAService;
 import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
@@ -66,34 +68,49 @@ public class FillFormTest extends SampleTest {
 
     @Test
     public void testAcroformFdf() throws Exception {
-        final File outputPdf = newOutputFileWithDelete(FillForm.ACROFORM_FDF_OUTPUT);
-        FillForm.main(FillForm.ACROFORM_FDF_INPUT, FillForm.ACROFORM_FDF_DATA, outputPdf.getCanonicalPath());
-        assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
+        final URL inputUrl = FillForm.class.getResource(FillForm.ACROFORM_FDF_INPUT);
+        final PDFDocument inputPdfDocument = DocumentUtils.openPdfDocument(inputUrl);
 
-        checkForms(outputPdf, ACROFORM_FDF_DATA);
+        final URL inputDataUrl = FillForm.class.getResource(FillForm.ACROFORM_FDF_DATA);
+
+        final File outputPdfFile = newOutputFileWithDelete(FillForm.ACROFORM_FDF_OUTPUT);
+        FillForm.fillAcroformFdf(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
+        assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
+
+        checkForms(outputPdfFile.toURI().toURL(), ACROFORM_FDF_DATA);
     }
 
     @Test
     public void testAcroformXfdf() throws Exception {
-        final File outputPdf = newOutputFileWithDelete(FillForm.ACROFORM_XFDF_OUTPUT);
-        FillForm.main(FillForm.ACROFORM_XFDF_INPUT, FillForm.ACROFORM_XFDF_DATA, outputPdf.getCanonicalPath());
-        assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
+        final URL inputUrl = FillForm.class.getResource(FillForm.ACROFORM_XFDF_INPUT);
+        final PDFDocument inputPdfDocument = DocumentUtils.openPdfDocument(inputUrl);
 
-        checkForms(outputPdf, ACROFORM_XFDF_DATA);
+        final URL inputDataUrl = FillForm.class.getResource(FillForm.ACROFORM_XFDF_DATA);
+
+        final File outputPdfFile = newOutputFileWithDelete(FillForm.ACROFORM_XFDF_OUTPUT);
+        FillForm.fillAcroformXfdf(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
+
+        assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
+        checkForms(outputPdfFile.toURI().toURL(), ACROFORM_XFDF_DATA);
     }
 
     @Test
     public void testXfaXml() throws Exception {
-        final File outputPdf = newOutputFileWithDelete(FillForm.XFA_OUTPUT);
-        FillForm.main(FillForm.XFA_PDF_INPUT, FillForm.XFA_XML_DATA, outputPdf.getCanonicalPath());
-        assertTrue(outputPdf.getPath() + " must exist after run", outputPdf.exists());
+        final URL inputUrl = FillForm.class.getResource(FillForm.XFA_PDF_INPUT);
+        final PDFDocument inputPdfDocument = DocumentUtils.openPdfDocument(inputUrl);
 
-        checkForms(outputPdf, XFA_FORM_DATA);
+        final URL inputDataUrl = FillForm.class.getResource(FillForm.XFA_XML_DATA);
+
+        final File outputPdfFile = newOutputFileWithDelete(FillForm.XFA_OUTPUT);
+        FillForm.fillXfa(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
+
+        assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
+        checkForms(outputPdfFile.toURI().toURL(), XFA_FORM_DATA);
     }
 
-    private void checkForms(final File outputFile, final String compare) throws Exception {
+    private void checkForms(final URL outputFileUrl, final String compare) throws Exception {
         // Check the output doc
-        final PDFDocument outputDoc = FillForm.openPdfDocument(outputFile.getCanonicalPath());
+        final PDFDocument outputDoc = DocumentUtils.openPdfDocument(outputFileUrl);
         final PDFInteractiveForm pdfForm = outputDoc.getInteractiveForm();
         final Iterator<PDFField> fieldIterator = pdfForm.iterator();
         final StringBuilder sb = new StringBuilder();
