@@ -34,6 +34,7 @@ dependency-reduced-pom.xml
 .settings
 .classpath
 .checkstyle
+/bin
 
 # The FindBugs connector for M2Eclipse makes these
 .fbExcludeFilterFile
