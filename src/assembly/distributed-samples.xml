@@ -78,38 +78,6 @@
         <include>src/main/resources/com/datalogics/pdf/samples/signature/UnsignedDocument.pdf</include>
         <include>src/main/resources/com/datalogics/pdf/samples/signature/pdfjt-cert.der</include>
         <include>src/main/resources/com/datalogics/pdf/samples/signature/pdfjt-key.der</include>
-        <include>src/test/java/com/datalogics/pdf/samples/AllIntegrationTests.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/AllUnitTests.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/RunMainMethodsFromJarIntegrationTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/SampleTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/TestFontCacheManager.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/creation/CreatePdfFromImageTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/creation/HelloWorldTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/creation/MakeWhiteFangBookTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/extraction/TextExtractTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/forms/FillFormTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/images/ImageDownsamplingTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/manipulation/ConvertPdfDocumentTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/manipulation/FlattenPdfTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/manipulation/MergeDocumentsTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/manipulation/RedactAndSanitizeDocumentTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/printing/FakePrintService.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/printing/FakePrinterJob.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/printing/PrintPdfTest.java</include>
-        <include>src/test/java/com/datalogics/pdf/samples/signature/SignDocumentTest.java</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/creation/HelloWorld.pdf.page1.txt</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page1.txt</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page2.txt</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page3.txt</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page4.txt</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page5.txt</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page6.txt</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/extraction/TextExtractTest-ReadingOrder.txt</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/images/ducky.pdf</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds-signature.pdf</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf.page0.txt</include>
-        <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf.page1.txt</include>
       </includes>
     </fileSet>
   </fileSets>
