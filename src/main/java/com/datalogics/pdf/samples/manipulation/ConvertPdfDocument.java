@@ -6,7 +6,9 @@ package com.datalogics.pdf.samples.manipulation;
 
 
 import com.adobe.internal.io.ByteReader;
+import com.adobe.internal.io.ByteWriter;
 import com.adobe.internal.io.InputStreamByteReader;
+import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
@@ -17,18 +19,31 @@ import com.adobe.pdfjt.core.fontset.PDFFontSet;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
+import com.adobe.pdfjt.pdf.document.PDFSaveFullOptions;
+import com.adobe.pdfjt.pdf.document.PDFSaveOptions;
+import com.adobe.pdfjt.services.pdfa.PDFA1bConfiguredConversionHandler;
+import com.adobe.pdfjt.services.pdfa.PDFAConformanceLevel;
+import com.adobe.pdfjt.services.pdfa.PDFAConversionOptions;
+import com.adobe.pdfjt.services.pdfa.PDFAConversionOptionsFactory;
+import com.adobe.pdfjt.services.pdfa.PDFAService;
 
 import com.datalogics.pdf.document.FontSetLoader;
-import com.datalogics.pdf.samples.util.ConvertPdfA1Util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.util.logging.Logger;
 
 
 /**
  * Sample that demonstrates how to convert a PDF to PDF/A-1b.
+ * <p>
+ * Note: Transparency is not handled by PDF Java Toolkit.
+ * </p>
  */
+
 public final class ConvertPdfDocument {
+    private static final Logger LOGGER = Logger.getLogger(ConvertPdfDocument.class.getName());
 
     private static final String INPUT_UNCONVERTED_PDF_PATH = "UnConvertedPdf.pdf";
     private static final String OUTPUT_CONVERTED_PDF_PATH = "ConvertedPdfa-1b.pdf";
@@ -58,15 +73,16 @@ public final class ConvertPdfDocument {
             path = OUTPUT_CONVERTED_PDF_PATH;
         }
 
-        convertToPdfA1(path);
+        convertToPdfA1B(path);
     }
 
-    private static void convertToPdfA1(final String outputPath)
+    private static void convertToPdfA1B(final String outputPath)
                     throws IOException, PDFFontException, PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
 
         PDFDocument pdfDoc = null;
         ByteReader reader = null;
+        ByteWriter writer = null;
 
         final InputStream inputStream = ConvertPdfDocument.class.getResourceAsStream(INPUT_UNCONVERTED_PDF_PATH);
         reader = new InputStreamByteReader(inputStream);
@@ -78,8 +94,37 @@ public final class ConvertPdfDocument {
 
         pdfDoc = PDFDocument.newInstance(reader, openOptions);
 
-        // Note: Transparency is not handled by PDF Java Toolkit
-        ConvertPdfA1Util.convertPdfA1(pdfDoc, outputPath);
+        final PDFA1bConfiguredConversionHandler handler = new PDFA1bConfiguredConversionHandler();
+        final PDFAConversionOptions options = PDFAConversionOptionsFactory.getConfiguredPdfA1bInstance(pdfDoc);
 
+        try {
+            // Attempt to convert the PDF to PDF/A-1b
+            if (PDFAService.convert(pdfDoc, PDFAConformanceLevel.Level_1b, options, handler)) {
+                final PDFSaveOptions saveOpt = PDFSaveFullOptions.newInstance();
+
+                // if the pdf contains compressed object streams, we should
+                // decompress these so that the pdf can be converted to PDF/A-1b
+                if (handler.requiresObjectDecompression()) {
+                    saveOpt.setObjectCompressionMode(PDFSaveOptions.OBJECT_COMPRESSION_NONE);
+                }
+
+                final RandomAccessFile outputPdf = new RandomAccessFile(outputPath, "rw");
+                writer = new RandomAccessFileByteWriter(outputPdf);
+
+                pdfDoc.save(writer, saveOpt);
+
+                final String successMsg = "\nConverted output written to: " + outputPath;
+                LOGGER.info(successMsg);
+            } else {
+                LOGGER.info("Errors encountered when converting document.");
+            }
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+            if (pdfDoc != null) {
+                pdfDoc.close();
+            }
+        }
     }
 }
