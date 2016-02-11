@@ -19,8 +19,8 @@ import com.adobe.pdfjt.services.xfdf.XFDFService;
 
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
-import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,7 +28,6 @@ import org.w3c.dom.Node;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
 
@@ -93,7 +92,7 @@ public final class FillForm {
         if (args.length > 2) {
             final URL inputForm = new URL(args[1]);
 
-            final String format = getFormFormatFromUrl(inputForm);
+            final String format = IoUtils.getFileExtensionFromUrl(inputForm);
             if (XML_FORMAT.equalsIgnoreCase(format)
                 || FDF_FORMAT.equalsIgnoreCase(format)
                 || XFDF_FORMAT.equalsIgnoreCase(format)) {
@@ -291,11 +290,5 @@ public final class FillForm {
         final Source newXml = new DOMSource(newDoc);
         transformer.transform(newXml, xmlFile);
 
-    }
-
-    private static String getFormFormatFromUrl(final URL imagePath) throws URISyntaxException {
-        final String stringPath = imagePath.getPath();
-
-        return FilenameUtils.getExtension(stringPath);
     }
 }
