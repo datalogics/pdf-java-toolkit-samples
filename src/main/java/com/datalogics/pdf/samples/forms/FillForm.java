@@ -20,6 +20,7 @@ import com.adobe.pdfjt.services.xfdf.XFDFService;
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
+import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -27,6 +28,7 @@ import org.w3c.dom.Node;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
 
@@ -89,13 +91,13 @@ public final class FillForm {
         // If we've been given enough arguments, get the input PDF, the input form data file, and the name of the output
         // file. Try to parse the form data file type.
         if (args.length > 2) {
-            final String inputForm = args[1];
-            final String[] split = inputForm.split("\\.");
-            final String format = split[split.length - 1];
+            final URL inputForm = new URL(args[1]);
+
+            final String format = getFormFormatFromUrl(inputForm);
             if (XML_FORMAT.equalsIgnoreCase(format)
                 || FDF_FORMAT.equalsIgnoreCase(format)
                 || XFDF_FORMAT.equalsIgnoreCase(format)) {
-                fillPdfForm(new URL(args[0]), new URL(inputForm), format.toUpperCase(Locale.US), new URL(args[2]));
+                fillPdfForm(new URL(args[0]), inputForm, format.toUpperCase(Locale.US), new URL(args[2]));
             } else {
                 throw new IllegalArgumentException("Form data format of " + format
                                                    + " is not supported. Supported types: XML, FDF, and XFDF.");
@@ -289,5 +291,11 @@ public final class FillForm {
         final Source newXml = new DOMSource(newDoc);
         transformer.transform(newXml, xmlFile);
 
+    }
+
+    private static String getFormFormatFromUrl(final URL imagePath) throws URISyntaxException {
+        final String stringPath = imagePath.getPath();
+
+        return FilenameUtils.getExtension(stringPath);
     }
 }
