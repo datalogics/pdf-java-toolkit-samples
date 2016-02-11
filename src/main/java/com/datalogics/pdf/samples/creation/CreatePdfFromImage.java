@@ -17,6 +17,8 @@ import com.adobe.pdfjt.services.manipulations.PMMService;
 
 import com.datalogics.pdf.document.DocumentHelper;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -220,9 +222,7 @@ public final class CreatePdfFromImage {
     private static String getImageFormatFromUrl(final URL imagePath) throws URISyntaxException {
         final String imageStringPath = imagePath.toString();
 
-        final String[] imagePathSplit = imageStringPath.split("\\.");
-
-        return imagePathSplit[imagePathSplit.length - 1];
+        return FilenameUtils.getExtension(imageStringPath);
     }
 
     private static boolean isImageFormatSupported(final String imageFormat) throws URISyntaxException {
