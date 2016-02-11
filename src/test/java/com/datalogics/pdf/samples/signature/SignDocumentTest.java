@@ -31,12 +31,14 @@ public class SignDocumentTest extends SampleTest {
 
     @Test
     public void testMain() throws Exception {
+        final URL inputUrl = SignDocument.class.getResource(SignDocument.INPUT_UNSIGNED_PDF_PATH);
+
         final File file = SampleTest.newOutputFileWithDelete(FILE_NAME);
 
         // The complete file name will be set in the SignDocument class.
         final URL outputUrl = file.toURI().toURL();
 
-        SignDocument.signExistingSignatureFields(outputUrl);
+        SignDocument.signExistingSignatureFields(inputUrl, outputUrl);
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
