@@ -5,9 +5,7 @@
 package com.datalogics.pdf.samples.manipulation;
 
 
-import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
@@ -28,10 +26,14 @@ import com.adobe.pdfjt.services.pdfa.PDFAConversionOptionsFactory;
 import com.adobe.pdfjt.services.pdfa.PDFAService;
 
 import com.datalogics.pdf.document.FontSetLoader;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.RandomAccessFile;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
 import java.util.logging.Logger;
 
 
@@ -45,7 +47,7 @@ import java.util.logging.Logger;
 public final class ConvertPdfDocument {
     private static final Logger LOGGER = Logger.getLogger(ConvertPdfDocument.class.getName());
 
-    private static final String INPUT_UNCONVERTED_PDF_PATH = "UnConvertedPdf.pdf";
+    public static final String INPUT_UNCONVERTED_PDF_PATH = "UnConvertedPdf.pdf";
     private static final String OUTPUT_CONVERTED_PDF_PATH = "ConvertedPdfa-1b.pdf";
 
 
@@ -66,33 +68,40 @@ public final class ConvertPdfDocument {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        String path;
+        final URL inputUrl = ConvertPdfDocument.class.getResource(INPUT_UNCONVERTED_PDF_PATH);
+        URL outputUrl = null;
         if (args.length > 0) {
-            path = args[0];
+            outputUrl = new URL(args[0]);
         } else {
-            path = OUTPUT_CONVERTED_PDF_PATH;
+            outputUrl = new File(OUTPUT_CONVERTED_PDF_PATH).toURI().toURL();
         }
 
-        convertToPdfA1B(path);
+        convertToPdfA1B(inputUrl, outputUrl);
     }
 
-    private static void convertToPdfA1B(final String outputPath)
+    /**
+     * Converts an input PDF document to the PDF/A-1b standard.
+     *
+     * @param inputUrl The URL of the document to be converted
+     * @param outputUrl The URL of the converted document
+     * @throws IOException an I/O operation failed or was interrupted
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     */
+    public static void convertToPdfA1B(final URL inputUrl, final URL outputUrl)
                     throws IOException, PDFFontException, PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
-
-        PDFDocument pdfDoc = null;
-        ByteReader reader = null;
         ByteWriter writer = null;
-
-        final InputStream inputStream = ConvertPdfDocument.class.getResourceAsStream(INPUT_UNCONVERTED_PDF_PATH);
-        reader = new InputStreamByteReader(inputStream);
-
-        // attach font set to PDF
+        // Attach font set to PDF
         final PDFFontSet pdfaFontSet = FontSetLoader.newInstance().getFontSet();
         final PDFOpenOptions openOptions = PDFOpenOptions.newInstance();
         openOptions.setFontSet(pdfaFontSet);
 
-        pdfDoc = PDFDocument.newInstance(reader, openOptions);
+        final PDFDocument pdfDoc = DocumentUtils.openPdfDocumentWithOptions(inputUrl, openOptions);
 
         final PDFA1bConfiguredConversionHandler handler = new PDFA1bConfiguredConversionHandler();
         final PDFAConversionOptions options = PDFAConversionOptionsFactory.getConfiguredPdfA1bInstance(pdfDoc);
@@ -102,18 +111,16 @@ public final class ConvertPdfDocument {
             if (PDFAService.convert(pdfDoc, PDFAConformanceLevel.Level_1b, options, handler)) {
                 final PDFSaveOptions saveOpt = PDFSaveFullOptions.newInstance();
 
-                // if the pdf contains compressed object streams, we should
+                // If the pdf contains compressed object streams, we should
                 // decompress these so that the pdf can be converted to PDF/A-1b
                 if (handler.requiresObjectDecompression()) {
                     saveOpt.setObjectCompressionMode(PDFSaveOptions.OBJECT_COMPRESSION_NONE);
                 }
 
-                final RandomAccessFile outputPdf = new RandomAccessFile(outputPath, "rw");
-                writer = new RandomAccessFileByteWriter(outputPdf);
-
+                writer = getByteWriterFromFile(outputUrl);
                 pdfDoc.save(writer, saveOpt);
 
-                final String successMsg = "\nConverted output written to: " + outputPath;
+                final String successMsg = "\nConverted output written to: " + outputUrl.toString();
                 LOGGER.info(successMsg);
             } else {
                 LOGGER.info("Errors encountered when converting document.");
@@ -126,5 +133,20 @@ public final class ConvertPdfDocument {
                 pdfDoc.close();
             }
         }
+    }
+
+    private static ByteWriter getByteWriterFromFile(final URL outputUrl) throws IOException {
+        File file = null;
+        try {
+            file = new File(outputUrl.toURI());
+        } catch (final URISyntaxException e) {
+            throw new IOException(e);
+        }
+
+        if (file.exists()) {
+            Files.delete(file.toPath());
+        }
+        final RandomAccessFile outputPdfFile = new RandomAccessFile(file, "rw");
+        return new RandomAccessFileByteWriter(outputPdfFile);
     }
 }
