@@ -68,7 +68,6 @@ public final class IoUtils {
      *         could be found in a specification string or the string could not be parsed.
      */
     public static URL createUrlFromString(final String inputString) throws MalformedURLException {
-        // TODO Auto-generated method stub
         return new URL(inputString);
     }
 }
