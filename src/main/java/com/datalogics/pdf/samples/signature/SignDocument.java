@@ -120,7 +120,7 @@ public final class SignDocument {
             if (sigField.isSigningPermitted()) {
                 if (sigField.isVisible()) {
                     // Create output file to hold the signed PDF data.
-                    byteWriter = IoUtils.getByteWriterFromFile(outputUrl);
+                    byteWriter = IoUtils.newByteWriter(outputUrl);
 
                     final SignatureOptions signatureOptions = SignatureOptions.newInstance();
                     final UserInfo userInfo = UserInfo.newInstance();

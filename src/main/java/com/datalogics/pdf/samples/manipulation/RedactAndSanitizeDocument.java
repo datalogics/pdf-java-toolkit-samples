@@ -266,7 +266,7 @@ public final class RedactAndSanitizeDocument {
                     PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
         ByteWriter writer = null;
         try {
-            writer = IoUtils.getByteWriterFromFile(outputUrl);
+            writer = IoUtils.newByteWriter(outputUrl);
             RedactionOptions redactionOptions = null;
             redactionOptions = new RedactionOptions(new LocalRedactionHandler());
 
@@ -305,7 +305,7 @@ public final class RedactAndSanitizeDocument {
         }
         ByteWriter writer = null;
         try {
-            writer = IoUtils.getByteWriterFromFile(sanitizedUrl);
+            writer = IoUtils.newByteWriter(sanitizedUrl);
         } catch (final IOException e) {
             throw new PDFIOException(e);
         }

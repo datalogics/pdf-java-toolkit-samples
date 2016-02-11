@@ -114,7 +114,7 @@ public final class ConvertPdfDocument {
                     saveOpt.setObjectCompressionMode(PDFSaveOptions.OBJECT_COMPRESSION_NONE);
                 }
 
-                writer = IoUtils.getByteWriterFromFile(outputUrl);
+                writer = IoUtils.newByteWriter(outputUrl);
                 pdfDoc.save(writer, saveOpt);
 
                 final String successMsg = "\nConverted output written to: " + outputUrl.toString();

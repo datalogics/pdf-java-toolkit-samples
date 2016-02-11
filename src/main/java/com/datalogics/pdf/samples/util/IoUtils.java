@@ -30,7 +30,7 @@ public final class IoUtils {
      * @return A ByteWriter created using the outputUrl
      * @throws IOException an I/O operation failed or was interrupted
      */
-    public static ByteWriter getByteWriterFromFile(final URL outputUrl) throws IOException {
+    public static ByteWriter newByteWriter(final URL outputUrl) throws IOException {
         File file = null;
         try {
             file = new File(outputUrl.toURI());
