@@ -220,7 +220,7 @@ public final class CreatePdfFromImage {
     }
 
     private static String getImageFormatFromUrl(final URL imagePath) throws URISyntaxException {
-        final String imageStringPath = imagePath.toString();
+        final String imageStringPath = imagePath.getPath();
 
         return FilenameUtils.getExtension(imageStringPath);
     }

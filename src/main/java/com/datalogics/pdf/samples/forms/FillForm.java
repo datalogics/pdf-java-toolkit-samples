@@ -294,7 +294,7 @@ public final class FillForm {
     }
 
     private static String getFormFormatFromUrl(final URL imagePath) throws URISyntaxException {
-        final String stringPath = imagePath.toString();
+        final String stringPath = imagePath.getPath();
 
         return FilenameUtils.getExtension(stringPath);
     }
