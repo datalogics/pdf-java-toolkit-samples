@@ -27,6 +27,7 @@ import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.samples.SampleTest;
 import com.datalogics.pdf.samples.util.Checksum;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
@@ -130,7 +131,7 @@ public class ImageDownsamplingTest extends SampleTest {
         assertThat(images, equalTo(1));
 
         // Read the document output from the ImageDownsampling Sample.
-        pdfDoc = openPdfDocument(file.getCanonicalPath());
+        pdfDoc = DocumentUtils.openPdfDocument(file.toURI().toURL());
         page = pdfDoc.requirePages().getPage(0);
         objMap = page.getResources().getXObjectMap();
         images = 0;

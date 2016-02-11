@@ -7,21 +7,18 @@ package com.datalogics.pdf.samples.manipulation;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.pdf.document.PDFCatalog;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFField;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
 import com.adobe.pdfjt.pdf.interactive.navigation.PDFBookmarkNode;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
 import java.io.File;
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.Iterator;
@@ -45,7 +42,7 @@ public class MergeDocumentsTest extends SampleTest {
         MergeDocuments.mergeTwoDocuments(outputUrl);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(file.toURI().toURL());
 
         // Confirm that we have all the pages we think we should have
         checkPages(doc);
@@ -59,8 +56,10 @@ public class MergeDocumentsTest extends SampleTest {
 
     // Compare the output page count to the sum of the input file page counts
     private void checkPages(final PDFDocument outputDoc) throws Exception {
-        final int pagesFirst = getPdfFromResource(MergeDocuments.FIRST_DOCUMENT).requirePages().getCount();
-        final int pagesSecond = getPdfFromResource(MergeDocuments.SECOND_DOCUMENT).requirePages().getCount();
+        final URL firstDocument = MergeDocuments.class.getResource(MergeDocuments.FIRST_DOCUMENT);
+        final URL secondDocument = MergeDocuments.class.getResource(MergeDocuments.SECOND_DOCUMENT);
+        final int pagesFirst = DocumentUtils.openPdfDocument(firstDocument).requirePages().getCount();
+        final int pagesSecond = DocumentUtils.openPdfDocument(secondDocument).requirePages().getCount();
         assertEquals("The merged document should contain pages equal to the sum of the source documents",
                      pagesFirst + pagesSecond, outputDoc.requirePages().getCount());
     }
@@ -77,7 +76,8 @@ public class MergeDocumentsTest extends SampleTest {
         }
 
         // Check the first input doc
-        PDFDocument inputDoc = getPdfFromResource(MergeDocuments.FIRST_DOCUMENT);
+        final URL firstDocument = MergeDocuments.class.getResource(MergeDocuments.FIRST_DOCUMENT);
+        PDFDocument inputDoc = DocumentUtils.openPdfDocument(firstDocument);
         pdfForm = inputDoc.getInteractiveForm();
         fieldIterator = pdfForm.iterator();
         int inputCountFirst = 0;
@@ -87,7 +87,8 @@ public class MergeDocumentsTest extends SampleTest {
         }
 
         // Check the second input doc
-        inputDoc = getPdfFromResource(MergeDocuments.SECOND_DOCUMENT);
+        final URL secondDocument = MergeDocuments.class.getResource(MergeDocuments.SECOND_DOCUMENT);
+        inputDoc = DocumentUtils.openPdfDocument(secondDocument);
         pdfForm = inputDoc.getInteractiveForm();
         fieldIterator = pdfForm.iterator();
         int inputCountSecond = 0;
@@ -111,7 +112,8 @@ public class MergeDocumentsTest extends SampleTest {
         }
 
         // Check the first input doc
-        PDFDocument inputDoc = getPdfFromResource(MergeDocuments.FIRST_DOCUMENT);
+        final URL firstDocument = MergeDocuments.class.getResource(MergeDocuments.FIRST_DOCUMENT);
+        PDFDocument inputDoc = DocumentUtils.openPdfDocument(firstDocument);
         catalog = inputDoc.requireCatalog();
         bookmarkIterator = catalog.getBookmarkRoot().iterator();
         // Start at 1 because the merge adds a bookmark to the start of this document
@@ -122,7 +124,8 @@ public class MergeDocumentsTest extends SampleTest {
         }
 
         // Check the second input doc
-        inputDoc = getPdfFromResource(MergeDocuments.SECOND_DOCUMENT);
+        final URL secondDocument = MergeDocuments.class.getResource(MergeDocuments.SECOND_DOCUMENT);
+        inputDoc = DocumentUtils.openPdfDocument(secondDocument);
         catalog = inputDoc.requireCatalog();
         bookmarkIterator = catalog.getBookmarkRoot().iterator();
         // Start at 1 because the merge adds a bookmark to the start of this document
@@ -133,21 +136,5 @@ public class MergeDocumentsTest extends SampleTest {
         }
 
         assertEquals("All bookmarks should remain intact", inputCountFirst + inputCountSecond, outputCount);
-    }
-
-    // Given a resource name, create and return a PDFDocument object
-    private PDFDocument getPdfFromResource(final String resourceName) throws Exception {
-        ByteReader byteReader = null;
-        PDFDocument pdfDoc = null;
-
-        try (final InputStream is = MergeDocuments.class.getResourceAsStream(resourceName)) {
-            byteReader = new InputStreamByteReader(is);
-            pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
-        } finally {
-            if (byteReader != null) {
-                byteReader.close();
-            }
-        }
-        return pdfDoc;
     }
 }

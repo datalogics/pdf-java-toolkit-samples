@@ -13,6 +13,7 @@ import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -40,7 +41,7 @@ public class FlattenPdfTest extends SampleTest {
 
         PDFDocument document = null;
         try {
-            document = openPdfDocument(file.getCanonicalPath());
+            document = DocumentUtils.openPdfDocument(file.toURI().toURL());
 
             assertEquals("There should not be an Acroform dictionary in a flattened form document",
                      document.getInteractiveForm(), null);
@@ -62,7 +63,7 @@ public class FlattenPdfTest extends SampleTest {
 
         PDFDocument document = null;
         try {
-            document = openPdfDocument(file.getCanonicalPath());
+            document = DocumentUtils.openPdfDocument(file.toURI().toURL());
 
             final PDFPageTree pgTree = document.requirePages();
             final PDFPage currentPage = pgTree.getPage(0);

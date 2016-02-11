@@ -15,6 +15,7 @@ import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -42,7 +43,7 @@ public class SignDocumentTest extends SampleTest {
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(file.toURI().toURL());
 
         try {
             // Make sure that Signature field is signed.
