@@ -96,7 +96,7 @@ public final class ConvertPdfDocument {
                     throws IOException, PDFFontException, PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
         ByteWriter writer = null;
-        // attach font set to PDF
+        // Attach font set to PDF
         final PDFFontSet pdfaFontSet = FontSetLoader.newInstance().getFontSet();
         final PDFOpenOptions openOptions = PDFOpenOptions.newInstance();
         openOptions.setFontSet(pdfaFontSet);
@@ -111,7 +111,7 @@ public final class ConvertPdfDocument {
             if (PDFAService.convert(pdfDoc, PDFAConformanceLevel.Level_1b, options, handler)) {
                 final PDFSaveOptions saveOpt = PDFSaveFullOptions.newInstance();
 
-                // if the pdf contains compressed object streams, we should
+                // If the pdf contains compressed object streams, we should
                 // decompress these so that the pdf can be converted to PDF/A-1b
                 if (handler.requiresObjectDecompression()) {
                     saveOpt.setObjectCompressionMode(PDFSaveOptions.OBJECT_COMPRESSION_NONE);

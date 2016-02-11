@@ -29,7 +29,7 @@ public class ConvertPdfDocumentTest extends SampleTest {
     private static final String FILE_NAME = "ConvertedPdfa-1b.pdf";
 
     @Test
-    public void testMain() throws Exception {
+    public void testConvertToPdfA1B() throws Exception {
         final URL inputUrl = ConvertPdfDocument.class.getResource(ConvertPdfDocument.INPUT_UNCONVERTED_PDF_PATH);
         final File outputFile = newOutputFileWithDelete(FILE_NAME);
         final URL outputUrl = outputFile.toURI().toURL();
