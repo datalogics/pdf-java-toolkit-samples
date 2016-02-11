@@ -54,7 +54,7 @@ public final class IoUtils {
      *         reference.
      */
     public static String getFileExtensionFromUrl(final URL fileUrl) throws URISyntaxException {
-        final String stringPath = fileUrl.toString();
+        final String stringPath = fileUrl.getPath();
 
         return FilenameUtils.getExtension(stringPath);
     }
