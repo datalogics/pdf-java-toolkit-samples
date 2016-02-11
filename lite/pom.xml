@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.datalogics.pdf</groupId>
-  <artifactId>pdf-java-toolkit-samples</artifactId>
+  <artifactId>pdf-java-toolkit-samples-lite</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>Datalogics PDF Java Toolkit Samples</name>
-  <description>Programs demonstrating the capabilities of the Datalogics PDF Java Toolkit.</description>
+  <name>Datalogics PDF Java Toolkit Samples, Lite Edition</name>
+  <description>Programs demonstrating the capabilities of the Datalogics PDF Java Toolkit. See https://github.com/datalogics/pdf-java-toolkit-samples for the full set of samples.</description>
   <url>http://dev.datalogics.com/pdf-java-toolkit/</url>
   <inceptionYear>2015</inceptionYear>
   <organization>
@@ -377,6 +377,216 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>generate-distribution</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <version>1.10</version>
+            <executions>
+              <execution>
+                <id>add-source</id>
+                <goals>
+                  <goal>add-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${project.build.directory}/distributed-files/src/main/java</source>
+                  </sources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-resource</id>
+                <goals>
+                  <goal>add-resource</goal>
+                </goals>
+                <configuration>
+                  <resources>
+                    <resource>
+                      <directory>${project.build.directory}/distributed-files/src/main/resources</directory>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-test-source</id>
+                <goals>
+                  <goal>add-test-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${project.build.directory}/distributed-files/src/test/java</source>
+                  </sources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-test-resource</id>
+                <goals>
+                  <goal>add-test-resource</goal>
+                </goals>
+                <configuration>
+                  <resources>
+                    <resource>
+                      <directory>${project.build.directory}/distributed-files/src/test/resources</directory>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.7</version>
+            <executions>
+              <execution>
+                <id>copy-distributed-files</id>
+                <!-- here the phase you need -->
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/distributed-files</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${basedir}</directory>
+                      <filtering>false</filtering>
+                      <includes>
+                        <!-- pom.xml from *this* project -->
+                        <include>pom.xml</include>
+                      </includes>
+                    </resource>
+                    <resource>
+                      <directory>${basedir}/..</directory>
+                      <filtering>false</filtering>
+                      <excludes>
+                        <!-- exclude bin, target, and some random files from our .gitignore -->
+                        <exclude>bin/**</exclude>
+                        <exclude>target/**</exclude>
+                        <exclude>lite/**</exclude>
+                        <exclude>**/*_BACKUP_*</exclude>
+                        <exclude>**/*_BASE_*</exclude>
+                        <exclude>**/*_LOCAL_*</exclude>
+                        <exclude>**/*_REMOTE_*</exclude>
+                        <exclude>**/*.orig</exclude>
+                        <exclude>**/*.l4je</exclude>
+                        <exclude>**/*.l4j</exclude>
+                      </excludes>
+                      <includes>
+                        <!-- Eclipse settings -->
+                        <include>.settings/org.eclipse.core.resources.prefs</include>
+                        <include>.settings/org.eclipse.jdt.core.prefs</include>
+                        <include>.settings/org.eclipse.jdt.ui.prefs</include>
+                        <include>.settings/org.eclipse.m2e.core.prefs</include>
+                        <!-- all the Markdown files at the top level -->
+                        <include>*.md</include>
+                        <!-- things used to build the project -->
+                        <include>fix_throws_javadoc.sed</include>
+                        <include>fix_throws_javadoc.sh</include>
+                        <!-- all source files in a directory named util, in case the samples start picking those up -->
+                        <include>src/**/util/**/*</include>
+                        <!-- specific reduced set of sample files -->
+                        <include>src/main/java/com/datalogics/pdf/samples/creation/CreatePdfFromImage.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/creation/HelloWorld.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/creation/MakeWhiteFangBook.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/extraction/TextExtract.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/forms/FillForm.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/images/ImageDownsampling.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/manipulation/ConvertPdfDocument.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/manipulation/FlattenPdf.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/manipulation/MergeDocuments.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/manipulation/RedactAndSanitizeDocument.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/printing/PrintPdf.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/signature/SignDocument.java</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/creation/PDF-Java-Toolkit-Icon.bmp</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/creation/PDF-Java-Toolkit-Icon.gif</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/creation/PDF-Java-Toolkit-Icon.jpg</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/creation/PDF-Java-Toolkit-Icon.png</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/creation/WhiteFang.chapter1.txt</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/creation/WhiteFangCover.jpg</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/forms/acroform_fdf.fdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/forms/acroform_fdf.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/forms/acroform_xfdf.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/forms/acroform_xfdf.xfdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/forms/xfa_data.xml</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/forms/xfa_form.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/images/ducky.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/manipulation/FormDocument.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/manipulation/Merge1.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/manipulation/Merge2.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/manipulation/UnConvertedPdf.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/manipulation/annotations.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds-signature.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/printing/pdfjavatoolkit-ds.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/signature/UnsignedDocument.pdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/signature/pdfjt-cert.der</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/signature/pdfjt-key.der</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/AllIntegrationTests.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/AllUnitTests.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/RunMainMethodsFromJarIntegrationTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/SampleTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/TestFontCacheManager.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/creation/CreatePdfFromImageTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/creation/HelloWorldTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/creation/MakeWhiteFangBookTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/extraction/TextExtractTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/forms/FillFormTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/images/ImageDownsamplingTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/manipulation/ConvertPdfDocumentTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/manipulation/FlattenPdfTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/manipulation/MergeDocumentsTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/manipulation/RedactAndSanitizeDocumentTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/printing/FakePrintService.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/printing/FakePrinterJob.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/printing/PrintPdfTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/signature/SignDocumentTest.java</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/creation/HelloWorld.pdf.page1.txt</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page1.txt</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page2.txt</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page3.txt</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page4.txt</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page5.txt</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/creation/WhiteFang.pdf.page6.txt</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/extraction/TextExtractTest-ReadingOrder.txt</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/images/ducky.pdf</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds-signature.pdf</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf.page0.txt</include>
+                        <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf.page1.txt</include>
+                      </includes>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>2.5.3</version>
+            <executions>
+              <execution>
+                <id>make-assembly</id>
+                <!-- this is used for inheritance merges -->
+                <phase>package</phase>
+                <!-- bind to the packaging phase -->
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptors>
+                    <descriptor>src/assembly/distributed-samples.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
     <profile>
       <id>integration-tests</id>
       <build>

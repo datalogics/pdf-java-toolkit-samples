@@ -8,6 +8,11 @@ sign up for an evaluation [here](http://www.datalogics.com/products/pdf/pdfjavat
 or [contact us](http://www.datalogics.com/company/contact-us/) to learn more before
 evaluating Datalogics PDF Java Toolkit.
 
+## Requirements
+
+* Java SE 1.7
+* Maven 3.3.9
+
 ## Contributing
 
-See ``CONTRIBUTING.md``.
+See ``CONTRIBUTING.md``
