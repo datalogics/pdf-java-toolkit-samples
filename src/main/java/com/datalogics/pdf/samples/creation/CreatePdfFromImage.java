@@ -16,8 +16,7 @@ import com.adobe.pdfjt.services.manipulations.PMMOptions;
 import com.adobe.pdfjt.services.manipulations.PMMService;
 
 import com.datalogics.pdf.document.DocumentHelper;
-
-import org.apache.commons.io.FilenameUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -92,7 +91,7 @@ public final class CreatePdfFromImage {
         PDFDocument outputDocument = null;
 
         for (final URL inputImage : inputImages) {
-            final String format = getImageFormatFromUrl(inputImage);
+            final String format = IoUtils.getFileExtensionFromUrl(inputImage);
             if (isImageFormatSupported(format)) {
                 outputDocument = createPdfFromImage(inputImage,
                                                     outputDocument);
@@ -144,7 +143,7 @@ public final class CreatePdfFromImage {
         }
 
         if (bufferedImage == null) {
-            throw new IOException("Unable to read " + getImageFormatFromUrl(inputImageUrl) + "image: "
+            throw new IOException("Unable to read " + IoUtils.getFileExtensionFromUrl(inputImageUrl) + "image: "
                                   + inputImageUrl.toString());
         }
 
@@ -217,12 +216,6 @@ public final class CreatePdfFromImage {
         ImageManager.insertImageInPDF(image, pdfDocument.requirePages().getPage(numPages - 1), pdfExtGState, asMatrix);
 
         return PDFDocument.newInstance(pdfDocument.finish());
-    }
-
-    private static String getImageFormatFromUrl(final URL imagePath) throws URISyntaxException {
-        final String imageStringPath = imagePath.getPath();
-
-        return FilenameUtils.getExtension(imageStringPath);
     }
 
     private static boolean isImageFormatSupported(final String imageFormat) throws URISyntaxException {

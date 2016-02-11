@@ -35,7 +35,7 @@ public class MakeWhiteFangBookTest extends SampleTest {
     static final String FILE_NAME = "WhiteFang.pdf";
 
     @Test
-    public void testMain() throws Exception {
+    public void testMakeWhiteFangBook() throws Exception {
         final File file = newOutputFile(FILE_NAME);
         if (file.exists()) {
             Files.delete(file.toPath());

@@ -4,10 +4,7 @@
 
 package com.datalogics.pdf.samples.signature;
 
-import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.InputStreamByteReader;
-import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.credentials.CredentialFactory;
 import com.adobe.pdfjt.core.credentials.Credentials;
 import com.adobe.pdfjt.core.credentials.PrivateKeyHolder;
@@ -16,18 +13,18 @@ import com.adobe.pdfjt.core.exceptions.PDFException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.digsig.SignatureOptions;
 import com.adobe.pdfjt.services.digsig.UserInfo;
 
+import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.RandomAccessFile;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
@@ -41,7 +38,7 @@ public final class SignDocument {
 
     private static final String DER_KEY_PATH = "pdfjt-key.der";
     private static final String DER_CERT_PATH = "pdfjt-cert.der";
-    private static final String INPUT_UNSIGNED_PDF_PATH = "UnsignedDocument.pdf";
+    public static final String INPUT_UNSIGNED_PDF_PATH = "UnsignedDocument.pdf";
     private static final String OUTPUT_SIGNED_PDF_PATH = "SignedField.pdf";
 
     /**
@@ -70,24 +67,23 @@ public final class SignDocument {
             outputUrl = new File(OUTPUT_SIGNED_PDF_PATH).toURI().toURL();
         }
 
+        final URL inputUrl = SignDocument.class.getResource(INPUT_UNSIGNED_PDF_PATH);
         // Query and sign all permissible signature fields.
-        signExistingSignatureFields(outputUrl);
+        signExistingSignatureFields(inputUrl, outputUrl);
     }
 
     /**
      * Sign existing signature fields found in the example document.
      *
+     * @param inputUrl the URL to the input file
      * @param outputUrl the path to the file to contain the signed document
      * @throws Exception a general exception was thrown
      */
-    public static void signExistingSignatureFields(final URL outputUrl) throws Exception {
+    public static void signExistingSignatureFields(final URL inputUrl, final URL outputUrl) throws Exception {
         PDFDocument pdfDoc = null;
-        ByteReader byteReader = null;
         try {
             // Get the PDF file.
-            final InputStream inputStream = SignDocument.class.getResourceAsStream(INPUT_UNSIGNED_PDF_PATH);
-            byteReader = new InputStreamByteReader(inputStream);
-            pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
+            pdfDoc = DocumentUtils.openPdfDocument(inputUrl);
 
             // Set up a signature service and iterate over all of the
             // signature fields.
@@ -107,9 +103,6 @@ public final class SignDocument {
             } catch (final PDFException e) {
                 LOGGER.severe(e.getMessage());
             }
-            if (byteReader != null) {
-                byteReader.close();
-            }
         }
     }
 
@@ -127,7 +120,7 @@ public final class SignDocument {
             if (sigField.isSigningPermitted()) {
                 if (sigField.isVisible()) {
                     // Create output file to hold the signed PDF data.
-                    byteWriter = getByteWriterFromFile(outputUrl);
+                    byteWriter = IoUtils.newByteWriter(outputUrl);
 
                     final SignatureOptions signatureOptions = SignatureOptions.newInstance();
                     final UserInfo userInfo = UserInfo.newInstance();
@@ -186,17 +179,5 @@ public final class SignDocument {
         inputStream.close();
 
         return derData;
-    }
-
-    private static ByteWriter getByteWriterFromFile(final URL outputUrl) throws IOException {
-        RandomAccessFile outputPdfFile = null;
-
-        final File file = new File(outputUrl.getPath());
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
-
-        outputPdfFile = new RandomAccessFile(file, "rw");
-        return new RandomAccessFileByteWriter(outputPdfFile);
     }
 }

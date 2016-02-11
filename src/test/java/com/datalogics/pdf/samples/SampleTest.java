@@ -8,7 +8,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.internal.io.RandomAccessFileByteReader;
 import com.adobe.internal.io.stream.InputByteStream;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
@@ -120,24 +119,6 @@ public class SampleTest {
                     PDFIOException, PDFSecurityException {
         final RandomAccessFile raf = new RandomAccessFile(path, "r");
         final ByteReader byteReader = new RandomAccessFileByteReader(raf);
-        final PDFDocument doc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
-        return doc;
-    }
-
-    /**
-     * Open a PDF document from the resources folder given a path.
-     *
-     * @param path the path inside of the resources folder to the PDF file to open
-     * @return the open PDF document
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws IOException an I/O operation failed or was interrupted
-     */
-    protected PDFDocument openPdfDocumentFromResource(final String path)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
-        final InputStream inputStream = this.getClass().getResourceAsStream(path);
-        final ByteReader byteReader = new InputStreamByteReader(inputStream);
         final PDFDocument doc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
         return doc;
     }

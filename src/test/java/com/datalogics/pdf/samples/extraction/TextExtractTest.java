@@ -25,7 +25,7 @@ public class TextExtractTest extends SampleTest {
     private static final String EXTRACTED_DOCUMENT_NAME = "TextExtractTest-ReadingOrder.txt";
 
     @Test
-    public void testMain() throws Exception {
+    public void testExtractTextReadingOrder() throws Exception {
         final File file = newOutputFile(OUTPUT_FILE_PATH);
         if (file.exists()) {
             Files.delete(file.toPath());

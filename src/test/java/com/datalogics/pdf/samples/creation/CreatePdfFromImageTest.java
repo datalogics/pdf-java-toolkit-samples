@@ -15,6 +15,7 @@ import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectMap;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -110,7 +111,7 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     // Open a PDF from a File, we should have exactly one image on each page.
     private void checkImageExists(final File file, final int startPage, final int endPage) throws Exception {
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(file.toURI().toURL());
 
         for (int i = startPage; i < endPage; i++) {
             final PDFXObjectMap objMap = pageResources(doc, 0).getXObjectMap();
