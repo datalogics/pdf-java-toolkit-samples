@@ -15,6 +15,8 @@ import com.adobe.pdfjt.services.manipulations.PMMService;
 
 import com.datalogics.pdf.document.DocumentHelper;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
@@ -103,7 +105,7 @@ public final class MergeDocuments {
             // new bookmark that wraps the bookmarks in the source document before it is added after the last
             // bookmark in the merged document. Acrobat uses the base filename of the source PDF so we'll do that
             // too.
-            final String documentBookmarkRootName = resourceName.substring(0, resourceName.length() - 4);
+            final String documentBookmarkRootName = FilenameUtils.getBaseName(resourceName);
 
             // PMMOptions control what elements of the source document are copied into the target. "newInstanceAll"
             // will copy bookmarks, links, annotations, layer content (though not the layers themselves), form
