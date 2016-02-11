@@ -30,7 +30,7 @@ public class MergeDocumentsTest extends SampleTest {
     static final String FILE_NAME = "MergedDocument.pdf";
 
     @Test
-    public void testMain() throws Exception {
+    public void testMergeTwoDocuments() throws Exception {
         // Delete the file if it exists, run the sample, and confirm we got output
         final File file = newOutputFile(FILE_NAME);
         if (file.exists()) {

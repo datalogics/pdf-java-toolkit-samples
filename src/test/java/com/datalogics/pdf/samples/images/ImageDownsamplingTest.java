@@ -89,7 +89,7 @@ public class ImageDownsamplingTest extends SampleTest {
     }
 
     @Test
-    public void testMain() throws Exception {
+    public void testDownsampleImage() throws Exception {
         final File file = newOutputFileWithDelete(params.getFileName());
 
         /*

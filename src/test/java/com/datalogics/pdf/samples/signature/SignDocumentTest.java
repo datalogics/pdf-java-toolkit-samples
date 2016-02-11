@@ -31,7 +31,7 @@ public class SignDocumentTest extends SampleTest {
     static final String QUALIFIED_SIGNATURE_FIELD_NAME = "Approver";
 
     @Test
-    public void testMain() throws Exception {
+    public void testSignExistingSignatureFields() throws Exception {
         final URL inputUrl = SignDocument.class.getResource(SignDocument.INPUT_UNSIGNED_PDF_PATH);
 
         final File file = SampleTest.newOutputFileWithDelete(FILE_NAME);
