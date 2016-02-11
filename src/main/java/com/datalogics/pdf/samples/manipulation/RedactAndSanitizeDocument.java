@@ -5,7 +5,6 @@
 package com.datalogics.pdf.samples.manipulation;
 
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
@@ -44,13 +43,11 @@ import com.adobe.pdfjt.services.textextraction.WordsIterator;
 
 import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -269,7 +266,7 @@ public final class RedactAndSanitizeDocument {
                     PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
         ByteWriter writer = null;
         try {
-            writer = getByteWriterFromFile(outputUrl);
+            writer = IoUtils.getByteWriterFromFile(outputUrl);
             RedactionOptions redactionOptions = null;
             redactionOptions = new RedactionOptions(new LocalRedactionHandler());
 
@@ -308,7 +305,7 @@ public final class RedactAndSanitizeDocument {
         }
         ByteWriter writer = null;
         try {
-            writer = getByteWriterFromFile(sanitizedUrl);
+            writer = IoUtils.getByteWriterFromFile(sanitizedUrl);
         } catch (final IOException e) {
             throw new PDFIOException(e);
         }
@@ -405,28 +402,6 @@ public final class RedactAndSanitizeDocument {
         sysFontSet = fontSetLoader.getFontSet();
         return PDFFontSetUtil.buildWorkingFontSet(document,
                                                   sysFontSet, document.getDocumentLocale(), null);
-    }
-
-    /**
-     * Create a ByteWriter from a path to an output file.
-     *
-     * @param outputPath The path ByteWriter should write to
-     * @return A ByteWriter for the outputPath
-     * @throws IOException an I/O operation failed or was interrupted
-     */
-    private static ByteWriter getByteWriterFromFile(final URL outputUrl) throws IOException {
-        File file = null;
-        try {
-            file = new File(outputUrl.toURI());
-        } catch (final URISyntaxException e) {
-            throw new IOException(e);
-        }
-
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
-        final RandomAccessFile outputPdfFile = new RandomAccessFile(file, "rw");
-        return new RandomAccessFileByteWriter(outputPdfFile);
     }
 
     /**

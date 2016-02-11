@@ -6,7 +6,6 @@ package com.datalogics.pdf.samples.manipulation;
 
 
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
@@ -27,13 +26,11 @@ import com.adobe.pdfjt.services.pdfa.PDFAService;
 
 import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.logging.Logger;
 
 
@@ -117,7 +114,7 @@ public final class ConvertPdfDocument {
                     saveOpt.setObjectCompressionMode(PDFSaveOptions.OBJECT_COMPRESSION_NONE);
                 }
 
-                writer = getByteWriterFromFile(outputUrl);
+                writer = IoUtils.getByteWriterFromFile(outputUrl);
                 pdfDoc.save(writer, saveOpt);
 
                 final String successMsg = "\nConverted output written to: " + outputUrl.toString();
@@ -135,18 +132,5 @@ public final class ConvertPdfDocument {
         }
     }
 
-    private static ByteWriter getByteWriterFromFile(final URL outputUrl) throws IOException {
-        File file = null;
-        try {
-            file = new File(outputUrl.toURI());
-        } catch (final URISyntaxException e) {
-            throw new IOException(e);
-        }
 
-        if (file.exists()) {
-            Files.delete(file.toPath());
-        }
-        final RandomAccessFile outputPdfFile = new RandomAccessFile(file, "rw");
-        return new RandomAccessFileByteWriter(outputPdfFile);
-    }
 }
