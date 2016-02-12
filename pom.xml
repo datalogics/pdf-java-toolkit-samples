@@ -105,7 +105,7 @@
       </snapshots>
       <id>pdfjt</id>
       <name>Local PDFJT repository</name>
-      <url>file://\${basedir}/../repo</url>
+      <url>${project.baseUri}../repo</url>
       <layout>default</layout>
     </repository>
   </repositories>
@@ -123,7 +123,7 @@
       </snapshots>
       <id>pdfjt</id>
       <name>Local PDFJT repository</name>
-      <url>file://\${basedir}/../repo</url>
+      <url>${project.baseUri}../repo</url>
       <layout>default</layout>
     </pluginRepository>
   </pluginRepositories>
