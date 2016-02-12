@@ -35,7 +35,7 @@ import javax.imageio.ImageIO;
  * This sample shows how to create a PDF document from an image file. The file formats demonstrated here include PNG,
  * JPG/JPEG, GIF, and BMP.
  */
-public final class CreatePdfFromImage {
+public final class MakePdfFromImage {
     public static final String INPUT_PNG = "PDF-Java-Toolkit-Icon.png";
     public static final String INPUT_JPG = "PDF-Java-Toolkit-Icon.jpg";
     public static final String INPUT_GIF = "PDF-Java-Toolkit-Icon.gif";
@@ -46,7 +46,7 @@ public final class CreatePdfFromImage {
     /**
      * This is a utility class, and won't be instantiated.
      */
-    private CreatePdfFromImage() {}
+    private MakePdfFromImage() {}
 
     /**
      * Main program for creating a PDF from images. If passed more than one image, each image will make become new page
@@ -67,10 +67,10 @@ public final class CreatePdfFromImage {
             }
             createPdfFromImages(inputImages, outputFileUrl);
         } else {
-            final URL bmpImageUrl = CreatePdfFromImage.class.getResource(INPUT_BMP);
-            final URL pngImageUrl = CreatePdfFromImage.class.getResource(INPUT_PNG);
-            final URL jpgImageUrl = CreatePdfFromImage.class.getResource(INPUT_JPG);
-            final URL gifImageUrl = CreatePdfFromImage.class.getResource(INPUT_GIF);
+            final URL bmpImageUrl = MakePdfFromImage.class.getResource(INPUT_BMP);
+            final URL pngImageUrl = MakePdfFromImage.class.getResource(INPUT_PNG);
+            final URL jpgImageUrl = MakePdfFromImage.class.getResource(INPUT_JPG);
+            final URL gifImageUrl = MakePdfFromImage.class.getResource(INPUT_GIF);
 
             final List<URL> inputImages = Arrays.asList(bmpImageUrl, pngImageUrl, jpgImageUrl, gifImageUrl);
 

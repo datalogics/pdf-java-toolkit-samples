@@ -493,7 +493,7 @@
                         <!-- all source files in a directory named util, in case the samples start picking those up -->
                         <include>src/**/util/**/*</include>
                         <!-- specific reduced set of sample files -->
-                        <include>src/main/java/com/datalogics/pdf/samples/creation/CreatePdfFromImage.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/creation/MakePdfFromImage.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/creation/HelloWorld.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/creation/MakeWhiteFangBook.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/extraction/TextExtract.java</include>
@@ -535,7 +535,7 @@
                         <include>src/test/java/com/datalogics/pdf/samples/RunMainMethodsFromJarIntegrationTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/SampleTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/TestFontCacheManager.java</include>
-                        <include>src/test/java/com/datalogics/pdf/samples/creation/CreatePdfFromImageTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/creation/MakePdfFromImageTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/creation/HelloWorldTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/creation/MakeWhiteFangBookTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/extraction/TextExtractTest.java</include>

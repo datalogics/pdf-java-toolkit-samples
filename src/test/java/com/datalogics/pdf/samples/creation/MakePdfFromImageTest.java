@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Test the Create PDF From Image sample.
  */
-public class CreatePdfFromImageTest extends SampleTest {
+public class MakePdfFromImageTest extends SampleTest {
 
     public static final String OUTPUT_PNG = "PDF_from_PNG.pdf";
     public static final String OUTPUT_JPG = "PDF_from_JPG.pdf";
@@ -40,11 +40,11 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     @Test
     public void testBmp() throws Exception {
-        final URL inputUrl = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_BMP);
+        final URL inputUrl = MakePdfFromImage.class.getResource(MakePdfFromImage.INPUT_BMP);
         final File outputBmp = newOutputFileWithDelete(OUTPUT_BMP);
         final URL outputUrl = outputBmp.toURI().toURL();
 
-        CreatePdfFromImage.createPdfFromImageAndSave(inputUrl, outputUrl);
+        MakePdfFromImage.createPdfFromImageAndSave(inputUrl, outputUrl);
 
         assertTrue(outputBmp.getPath() + " must exist after run", outputBmp.exists());
         checkImageExists(outputBmp);
@@ -52,11 +52,11 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     @Test
     public void testGif() throws Exception {
-        final URL inputUrl = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_GIF);
+        final URL inputUrl = MakePdfFromImage.class.getResource(MakePdfFromImage.INPUT_GIF);
         final File outputGif = newOutputFileWithDelete(OUTPUT_GIF);
         final URL outputUrl = outputGif.toURI().toURL();
 
-        CreatePdfFromImage.createPdfFromImageAndSave(inputUrl, outputUrl);
+        MakePdfFromImage.createPdfFromImageAndSave(inputUrl, outputUrl);
 
         assertTrue(outputGif.getPath() + " must exist after run", outputGif.exists());
         checkImageExists(outputGif);
@@ -64,11 +64,11 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     @Test
     public void testPng() throws Exception {
-        final URL inputUrl = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_PNG);
+        final URL inputUrl = MakePdfFromImage.class.getResource(MakePdfFromImage.INPUT_PNG);
         final File outputPng = newOutputFileWithDelete(OUTPUT_PNG);
         final URL outputUrl = outputPng.toURI().toURL();
 
-        CreatePdfFromImage.createPdfFromImageAndSave(inputUrl, outputUrl);
+        MakePdfFromImage.createPdfFromImageAndSave(inputUrl, outputUrl);
 
         assertTrue(outputPng.getPath() + " must exist after run", outputPng.exists());
         checkImageExists(outputPng);
@@ -76,11 +76,11 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     @Test
     public void testJpg() throws Exception {
-        final URL inputUrl = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_JPG);
+        final URL inputUrl = MakePdfFromImage.class.getResource(MakePdfFromImage.INPUT_JPG);
         final File outputJpg = newOutputFileWithDelete(OUTPUT_JPG);
         final URL outputUrl = outputJpg.toURI().toURL();
 
-        CreatePdfFromImage.createPdfFromImageAndSave(inputUrl, outputUrl);
+        MakePdfFromImage.createPdfFromImageAndSave(inputUrl, outputUrl);
 
         assertTrue(outputJpg.getPath() + " must exist after run", outputJpg.exists());
         checkImageExists(outputJpg);
@@ -88,16 +88,16 @@ public class CreatePdfFromImageTest extends SampleTest {
 
     @Test
     public void testMultipleImages() throws Exception {
-        final URL inputUrlBmp = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_BMP);
-        final URL inputUrlGif = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_GIF);
-        final URL inputUrlPng = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_PNG);
-        final URL inputUrlJpg = CreatePdfFromImage.class.getResource(CreatePdfFromImage.INPUT_JPG);
+        final URL inputUrlBmp = MakePdfFromImage.class.getResource(MakePdfFromImage.INPUT_BMP);
+        final URL inputUrlGif = MakePdfFromImage.class.getResource(MakePdfFromImage.INPUT_GIF);
+        final URL inputUrlPng = MakePdfFromImage.class.getResource(MakePdfFromImage.INPUT_PNG);
+        final URL inputUrlJpg = MakePdfFromImage.class.getResource(MakePdfFromImage.INPUT_JPG);
         final List<URL> inputImages = Arrays.asList(inputUrlBmp, inputUrlGif, inputUrlPng, inputUrlJpg);
 
         final File outputAll = newOutputFileWithDelete(OUTPUT_ALL);
         final URL outputUrl = outputAll.toURI().toURL();
 
-        CreatePdfFromImage.createPdfFromImages(inputImages, outputUrl);
+        MakePdfFromImage.createPdfFromImages(inputImages, outputUrl);
 
         assertTrue(outputAll.getPath() + " must exist after run", outputAll.exists());
         checkImageExists(outputAll, 0, 4);
