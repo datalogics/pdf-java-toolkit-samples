@@ -12,6 +12,7 @@ import com.datalogics.pdf.samples.SampleTest;
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URL;
 import java.nio.file.Files;
 
 /**
@@ -24,13 +25,16 @@ public class TextExtractTest extends SampleTest {
     private static final String EXTRACTED_DOCUMENT_NAME = "TextExtractTest-ReadingOrder.txt";
 
     @Test
-    public void testMain() throws Exception {
+    public void testExtractTextReadingOrder() throws Exception {
         final File file = newOutputFile(OUTPUT_FILE_PATH);
         if (file.exists()) {
             Files.delete(file.toPath());
         }
 
-        TextExtract.main(INPUT_PDF_PATH, file.getCanonicalPath());
+        final URL inputUrl = TextExtract.class.getResource(INPUT_PDF_PATH);
+        final URL outputUrl = file.toURI().toURL();
+
+        TextExtract.extractTextReadingOrder(inputUrl, outputUrl);;
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         final String extractedText = contentsOfTextFile(file);

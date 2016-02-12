@@ -12,10 +12,9 @@ import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 /**
  * A utility class that contains some commonly used document methods.
@@ -52,22 +51,39 @@ public final class DocumentUtils {
     /**
      * Open a PDF file using an input path.
      *
-     * @param inputPath The path to a PDF file to open
+     * @param inputUrl The URL to a PDF file to open
      * @return A new PDFDocument instance of the input document
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws IOException an I/O operation failed or was interrupted
      */
-    public static PDFDocument openPdfDocumentFromPath(final String inputPath)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
+    public static PDFDocument openPdfDocument(final URL inputUrl)
+                    throws IOException, PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
+        final PDFOpenOptions pdfOpenOptions = PDFOpenOptions.newInstance();
+
+        return openPdfDocumentWithOptions(inputUrl, pdfOpenOptions);
+    }
+
+    /**
+     * Open a PDF file using an input path.
+     *
+     * @param inputUrl The URL to a PDF file to open
+     * @param pdfOpenOptions Options used to open a PDF document
+     * @return A new PDFDocument instance of the input document
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws IOException an I/O operation failed or was interrupted
+     */
+    public static PDFDocument openPdfDocumentWithOptions(final URL inputUrl, final PDFOpenOptions pdfOpenOptions)
+                    throws IOException, PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
         ByteReader reader = null;
         PDFDocument document = null;
 
-        final File file = new File(inputPath);
-        final InputStream inputStream = new FileInputStream(file);
+        final InputStream inputStream = inputUrl.openStream();
         reader = new InputStreamByteReader(inputStream);
-        document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
+        document = PDFDocument.newInstance(reader, pdfOpenOptions);
 
         return document;
     }

@@ -15,10 +15,12 @@ import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Iterator;
 
 /**
@@ -29,17 +31,19 @@ public class SignDocumentTest extends SampleTest {
     static final String QUALIFIED_SIGNATURE_FIELD_NAME = "Approver";
 
     @Test
-    public void testMain() throws Exception {
+    public void testSignExistingSignatureFields() throws Exception {
+        final URL inputUrl = SignDocument.class.getResource(SignDocument.INPUT_UNSIGNED_PDF_PATH);
+
         final File file = SampleTest.newOutputFileWithDelete(FILE_NAME);
 
         // The complete file name will be set in the SignDocument class.
-        final String path = file.getCanonicalPath();
+        final URL outputUrl = file.toURI().toURL();
 
-        SignDocument.main(path);
+        SignDocument.signExistingSignatureFields(inputUrl, outputUrl);
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(file.toURI().toURL());
 
         try {
             // Make sure that Signature field is signed.

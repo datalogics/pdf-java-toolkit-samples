@@ -27,6 +27,7 @@ import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.samples.SampleTest;
 import com.datalogics.pdf.samples.util.Checksum;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
@@ -37,6 +38,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,21 +89,22 @@ public class ImageDownsamplingTest extends SampleTest {
     }
 
     @Test
-    public void testMain() throws Exception {
+    public void testDownsampleImage() throws Exception {
         final File file = newOutputFileWithDelete(params.getFileName());
 
         /*
          * Run sample which generates files using all three methods: {NearestNeighbor, Bicubic, Linear}
          */
-        final String outputPath = newOutputFile(FILE_NAME).getCanonicalPath();
 
-        ImageDownsampling.main(ORIGINAL_FILE_NAME, outputPath);
+        final URL inputUrl = ImageDownsamplingTest.class.getResource(ORIGINAL_FILE_NAME);
+        final URL outputUrl = newOutputFile(FILE_NAME).toURI().toURL();
+        ImageDownsampling.downsampleImage(inputUrl, outputUrl);
 
         // Make sure the Output file exists.
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         // Downsample the original image PDF file.
-        final InputStream inputStream = ImageDownsamplingTest.class.getResourceAsStream(ORIGINAL_FILE_NAME);
+        final InputStream inputStream = inputUrl.openStream();
         final ByteReader byteReader = new InputStreamByteReader(inputStream);
         PDFDocument pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
         PDFPage page = pdfDoc.requirePages().getPage(0);
@@ -128,7 +131,7 @@ public class ImageDownsamplingTest extends SampleTest {
         assertThat(images, equalTo(1));
 
         // Read the document output from the ImageDownsampling Sample.
-        pdfDoc = openPdfDocument(file.getCanonicalPath());
+        pdfDoc = DocumentUtils.openPdfDocument(file.toURI().toURL());
         page = pdfDoc.requirePages().getPage(0);
         objMap = page.getResources().getXObjectMap();
         images = 0;

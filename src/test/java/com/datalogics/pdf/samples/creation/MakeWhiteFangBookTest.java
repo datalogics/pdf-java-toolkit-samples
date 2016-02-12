@@ -21,6 +21,7 @@ import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectMap;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
@@ -34,15 +35,15 @@ public class MakeWhiteFangBookTest extends SampleTest {
     static final String FILE_NAME = "WhiteFang.pdf";
 
     @Test
-    public void testMain() throws Exception {
+    public void testMakeWhiteFangBook() throws Exception {
         final File file = newOutputFile(FILE_NAME);
         if (file.exists()) {
             Files.delete(file.toPath());
         }
-        MakeWhiteFangBook.main(file.getCanonicalPath());
+        MakeWhiteFangBook.makeWhiteFangBook(file.toURI().toURL());
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(file.toURI().toURL());
 
         try {
             // Verify the resources

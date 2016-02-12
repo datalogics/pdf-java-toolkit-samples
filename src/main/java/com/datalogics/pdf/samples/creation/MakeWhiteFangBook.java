@@ -31,9 +31,11 @@ import com.datalogics.pdf.text.Paragraph;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 
@@ -63,13 +65,13 @@ public final class MakeWhiteFangBook {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        String path;
+        URL outputUrl;
         if (args.length > 0) {
-            path = args[0];
+            outputUrl = new URL(args[0]);
         } else {
-            path = OUTPUT_PDF_PATH;
+            outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
         }
-        makeWhiteFangBook(path);
+        makeWhiteFangBook(outputUrl);
     }
 
 
@@ -77,10 +79,10 @@ public final class MakeWhiteFangBook {
      * Create a short version of the book White Fang. It uses PDFJT to insert a picture on the first page, then
      * Talkeetna to flow the text of chapter one.
      *
-     * @param outputPath the path upon which to write the output
+     * @param outputUrl the path upon which to write the output
      * @throws Exception a general exception was thrown
      */
-    public static void makeWhiteFangBook(final String outputPath) throws Exception {
+    public static void makeWhiteFangBook(final URL outputUrl) throws Exception {
         PDFDocument document = null;
 
         try {
@@ -90,7 +92,7 @@ public final class MakeWhiteFangBook {
 
             addBookText(document);
 
-            DocumentHelper.saveFullAndClose(document, outputPath);
+            DocumentHelper.saveFullAndClose(document, outputUrl.toURI().getPath());
         } finally {
             if (document != null) {
                 document.close();

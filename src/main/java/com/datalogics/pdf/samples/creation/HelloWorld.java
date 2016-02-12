@@ -12,6 +12,9 @@ import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.layout.LayoutEngine;
 import com.datalogics.pdf.text.Paragraph;
 
+import java.io.File;
+import java.net.URL;
+
 /**
  * This sample shows how to create a basic PDF containing the text 'Hello World'.
  *
@@ -36,22 +39,22 @@ public final class HelloWorld {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        String path;
+        URL outputUrl;
         if (args.length > 0) {
-            path = args[0];
+            outputUrl = new URL(args[0]);
         } else {
-            path = OUTPUT_PDF_PATH;
+            outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
         }
-        helloWorld(path);
+        helloWorld(outputUrl);
     }
 
     /**
      * Create a "Hello, World" document.
      *
-     * @param outputPath the path to the file to contain the output document
+     * @param outputUrl the path to the file to contain the output document
      * @throws Exception a general exception was thrown
      */
-    public static void helloWorld(final String outputPath) throws Exception {
+    public static void helloWorld(final URL outputUrl) throws Exception {
         PDFDocument document = null;
 
         try {
@@ -59,7 +62,7 @@ public final class HelloWorld {
 
             addText(document);
 
-            DocumentHelper.saveFullAndClose(document, outputPath);
+            DocumentHelper.saveFullAndClose(document, outputUrl.toURI().getPath());
         } finally {
             if (document != null) {
                 document.close();

@@ -13,10 +13,12 @@ import com.adobe.pdfjt.services.pdfa.PDFAService;
 import com.adobe.pdfjt.services.pdfa.PDFAValidationOptions;
 
 import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
 
 import java.io.File;
+import java.net.URL;
 
 
 /**
@@ -27,14 +29,16 @@ public class ConvertPdfDocumentTest extends SampleTest {
     private static final String FILE_NAME = "ConvertedPdfa-1b.pdf";
 
     @Test
-    public void testMain() throws Exception {
-        final File file = newOutputFileWithDelete(FILE_NAME);
+    public void testConvertToPdfA1B() throws Exception {
+        final URL inputUrl = ConvertPdfDocument.class.getResource(ConvertPdfDocument.INPUT_UNCONVERTED_PDF_PATH);
+        final File outputFile = newOutputFileWithDelete(FILE_NAME);
+        final URL outputUrl = outputFile.toURI().toURL();
 
-        ConvertPdfDocument.main(file.getCanonicalPath());
+        ConvertPdfDocument.convertToPdfA1B(inputUrl, outputUrl);
         // Make sure the Output file exists.
-        assertTrue(file.getPath() + " must exist after run", file.exists());
+        assertTrue(outputFile.getPath() + " must exist after run", outputFile.exists());
 
-        final PDFDocument doc = openPdfDocument(file.getCanonicalPath());
+        final PDFDocument doc = DocumentUtils.openPdfDocument(outputUrl);
         try {
             /*
              * Let's validate the converted file to make sure that it's PDFa-1b complaint.
@@ -43,7 +47,7 @@ public class ConvertPdfDocumentTest extends SampleTest {
             final boolean validity = PDFAService.validate(doc, PDFAConformanceLevel.Level_1b,
                                                           new PDFAValidationOptions(), validationHandler);
 
-            assertTrue(file.getPath() + " must be pdfa1-b complaint", validity);
+            assertTrue(outputFile.getPath() + " must be pdfa1-b complaint", validity);
 
         } finally {
             doc.close();

@@ -4,8 +4,6 @@
 
 package com.datalogics.pdf.samples.manipulation;
 
-import com.adobe.internal.io.ByteReader;
-import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
@@ -16,7 +14,6 @@ import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.exceptions.PDFUnsupportedFeatureException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationEnum;
 import com.adobe.pdfjt.services.ap.spi.APContext;
 import com.adobe.pdfjt.services.ap.spi.APResources;
@@ -24,10 +21,12 @@ import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.formflattener.FormFlattener;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.EnumSet;
 
 /**
@@ -59,24 +58,24 @@ public final class FlattenPdf {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        String inputPath = null;
-        String outputPath = null;
 
-        if (args.length > 1) {
-            inputPath = args[0];
-            outputPath = args[1];
+        URL inputUrl = null;
+        URL outputUrl = null;
+        if (args.length > 0) {
+            inputUrl = new URL(args[0]);
+            outputUrl = new URL(args[1]);
         } else {
-            inputPath = INPUT_PDF_PATH;
-            outputPath = OUTPUT_FLATTENED_PDF_PATH;
+            inputUrl = ConvertPdfDocument.class.getResource(INPUT_PDF_PATH);
+            outputUrl = new File(OUTPUT_FLATTENED_PDF_PATH).toURI().toURL();
         }
-        flattenPdf(inputPath, outputPath);
+        flattenPdf(inputUrl, outputUrl);
     }
 
     /**
      * Flatten a PDF.
      *
-     * @param inputPath the path to read the input PDF from
-     * @param outputPath the path to output the pdf
+     * @param inputUrl the path to read the input PDF from
+     * @param outputUrl the path to output the pdf
      * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
@@ -87,7 +86,7 @@ public final class FlattenPdf {
      * @throws PDFUnsupportedFeatureException the requested feature is not currently supported
      * @throws PDFFontException there was an error in the font set or an individual font
      */
-    private static void flattenPdf(final String inputPath, final String outputPath)
+    public static void flattenPdf(final URL inputUrl, final URL outputUrl)
                     throws IOException, PDFIOException, PDFSecurityException, PDFInvalidDocumentException,
                     PDFFontException, PDFUnsupportedFeatureException, PDFConfigurationException,
                     PDFInvalidParameterException, PDFUnableToCompleteOperationException {
@@ -100,28 +99,28 @@ public final class FlattenPdf {
         apContext.setAnnotationsToBeProcessed(EnumSet.allOf(PDFAnnotationEnum.class));
 
         PDFDocument pdfDoc = null;
-        ByteReader byteReader = null;
-        // Get the PDF file.
-        try (final InputStream inputStream = FlattenPdf.class.getResourceAsStream(inputPath);) {
-            if (inputStream == null) {
-                byteReader = new InputStreamByteReader(new FileInputStream(inputPath));
-            } else {
-                byteReader = new InputStreamByteReader(inputStream);
+
+        try {
+            pdfDoc = DocumentUtils.openPdfDocument(inputUrl);
+
+            // Flatten the signature fields so they can no longer be changed. If you do not want the signature fields
+            // to be flattened the the next two lines should be omitted.
+            final SignatureManager sigMgr = SignatureManager.newInstance(pdfDoc);
+            sigMgr.flattenAllSignatureFields();
+
+            // Flatten all the pages of the given input PDF Document, with the
+            // default text formatter.
+            FormFlattener.flattenDocument(apContext, pdfDoc, null);
+
+            // Save the flattened file to an output PDF file
+            DocumentHelper.saveFullAndClose(pdfDoc, outputUrl.toURI().getPath());
+        } catch (final URISyntaxException e) {
+            throw new PDFIOException(e);
+        } finally {
+            if (pdfDoc != null) {
+                pdfDoc.close();
             }
         }
-        pdfDoc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
-
-        // Flatten the signature fields so they can no longer be changed. If you do not want the signature fields
-        // to be flattened the the next two lines should be omitted.
-        final SignatureManager sigMgr = SignatureManager.newInstance(pdfDoc);
-        sigMgr.flattenAllSignatureFields();
-
-        // Flatten all the pages of the given input PDF Document, with the
-        // default text formatter.
-        FormFlattener.flattenDocument(apContext, pdfDoc, null);
-
-        // Save the flattened file to an output PDF file
-        DocumentHelper.saveFullAndClose(pdfDoc, outputPath);
     }
 
 }

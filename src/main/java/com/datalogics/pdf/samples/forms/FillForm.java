@@ -9,7 +9,6 @@ import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
-import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.services.ap.AppearanceService;
 import com.adobe.pdfjt.services.fdf.FDFDocument;
 import com.adobe.pdfjt.services.fdf.FDFService;
@@ -19,6 +18,8 @@ import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 import com.adobe.pdfjt.services.xfdf.XFDFService;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,6 +28,7 @@ import org.w3c.dom.Node;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -88,36 +90,42 @@ public final class FillForm {
         // If we've been given enough arguments, get the input PDF, the input form data file, and the name of the output
         // file. Try to parse the form data file type.
         if (args.length > 2) {
-            final String inputForm = args[1];
-            final String[] split = inputForm.split("\\.");
-            final String format = split[split.length - 1];
+            final URL inputForm = new URL(args[1]);
+
+            final String format = IoUtils.getFileExtensionFromUrl(inputForm);
             if (XML_FORMAT.equalsIgnoreCase(format)
                 || FDF_FORMAT.equalsIgnoreCase(format)
                 || XFDF_FORMAT.equalsIgnoreCase(format)) {
-                fillPdfForm(args[0], inputForm, format.toUpperCase(Locale.US), args[2]);
+                fillPdfForm(new URL(args[0]), inputForm, format.toUpperCase(Locale.US), new URL(args[2]));
             } else {
                 throw new IllegalArgumentException("Form data format of " + format
                                                    + " is not supported. Supported types: XML, FDF, and XFDF.");
             }
         } else {
-            fillPdfForm(ACROFORM_FDF_INPUT, ACROFORM_FDF_DATA, FDF_FORMAT, ACROFORM_FDF_OUTPUT);
-            fillPdfForm(ACROFORM_XFDF_INPUT, ACROFORM_XFDF_DATA, XFDF_FORMAT, ACROFORM_XFDF_OUTPUT);
-            fillPdfForm(XFA_PDF_INPUT, XFA_XML_DATA, XML_FORMAT, XFA_OUTPUT);
+            final Class<FillForm> classReference = FillForm.class;
+            fillPdfForm(classReference.getResource(ACROFORM_FDF_INPUT), classReference.getResource(ACROFORM_FDF_DATA),
+                        FDF_FORMAT, new File(ACROFORM_FDF_OUTPUT).toURI().toURL());
+            fillPdfForm(classReference.getResource(ACROFORM_XFDF_INPUT),
+                        classReference.getResource(ACROFORM_XFDF_DATA), XFDF_FORMAT,
+                        new File(ACROFORM_XFDF_OUTPUT).toURI().toURL());
+            fillPdfForm(classReference.getResource(XFA_PDF_INPUT), classReference.getResource(XFA_XML_DATA),
+                        XML_FORMAT, new File(XFA_OUTPUT).toURI().toURL());
         }
     }
 
     /**
      * Fill a PDF form with the provided data.
      *
-     * @param pdf The form to be filled
-     * @param form The data with which to fill the form
+     * @param inputFormUrl The form to be filled
+     * @param inputDataUrl The data with which to fill the form
      * @param formType The type of form passed in
-     * @param output The file to which the filled form will be saved
+     * @param outputUrl The file to which the filled form will be saved
      * @throws Exception a general exception was thrown
      */
-    public static void fillPdfForm(final String pdf, final String form, final String formType, final String output)
+    public static void fillPdfForm(final URL inputFormUrl, final URL inputDataUrl, final String formType,
+                                   final URL outputUrl)
                     throws Exception {
-        final PDFDocument pdfDocument = openPdfDocument(pdf);
+        final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(inputFormUrl);
 
         // There are two types of forms that we can fill, so find out which kind we have here.
         final PDFDocumentType documentType = XFAService.getDocumentType(pdfDocument);
@@ -125,9 +133,9 @@ public final class FillForm {
         if (documentType == PDFDocumentType.Acroform) {
             // If this is an Acroform, make sure the form data is either FDF for XFDF.
             if (FDF_FORMAT.equalsIgnoreCase(formType)) {
-                fillAcroformFdf(pdfDocument, form, output);
+                fillAcroformFdf(pdfDocument, inputDataUrl, outputUrl);
             } else if (XFDF_FORMAT.equalsIgnoreCase(formType)) {
-                fillAcroformXfdf(pdfDocument, form, output);
+                fillAcroformXfdf(pdfDocument, inputDataUrl, outputUrl);
             } else {
                 throw new IllegalArgumentException("Invalid formData type for Acroform document. "
                                                    + "FDF and XFDF supported.");
@@ -138,7 +146,7 @@ public final class FillForm {
             // (though field formatting is supported), so be sure to use Acrobat or another full-featured PDF viewer
             // to verify the output. A viewer like OSX's Preview won't cut it.
             if (XML_FORMAT.equalsIgnoreCase(formType)) {
-                fillXfa(pdfDocument, form, output);
+                fillXfa(pdfDocument, inputDataUrl, outputUrl);
             } else {
                 throw new IllegalArgumentException("Invalid formData type for XFA document. XML supported.");
             }
@@ -152,18 +160,15 @@ public final class FillForm {
      * Fill an Acroform with FDF form data.
      *
      * @param pdfDocument The form to be filled
-     * @param form The data with which to fill the form
-     * @param output The file to which the filled form will be saved
+     * @param inputDataUrl The data with which to fill the form
+     * @param outputUrl The file to which the filled form will be saved
      * @throws Exception a general exception was thrown
      */
-    public static void fillAcroformFdf(final PDFDocument pdfDocument, final String form, final String output)
+    public static void fillAcroformFdf(final PDFDocument pdfDocument, final URL inputDataUrl, final URL outputUrl)
                     throws Exception {
 
         // Open the input form data file.
-        InputStream formStream = FillForm.class.getResourceAsStream(form);
-        if (formStream == null) {
-            formStream = new FileInputStream(form);
-        }
+        final InputStream formStream = inputDataUrl.openStream();
         final ByteReader formByteReader = new InputStreamByteReader(formStream);
         final FDFDocument fdfDocument = FDFDocument.newInstance(formByteReader);
 
@@ -179,27 +184,24 @@ public final class FillForm {
         AppearanceService.generateAppearances(pdfDocument, null, null);
 
         // Save the file.
-        DocumentHelper.saveFullAndClose(pdfDocument, output);
+        DocumentHelper.saveFullAndClose(pdfDocument, outputUrl.toURI().getPath());
     }
 
     /**
      * Fill an Acroform with XFDF form data.
      *
      * @param pdfDocument The form to be filled
-     * @param form The data with which to fill the form
-     * @param output The file to which the filled form will be saved
+     * @param inputDataUrl The data with which to fill the form
+     * @param outputUrl The file to which the filled form will be saved
      * @throws Exception a general exception was thrown
      */
-    public static void fillAcroformXfdf(final PDFDocument pdfDocument, final String form, final String output)
+    public static void fillAcroformXfdf(final PDFDocument pdfDocument, final URL inputDataUrl, final URL outputUrl)
                     throws Exception {
 
         // If this is XFDF form data, fill the form using the XFDFService, which uses a slightly different
         // process than the FDFService. Just get the data file into an InputStream, then import the data into the PDF
         // document.
-        InputStream formStream = FillForm.class.getResourceAsStream(form);
-        if (formStream == null) {
-            formStream = new FileInputStream(form);
-        }
+        final InputStream formStream = inputDataUrl.openStream();
         XFDFService.importFormData(pdfDocument, formStream);
 
         // Run calculations on the AcroForm...
@@ -210,24 +212,24 @@ public final class FillForm {
         AppearanceService.generateAppearances(pdfDocument, null, null);
 
         // Save the file.
-        DocumentHelper.saveFullAndClose(pdfDocument, output);
+        DocumentHelper.saveFullAndClose(pdfDocument, outputUrl.toURI().getPath());
     }
 
     /**
      * Fill an XFA form with XML form data. Will not generate appearances or run calculations on the form.
      *
      * @param pdfDocument The form to be filled
-     * @param form The data with which to fill the form
-     * @param output The file to which the filled form will be saved
+     * @param inputDataUrl The data with which to fill the form
+     * @param outputUrl The file to which the filled form will be saved
      * @throws Exception a general exception was thrown
      */
-    public static void fillXfa(final PDFDocument pdfDocument, final String form, final String output)
+    public static void fillXfa(final PDFDocument pdfDocument, final URL inputDataUrl, final URL outputUrl)
                     throws Exception {
 
         // Start by getting the form data into an InputStream.
-        InputStream formStream = FillForm.class.getResourceAsStream(form);
+        InputStream formStream = inputDataUrl.openStream();
         if (formStream == null) {
-            final File formFile = new File(form);
+            final File formFile = new File(inputDataUrl.toURI());
             // For robustness's sake, we'll check that document looks about how we expect it to. If it doesn't, we'll
             // add some extra information to make it more compatible. These two functions just do Java XML stuff and
             // don't require any special knowledge of PDF Java Toolkit.
@@ -242,30 +244,7 @@ public final class FillForm {
 
         // Just save the file. Generating appearances and running calculations aren't supported for XFA forms, so
         // there's no need to try it.
-        DocumentHelper.saveFullAndClose(pdfDocument, output);
-    }
-
-    /**
-     * Open a PDF file using an input path.
-     *
-     * @param inputPath The PDF file to open
-     * @return A new PDFDocument instance of the input document
-     * @throws Exception a general exception was thrown
-     */
-    public static PDFDocument openPdfDocument(final String inputPath) throws Exception {
-
-        ByteReader reader = null;
-        PDFDocument document = null;
-
-        InputStream inputStream = FillForm.class.getResourceAsStream(inputPath);
-        if (inputStream == null) {
-            inputStream = new FileInputStream(new File(inputPath));
-        }
-
-        reader = new InputStreamByteReader(inputStream);
-        document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
-
-        return document;
+        DocumentHelper.saveFullAndClose(pdfDocument, outputUrl.toURI().getPath());
     }
 
     /**

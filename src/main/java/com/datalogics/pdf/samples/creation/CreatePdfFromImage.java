@@ -4,10 +4,7 @@
 
 package com.datalogics.pdf.samples.creation;
 
-import com.adobe.pdfjt.core.exceptions.PDFIOException;
-import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
-import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.types.ASMatrix;
 import com.adobe.pdfjt.core.types.ASRectangle;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
@@ -19,12 +16,18 @@ import com.adobe.pdfjt.services.manipulations.PMMOptions;
 import com.adobe.pdfjt.services.manipulations.PMMService;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Locale;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -33,7 +36,6 @@ import javax.imageio.ImageIO;
  * JPG/JPEG, GIF, and BMP.
  */
 public final class CreatePdfFromImage {
-
     public static final String INPUT_PNG = "PDF-Java-Toolkit-Icon.png";
     public static final String INPUT_JPG = "PDF-Java-Toolkit-Icon.jpg";
     public static final String INPUT_GIF = "PDF-Java-Toolkit-Icon.gif";
@@ -54,67 +56,86 @@ public final class CreatePdfFromImage {
      * @throws Exception a general exception was thrown
      */
     public static void main(final String... args) throws Exception {
-        PDFDocument outputDocument = null;
-        final String outputFile;
+        final URL outputFileUrl;
         // If we have more than one argument, get the output destination, get the image names, and parse the formats.
         // If we don't, just use the defaults included in the sample.
         if (args.length > 1) {
-            outputFile = args[0];
+            outputFileUrl = new URL(args[0]);
+            final List<URL> inputImages = new ArrayList<URL>();
             for (int i = 1; i < args.length; i++) {
-                final String inputImage = args[i];
-                final String[] split = inputImage.split("\\.");
-                final String format = split[split.length - 1];
-                final String[] supportedFormats = ImageIO.getReaderFileSuffixes();
-                boolean supported = false;
-                for (int j = 0; j < supportedFormats.length; j++) {
-                    if (supportedFormats[j].equalsIgnoreCase(format)) {
-                        supported = true;
-                        break;
-                    }
-                }
-                if (supported) {
-                    outputDocument = createPdfFromImage(format.toUpperCase(Locale.ENGLISH), inputImage,
-                                                            outputDocument);
-                } else {
-                    throw new PDFInvalidParameterException("Image format of " + format
-                                                           + " not supported. Valid image formats are JPG/JPEG"
-                                                           + ", PNG, BMP, and GIF.");
-                }
+                inputImages.add(createUrlFromString(args[i]));
             }
+            createPdfFromImages(inputImages, outputFileUrl);
         } else {
-            outputDocument = createPdfFromImage("BMP", INPUT_BMP, null);
-            outputDocument = createPdfFromImage("PNG", INPUT_PNG, outputDocument);
-            outputDocument = createPdfFromImage("JPG", INPUT_JPG, outputDocument);
-            outputDocument = createPdfFromImage("GIF", INPUT_GIF, outputDocument);
-            outputFile = OUTPUT_PDF;
+            final URL bmpImageUrl = CreatePdfFromImage.class.getResource(INPUT_BMP);
+            final URL pngImageUrl = CreatePdfFromImage.class.getResource(INPUT_PNG);
+            final URL jpgImageUrl = CreatePdfFromImage.class.getResource(INPUT_JPG);
+            final URL gifImageUrl = CreatePdfFromImage.class.getResource(INPUT_GIF);
+
+            final List<URL> inputImages = Arrays.asList(bmpImageUrl, pngImageUrl, jpgImageUrl, gifImageUrl);
+
+            outputFileUrl = new File(OUTPUT_PDF).toURI().toURL();
+
+            createPdfFromImages(inputImages, outputFileUrl);
         }
-        DocumentHelper.saveFullAndClose(outputDocument, outputFile);
     }
 
-
     /**
-     * Create a PDF document from a given image file.
+     * Create a PDF document from a given list of image files.
      *
-     * @param imageFormat The format the image is in - PNG, JPG, GIF, BMP are supported
-     * @param inputImage The name of the image resource to use
-     * @param inputPdf If the output of this call should be appended to an existing PDF, pass it here, otherwise use
-     *        null
-     * @throws IOException an I/O operation failed or was interrupted
-     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @param inputImages The list of inputImage URLs to use
+     * @param outputPdfUrl The output PDF URL
      * @throws Exception a general exception was thrown
      */
-    public static PDFDocument createPdfFromImage(final String imageFormat, final String inputImage,
+    public static void createPdfFromImages(final List<URL> inputImages, final URL outputPdfUrl) throws Exception {
+        PDFDocument outputDocument = null;
+
+        for (final URL inputImage : inputImages) {
+            final String format = IoUtils.getFileExtensionFromUrl(inputImage);
+            if (isImageFormatSupported(format)) {
+                outputDocument = createPdfFromImage(inputImage,
+                                                    outputDocument);
+            } else {
+                throw new PDFInvalidParameterException("Image format of " + format
+                                                       + " not supported. Valid image formats are JPG/JPEG"
+                                                       + ", PNG, BMP, and GIF.");
+            }
+        }
+
+        DocumentHelper.saveFullAndClose(outputDocument, outputPdfUrl.toURI().getPath());
+    }
+
+    /**
+     * Create a PDF document from a given image file. PNG, JPG, GIF, BMP are supported
+     *
+     * @param inputImageUrl The image URL to use
+     * @param outputPdfUrl The output URL to use
+     * @throws Exception a general exception was thrown
+     */
+    public static void createPdfFromImageAndSave(final URL inputImageUrl,
+                                                 final URL outputPdfUrl) throws Exception {
+        final PDFDocument outputDocument = createPdfFromImage(inputImageUrl, null);
+
+        DocumentHelper.saveFullAndClose(outputDocument, outputPdfUrl.toURI().getPath());
+    }
+
+    /**
+     * Create a PDF document from a given image file. PNG, JPG, GIF, BMP are supported
+     *
+     * @param inputImageUrl The image URL to use
+     * @param inputPdf If the output of this call should be appended to an existing PDF, pass it here, otherwise use
+     *        null
+     * @throws Exception a general exception was thrown
+     */
+    public static PDFDocument createPdfFromImage(final URL inputImageUrl,
                                                  final PDFDocument inputPdf) throws Exception {
         // Get the image for the reader to use. We'll try to use the sample's resource (default behavior) or, failing
         // that, we'll treat the input as a file to be opened. Set the BufferedImage to be used here as well.
         final BufferedImage bufferedImage;
 
-        try (final InputStream resourceStream = CreatePdfFromImage.class.getResourceAsStream(inputImage)) {
+        try (final InputStream resourceStream = inputImageUrl.openStream()) {
             if (resourceStream == null) {
-                bufferedImage = ImageIO.read(new File(inputImage));
+                bufferedImage = ImageIO.read(new File(inputImageUrl.toURI().getPath()));
             } else {
                 bufferedImage = ImageIO.read(ImageIO.createImageInputStream(resourceStream));
                 resourceStream.close();
@@ -122,7 +143,8 @@ public final class CreatePdfFromImage {
         }
 
         if (bufferedImage == null) {
-            throw new IOException("Unable to read " + imageFormat + "image: " + inputImage);
+            throw new IOException("Unable to read " + IoUtils.getFileExtensionFromUrl(inputImageUrl) + "image: "
+                                  + inputImageUrl.toString());
         }
 
         // Fit the image to a 792pt by 612pt page, maintaining at least a 1/2 inch (72 pt) margin.
@@ -194,5 +216,17 @@ public final class CreatePdfFromImage {
         ImageManager.insertImageInPDF(image, pdfDocument.requirePages().getPage(numPages - 1), pdfExtGState, asMatrix);
 
         return PDFDocument.newInstance(pdfDocument.finish());
+    }
+
+    private static boolean isImageFormatSupported(final String imageFormat) throws URISyntaxException {
+        final String[] supportedFormats = ImageIO.getReaderFileSuffixes();
+
+        final List<String> supportedFormatList = Arrays.asList(supportedFormats);
+
+        return supportedFormatList.contains(imageFormat);
+    }
+
+    private static URL createUrlFromString(final String inputString) throws MalformedURLException {
+        return new URL(inputString);
     }
 }
