@@ -62,7 +62,7 @@ public final class SignDocument {
 
         URL outputUrl = null;
         if (args.length > 0) {
-            outputUrl = new URL(args[1]);
+            outputUrl = new File(args[0]).toURI().toURL();
         } else {
             outputUrl = new File(OUTPUT_SIGNED_PDF_PATH).toURI().toURL();
         }

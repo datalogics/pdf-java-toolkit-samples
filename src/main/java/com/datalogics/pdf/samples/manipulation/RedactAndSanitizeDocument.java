@@ -114,8 +114,8 @@ public final class RedactAndSanitizeDocument {
 
 
         if (args.length > 2) {
-            inputUrl = new URL(args[0]);
-            outputUrl = new URL(args[1]);
+            inputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = new File(args[1]).toURI().toURL();
             searchString = args[2];
         } else {
             inputUrl = RedactAndSanitizeDocument.class.getResource(INPUT_PDF_PATH);

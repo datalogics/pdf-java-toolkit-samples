@@ -56,8 +56,8 @@ public final class TextExtract {
         URL outputUrl = null;
 
         if (args.length > 1) {
-            inputUrl = new URL(args[0]);
-            outputUrl = new URL(args[1]);
+            inputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = new File(args[1]).toURI().toURL();
         } else {
             inputUrl = TextExtract.class.getResource(INPUT_PDF_PATH);
             outputUrl = new File(OUTPUT_TEXT_PATH).toURI().toURL();

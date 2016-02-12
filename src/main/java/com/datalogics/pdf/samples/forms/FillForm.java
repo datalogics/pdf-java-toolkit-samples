@@ -26,7 +26,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
@@ -90,13 +89,14 @@ public final class FillForm {
         // If we've been given enough arguments, get the input PDF, the input form data file, and the name of the output
         // file. Try to parse the form data file type.
         if (args.length > 2) {
-            final URL inputForm = new URL(args[1]);
+            final URL inputForm = new File(args[1]).toURI().toURL();
 
             final String format = IoUtils.getFileExtensionFromUrl(inputForm);
             if (XML_FORMAT.equalsIgnoreCase(format)
                 || FDF_FORMAT.equalsIgnoreCase(format)
                 || XFDF_FORMAT.equalsIgnoreCase(format)) {
-                fillPdfForm(new URL(args[0]), inputForm, format.toUpperCase(Locale.US), new URL(args[2]));
+                fillPdfForm(new File(args[0]).toURI().toURL(), inputForm, format.toUpperCase(Locale.US),
+                            new File(args[2]).toURI().toURL());
             } else {
                 throw new IllegalArgumentException("Form data format of " + format
                                                    + " is not supported. Supported types: XML, FDF, and XFDF.");
@@ -227,16 +227,14 @@ public final class FillForm {
                     throws Exception {
 
         // Start by getting the form data into an InputStream.
-        InputStream formStream = inputDataUrl.openStream();
-        if (formStream == null) {
-            final File formFile = new File(inputDataUrl.toURI());
-            // For robustness's sake, we'll check that document looks about how we expect it to. If it doesn't, we'll
-            // add some extra information to make it more compatible. These two functions just do Java XML stuff and
-            // don't require any special knowledge of PDF Java Toolkit.
-            if (!hasXfaHeaders(formFile)) {
-                addXfaHeaders(formFile);
-            }
-            formStream = new FileInputStream(formFile);
+        final InputStream formStream = inputDataUrl.openStream();
+
+        final File formFile = new File(inputDataUrl.toURI());
+        // For robustness's sake, we'll check that document looks about how we expect it to. If it doesn't, we'll
+        // add some extra information to make it more compatible. These two functions just do Java XML stuff and
+        // don't require any special knowledge of PDF Java Toolkit.
+        if (!hasXfaHeaders(formFile)) {
+            addXfaHeaders(formFile);
         }
 
         // Once we have an XML file with the proper header, use the XFAService to get the data into the PDF.

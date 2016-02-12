@@ -69,8 +69,8 @@ public final class ImageDownsampling {
         URL inputUrl = null;
         URL outputUrl = null;
         if (args.length > 1) {
-            inputUrl = new URL(args[0]);
-            outputUrl = new URL(args[1]);
+            inputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = new File(args[1]).toURI().toURL();
         } else {
             inputUrl = ImageDownsampling.class.getResource(INPUT_IMAGE_PATH);
             outputUrl = new File(OUTPUT_IMAGE_PATH).toURI().toURL();

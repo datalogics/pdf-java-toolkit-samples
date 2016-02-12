@@ -67,7 +67,7 @@ public final class IoUtils {
      * @throws MalformedURLException Thrown to indicate that a malformed URL has occurred. Either no legal protocol
      *         could be found in a specification string or the string could not be parsed.
      */
-    public static URL createUrlFromString(final String inputString) throws MalformedURLException {
-        return new URL(inputString);
+    public static URL createUrlFromPath(final String inputString) throws MalformedURLException {
+        return new File(inputString).toURI().toURL();
     }
 }

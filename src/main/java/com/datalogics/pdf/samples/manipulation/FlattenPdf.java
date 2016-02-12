@@ -62,8 +62,8 @@ public final class FlattenPdf {
         URL inputUrl = null;
         URL outputUrl = null;
         if (args.length > 0) {
-            inputUrl = new URL(args[0]);
-            outputUrl = new URL(args[1]);
+            inputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = new File(args[1]).toURI().toURL();
         } else {
             inputUrl = ConvertPdfDocument.class.getResource(INPUT_PDF_PATH);
             outputUrl = new File(OUTPUT_FLATTENED_PDF_PATH).toURI().toURL();

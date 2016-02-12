@@ -22,7 +22,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -60,10 +59,10 @@ public final class MakePdfFromImage {
         // If we have more than one argument, get the output destination, get the image names, and parse the formats.
         // If we don't, just use the defaults included in the sample.
         if (args.length > 1) {
-            outputFileUrl = new URL(args[0]);
+            outputFileUrl = new File(args[0]).toURI().toURL();
             final List<URL> inputImages = new ArrayList<URL>();
             for (int i = 1; i < args.length; i++) {
-                inputImages.add(createUrlFromString(args[i]));
+                inputImages.add(IoUtils.createUrlFromPath(args[i]));
             }
             createPdfFromImages(inputImages, outputFileUrl);
         } else {
@@ -226,7 +225,4 @@ public final class MakePdfFromImage {
         return supportedFormatList.contains(imageFormat);
     }
 
-    private static URL createUrlFromString(final String inputString) throws MalformedURLException {
-        return new URL(inputString);
-    }
 }

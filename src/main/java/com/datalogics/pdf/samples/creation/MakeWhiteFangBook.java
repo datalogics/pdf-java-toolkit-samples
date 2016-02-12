@@ -67,7 +67,7 @@ public final class MakeWhiteFangBook {
         LicenseManager.setLicensePath(".");
         URL outputUrl;
         if (args.length > 0) {
-            outputUrl = new URL(args[0]);
+            outputUrl = new File(args[0]).toURI().toURL();
         } else {
             outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
         }
