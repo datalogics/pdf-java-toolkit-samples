@@ -20,7 +20,7 @@ import java.net.URL;
  *
  */
 public final class HelloWorld {
-    private static final String OUTPUT_PDF_PATH = "HelloWorld.pdf";
+    public static final String OUTPUT_PDF_PATH = "HelloWorld.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
