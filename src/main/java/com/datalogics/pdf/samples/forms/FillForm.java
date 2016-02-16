@@ -229,7 +229,6 @@ public final class FillForm {
         // Start by getting the form data into an InputStream.
         final InputStream formStream = inputDataUrl.openStream();
 
-        final File formFile = new File(inputDataUrl.toURI());
         // For robustness's sake, we'll check that document looks about how we expect it to. If it doesn't, we'll
         // add some extra information to make it more compatible. These two functions just do Java XML stuff and
         // don't require any special knowledge of PDF Java Toolkit.
