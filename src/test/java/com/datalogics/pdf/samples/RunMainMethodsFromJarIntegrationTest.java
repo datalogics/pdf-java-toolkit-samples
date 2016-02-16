@@ -107,7 +107,7 @@ public class RunMainMethodsFromJarIntegrationTest {
      */
     public RunMainMethodsFromJarIntegrationTest(final Method mainMethod, final String className) {
         this.mainMethod = mainMethod;
-        this.className = mainMethod.getDeclaringClass().getName();
+        this.className = className;
     }
 
     /**
@@ -137,7 +137,7 @@ public class RunMainMethodsFromJarIntegrationTest {
         // Invoke the main method of that class
         try {
             mainMethod.invoke(null, new Object[] { new String[] {} });
-            if (className.contains("HelloWorld")) {
+            if (className.equals("HelloWorld")) {
                 mainMethod.invoke(null, new Object[] { new String[] { HelloWorld.OUTPUT_PDF_PATH } });
             }
         } catch (final InvocationTargetException e) {
