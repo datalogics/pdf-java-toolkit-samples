@@ -233,8 +233,8 @@ public final class FillForm {
         // For robustness's sake, we'll check that document looks about how we expect it to. If it doesn't, we'll
         // add some extra information to make it more compatible. These two functions just do Java XML stuff and
         // don't require any special knowledge of PDF Java Toolkit.
-        if (!hasXfaHeaders(formFile)) {
-            addXfaHeaders(formFile);
+        if (!hasXfaHeaders(inputDataUrl)) {
+            addXfaHeaders(inputDataUrl);
         }
 
         // Once we have an XML file with the proper header, use the XFAService to get the data into the PDF.
@@ -252,12 +252,12 @@ public final class FillForm {
      * @return a boolean indicating the presence of XFA header tags.
      * @throws Exception a general exception was thrown
      */
-    private static boolean hasXfaHeaders(final File xfaData) throws Exception {
+    private static boolean hasXfaHeaders(final URL inputDataUrl) throws Exception {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
 
-        final Document xmlDoc = builder.parse(xfaData);
+        final Document xmlDoc = builder.parse(inputDataUrl.openStream());
         final String xmlRootName = xmlDoc.getDocumentElement().getNodeName();
 
         return xmlRootName.equals(XFA_DATA_ROOT_NODE);
@@ -269,12 +269,12 @@ public final class FillForm {
      * @param xfaData - XML data that XFA headers will be added to
      * @throws Exception a general exception was thrown
      */
-    private static void addXfaHeaders(final File xfaData) throws Exception {
+    private static void addXfaHeaders(final URL inputDataUrl) throws Exception {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
 
-        final Document oldDoc = builder.parse(xfaData);
+        final Document oldDoc = builder.parse(inputDataUrl.openStream());
         final Node oldRoot = oldDoc.getDocumentElement();
         final Document newDoc = builder.newDocument();
         final Element newRoot = newDoc.createElementNS(XFA_DATA_NS_URI, XFA_DATA_ROOT_NODE);
@@ -284,7 +284,7 @@ public final class FillForm {
         dataNode.appendChild(newDoc.importNode(oldRoot, true));
 
         final Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        final Result xmlFile = new StreamResult(xfaData);
+        final Result xmlFile = new StreamResult(inputDataUrl.openConnection().getOutputStream());
         final Source newXml = new DOMSource(newDoc);
         transformer.transform(newXml, xmlFile);
 
