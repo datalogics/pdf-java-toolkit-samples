@@ -45,7 +45,7 @@ import javax.print.attribute.standard.PrinterResolution;
 public class PrintPdf {
 
     private static final Logger LOGGER = Logger.getLogger(PrintPdf.class.getName());
-    private static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
+    public static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
 
     private static PageRasterizer pageRasterizer;
 

@@ -9,7 +9,6 @@ import static org.reflections.ReflectionUtils.withModifier;
 import static org.reflections.ReflectionUtils.withName;
 import static org.reflections.ReflectionUtils.withParameters;
 
-import com.datalogics.pdf.samples.creation.HelloWorld;
 import com.datalogics.pdf.samples.printing.FakePrintService;
 import com.datalogics.pdf.samples.printing.FakePrinterJob;
 
@@ -54,7 +53,6 @@ import javax.print.PrintServiceLookup;
 @RunWith(Parameterized.class)
 public class RunMainMethodsFromJarIntegrationTest {
     Method mainMethod;
-    String className;
 
     /**
      * Create a test for every class in com.datalogics.pdf.samples that has a <code>main</code> function.
@@ -107,7 +105,6 @@ public class RunMainMethodsFromJarIntegrationTest {
      */
     public RunMainMethodsFromJarIntegrationTest(final Method mainMethod, final String className) {
         this.mainMethod = mainMethod;
-        this.className = className;
     }
 
     /**
@@ -137,9 +134,6 @@ public class RunMainMethodsFromJarIntegrationTest {
         // Invoke the main method of that class
         try {
             mainMethod.invoke(null, new Object[] { new String[] {} });
-            if (className.equals("HelloWorld")) {
-                mainMethod.invoke(null, new Object[] { new String[] { HelloWorld.OUTPUT_PDF_PATH } });
-            }
         } catch (final InvocationTargetException e) {
             final Throwable cause = e.getCause();
             if (cause instanceof Exception) {

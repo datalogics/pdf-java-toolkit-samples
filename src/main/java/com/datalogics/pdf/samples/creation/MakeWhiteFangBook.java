@@ -46,7 +46,7 @@ import javax.imageio.ImageIO;
  */
 public final class MakeWhiteFangBook {
     private static final String INPUT_IMAGE_PATH = "WhiteFangCover.jpg";
-    private static final String OUTPUT_PDF_PATH = "WhiteFang.pdf";
+    public static final String OUTPUT_PDF_PATH = "WhiteFang.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
