@@ -28,6 +28,8 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mockit.Mock;
 import mockit.MockUp;
 
+import org.apache.commons.io.FilenameUtils;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +49,6 @@ import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Locale;
 import java.util.Set;
 
 import javax.print.PrintService;
@@ -71,8 +72,7 @@ public class RunMainWithArgsIntegrationTest {
     Method mainMethod;
     String className;
     String[] argList;
-    // While these tests are mostly meant to be run through Maven, this is here so it'll work in Eclipse as well.
-    static final String ABSOLUTE_PATH = "src" + File.separator + "main" + File.separator + "resources";
+    static final String REQUIRED_DIR = "integration-test-outputs";
 
     /**
      * Make sure we clear the output directory of previous output files before testing.
@@ -80,9 +80,9 @@ public class RunMainWithArgsIntegrationTest {
      * @throws IOException A file operation failed
      */
     @Before
-    public void cleanUp() throws IOException {
+    public void cleanUp() throws Exception {
         final String workingDir = System.getProperty("user.dir");
-        if (workingDir.contains("integration-test-outputs")) {
+        if ((new File(workingDir)).getName().equals(REQUIRED_DIR)) {
             final File[] fileList = new File(workingDir).listFiles();
             if (fileList == null) {
                 // No files in directory
@@ -91,8 +91,8 @@ public class RunMainWithArgsIntegrationTest {
             File file = null;
             for (int i = 0; i < fileList.length; i++) {
                 file = fileList[i];
-                if (file.getName().toUpperCase(Locale.ENGLISH).endsWith("PDF")
-                    || file.getName().toUpperCase(Locale.ENGLISH).endsWith("TXT")) {
+                if (FilenameUtils.getExtension(file.getPath()).equalsIgnoreCase("PDF")
+                    || FilenameUtils.getExtension(file.getPath()).equalsIgnoreCase("TXT")) {
                     if (!file.delete()) {
                         throw new IOException("Couldn't delete file " + file.getName());
                     }
@@ -127,12 +127,11 @@ public class RunMainWithArgsIntegrationTest {
                 String resourceDir = klass.getName();
                 resourceDir = resourceDir.substring(0, resourceDir.lastIndexOf('.')).replace('.', File.separatorChar);
                 final String workingDir = System.getProperty("user.dir");
-                if (workingDir.contains("integration-test-outputs")) {
+                if ((new File(workingDir)).getName().equals(REQUIRED_DIR)) {
                     resourceDir = workingDir + File.separator + "inputs" + File.separator + resourceDir
                                   + File.separator;
                 } else {
-                    resourceDir = workingDir + File.separator + ABSOLUTE_PATH + File.separator + resourceDir
-                                  + File.separator;
+                    Assert.fail("Testing is being run from the wrong directory.");
                 }
                 String[] argList;
                 if (klass.getSimpleName().equals("HelloWorld")) {
