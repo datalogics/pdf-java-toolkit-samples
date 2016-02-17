@@ -71,6 +71,8 @@ public class RunMainWithArgsIntegrationTest {
     Method mainMethod;
     String className;
     String[] argList;
+    // While these tests are mostly meant to be run through Maven, this is here so it'll work in Eclipse as well.
+    static final String ABSOLUTE_PATH = "src" + File.separator + "main" + File.separator + "resources";
 
     /**
      * Make sure we clear the output directory of previous output files before testing.
@@ -124,7 +126,14 @@ public class RunMainWithArgsIntegrationTest {
                 // Get the resource directory for this class
                 String resourceDir = klass.getName();
                 resourceDir = resourceDir.substring(0, resourceDir.lastIndexOf('.')).replace('.', File.separatorChar);
-                resourceDir = File.separator + "inputs" + File.separator + resourceDir + File.separator;
+                final String workingDir = System.getProperty("user.dir");
+                if (workingDir.contains("integration-test-outputs")) {
+                    resourceDir = workingDir + File.separator + "inputs" + File.separator + resourceDir
+                                  + File.separator;
+                } else {
+                    resourceDir = workingDir + File.separator + ABSOLUTE_PATH + File.separator + resourceDir
+                                  + File.separator;
+                }
                 String[] argList;
                 if (klass.getSimpleName().equals("HelloWorld")) {
                     argList = new String[] { HelloWorld.OUTPUT_PDF_PATH };
@@ -134,7 +143,9 @@ public class RunMainWithArgsIntegrationTest {
                 } else if (klass.getSimpleName().equals("MakeWhiteFangBook")) {
                     argList = new String[] { MakeWhiteFangBook.OUTPUT_PDF_PATH };
                 } else if (klass.getSimpleName().equals("TextExtract")) {
-                    argList = new String[] { TextExtract.INPUT_PDF_PATH, TextExtract.OUTPUT_TEXT_PATH };
+                    // This sample uses an input file that's in a non-standard location.
+                    resourceDir = resourceDir.substring(0, resourceDir.lastIndexOf("com"));
+                    argList = new String[] { resourceDir + TextExtract.INPUT_PDF_PATH, TextExtract.OUTPUT_TEXT_PATH };
                 } else if (klass.getSimpleName().equals("FillForm")) {
                     argList = new String[] { resourceDir + FillForm.ACROFORM_FDF_INPUT,
                         resourceDir + FillForm.ACROFORM_FDF_DATA,
@@ -143,21 +154,19 @@ public class RunMainWithArgsIntegrationTest {
                     argList = new String[] { resourceDir + ImageDownsampling.INPUT_IMAGE_PATH,
                         ImageDownsampling.OUTPUT_IMAGE_PATH };
                 } else if (klass.getSimpleName().equals("ConvertPdfDocument")) {
-                    argList = new String[] { resourceDir + ConvertPdfDocument.INPUT_UNCONVERTED_PDF_PATH,
-                        ConvertPdfDocument.OUTPUT_CONVERTED_PDF_PATH };
+                    argList = new String[] { ConvertPdfDocument.OUTPUT_CONVERTED_PDF_PATH };
                 } else if (klass.getSimpleName().equals("FlattenPdf")) {
                     argList = new String[] { resourceDir + FlattenPdf.INPUT_PDF_PATH,
                         FlattenPdf.OUTPUT_FLATTENED_PDF_PATH };
                 } else if (klass.getSimpleName().equals("MergeDocuments")) {
                     argList = new String[] { MergeDocuments.OUTPUT_PDF_PATH };
                 } else if (klass.getSimpleName().equals("RedactAndSanitizeDocument")) {
-                    argList = new String[] { RedactAndSanitizeDocument.INPUT_PDF_PATH,
+                    argList = new String[] { resourceDir + RedactAndSanitizeDocument.INPUT_PDF_PATH,
                         RedactAndSanitizeDocument.OUTPUT_PDF_PATH, RedactAndSanitizeDocument.SEARCH_PDF_STRING };
                 } else if (klass.getSimpleName().equals("PrintPdf")) {
                     argList = new String[] { resourceDir + PrintPdf.DEFAULT_INPUT };
                 } else if (klass.getSimpleName().equals("SignDocument")) {
-                    argList = new String[] { resourceDir + SignDocument.INPUT_UNSIGNED_PDF_PATH,
-                        SignDocument.OUTPUT_SIGNED_PDF_PATH };
+                    argList = new String[] { SignDocument.OUTPUT_SIGNED_PDF_PATH };
                 } else {
                     // This method isn't setup to be tested yet.
                     continue;
