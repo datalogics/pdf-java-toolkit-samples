@@ -29,6 +29,7 @@ import mockit.Mock;
 import mockit.MockUp;
 
 import org.apache.commons.io.FilenameUtils;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -81,6 +82,7 @@ public class RunMainWithArgsIntegrationTest {
      *
      * @throws IOException A file operation failed
      */
+    @BeforeClass
     public static void cleanUp() throws Exception {
         final String workingDir = System.getProperty("user.dir");
         if ((new File(workingDir)).getName().equals(REQUIRED_DIR)) {
@@ -118,8 +120,6 @@ public class RunMainWithArgsIntegrationTest {
      */
     @Parameters(name = "mainClass={0}")
     public static Iterable<Object[]> parameters() throws Exception {
-        cleanUp();
-
         final Set<String> sampleClasses = getAllClassNamesInPackage();
         final Map<String, Class<?>> classMap = new HashMap<String, Class<?>>();
         for (final String className : sampleClasses) {
