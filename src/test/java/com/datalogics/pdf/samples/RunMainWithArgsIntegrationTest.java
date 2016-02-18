@@ -29,16 +29,10 @@ import mockit.Mock;
 import mockit.MockUp;
 
 import org.apache.commons.io.FilenameUtils;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
 
 import java.awt.print.PrinterJob;
 import java.io.File;
@@ -46,9 +40,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.print.PrintService;
@@ -69,35 +62,42 @@ import javax.print.PrintServiceLookup;
                                     + "and methods with no discernable call site")
 @RunWith(Parameterized.class)
 public class RunMainWithArgsIntegrationTest {
-    Method mainMethod;
     String className;
     String[] argList;
     static final String REQUIRED_DIR = "integration-test-outputs";
+    static final String SEP = File.separator;
+    static final String OUTPUT_DIR = "int-with-args-outputs" + SEP;
 
     /**
      * Make sure we clear the output directory of previous output files before testing.
      *
      * @throws IOException A file operation failed
      */
-    @Before
-    public void cleanUp() throws Exception {
+    public static void cleanUp() throws Exception {
         final String workingDir = System.getProperty("user.dir");
         if ((new File(workingDir)).getName().equals(REQUIRED_DIR)) {
-            final File[] fileList = new File(workingDir).listFiles();
-            if (fileList == null) {
-                // No files in directory
-                return;
-            }
-            File file = null;
-            for (int i = 0; i < fileList.length; i++) {
-                file = fileList[i];
-                if (FilenameUtils.getExtension(file.getPath()).equalsIgnoreCase("PDF")
-                    || FilenameUtils.getExtension(file.getPath()).equalsIgnoreCase("TXT")) {
-                    if (!file.delete()) {
-                        throw new IOException("Couldn't delete file " + file.getName());
+            final File[] fileList = new File(workingDir + SEP + OUTPUT_DIR).listFiles();
+            if (fileList != null) {
+                File file = null;
+                for (int i = 0; i < fileList.length; i++) {
+                    file = fileList[i];
+                    if (FilenameUtils.getExtension(file.getPath()).equalsIgnoreCase("PDF")
+                        || FilenameUtils.getExtension(file.getPath()).equalsIgnoreCase("TXT")) {
+                        if (!file.delete()) {
+                            throw new IOException("Couldn't delete file " + file.getName());
+                        }
                     }
                 }
             }
+        }
+
+        // Create output directory if it doesn't exist
+        final File outputDir = new File(workingDir + SEP + OUTPUT_DIR);
+        if (!outputDir.exists()) {
+            outputDir.mkdir();
+            System.out.println("Created directory " + outputDir.getAbsolutePath());
+        } else {
+            System.out.println("The directory " + outputDir.getAbsolutePath() + " exists!");
         }
     }
 
@@ -109,86 +109,70 @@ public class RunMainWithArgsIntegrationTest {
      */
     @Parameters(name = "mainClass={1}")
     public static Iterable<Object[]> parameters() throws Exception {
-        final Set<String> classes = getAllClassNamesInPackage();
+        cleanUp();
 
-        // Create the parameters for every main function in the candidate class
-        final ArrayList<Object[]> parameters = new ArrayList<Object[]>();
-        for (final String className : classes) {
-            final Class<?> klass = Class.forName(className);
+        final String pName = RunMainWithArgsIntegrationTest.class.getPackage().getName() + ".";
+        final String workingDir = System.getProperty("user.dir");
+        String fullPName;
+        String resourceDir;
 
-            // Get all the public, static methods in the class that are named "main" and take a String array
-            @SuppressWarnings("unchecked")
-            final Set<Method> mains = getMethods(klass, withModifier(Modifier.PUBLIC), withModifier(Modifier.STATIC),
-                                                 withName("main"), withParameters(String[].class));
+        final ArrayList<Object[]> mainArgs = new ArrayList<Object[]>();
 
-            // Make a parameter list for them, and add to the tests
-            for (final Method main : mains) {
-                // Get the resource directory for this class
-                String resourceDir = klass.getName();
-                resourceDir = resourceDir.substring(0, resourceDir.lastIndexOf('.')).replace('.', File.separatorChar);
-                final String workingDir = System.getProperty("user.dir");
-                if ((new File(workingDir)).getName().equals(REQUIRED_DIR)) {
-                    resourceDir = workingDir + File.separator + "inputs" + File.separator + resourceDir
-                                  + File.separator;
-                } else {
-                    Assert.fail("Testing is being run from the wrong directory.");
-                }
-                String[] argList;
-                if (klass.getSimpleName().equals("HelloWorld")) {
-                    argList = new String[] { HelloWorld.OUTPUT_PDF_PATH };
-                } else if (klass.getSimpleName().equals("MakePdfFromImage")) {
-                    argList = new String[] { MakePdfFromImage.OUTPUT_PDF, resourceDir + MakePdfFromImage.INPUT_BMP,
-                        resourceDir + MakePdfFromImage.INPUT_GIF };
-                } else if (klass.getSimpleName().equals("MakeWhiteFangBook")) {
-                    argList = new String[] { MakeWhiteFangBook.OUTPUT_PDF_PATH };
-                } else if (klass.getSimpleName().equals("TextExtract")) {
-                    // This sample uses an input file that's in a non-standard location.
-                    resourceDir = resourceDir.substring(0, resourceDir.lastIndexOf("com"));
-                    argList = new String[] { resourceDir + TextExtract.INPUT_PDF_PATH, TextExtract.OUTPUT_TEXT_PATH };
-                } else if (klass.getSimpleName().equals("FillForm")) {
-                    argList = new String[] { resourceDir + FillForm.ACROFORM_FDF_INPUT,
-                        resourceDir + FillForm.ACROFORM_FDF_DATA,
-                        FillForm.ACROFORM_FDF_OUTPUT };
-                } else if (klass.getSimpleName().equals("ImageDownsampling")) {
-                    argList = new String[] { resourceDir + ImageDownsampling.INPUT_IMAGE_PATH,
-                        ImageDownsampling.OUTPUT_IMAGE_PATH };
-                } else if (klass.getSimpleName().equals("ConvertPdfDocument")) {
-                    argList = new String[] { ConvertPdfDocument.OUTPUT_CONVERTED_PDF_PATH };
-                } else if (klass.getSimpleName().equals("FlattenPdf")) {
-                    argList = new String[] { resourceDir + FlattenPdf.INPUT_PDF_PATH,
-                        FlattenPdf.OUTPUT_FLATTENED_PDF_PATH };
-                } else if (klass.getSimpleName().equals("MergeDocuments")) {
-                    argList = new String[] { MergeDocuments.OUTPUT_PDF_PATH };
-                } else if (klass.getSimpleName().equals("RedactAndSanitizeDocument")) {
-                    argList = new String[] { resourceDir + RedactAndSanitizeDocument.INPUT_PDF_PATH,
-                        RedactAndSanitizeDocument.OUTPUT_PDF_PATH, RedactAndSanitizeDocument.SEARCH_PDF_STRING };
-                } else if (klass.getSimpleName().equals("PrintPdf")) {
-                    argList = new String[] { resourceDir + PrintPdf.DEFAULT_INPUT };
-                } else if (klass.getSimpleName().equals("SignDocument")) {
-                    argList = new String[] { SignDocument.OUTPUT_SIGNED_PDF_PATH };
-                } else {
-                    // This method isn't setup to be tested yet.
-                    continue;
-                }
-                parameters.add(new Object[] { main, klass.getSimpleName(), argList });
-            }
-        }
+        fullPName = pName + "creation.";
+        resourceDir = workingDir + SEP + "inputs" + SEP + fullPName.replace(".", SEP) + SEP;
+        mainArgs.add(new Object[] { fullPName + "HelloWorld",
+            new String[] { OUTPUT_DIR + HelloWorld.OUTPUT_PDF_PATH } });
 
-        return parameters;
-    }
+        mainArgs.add(new Object[] { fullPName + "MakePdfFromImage",
+            new String[] { OUTPUT_DIR + MakePdfFromImage.OUTPUT_PDF,
+                resourceDir + MakePdfFromImage.INPUT_BMP, resourceDir + MakePdfFromImage.INPUT_GIF } });
 
-    /**
-     * Get the names of all classes in the package this class is in.
-     *
-     * @return a set of strings of the class names
-     */
-    private static Set<String> getAllClassNamesInPackage() {
-        final String packageName = RunMainWithArgsIntegrationTest.class.getPackage().getName();
-        final Collection<URL> urls = ClasspathHelper.forPackage(packageName);
-        final SubTypesScanner scanners = new SubTypesScanner(false);
-        final Reflections reflections = new Reflections(new ConfigurationBuilder().setUrls(urls)
-                                                                                  .setScanners(scanners));
-        return reflections.getAllTypes();
+        mainArgs.add(new Object[] { fullPName + "MakeWhiteFangBook",
+            new String[] { OUTPUT_DIR + MakeWhiteFangBook.OUTPUT_PDF_PATH } });
+
+        fullPName = pName + "extraction.";
+        resourceDir = workingDir + SEP + "inputs" + SEP;
+        mainArgs.add(new Object[] { fullPName + "TextExtract",
+            new String[] { resourceDir + TextExtract.INPUT_PDF_PATH, OUTPUT_DIR + TextExtract.OUTPUT_TEXT_PATH } });
+
+        fullPName = pName + "forms.";
+        resourceDir = workingDir + SEP + "inputs" + SEP + fullPName.replace(".", SEP) + SEP;
+        mainArgs.add(new Object[] { fullPName + "FillForm",
+            new String[] { resourceDir + FillForm.ACROFORM_FDF_INPUT, resourceDir + FillForm.ACROFORM_FDF_DATA,
+                OUTPUT_DIR + FillForm.ACROFORM_FDF_OUTPUT } });
+
+        fullPName = pName + "images.";
+        resourceDir = workingDir + SEP + "inputs" + SEP + fullPName.replace(".", SEP) + SEP;
+        mainArgs.add(new Object[] { fullPName + "ImageDownsampling",
+            new String[] { resourceDir + ImageDownsampling.INPUT_IMAGE_PATH,
+                OUTPUT_DIR + ImageDownsampling.OUTPUT_IMAGE_PATH } });
+
+        fullPName = pName + "manipulation.";
+        resourceDir = workingDir + SEP + "inputs" + SEP + fullPName.replace(".", SEP) + SEP;
+        mainArgs.add(new Object[] { fullPName + "ConvertPdfDocument",
+            new String[] { OUTPUT_DIR + ConvertPdfDocument.OUTPUT_CONVERTED_PDF_PATH } });
+
+        mainArgs.add(new Object[] { fullPName + "FlattenPdf",
+            new String[] { resourceDir + FlattenPdf.INPUT_PDF_PATH,
+                OUTPUT_DIR + FlattenPdf.OUTPUT_FLATTENED_PDF_PATH } });
+
+        mainArgs.add(new Object[] { fullPName + "MergeDocuments",
+            new String[] { OUTPUT_DIR + MergeDocuments.OUTPUT_PDF_PATH } });
+
+        mainArgs.add(new Object[] { fullPName + "RedactAndSanitizeDocument",
+            new String[] { resourceDir + RedactAndSanitizeDocument.INPUT_PDF_PATH,
+                OUTPUT_DIR + RedactAndSanitizeDocument.OUTPUT_PDF_PATH,
+                RedactAndSanitizeDocument.SEARCH_PDF_STRING } });
+
+        fullPName = pName + "printing.";
+        resourceDir = workingDir + SEP + "inputs" + SEP + fullPName.replace(".", SEP) + SEP;
+        mainArgs.add(new Object[] { fullPName + "PrintPdf", new String[] { resourceDir + PrintPdf.DEFAULT_INPUT } });
+
+        fullPName = pName + "signature.";
+        mainArgs.add(new Object[] { fullPName + "SignDocument",
+            new String[] { OUTPUT_DIR + SignDocument.OUTPUT_SIGNED_PDF_PATH } });
+
+        return mainArgs;
     }
 
     /**
@@ -197,8 +181,7 @@ public class RunMainWithArgsIntegrationTest {
      * @param mainMethod the main method
      * @param className the name of the class, for documentary purposes
      */
-    public RunMainWithArgsIntegrationTest(final Method mainMethod, final String className, final String[] argList) {
-        this.mainMethod = mainMethod;
+    public RunMainWithArgsIntegrationTest(final String className, final String[] argList) {
         this.className = className;
         this.argList = argList;
     }
@@ -229,6 +212,18 @@ public class RunMainWithArgsIntegrationTest {
 
         // Invoke the main method of that class
         try {
+            final Class<?> klass = Class.forName(className);
+            // Get all the public, static methods in the class that are named "main" and take a String array
+            @SuppressWarnings("unchecked")
+            final Set<Method> mains = getMethods(klass, withModifier(Modifier.PUBLIC), withModifier(Modifier.STATIC),
+                                                 withName("main"), withParameters(String[].class));
+            final Iterator<Method> mainIter = mains.iterator();
+            final Method mainMethod;
+            if (mainIter.hasNext()) {
+                mainMethod = mains.iterator().next();
+            } else {
+                throw new Exception("Main method not found in class " + className);
+            }
             mainMethod.invoke(null, new Object[] { argList });
         } catch (final InvocationTargetException e) {
             final Throwable cause = e.getCause();
