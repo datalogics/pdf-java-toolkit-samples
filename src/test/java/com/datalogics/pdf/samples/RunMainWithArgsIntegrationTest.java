@@ -28,16 +28,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mockit.Mock;
 import mockit.MockUp;
 
-import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.reflections.Reflections;
-import org.reflections.scanners.SubTypesScanner;
-import org.reflections.util.ClasspathHelper;
-import org.reflections.util.ConfigurationBuilder;
 
 import java.awt.print.PrinterJob;
 import java.io.File;
@@ -45,11 +41,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -71,8 +64,8 @@ import javax.print.PrintServiceLookup;
                                     + "and methods with no discernable call site")
 @RunWith(Parameterized.class)
 public class RunMainWithArgsIntegrationTest {
-    Class<?> sampleClass;
-    String[] argList;
+    private final String[] argList;
+    private final Method mainMethod;
     static final String REQUIRED_DIR = "integration-test-outputs";
     static final String SEP = File.separator;
     static final String OUTPUT_DIR = RunMainWithArgsIntegrationTest.class.getSimpleName() + SEP;
@@ -86,29 +79,21 @@ public class RunMainWithArgsIntegrationTest {
     public static void cleanUp() throws Exception {
         final String workingDir = System.getProperty("user.dir");
         if ((new File(workingDir)).getName().equals(REQUIRED_DIR)) {
-            final File[] fileList = new File(workingDir + SEP + OUTPUT_DIR).listFiles();
-            if (fileList != null) {
-                File file = null;
-                for (int i = 0; i < fileList.length; i++) {
-                    file = fileList[i];
-                    if (FilenameUtils.getExtension(file.getPath()).equalsIgnoreCase("PDF")
-                        || FilenameUtils.getExtension(file.getPath()).equalsIgnoreCase("TXT")) {
-                        if (!file.delete()) {
-                            throw new IOException("Couldn't delete file " + file.getName());
-                        }
-                    }
+            // Create output directory if it doesn't exist
+            final File outputDir = new File(workingDir + SEP + OUTPUT_DIR);
+            if (!outputDir.exists()) {
+                if (!outputDir.mkdir()) {
+                    throw new IOException("Couldn't create output directory " + outputDir.getName());
+                } else {
+                    // The directory didn't exist before we created it, so we don't need to clean it out.
+                    return;
                 }
             }
+
+            // If the directory did exist, clean it out.
+            FileUtils.cleanDirectory(outputDir);
         } else {
             throw new Exception("Test is not being run from expected directory.");
-        }
-
-        // Create output directory if it doesn't exist
-        final File outputDir = new File(workingDir + SEP + OUTPUT_DIR);
-        if (!outputDir.exists()) {
-            if (!outputDir.mkdir()) {
-                throw new IOException("Couldn't create output directory " + outputDir.getName());
-            }
         }
     }
 
@@ -120,90 +105,66 @@ public class RunMainWithArgsIntegrationTest {
      */
     @Parameters(name = "mainClass={0}")
     public static Iterable<Object[]> parameters() throws Exception {
-        final Set<String> sampleClasses = getAllClassNamesInPackage();
-        final Map<String, Class<?>> classMap = new HashMap<String, Class<?>>();
-        for (final String className : sampleClasses) {
-            final Class<?> c = Class.forName(className);
-            classMap.put(c.getSimpleName(), c);
-        }
-
+        final Set<String> sampleClasses = RunMainMethodsFromJarIntegrationTest.getAllClassNamesInPackage();
+        final ArrayList<Object[]> mainArgs = new ArrayList<Object[]>();
         final String resourceDir = System.getProperty("user.dir") + SEP + "inputs" + SEP;
 
-        final ArrayList<Object[]> mainArgs = new ArrayList<Object[]>();
+        final Map<String, String[]> argsMap = new HashMap<String, String[]>() {
+            private static final long serialVersionUID = 1L;
 
-        mainArgs.add(new Object[] { "HelloWorld", classMap.get("HelloWorld"),
-            new String[] { OUTPUT_DIR + HelloWorld.OUTPUT_PDF_PATH } });
+            {
+                put("HelloWorld", new String[] { OUTPUT_DIR + HelloWorld.OUTPUT_PDF_PATH });
+                put("MakePdfFromImage", new String[] { OUTPUT_DIR + MakePdfFromImage.OUTPUT_PDF,
+                    resourceDir + MakePdfFromImage.INPUT_BMP, resourceDir + MakePdfFromImage.INPUT_GIF });
+                put("MakeWhiteFangBook", new String[] { OUTPUT_DIR + MakeWhiteFangBook.OUTPUT_PDF_PATH });
+                // The sample input filename here includes a partial path, but we just want the filename itself.
+                final String extractInput = TextExtract.INPUT_PDF_PATH
+                                .substring(TextExtract.INPUT_PDF_PATH.lastIndexOf("/") + 1);
+                put("TextExtract", new String[] { resourceDir + extractInput,
+                    OUTPUT_DIR + TextExtract.OUTPUT_TEXT_PATH });
+                put("FillForm", new String[] { resourceDir + FillForm.ACROFORM_FDF_INPUT,
+                    resourceDir + FillForm.ACROFORM_FDF_DATA, OUTPUT_DIR + FillForm.ACROFORM_FDF_OUTPUT });
+                put("ImageDownsampling", new String[] { resourceDir + ImageDownsampling.INPUT_IMAGE_PATH,
+                    OUTPUT_DIR + ImageDownsampling.OUTPUT_IMAGE_PATH });
+                put("ConvertPdfDocument", new String[] { OUTPUT_DIR + ConvertPdfDocument.OUTPUT_CONVERTED_PDF_PATH });
+                put("FlattenPdf", new String[] { resourceDir + FlattenPdf.INPUT_PDF_PATH,
+                    OUTPUT_DIR + FlattenPdf.OUTPUT_FLATTENED_PDF_PATH });
+                put("MergeDocuments", new String[] { OUTPUT_DIR + MergeDocuments.OUTPUT_PDF_PATH });
+                put("RedactAndSanitizeDocument", new String[] { resourceDir + RedactAndSanitizeDocument.INPUT_PDF_PATH,
+                    OUTPUT_DIR + RedactAndSanitizeDocument.OUTPUT_PDF_PATH,
+                    RedactAndSanitizeDocument.SEARCH_PDF_STRING });
+                put("PrintPdf", new String[] { resourceDir + PrintPdf.DEFAULT_INPUT });
+                put("SignDocument", new String[] { OUTPUT_DIR + SignDocument.OUTPUT_SIGNED_PDF_PATH });
+            }
+        };
 
-        mainArgs.add(new Object[] { "MakePdfFromImage", classMap.get("MakePdfFromImage"),
-            new String[] { OUTPUT_DIR + MakePdfFromImage.OUTPUT_PDF,
-                resourceDir + MakePdfFromImage.INPUT_BMP, resourceDir + MakePdfFromImage.INPUT_GIF } });
+        for (final String className : sampleClasses) {
+            final Class<?> c = Class.forName(className);
 
-        mainArgs.add(new Object[] { "MakeWhiteFangBook", classMap.get("MakeWhiteFangBook"),
-            new String[] { OUTPUT_DIR + MakeWhiteFangBook.OUTPUT_PDF_PATH } });
-
-        // The input file in this sample includes a partial path, but we just want the filename itself.
-        final String extractInput = TextExtract.INPUT_PDF_PATH
-                        .substring(TextExtract.INPUT_PDF_PATH.lastIndexOf("/") + 1);
-        mainArgs.add(new Object[] { "TextExtract", classMap.get("TextExtract"),
-            new String[] { resourceDir + extractInput, OUTPUT_DIR + TextExtract.OUTPUT_TEXT_PATH } });
-
-        mainArgs.add(new Object[] { "FillForm", classMap.get("FillForm"),
-            new String[] { resourceDir + FillForm.ACROFORM_FDF_INPUT, resourceDir + FillForm.ACROFORM_FDF_DATA,
-                OUTPUT_DIR + FillForm.ACROFORM_FDF_OUTPUT } });
-
-        mainArgs.add(new Object[] { "ImageDownsampling", classMap.get("ImageDownsampling"),
-            new String[] { resourceDir + ImageDownsampling.INPUT_IMAGE_PATH,
-                OUTPUT_DIR + ImageDownsampling.OUTPUT_IMAGE_PATH } });
-
-        mainArgs.add(new Object[] { "ConvertPdfDocument", classMap.get("ConvertPdfDocument"),
-            new String[] { OUTPUT_DIR + ConvertPdfDocument.OUTPUT_CONVERTED_PDF_PATH } });
-
-        mainArgs.add(new Object[] { "FlattenPdf", classMap.get("FlattenPdf"),
-            new String[] { resourceDir + FlattenPdf.INPUT_PDF_PATH,
-                OUTPUT_DIR + FlattenPdf.OUTPUT_FLATTENED_PDF_PATH } });
-
-        mainArgs.add(new Object[] { "MergeDocuments", classMap.get("MergeDocuments"),
-            new String[] { OUTPUT_DIR + MergeDocuments.OUTPUT_PDF_PATH } });
-
-        mainArgs.add(new Object[] { "RedactAndSanitizeDocument", classMap.get("RedactAndSanitizeDocument"),
-            new String[] { resourceDir + RedactAndSanitizeDocument.INPUT_PDF_PATH,
-                OUTPUT_DIR + RedactAndSanitizeDocument.OUTPUT_PDF_PATH,
-                RedactAndSanitizeDocument.SEARCH_PDF_STRING } });
-
-        mainArgs.add(new Object[] { "PrintPdf", classMap.get("PrintPdf"),
-            new String[] { resourceDir + PrintPdf.DEFAULT_INPUT } });
-
-        mainArgs.add(new Object[] { "SignDocument", classMap.get("SignDocument"),
-            new String[] { OUTPUT_DIR + SignDocument.OUTPUT_SIGNED_PDF_PATH } });
+            @SuppressWarnings("unchecked")
+            final Set<Method> mains = getMethods(c, withModifier(Modifier.PUBLIC), withModifier(Modifier.STATIC),
+                                                 withName("main"), withParameters(String[].class));
+            for (final Method mainMethod : mains) {
+                final String simpleName = c.getSimpleName();
+                mainArgs.add(new Object[] { simpleName, mainMethod, argsMap.get(simpleName) });
+            }
+        }
 
         return mainArgs;
     }
 
     /**
-     * Get the names of all classes in the package this class is in.
-     *
-     * @return a set of strings of the class names
-     */
-    private static Set<String> getAllClassNamesInPackage() {
-        final String packageName = RunMainMethodsFromJarIntegrationTest.class.getPackage().getName();
-        final Collection<URL> urls = ClasspathHelper.forPackage(packageName);
-        final SubTypesScanner scanners = new SubTypesScanner(false);
-        final Reflections reflections = new Reflections(new ConfigurationBuilder().setUrls(urls)
-                                                                                  .setScanners(scanners));
-        return reflections.getAllTypes();
-    }
-
-    /**
      * Construct a test case for running a main program.
      *
-     * @param className the simple name of the class
      * @param className the name of the class, for documentary purposes
+     * @param mainMethod the main method for the class
+     * @param argList the arguments to be used to test the class
      * @throws Exception a general exception was thrown
      */
-    public RunMainWithArgsIntegrationTest(final String className, final Class<?> sampleClass, final String[] argList)
+    public RunMainWithArgsIntegrationTest(final String className, final Method mainMethod, final String[] argList)
                     throws Exception {
-        this.sampleClass = sampleClass;
-        this.argList = argList;
+        this.mainMethod = mainMethod;
+        this.argList = argList.clone();
     }
 
     /**
@@ -232,18 +193,6 @@ public class RunMainWithArgsIntegrationTest {
 
         // Invoke the main method of that class
         try {
-            // Get all the public, static methods in the class that are named "main" and take a String array
-            @SuppressWarnings("unchecked")
-            final Set<Method> mains = getMethods(sampleClass, withModifier(Modifier.PUBLIC),
-                                                 withModifier(Modifier.STATIC),
-                                                 withName("main"), withParameters(String[].class));
-            final Iterator<Method> mainIter = mains.iterator();
-            final Method mainMethod;
-            if (mainIter.hasNext()) {
-                mainMethod = mains.iterator().next();
-            } else {
-                throw new Exception("Main method not found in class " + sampleClass.getName());
-            }
             mainMethod.invoke(null, new Object[] { argList });
         } catch (final InvocationTargetException e) {
             final Throwable cause = e.getCause();

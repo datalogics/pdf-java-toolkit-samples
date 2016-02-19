@@ -88,7 +88,7 @@ public class RunMainMethodsFromJarIntegrationTest {
      *
      * @return a set of strings of the class names
      */
-    private static Set<String> getAllClassNamesInPackage() {
+    static Set<String> getAllClassNamesInPackage() {
         final String packageName = RunMainMethodsFromJarIntegrationTest.class.getPackage().getName();
         final Collection<URL> urls = ClasspathHelper.forPackage(packageName);
         final SubTypesScanner scanners = new SubTypesScanner(false);
