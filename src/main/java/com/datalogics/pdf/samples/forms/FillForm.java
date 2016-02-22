@@ -6,7 +6,6 @@ package com.datalogics.pdf.samples.forms;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.InputStreamByteReader;
-import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
@@ -23,6 +22,8 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import java.io.File;
 import java.io.InputStream;
@@ -31,6 +32,12 @@ import java.util.Locale;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  * This sample will demonstrate how to fill different types of PDF forms. For Acroforms, FDF and XFDF form data formats
@@ -219,13 +226,13 @@ public final class FillForm {
      */
     public static void fillXfa(final PDFDocument pdfDocument, final URL inputDataUrl, final URL outputUrl)
                     throws Exception {
-        // Check to see if the input data file is properly formatted for the XFAService to use.
-        // The two outermost elements should be <xfa:datasets><xfa:data>
-        if (!hasXfaRootHeaders(inputDataUrl)) {
-            throw new PDFIOException("Root element of form data XML should be " + XFA_DATA_ROOT_NODE);
+        // Check to see if the input data file is properly formatted for the XFAService to use. The two outermost
+        // elements should be <xfa:datasets><xfa:data>; if they're not, make it so.
+        if (!hasXfaRootHeader(inputDataUrl)) {
+            addXfaRootHeader(new File(inputDataUrl.toURI()));
         }
-        if (!hasXfaChildHeaders(inputDataUrl)) {
-            throw new PDFIOException("First child element of form data XML should be " + XFA_DATA_CHILD_NODE);
+        if (!hasXfaChildHeader(inputDataUrl)) {
+            addXfaChildHeader(new File(inputDataUrl.toURI()));
         }
 
         // Start by getting the form data into an InputStream.
@@ -246,7 +253,7 @@ public final class FillForm {
      * @return a boolean indicating the presence of XFA header tags.
      * @throws Exception a general exception was thrown
      */
-    private static boolean hasXfaRootHeaders(final URL inputDataUrl) throws Exception {
+    private static boolean hasXfaRootHeader(final URL inputDataUrl) throws Exception {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
@@ -264,7 +271,7 @@ public final class FillForm {
      * @return a boolean indicating the presence of XFA header tags.
      * @throws Exception a general exception was thrown
      */
-    private static boolean hasXfaChildHeaders(final URL inputDataUrl) throws Exception {
+    private static boolean hasXfaChildHeader(final URL inputDataUrl) throws Exception {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
@@ -274,4 +281,57 @@ public final class FillForm {
 
         return firstChildName.equals(XFA_DATA_CHILD_NODE);
     }
+
+    /**
+     * Add a datasets element to the XML.
+     *
+     * @param xfaData the XML file
+     * @throws Exception a general exception was thrown
+     */
+    private static void addXfaRootHeader(final File xfaData) throws Exception {
+
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder builder = factory.newDocumentBuilder();
+
+        final Document oldDoc = builder.parse(xfaData);
+        final Node oldRoot = oldDoc.getDocumentElement();
+        final Document newDoc = builder.newDocument();
+        final Element newRoot = newDoc.createElementNS(XFA_DATA_NS_URI, XFA_DATA_ROOT_NODE);
+
+        newDoc.appendChild(newRoot);
+        final Node dataNode = newRoot;
+        dataNode.appendChild(newDoc.importNode(oldRoot, true));
+
+        final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        final Result xmlFile = new StreamResult(xfaData);
+        final Source newXml = new DOMSource(newDoc);
+        transformer.transform(newXml, xmlFile);
+    }
+
+    /**
+     * Add a data element to the XML.
+     *
+     * @param xfaData the XML file
+     * @throws Exception a general exception was thrown
+     */
+    private static void addXfaChildHeader(final File xfaData) throws Exception {
+
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder builder = factory.newDocumentBuilder();
+
+        final Document oldDoc = builder.parse(xfaData);
+        final Node oldRoot = oldDoc.getElementsByTagName(XFA_DATA_ROOT_NODE).item(0).getFirstChild();
+        final Document newDoc = builder.newDocument();
+        final Element newRoot = newDoc.createElementNS(XFA_DATA_NS_URI, XFA_DATA_ROOT_NODE);
+
+        newDoc.appendChild(newRoot);
+        final Node dataNode = newRoot.appendChild(newDoc.createElement(XFA_DATA_CHILD_NODE));
+        dataNode.appendChild(newDoc.importNode(oldRoot, true));
+
+        final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        final Result xmlFile = new StreamResult(xfaData);
+        final Source newXml = new DOMSource(newDoc);
+        transformer.transform(newXml, xmlFile);
+    }
+
 }
