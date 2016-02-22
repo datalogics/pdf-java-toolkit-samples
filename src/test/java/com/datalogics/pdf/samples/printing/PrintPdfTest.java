@@ -48,7 +48,7 @@ public class PrintPdfTest extends SampleTest {
     public ExpectedException expected = ExpectedException.none();
 
     @Test
-    public <T extends PrinterJob> void testMain() throws Exception {
+    public <T extends PrinterJob> void testPrintPdf() throws Exception {
         assumeThat("This test requires a Java 7 JRE for the checksums to work",
                    System.getProperty("java.runtime.version"), startsWith("1.7."));
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
@@ -67,13 +67,14 @@ public class PrintPdfTest extends SampleTest {
             }
         };
 
-        // Call the main method
+        // Call the printPdf method
         final URL inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
         PrintPdf.printPdf(inputUrl);
     }
 
     @Test
-    public void testMainNoPrinter() throws Exception {
+    @Test
+    public void testPrintPdfNoPrinter() throws Exception {
         // Mock the PrinterServiceLookup.lookupDefaultPrintService() method to return nothing (no printer available)
         new MockUp<PrintServiceLookup>() {
             @Mock(invocations = 1)
@@ -82,7 +83,7 @@ public class PrintPdfTest extends SampleTest {
             }
         };
 
-        // Call the main method
+        // Call the printPdf method
         expected.expect(PrinterException.class);
         expected.expectMessage("Printer failed to exist.");
         final URL inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
