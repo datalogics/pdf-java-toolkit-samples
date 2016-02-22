@@ -13,6 +13,24 @@ evaluating Datalogics PDF Java Toolkit.
 * Java SE 1.7
 * Maven 3.3.9
 
+## Using with an evaluation version of PDFJT
+
+The evaluation version of PDFJT has license management, and a different artifact name: ``pdfjt-lm``. Switching to use this version of PDFJT is provided with Maven profiles.
+
+### Maven
+
+To use license-managed PDFJT, specify ``-Dpdfjt-lm`` on the command line. This will automatically activate and deactivate the correct profiles:
+
+```
+$ mvn verify -Dpdfjt-lm
+```
+
+### Eclipse
+
+In the project properties for **pdf-java-toolkit-samples**, select the **Maven** settings, and under **Active Maven Profiles (comma-separated):** enter ``pdfjt-lm,!pdfjt-non-lm``.
+
+It will ask if you want to update the product configuration. Click **Yes**.
+
 ## Contributing
 
 See ``CONTRIBUTING.md``
