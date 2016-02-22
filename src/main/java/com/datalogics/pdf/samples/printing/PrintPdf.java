@@ -49,6 +49,9 @@ public class PrintPdf {
 
     private static PageRasterizer pageRasterizer;
 
+    private static int previousPageIndex = -1;
+    private static BufferedImage previousPage;
+
     /**
      * This is a utility class, and won't be instantiated.
      */
@@ -158,29 +161,38 @@ public class PrintPdf {
 
     private static class BufferedImagePrintable implements Printable {
         @Override
-        public int print(final Graphics gfx, final PageFormat pageFormat, final int pageIndex) throws PrinterException {
-            if (pageRasterizer.hasNext()) {
-                BufferedImage page = null;
-                try {
-                    page = pageRasterizer.next();
-                } catch (PDFFontException | PDFInvalidDocumentException | PDFInvalidParameterException
-                         | PDFIOException | PDFSecurityException e) {
-                    if (LOGGER.isLoggable(Level.SEVERE)) {
-                        LOGGER.log(Level.SEVERE, "Error rasterizing a page", e);
+        public int print(final Graphics gfx, final PageFormat pageFormat, final int pageIndex)
+                        throws PrinterException {
+            BufferedImage page = null;
+            try {
+                if (previousPageIndex < pageIndex) {
+                    if (pageRasterizer.hasNext()) {
+                        page = pageRasterizer.next();
+                    } else {
+                        previousPageIndex = -1;
+                        previousPage = null;
+                        return NO_SUCH_PAGE;
                     }
-                    // This double-wrap allows us to throw the rasterizer exception to the PrinterJob.
-                    throw new PrinterIOException(new IOException("Error rasterizing a page", e));
+                } else {
+                    page = previousPage;
                 }
-                final Graphics2D gfx2d = (Graphics2D) gfx;
-                gfx2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
-                gfx2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-                gfx2d.drawImage(page, 0, 0, (int) pageFormat.getImageableWidth(),
-                              (int) pageFormat.getImageableHeight(), null);
-                gfx2d.dispose();
-                return PAGE_EXISTS;
-            } else {
-                return NO_SUCH_PAGE;
+            } catch (PDFFontException | PDFInvalidDocumentException | PDFInvalidParameterException
+                     | PDFIOException | PDFSecurityException e) {
+                if (LOGGER.isLoggable(Level.SEVERE)) {
+                    LOGGER.log(Level.SEVERE, "Error rasterizing a page", e);
+                }
+                // This double-wrap allows us to throw the rasterizer exception to the PrinterJob.
+                throw new PrinterIOException(new IOException("Error rasterizing a page", e));
             }
+            final Graphics2D gfx2d = (Graphics2D) gfx;
+            gfx2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+            gfx2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+            gfx2d.drawImage(page, 0, 0, (int) pageFormat.getImageableWidth(),
+                            (int) pageFormat.getImageableHeight(), null);
+            gfx2d.dispose();
+            previousPageIndex = pageIndex;
+            previousPage = page;
+            return PAGE_EXISTS;
         }
     }
 }

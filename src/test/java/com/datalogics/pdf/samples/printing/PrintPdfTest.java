@@ -20,7 +20,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
@@ -48,7 +50,7 @@ public class PrintPdfTest extends SampleTest {
     public ExpectedException expected = ExpectedException.none();
 
     @Test
-    public <T extends PrinterJob> void testMain() throws Exception {
+    public <T extends PrinterJob> void testPrintPdf() throws Exception {
         assumeThat("This test requires a Java 7 JRE for the checksums to work",
                    System.getProperty("java.runtime.version"), startsWith("1.7."));
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
@@ -67,13 +69,38 @@ public class PrintPdfTest extends SampleTest {
             }
         };
 
-        // Call the main method
+        // Call the printPdf method
         final URL inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
         PrintPdf.printPdf(inputUrl);
     }
 
     @Test
-    public void testMainNoPrinter() throws Exception {
+    public <T extends PrinterJob> void testPrintPdfWithMultiPagePrinterJob() throws Exception {
+        assumeThat("This test requires a Java 7 JRE for the checksums to work",
+                   System.getProperty("java.runtime.version"), startsWith("1.7."));
+        // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
+        new MockUp<PrintServiceLookup>() {
+            @Mock(invocations = 1)
+            PrintService lookupDefaultPrintService() {
+                return new FakePrintService();
+            }
+        };
+
+        // Mock the PrinterJob.getPrinterJob() method to return a TestPrinterJob object
+        new MockUp<T>() {
+            @Mock(invocations = 1)
+            public PrinterJob getPrinterJob() {
+                return new TestMultiPagePrinterJob();
+            }
+        };
+
+        // Call the printPdf method
+        final URL inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
+        PrintPdf.printPdf(inputUrl);
+    }
+
+    @Test
+    public void testPrintPdfNoPrinter() throws Exception {
         // Mock the PrinterServiceLookup.lookupDefaultPrintService() method to return nothing (no printer available)
         new MockUp<PrintServiceLookup>() {
             @Mock(invocations = 1)
@@ -82,7 +109,7 @@ public class PrintPdfTest extends SampleTest {
             }
         };
 
-        // Call the main method
+        // Call the printPdf method
         expected.expect(PrinterException.class);
         expected.expectMessage("Printer failed to exist.");
         final URL inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
@@ -93,6 +120,57 @@ public class PrintPdfTest extends SampleTest {
      * TestPrinterJob implements a 'fake' PrinterJob to intercept print requests.
      */
     private static class TestPrinterJob extends FakePrinterJob {
+        @Override
+        public void processPageImage(final BufferedImage image, final int pageIndex) throws PrinterIOException {
+            savePageImage(image, pageIndex);
+            assertThat(image, bufferedImageHasChecksum(PAGE_IMAGE_CHECKSUMS[pageIndex]));
+        }
+
+        // Based on a code snippet from the Java tutorials:
+        // https://docs.oracle.com/javase/tutorial/2d/images/saveimage.html
+        private void savePageImage(final BufferedImage image, final int pageIndex) throws PrinterIOException {
+            final String outputName = String.format(RENDERED_IMAGE_NAME, pageIndex);
+            final File outputFile = newOutputFile(outputName);
+            try {
+                ImageIO.write(image, "png", outputFile);
+            } catch (final IOException ioe) {
+                throw new PrinterIOException(ioe);
+            }
+        }
+    }
+
+    /*
+     * TestMultiPagePrinterJob implements a 'fake' PrinterJob to intercept print requests.
+     */
+    private static class TestMultiPagePrinterJob extends FakePrinterJob {
+        /*
+         * Print the document.
+         */
+        @Override
+        public void print() throws PrinterException {
+            // Create a BufferedImage to render into
+            final int width = (int) (format.getImageableWidth() - format.getImageableX());
+            final int height = (int) (format.getImageableHeight() - format.getImageableY());
+            // NOTE: We use a TYPE_4BYTE_ABGR because it is guaranteed to use a single contiguous
+            // image data buffer. This lets us checksum the raw data for the entire image.
+            final BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+
+            Graphics2D gfx2d = image.createGraphics();
+
+            final int[] pageIndexes = { 0, 0, 1, 1 };
+
+            for (final int pageIndex : pageIndexes) {
+                if (painter.print(gfx2d, format, pageIndex) == Printable.NO_SUCH_PAGE) {
+                    break;
+                }
+                processPageImage(image, pageIndex);
+
+                // painter.print() disposed of the Graphics2D, obtain a new one
+                gfx2d = image.createGraphics();
+                gfx2d.clearRect(0, 0, width, height);
+            }
+        }
+
         @Override
         public void processPageImage(final BufferedImage image, final int pageIndex) throws PrinterIOException {
             savePageImage(image, pageIndex);
