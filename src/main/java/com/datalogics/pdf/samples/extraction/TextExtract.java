@@ -32,8 +32,8 @@ import java.nio.file.Files;
  * to a text file.
  */
 public final class TextExtract {
-    private static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
-    private static final String OUTPUT_TEXT_PATH = "TextExtract.txt";
+    public static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
+    public static final String OUTPUT_TEXT_PATH = "TextExtract.txt";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -56,8 +56,8 @@ public final class TextExtract {
         URL outputUrl = null;
 
         if (args.length > 1) {
-            inputUrl = new URL(args[0]);
-            outputUrl = new URL(args[1]);
+            inputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = new File(args[1]).toURI().toURL();
         } else {
             inputUrl = TextExtract.class.getResource(INPUT_PDF_PATH);
             outputUrl = new File(OUTPUT_TEXT_PATH).toURI().toURL();

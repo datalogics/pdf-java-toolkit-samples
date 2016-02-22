@@ -45,7 +45,7 @@ public final class ConvertPdfDocument {
     private static final Logger LOGGER = Logger.getLogger(ConvertPdfDocument.class.getName());
 
     public static final String INPUT_UNCONVERTED_PDF_PATH = "UnConvertedPdf.pdf";
-    private static final String OUTPUT_CONVERTED_PDF_PATH = "ConvertedPdfa-1b.pdf";
+    public static final String OUTPUT_CONVERTED_PDF_PATH = "ConvertedPdfa-1b.pdf";
 
 
     /**
@@ -68,7 +68,7 @@ public final class ConvertPdfDocument {
         final URL inputUrl = ConvertPdfDocument.class.getResource(INPUT_UNCONVERTED_PDF_PATH);
         URL outputUrl = null;
         if (args.length > 0) {
-            outputUrl = new URL(args[0]);
+            outputUrl = new File(args[0]).toURI().toURL();
         } else {
             outputUrl = new File(OUTPUT_CONVERTED_PDF_PATH).toURI().toURL();
         }

@@ -20,7 +20,7 @@ import java.net.URL;
  *
  */
 public final class HelloWorld {
-    private static final String OUTPUT_PDF_PATH = "HelloWorld.pdf";
+    public static final String OUTPUT_PDF_PATH = "HelloWorld.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -41,7 +41,7 @@ public final class HelloWorld {
         LicenseManager.setLicensePath(".");
         URL outputUrl;
         if (args.length > 0) {
-            outputUrl = new URL(args[0]);
+            outputUrl = new File(args[0]).toURI().toURL();
         } else {
             outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
         }

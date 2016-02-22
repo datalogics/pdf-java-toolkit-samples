@@ -25,7 +25,7 @@ import java.net.URL;
  */
 public final class MergeDocuments {
 
-    private static final String OUTPUT_PDF_PATH = "MergedDocument.pdf";
+    public static final String OUTPUT_PDF_PATH = "MergedDocument.pdf";
     public static final String FIRST_DOCUMENT = "Merge1.pdf";
     public static final String SECOND_DOCUMENT = "Merge2.pdf";
 
@@ -49,7 +49,7 @@ public final class MergeDocuments {
 
         URL outputUrl = null;
         if (args.length > 0) {
-            outputUrl = new URL(args[0]);
+            outputUrl = new File(args[0]).toURI().toURL();
         } else {
             outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
         }

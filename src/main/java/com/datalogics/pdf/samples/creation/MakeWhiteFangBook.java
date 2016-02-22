@@ -46,7 +46,7 @@ import javax.imageio.ImageIO;
  */
 public final class MakeWhiteFangBook {
     private static final String INPUT_IMAGE_PATH = "WhiteFangCover.jpg";
-    private static final String OUTPUT_PDF_PATH = "WhiteFang.pdf";
+    public static final String OUTPUT_PDF_PATH = "WhiteFang.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -67,7 +67,7 @@ public final class MakeWhiteFangBook {
         LicenseManager.setLicensePath(".");
         URL outputUrl;
         if (args.length > 0) {
-            outputUrl = new URL(args[0]);
+            outputUrl = new File(args[0]).toURI().toURL();
         } else {
             outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
         }

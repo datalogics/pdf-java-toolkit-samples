@@ -39,7 +39,7 @@ public final class SignDocument {
     private static final String DER_KEY_PATH = "pdfjt-key.der";
     private static final String DER_CERT_PATH = "pdfjt-cert.der";
     public static final String INPUT_UNSIGNED_PDF_PATH = "UnsignedDocument.pdf";
-    private static final String OUTPUT_SIGNED_PDF_PATH = "SignedField.pdf";
+    public static final String OUTPUT_SIGNED_PDF_PATH = "SignedField.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -62,7 +62,7 @@ public final class SignDocument {
 
         URL outputUrl = null;
         if (args.length > 0) {
-            outputUrl = new URL(args[1]);
+            outputUrl = new File(args[0]).toURI().toURL();
         } else {
             outputUrl = new File(OUTPUT_SIGNED_PDF_PATH).toURI().toURL();
         }

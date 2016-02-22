@@ -83,9 +83,9 @@ import java.util.logging.Logger;
 public final class RedactAndSanitizeDocument {
     private static final Logger LOGGER = Logger.getLogger(RedactAndSanitizeDocument.class.getName());
 
-    private static final String SEARCH_PDF_STRING = "Reader";
-    private static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";
-    private static final String OUTPUT_PDF_PATH = "RedactAndSanitize.pdf";
+    public static final String SEARCH_PDF_STRING = "Reader";
+    public static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";
+    public static final String OUTPUT_PDF_PATH = "RedactAndSanitize.pdf";
 
     private static final double[] COLOR = { 1.0, 0, 0 }; // RGB Red
     private static final double[] INTERIOR_COLOR = { 0, 0, 0 }; // RGB Black
@@ -114,8 +114,8 @@ public final class RedactAndSanitizeDocument {
 
 
         if (args.length > 2) {
-            inputUrl = new URL(args[0]);
-            outputUrl = new URL(args[1]);
+            inputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = new File(args[1]).toURI().toURL();
             searchString = args[2];
         } else {
             inputUrl = RedactAndSanitizeDocument.class.getResource(INPUT_PDF_PATH);

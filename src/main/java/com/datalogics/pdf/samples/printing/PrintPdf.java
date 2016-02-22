@@ -28,6 +28,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -44,7 +45,7 @@ import javax.print.attribute.standard.PrinterResolution;
 public class PrintPdf {
 
     private static final Logger LOGGER = Logger.getLogger(PrintPdf.class.getName());
-    private static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
+    public static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
 
     private static PageRasterizer pageRasterizer;
 
@@ -67,7 +68,7 @@ public class PrintPdf {
         LicenseManager.setLicensePath(".");
         URL inputUrl = null;
         if (args.length > 0) {
-            inputUrl = new URL(args[0]);
+            inputUrl = new File(args[0]).toURI().toURL();
         } else {
             inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
         }
