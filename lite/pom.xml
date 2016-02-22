@@ -32,6 +32,8 @@
     <url>https://github.com/datalogics/pdf-java-toolkit-samples</url>
   </scm>
   <properties>
+    <pdfjt.version>[3.0.0-SNAPSHOT,4.0.0)</pdfjt.version>
+    <talkeetna.version>[4.0.0-SNAPSHOT,5.0.0)</talkeetna.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <tools.version>1.7.0</tools.version>
@@ -40,14 +42,8 @@
   </properties>
   <dependencies>
     <dependency>
-      <groupId>com.adobe.pdfjt</groupId>
-      <artifactId>pdfjt</artifactId>
-      <version>[3.0.0-SNAPSHOT,4.0.0)</version>
-    </dependency>
-    <dependency>
       <groupId>com.datalogics.pdf</groupId>
       <artifactId>talkeetna</artifactId>
-      <version>[4.0-SNAPSHOT,5.0)</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -89,6 +85,7 @@
       <artifactId>findbugs</artifactId>
       <version>3.0.1</version>
       <scope>test</scope>
+      <version>${talkeetna.version}</version>
     </dependency>
   </dependencies>
   <repositories>
@@ -382,6 +379,36 @@
     </plugins>
   </build>
   <profiles>
+    <profile>
+      <id>pdfjt-non-lm</id>
+      <activation>
+        <property>
+          <name>!pdfjt-lm</name>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.adobe.pdfjt</groupId>
+          <artifactId>pdfjt</artifactId>
+          <version>${pdfjt.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>pdfjt-lm</id>
+      <activation>
+        <property>
+          <name>pdfjt-lm</name>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.adobe.pdfjt</groupId>
+          <artifactId>pdfjt-lm</artifactId>
+          <version>${pdfjt.version}</version>
+        </dependency>
+      </dependencies>
+    </profile>
     <profile>
       <id>generate-distribution</id>
       <build>
