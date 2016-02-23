@@ -30,7 +30,10 @@ import java.util.logging.Logger;
 
 /**
  * This is a sample that demonstrates how to find a specific signature field in a document so that API users can sign
- * the correct field.
+ * the correct field. Note that, since we are using a sample certificate that isn't backed up by any certificate
+ * authority, Adobe Acrobat (and possibly other applications) will display a warning when the document is opened. This
+ * is not due to any error with the document itself and is only to let the user know that the certificate authenticity
+ * could not be verified.
  */
 public final class SignDocument {
     private static final Logger LOGGER = Logger.getLogger(SignDocument.class.getName());
@@ -146,6 +149,9 @@ public final class SignDocument {
 
     private static Credentials createCredentials() throws Exception {
 
+        // These are sample files whose authenticity won't be able to be verified by Acrobat. When opening a document
+        // signed with this certificate, Acrobat will display a warning. This does not indicate any error in the
+        // document itself aside from the unverifiable signature.
         final String sigAlgorithm = "RSA";
         final InputStream certStream = SignDocument.class.getResourceAsStream(DER_CERT_PATH);
         final InputStream keyStream = SignDocument.class.getResourceAsStream(DER_KEY_PATH);
