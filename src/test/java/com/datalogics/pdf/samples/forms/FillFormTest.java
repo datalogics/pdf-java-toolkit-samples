@@ -110,7 +110,7 @@ public class FillFormTest extends SampleTest {
     }
 
     @Test
-    public void testXfaBadXml() throws Exception {
+    public void testXfaMissingTagsXml() throws Exception {
         final URL inputUrl = FillForm.class.getResource(FillForm.XFA_PDF_INPUT);
         final PDFDocument inputPdfDocument = DocumentUtils.openPdfDocument(inputUrl);
 
