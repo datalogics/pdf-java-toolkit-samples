@@ -62,6 +62,7 @@ public final class FillForm {
     // Some XML constants
     public static final String XFA_DATA_NS_URI = "http://www.xfa.org/schema/xfa-data/1.0/";
     public static final String XFA_DATA_ROOT_NODE = "xfa:datasets";
+    public static final String XFA_DATA_CHILD_NODE = "xfa:data";
 
     // Accepted formats
     public static final String XML_FORMAT = "XML";
@@ -225,18 +226,19 @@ public final class FillForm {
      */
     public static void fillXfa(final PDFDocument pdfDocument, final URL inputDataUrl, final URL outputUrl)
                     throws Exception {
+        // Check to see if the input data file is properly formatted for the XFAService to use. The two outermost
+        // elements should be <xfa:datasets><xfa:data>; if they're not, make it so.
+        if (!hasXfaRootHeader(inputDataUrl)) {
+            addXfaRootHeader(new File(inputDataUrl.toURI()));
+        }
+        if (!hasXfaChildHeader(inputDataUrl)) {
+            addXfaChildHeader(new File(inputDataUrl.toURI()));
+        }
 
         // Start by getting the form data into an InputStream.
         final InputStream formStream = inputDataUrl.openStream();
 
-        // For robustness's sake, we'll check that document looks about how we expect it to. If it doesn't, we'll
-        // add some extra information to make it more compatible. These two functions just do Java XML stuff and
-        // don't require any special knowledge of PDF Java Toolkit.
-        if (!hasXfaHeaders(inputDataUrl)) {
-            addXfaHeaders(inputDataUrl);
-        }
-
-        // Once we have an XML file with the proper header, use the XFAService to get the data into the PDF.
+        // If we have an XML file with the proper header, use the XFAService to get the data into the PDF.
         XFAService.importElement(pdfDocument, XFAElement.DATASETS, formStream);
 
         // Just save the file. Generating appearances and running calculations aren't supported for XFA forms, so
@@ -245,13 +247,13 @@ public final class FillForm {
     }
 
     /**
-     * Determine if the first element is the XFA-data root element as expected.
+     * Determine if the first element is an xfadataset root element as expected.
      *
      * @param xfaData - a file containing XML form data
      * @return a boolean indicating the presence of XFA header tags.
      * @throws Exception a general exception was thrown
      */
-    private static boolean hasXfaHeaders(final URL inputDataUrl) throws Exception {
+    private static boolean hasXfaRootHeader(final URL inputDataUrl) throws Exception {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
@@ -263,29 +265,73 @@ public final class FillForm {
     }
 
     /**
-     * Add XFA headers to an XML data file. This should only be called after determining that the headers aren't there.
+     * Determine if the first child element is an xfadata element as expected.
      *
-     * @param xfaData - XML data that XFA headers will be added to
+     * @param xfaData - a file containing XML form data
+     * @return a boolean indicating the presence of XFA header tags.
      * @throws Exception a general exception was thrown
      */
-    private static void addXfaHeaders(final URL inputDataUrl) throws Exception {
+    private static boolean hasXfaChildHeader(final URL inputDataUrl) throws Exception {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
 
-        final Document oldDoc = builder.parse(inputDataUrl.openStream());
+        final Document xmlDoc = builder.parse(inputDataUrl.openStream());
+        final String firstChildName = xmlDoc.getDocumentElement().getChildNodes().item(0).getNodeName();
+
+        return firstChildName.equals(XFA_DATA_CHILD_NODE);
+    }
+
+    /**
+     * Add a datasets element to the XML.
+     *
+     * @param xfaData the XML file
+     * @throws Exception a general exception was thrown
+     */
+    private static void addXfaRootHeader(final File xfaData) throws Exception {
+
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder builder = factory.newDocumentBuilder();
+
+        final Document oldDoc = builder.parse(xfaData);
         final Node oldRoot = oldDoc.getDocumentElement();
         final Document newDoc = builder.newDocument();
         final Element newRoot = newDoc.createElementNS(XFA_DATA_NS_URI, XFA_DATA_ROOT_NODE);
 
         newDoc.appendChild(newRoot);
-        final Node dataNode = newRoot.appendChild(newDoc.createElement(XFA_DATA_ROOT_NODE));
+        final Node dataNode = newRoot;
         dataNode.appendChild(newDoc.importNode(oldRoot, true));
 
         final Transformer transformer = TransformerFactory.newInstance().newTransformer();
-        final Result xmlFile = new StreamResult(inputDataUrl.openConnection().getOutputStream());
+        final Result xmlFile = new StreamResult(xfaData);
         final Source newXml = new DOMSource(newDoc);
         transformer.transform(newXml, xmlFile);
-
     }
+
+    /**
+     * Add a data element to the XML.
+     *
+     * @param xfaData the XML file
+     * @throws Exception a general exception was thrown
+     */
+    private static void addXfaChildHeader(final File xfaData) throws Exception {
+
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder builder = factory.newDocumentBuilder();
+
+        final Document oldDoc = builder.parse(xfaData);
+        final Node oldRoot = oldDoc.getElementsByTagName(XFA_DATA_ROOT_NODE).item(0).getFirstChild();
+        final Document newDoc = builder.newDocument();
+        final Element newRoot = newDoc.createElementNS(XFA_DATA_NS_URI, XFA_DATA_ROOT_NODE);
+
+        newDoc.appendChild(newRoot);
+        final Node dataNode = newRoot.appendChild(newDoc.createElement(XFA_DATA_CHILD_NODE));
+        dataNode.appendChild(newDoc.importNode(oldRoot, true));
+
+        final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        final Result xmlFile = new StreamResult(xfaData);
+        final Source newXml = new DOMSource(newDoc);
+        transformer.transform(newXml, xmlFile);
+    }
+
 }
