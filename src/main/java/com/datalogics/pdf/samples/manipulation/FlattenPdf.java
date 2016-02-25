@@ -35,6 +35,29 @@ import java.util.EnumSet;
  * flattenDocument() method, and specific element types can be flattened or ignored by specifying them in the
  * setAnnotationsToBeProcessed() method of the APContext passed in. Note that PDFJT does not currently flatten
  * transparency.
+ *
+ * <p>
+ * Below is a list of annotation types, and weather they get flattened or not.
+ * <ul>
+ * <li>Text - flattened</li>
+ * <li>Link - flattened</li>
+ * <li>Line - flattened</li>
+ * <li>Square - flattened</li>
+ * <li>Circle - flattened</li>
+ * <li>Polygon - flattened</li>
+ * <li>PolyLine - flattened</li>
+ * <li>Highlight - flattened</li>
+ * <li>Underline - flattened</li>
+ * <li>Squiggly - flattened</li>
+ * <li>StrikeOut - flattened</li>
+ * <li>Stamp - flattened</li>
+ * <li>Popup - not flattened</li>
+ * <li>FileAttachment - not flattened</li>
+ * <li>Sound - flattened</li>
+ * <li>Movie - flattened</li>
+ * <li>3D - flattened</li>
+ * </ul>
+ * </p>
  */
 public final class FlattenPdf {
 
