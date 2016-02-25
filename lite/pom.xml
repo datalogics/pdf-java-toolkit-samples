@@ -548,6 +548,7 @@
                         <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf</include>
                         <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf.page0.txt</include>
                         <include>src/test/resources/com/datalogics/pdf/samples/manipulation/pdfjavatoolkit-ds.pdf.page1.txt</include>
+			<include>src/test/resources/com/datalogics/pdf/samples/forms/missing_xfa_tags.xml</include>
                       </includes>
                     </resource>
                   </resources>
