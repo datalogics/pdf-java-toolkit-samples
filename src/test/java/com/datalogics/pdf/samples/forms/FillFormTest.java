@@ -31,6 +31,7 @@ import java.util.Iterator;
  */
 public class FillFormTest extends SampleTest {
 
+    private static final String MISSING_TAGS_INPUT = "missing_xfa_tags.xml";
     private static final String TEMP_OUTPUT = "temp.xml";
     private static final String ACROFORM_FDF_DATA = "123456 John Doe 101 N. Wacker Dr, Suite 1800 Chicago IL 60606 "
                     + "1-312-853-8200 johnd@datalogics.com 2 20 15.75 55.75 Yes Off Yes Off Yes";
@@ -100,6 +101,20 @@ public class FillFormTest extends SampleTest {
         final PDFDocument inputPdfDocument = DocumentUtils.openPdfDocument(inputUrl);
 
         final URL inputDataUrl = FillForm.class.getResource(FillForm.XFA_XML_DATA);
+
+        final File outputPdfFile = newOutputFileWithDelete(FillForm.XFA_OUTPUT);
+        FillForm.fillXfa(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
+
+        assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
+        checkForms(outputPdfFile.toURI().toURL(), XFA_FORM_DATA);
+    }
+
+    @Test
+    public void testXfaMissingTagsXml() throws Exception {
+        final URL inputUrl = FillForm.class.getResource(FillForm.XFA_PDF_INPUT);
+        final PDFDocument inputPdfDocument = DocumentUtils.openPdfDocument(inputUrl);
+
+        final URL inputDataUrl = FillForm.class.getResource(MISSING_TAGS_INPUT);
 
         final File outputPdfFile = newOutputFileWithDelete(FillForm.XFA_OUTPUT);
         FillForm.fillXfa(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
