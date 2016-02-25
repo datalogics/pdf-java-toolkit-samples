@@ -37,7 +37,7 @@ import java.util.EnumSet;
  * transparency.
  *
  * <p>
- * Below is a list of annotation types, and weather they get flattened or not.
+ * Below is a list of annotation types, and whether they get flattened or not.
  * <ul>
  * <li>Text - flattened</li>
  * <li>Link - flattened</li>
