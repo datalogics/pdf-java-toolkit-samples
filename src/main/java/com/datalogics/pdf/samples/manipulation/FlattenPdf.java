@@ -49,6 +49,7 @@ import java.util.EnumSet;
  * <li>Highlight - flattened</li>
  * <li>Underline - flattened</li>
  * <li>Squiggly - flattened</li>
+ * <li>Ink - flattened</li>
  * <li>StrikeOut - flattened</li>
  * <li>Stamp - flattened</li>
  * <li>Popup - not flattened</li>
