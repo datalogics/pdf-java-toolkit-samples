@@ -71,7 +71,16 @@ import java.util.logging.Logger;
  * <li>Hidden layers
  * <li>Embedded search indexes
  * <li>Stored form data
- * <li>Review and comment data
+ * <li>Review and comment data, including:
+ * <ul>
+ * <li>Highlights
+ * <li>Popups
+ * <li>Underlines and cross outs
+ * <li>Lines, shapes, and polygons
+ * <li>Ink
+ * <li>Stamps
+ * <li>FreeText
+ * </ul>
  * <li>Hidden data from previous document saves
  * <li>Obscured text and images
  * <li>Comments hidden within the body of the PDF file
