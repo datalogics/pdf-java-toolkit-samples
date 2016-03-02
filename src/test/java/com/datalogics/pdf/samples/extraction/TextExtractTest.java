@@ -83,12 +83,13 @@ public class TextExtractTest extends SampleTest {
         // Verify that we got the expected log message
         assertEquals("Must have one log record", 1, logRecords.size());
         final LogRecord logRecord = logRecords.get(0);
-        assertEquals(inputUrl.getFile() + " did not have any text to extract.", logRecord.getMessage());
+        assertEquals(inputUrl.toURI().getPath() + " did not have any text to extract.", logRecord.getMessage());
         assertEquals(Level.INFO, logRecord.getLevel());
 
         // Verify that the output file was not created
         final Path path = Paths.get(outputUrl.getPath());
-        assertTrue(outputUrl.getFile() + " should not exist.", Files.notExists(path, LinkOption.NOFOLLOW_LINKS));
+        assertTrue(outputUrl.toURI().getPath() + " should not exist.",
+                   Files.notExists(path, LinkOption.NOFOLLOW_LINKS));
     }
 
     /*

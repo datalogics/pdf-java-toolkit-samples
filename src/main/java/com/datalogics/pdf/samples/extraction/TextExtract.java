@@ -82,10 +82,12 @@ public final class TextExtract {
      * @throws UnsupportedEncodingException the character encoding is not supported
      * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     * @throws URISyntaxException the input URL could not be converted to a string
      */
     public static void extractTextReadingOrder(final URL inputUrl, final URL outputUrl)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
-                    UnsupportedEncodingException, IOException, PDFUnableToCompleteOperationException {
+                    UnsupportedEncodingException, IOException, PDFUnableToCompleteOperationException,
+                    URISyntaxException {
         PDFDocument document = null;
         try {
             document = DocumentUtils.openPdfDocument(inputUrl);
@@ -103,7 +105,7 @@ public final class TextExtract {
                 }
             } else {
                 if (LOGGER.isLoggable(Level.INFO)) {
-                    LOGGER.info(inputUrl.getFile() + " did not have any text to extract.");
+                    LOGGER.info(inputUrl.toURI().getPath() + " did not have any text to extract.");
                 }
             }
 
