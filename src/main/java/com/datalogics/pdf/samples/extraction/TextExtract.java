@@ -26,12 +26,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This sample demonstrates how to extract text from a document. The text is extracted in reading order and then saved
  * to a text file.
  */
 public final class TextExtract {
+    private static final Logger LOGGER = Logger.getLogger(TextExtract.class.getName());
+
     public static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
     public static final String OUTPUT_TEXT_PATH = "TextExtract.txt";
 
@@ -101,9 +105,15 @@ public final class TextExtract {
             final ReadingOrderTextExtractor extractor = ReadingOrderTextExtractor.newInstance(document, docFontSet);
             final WordsIterator wordsIter = extractor.getWordsIterator();
 
-            while (wordsIter.hasNext()) {
-                final Word word = wordsIter.next();
-                outputStream.write(word.toString().getBytes("UTF-8"));
+            if (wordsIter.hasNext()) {
+                do {
+                    final Word word = wordsIter.next();
+                    outputStream.write(word.toString().getBytes("UTF-8"));
+                } while (wordsIter.hasNext());
+            } else {
+                if (LOGGER.isLoggable(Level.INFO)) {
+                    LOGGER.info(inputUrl.getFile() + " did not have any text to extract.");
+                }
             }
 
         } finally {
