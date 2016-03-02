@@ -86,19 +86,8 @@ public final class TextExtract {
     public static void extractTextReadingOrder(final URL inputUrl, final URL outputUrl)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
                     UnsupportedEncodingException, IOException, PDFUnableToCompleteOperationException {
-        File outputFile = null;
-        try {
-            outputFile = new File(outputUrl.toURI());
-        } catch (final URISyntaxException e) {
-            throw new PDFIOException(e);
-        }
-
-        if (outputFile.exists()) {
-            Files.delete(outputFile.toPath());
-        }
-
         PDFDocument document = null;
-        try (final FileOutputStream outputStream = new FileOutputStream(outputFile)) {
+        try {
             document = DocumentUtils.openPdfDocument(inputUrl);
 
             final PDFFontSet docFontSet = FontUtils.getDocFontSet(document);
@@ -106,10 +95,12 @@ public final class TextExtract {
             final WordsIterator wordsIter = extractor.getWordsIterator();
 
             if (wordsIter.hasNext()) {
-                do {
-                    final Word word = wordsIter.next();
-                    outputStream.write(word.toString().getBytes("UTF-8"));
-                } while (wordsIter.hasNext());
+                try (final FileOutputStream outputStream = obtainOutputStream(outputUrl)) {
+                    do {
+                        final Word word = wordsIter.next();
+                        outputStream.write(word.toString().getBytes("UTF-8"));
+                    } while (wordsIter.hasNext());
+                }
             } else {
                 if (LOGGER.isLoggable(Level.INFO)) {
                     LOGGER.info(inputUrl.getFile() + " did not have any text to extract.");
@@ -121,5 +112,19 @@ public final class TextExtract {
                 document.close();
             }
         }
+    }
+
+    private static FileOutputStream obtainOutputStream(final URL outputUrl) throws PDFIOException, IOException {
+        File outputFile = null;
+        try {
+            outputFile = new File(outputUrl.toURI());
+        } catch (final URISyntaxException e) {
+            throw new PDFIOException(e);
+        }
+
+        if (outputFile.exists()) {
+            Files.delete(outputFile.toPath());
+        }
+        return new FileOutputStream(outputFile);
     }
 }
