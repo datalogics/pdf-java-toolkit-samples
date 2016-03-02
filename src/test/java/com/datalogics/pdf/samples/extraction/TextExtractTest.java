@@ -7,26 +7,23 @@ package com.datalogics.pdf.samples.extraction;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.adobe.internal.io.ByteWriter;
-import com.adobe.internal.io.RandomAccessFileByteWriter;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.types.ASRectangle;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
-import com.adobe.pdfjt.pdf.document.PDFSaveFullOptions;
 import com.adobe.pdfjt.pdf.graphics.PDFRectangle;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
 
+import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.SampleTest;
 import com.datalogics.pdf.samples.util.LogRecordListCollector;
 
 import org.junit.Test;
 
 import java.io.File;
-import java.io.RandomAccessFile;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -70,9 +67,7 @@ public class TextExtractTest extends SampleTest {
         // Create a new document with a single empty page
         final PDFDocument document = createEmptyPdf();
         final File emptyPdf = newOutputFileWithDelete(EMPTY_PDF_FILE_PATH);
-        final RandomAccessFile outputPdfFile = new RandomAccessFile(emptyPdf, "rw");
-        final ByteWriter outputWriter = new RandomAccessFileByteWriter(outputPdfFile);
-        document.saveAndClose(outputWriter, PDFSaveFullOptions.newInstance());
+        DocumentHelper.saveFullAndClose(document, emptyPdf.getCanonicalPath());
 
         final File emptyTxt = newOutputFileWithDelete(EMPTY_TEXT_FILE_PATH);
 
