@@ -39,42 +39,6 @@
     <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>1.0.0-SNAPSHOT</pmdconfig.version>
   </properties>
-  <repositories>
-    <repository>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </snapshots>
-      <id>pdfjt</id>
-      <name>Local PDFJT repository</name>
-      <url>${project.baseUri}../repo</url>
-      <layout>default</layout>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </snapshots>
-      <id>pdfjt</id>
-      <name>Local PDFJT repository</name>
-      <url>${project.baseUri}../repo</url>
-      <layout>default</layout>
-    </pluginRepository>
-  </pluginRepositories>
   <build>
     <pluginManagement>
       <plugins>
@@ -679,6 +643,50 @@
           <scope>provided</scope>
         </dependency>
       </dependencies>
+    </profile>
+    <profile>
+      <id>local-repo</id>
+      <activation>
+        <file>
+          <exists>${basedir}/../repo</exists>
+        </file>
+      </activation>
+      <repositories>
+        <repository>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>warn</checksumPolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>warn</checksumPolicy>
+          </snapshots>
+          <id>pdfjt</id>
+          <name>Local PDFJT repository</name>
+          <url>${project.baseUri}../repo</url>
+          <layout>default</layout>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>warn</checksumPolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+            <checksumPolicy>warn</checksumPolicy>
+          </snapshots>
+          <id>pdfjt</id>
+          <name>Local PDFJT repository</name>
+          <url>${project.baseUri}../repo</url>
+          <layout>default</layout>
+        </pluginRepository>
+      </pluginRepositories>
     </profile>
   </profiles>
 </project>
