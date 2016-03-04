@@ -26,12 +26,16 @@ import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This sample demonstrates how to extract text from a document. The text is extracted in reading order and then saved
  * to a text file.
  */
 public final class TextExtract {
+    private static final Logger LOGGER = Logger.getLogger(TextExtract.class.getName());
+
     public static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
     public static final String OUTPUT_TEXT_PATH = "TextExtract.txt";
 
@@ -78,10 +82,41 @@ public final class TextExtract {
      * @throws UnsupportedEncodingException the character encoding is not supported
      * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     * @throws URISyntaxException the input URL could not be converted to a string
      */
     public static void extractTextReadingOrder(final URL inputUrl, final URL outputUrl)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
-                    UnsupportedEncodingException, IOException, PDFUnableToCompleteOperationException {
+                    UnsupportedEncodingException, IOException, PDFUnableToCompleteOperationException,
+                    URISyntaxException {
+        PDFDocument document = null;
+        try {
+            document = DocumentUtils.openPdfDocument(inputUrl);
+
+            final PDFFontSet docFontSet = FontUtils.getDocFontSet(document);
+            final ReadingOrderTextExtractor extractor = ReadingOrderTextExtractor.newInstance(document, docFontSet);
+            final WordsIterator wordsIter = extractor.getWordsIterator();
+
+            if (wordsIter.hasNext()) {
+                try (final FileOutputStream outputStream = obtainOutputStream(outputUrl)) {
+                    do {
+                        final Word word = wordsIter.next();
+                        outputStream.write(word.toString().getBytes("UTF-8"));
+                    } while (wordsIter.hasNext());
+                }
+            } else {
+                if (LOGGER.isLoggable(Level.INFO)) {
+                    LOGGER.info(inputUrl.toURI().getPath() + " did not have any text to extract.");
+                }
+            }
+
+        } finally {
+            if (document != null) {
+                document.close();
+            }
+        }
+    }
+
+    private static FileOutputStream obtainOutputStream(final URL outputUrl) throws PDFIOException, IOException {
         File outputFile = null;
         try {
             outputFile = new File(outputUrl.toURI());
@@ -92,24 +127,6 @@ public final class TextExtract {
         if (outputFile.exists()) {
             Files.delete(outputFile.toPath());
         }
-
-        PDFDocument document = null;
-        try (final FileOutputStream outputStream = new FileOutputStream(outputFile)) {
-            document = DocumentUtils.openPdfDocument(inputUrl);
-
-            final PDFFontSet docFontSet = FontUtils.getDocFontSet(document);
-            final ReadingOrderTextExtractor extractor = ReadingOrderTextExtractor.newInstance(document, docFontSet);
-            final WordsIterator wordsIter = extractor.getWordsIterator();
-
-            while (wordsIter.hasNext()) {
-                final Word word = wordsIter.next();
-                outputStream.write(word.toString().getBytes("UTF-8"));
-            }
-
-        } finally {
-            if (document != null) {
-                document.close();
-            }
-        }
+        return new FileOutputStream(outputFile);
     }
 }
