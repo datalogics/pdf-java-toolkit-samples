@@ -37,7 +37,7 @@ In the project properties for **pdf-java-toolkit-samples**, select the **Maven**
 
 It will ask if you want to update the product configuration. Click **Yes**.
 
-The samples were developed and tested using [Mars](https://eclipse.org/mars/)
+The samples were developed and tested using [Mars 4.5.0](https://eclipse.org/mars/)
 
 ## Contributing
 
