@@ -484,9 +484,9 @@
         </dependency>
         <dependency>
           <groupId>com.google.code.findbugs</groupId>
-          <artifactId>findbugs</artifactId>
+          <artifactId>findbugs-annotations</artifactId>
           <version>3.0.1</version>
-          <scope>test</scope>
+          <scope>provided</scope>
         </dependency>
       </dependencies>
     </profile>
