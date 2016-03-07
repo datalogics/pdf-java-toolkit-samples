@@ -32,7 +32,6 @@
     <url>https://github.com/datalogics/pdf-java-toolkit-samples</url>
   </scm>
   <properties>
-    <pdfjt.version>[3.0.0-SNAPSHOT,4.0.0)</pdfjt.version>
     <talkeetna.version>[5.0.0-SNAPSHOT,6.0.0)</talkeetna.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -40,13 +39,6 @@
     <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>1.0.0-SNAPSHOT</pmdconfig.version>
   </properties>
-  <dependencies>
-    <dependency>
-      <groupId>com.datalogics.pdf</groupId>
-      <artifactId>talkeetna</artifactId>
-      <version>${talkeetna.version}</version>
-    </dependency>
-  </dependencies>
   <repositories>
     <repository>
       <releases>
@@ -347,9 +339,9 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>com.adobe.pdfjt</groupId>
-          <artifactId>pdfjt</artifactId>
-          <version>${pdfjt.version}</version>
+          <groupId>com.datalogics.pdf</groupId>
+          <artifactId>talkeetna</artifactId>
+          <version>${talkeetna.version}</version>
         </dependency>
       </dependencies>
     </profile>
@@ -362,9 +354,9 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>com.adobe.pdfjt</groupId>
-          <artifactId>pdfjt-lm</artifactId>
-          <version>${pdfjt.version}</version>
+          <groupId>com.datalogics.pdf</groupId>
+          <artifactId>talkeetna-lm</artifactId>
+          <version>${talkeetna.version}</version>
         </dependency>
       </dependencies>
     </profile>
