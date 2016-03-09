@@ -15,7 +15,7 @@ evaluating Datalogics PDF Java Toolkit.
 
 ## Using with an evaluation version of PDFJT
 
-The evaluation version of PDFJT has license management, and a different artifact name: ``pdfjt-lm``. Switching to use this version of PDFJT is provided with Maven profiles.
+The evaluation version of PDFJT has license management, and a different artifact name: ``pdfjt-lm``. There's also a corresponding ``talkeetna-lm`` which similarly depends on ``pdfjt-lm``. Switching to use these versions of PDFJT and Talkeetna is provided with Maven profiles.
 
 ### License file
 
@@ -23,19 +23,11 @@ Evaluation copies will come with a license file, with a name ending in ``.l4j``.
 
 You'll have to place your license file in the top-level directory of the samples, so that it is in the current directory when running samples.
 
-### Maven
+To use license-managed PDFJT, create a file called ``.use-pdfjt-lm`` in the top directory of this project. This will activate profiles automatically for Maven and Eclipse.
 
-To use license-managed PDFJT, specify ``-Dpdfjt-lm`` on the command line. This will automatically activate and deactivate the correct profiles:
+If this project was received as part of an evaluation, then the ``.use-pdfjt-lm`` file is already created.
 
-```
-$ mvn verify -Dpdfjt-lm
-```
-
-### Eclipse
-
-In the project properties for **pdf-java-toolkit-samples**, select the **Maven** settings, and under **Active Maven Profiles (comma-separated):** enter ``pdfjt-lm,!pdfjt-non-lm``.
-
-It will ask if you want to update the product configuration. Click **Yes**.
+## Tested IDEs
 
 The samples were developed and tested using [Mars 4.5.0](https://eclipse.org/mars/)
 
