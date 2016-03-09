@@ -87,7 +87,7 @@ public class TextExtractTest extends SampleTest {
         assertEquals(Level.INFO, logRecord.getLevel());
 
         // Verify that the output file was not created
-        final Path path = Paths.get(outputUrl.getPath());
+        final Path path = Paths.get(outputUrl.toURI());
         assertTrue(outputUrl.toURI().getPath() + " should not exist.",
                    Files.notExists(path, LinkOption.NOFOLLOW_LINKS));
     }
