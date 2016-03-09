@@ -39,6 +39,49 @@
     <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>1.0.0-SNAPSHOT</pmdconfig.version>
   </properties>
+  <dependencies>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>findbugs-annotations</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.reflections</groupId>
+      <artifactId>reflections</artifactId>
+      <version>0.9.10</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jmockit</groupId>
+      <artifactId>jmockit</artifactId>
+      <version>1.21</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.junit-toolbox</groupId>
+      <artifactId>junit-toolbox</artifactId>
+      <version>1.10</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-library</artifactId>
+      <version>1.3</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
   <build>
     <pluginManagement>
       <plugins>
@@ -454,57 +497,6 @@
           </plugin>
         </plugins>
       </build>
-    </profile>
-    <profile>
-      <id>test-dependencies</id>
-      <activation>
-        <property>
-          <name>!skipTestDependencies</name>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.reflections</groupId>
-          <artifactId>reflections</artifactId>
-          <version>0.9.10</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>commons-io</groupId>
-          <artifactId>commons-io</artifactId>
-          <version>2.4</version>
-        </dependency>
-        <dependency>
-          <groupId>org.jmockit</groupId>
-          <artifactId>jmockit</artifactId>
-          <version>1.21</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>4.11</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>com.googlecode.junit-toolbox</groupId>
-          <artifactId>junit-toolbox</artifactId>
-          <version>1.10</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.hamcrest</groupId>
-          <artifactId>hamcrest-library</artifactId>
-          <version>1.3</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>com.google.code.findbugs</groupId>
-          <artifactId>findbugs-annotations</artifactId>
-          <version>3.0.1</version>
-          <scope>provided</scope>
-        </dependency>
-      </dependencies>
     </profile>
     <profile>
       <id>local-repo</id>
