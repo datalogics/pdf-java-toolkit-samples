@@ -243,7 +243,7 @@ public final class RedactAndSanitizeDocument {
         annot.setQuads(word.getBoundingQuads());
         annot.setRect(annot.getRedactionAreaBBox());
         annot.setColor(COLOR);
-        annot.setInteriorColor(INTERIOR_COLOR[0], INTERIOR_COLOR[1], INTERIOR_COLOR[2]);
+        annot.setInteriorColor(INTERIOR_COLOR);
 
         // Set the Annotation's creation and modification date.
         final ASDate now = new ASDate();
