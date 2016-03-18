@@ -16,9 +16,9 @@ import com.datalogics.pdf.samples.extraction.TextExtract;
 import com.datalogics.pdf.samples.forms.FillForm;
 import com.datalogics.pdf.samples.images.ImageDownsampling;
 import com.datalogics.pdf.samples.manipulation.ConvertPdfDocument;
-import com.datalogics.pdf.samples.manipulation.RemoveInteractivity;
 import com.datalogics.pdf.samples.manipulation.MergeDocuments;
 import com.datalogics.pdf.samples.manipulation.RedactAndSanitizeDocument;
+import com.datalogics.pdf.samples.manipulation.RemoveInteractivity;
 import com.datalogics.pdf.samples.printing.FakePrintService;
 import com.datalogics.pdf.samples.printing.FakePrinterJob;
 import com.datalogics.pdf.samples.printing.PrintPdf;
@@ -127,7 +127,7 @@ public class RunMainWithArgsIntegrationTest {
                 put("ImageDownsampling", new String[] { resourceDir + ImageDownsampling.INPUT_IMAGE_PATH,
                     OUTPUT_DIR + ImageDownsampling.OUTPUT_IMAGE_PATH });
                 put("ConvertPdfDocument", new String[] { OUTPUT_DIR + ConvertPdfDocument.OUTPUT_CONVERTED_PDF_PATH });
-                put("FlattenPdf", new String[] { resourceDir + RemoveInteractivity.INPUT_PDF_PATH,
+                put("RemoveInteractivity", new String[] { resourceDir + RemoveInteractivity.INPUT_PDF_PATH,
                     OUTPUT_DIR + RemoveInteractivity.OUTPUT_PDF_PATH });
                 put("MergeDocuments", new String[] { OUTPUT_DIR + MergeDocuments.OUTPUT_PDF_PATH });
                 put("RedactAndSanitizeDocument", new String[] { resourceDir + RedactAndSanitizeDocument.INPUT_PDF_PATH,
