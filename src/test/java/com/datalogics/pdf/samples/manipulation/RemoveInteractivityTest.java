@@ -21,9 +21,9 @@ import java.io.File;
 import java.net.URL;
 
 /**
- * Tests the FlattenPdf sample.
+ * Tests the RemoveInteractivity sample.
  */
-public class FlattenPdfTest extends SampleTest {
+public class RemoveInteractivityTest extends SampleTest {
 
     private static final String OUTPUT_FLATTENED_FORM_PDF_PATH = "FlattenedForm.pdf";
     private static final String OUTPUT_FLATTENED_ANNOTATION_PDF_PATH = "FlattenedAnnotation.pdf";
@@ -36,7 +36,7 @@ public class FlattenPdfTest extends SampleTest {
         final File file = newOutputFileWithDelete(OUTPUT_FLATTENED_FORM_PDF_PATH);
         final URL outputUrl = file.toURI().toURL();
 
-        FlattenPdf.flattenPdf(inputUrl, outputUrl);
+        RemoveInteractivity.removeInteractivity(inputUrl, outputUrl);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         PDFDocument document = null;
@@ -58,7 +58,7 @@ public class FlattenPdfTest extends SampleTest {
         final File file = newOutputFileWithDelete(OUTPUT_FLATTENED_ANNOTATION_PDF_PATH);
         final URL outputUrl = file.toURI().toURL();
 
-        FlattenPdf.flattenPdf(inputUrl, outputUrl);
+        RemoveInteractivity.removeInteractivity(inputUrl, outputUrl);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         PDFDocument document = null;

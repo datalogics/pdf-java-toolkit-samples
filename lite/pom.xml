@@ -537,7 +537,7 @@
                         <include>src/main/java/com/datalogics/pdf/samples/forms/FillForm.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/images/ImageDownsampling.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/manipulation/ConvertPdfDocument.java</include>
-                        <include>src/main/java/com/datalogics/pdf/samples/manipulation/FlattenPdf.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/manipulation/RemoveInteractivity.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/manipulation/MergeDocuments.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/manipulation/RedactAndSanitizeDocument.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/printing/PrintPdf.java</include>
@@ -579,7 +579,7 @@
                         <include>src/test/java/com/datalogics/pdf/samples/forms/FillFormTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/images/ImageDownsamplingTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/manipulation/ConvertPdfDocumentTest.java</include>
-                        <include>src/test/java/com/datalogics/pdf/samples/manipulation/FlattenPdfTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/manipulation/RemoveInteractivityTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/manipulation/MergeDocumentsTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/manipulation/RedactAndSanitizeDocumentTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/printing/FakePrintService.java</include>
