@@ -62,7 +62,7 @@ import java.util.EnumSet;
  */
 public final class RemoveInteractivity {
 
-    public static final String OUTPUT_PDF_PATH = "Flattened.pdf";
+    public static final String OUTPUT_PDF_PATH = "InteractivityRemoved.pdf";
     public static final String INPUT_PDF_PATH = "FormDocument.pdf";
 
     /**
