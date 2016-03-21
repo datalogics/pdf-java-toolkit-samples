@@ -30,45 +30,45 @@ import java.net.URL;
 import java.util.EnumSet;
 
 /**
- * This sample demonstrates how to use the flattening functions to flatten the interactive elements of a PDF. The
- * flattening functionality currently handles forms and annotations. All flattening is done through the FormFlattener's
- * flattenDocument() method, and specific element types can be flattened or ignored by specifying them in the
- * setAnnotationsToBeProcessed() method of the APContext passed in. Note that PDFJT does not currently flatten
+ * This sample demonstrates how to use the flattening functions to remove the interactive elements of a PDF. This
+ * functionality currently handles forms and annotations. All flattening is done through the FormFlattener's
+ * flattenDocument() method, and specific element types can be made non-interactive or ignored by specifying them in the
+ * setAnnotationsToBeProcessed() method of the APContext passed in. Note that PDFJT does not currently process
  * transparency.
  *
  * <p>
- * Below is a list of annotation types, and whether they get flattened or not.
+ * Below is a list of annotation types, and whether they will have their interactivity processed or not.
  * <ul>
- * <li>Text - flattened</li>
- * <li>Link - flattened</li>
- * <li>Line - flattened</li>
- * <li>Square - flattened</li>
- * <li>Circle - flattened</li>
- * <li>Polygon - flattened</li>
- * <li>PolyLine - flattened</li>
- * <li>Highlight - flattened</li>
- * <li>Underline - flattened</li>
- * <li>Squiggly - flattened</li>
- * <li>Ink - flattened</li>
- * <li>StrikeOut - flattened</li>
- * <li>Stamp - flattened</li>
- * <li>Popup - not flattened</li>
- * <li>FileAttachment - not flattened</li>
- * <li>Sound - flattened</li>
- * <li>Movie - flattened</li>
- * <li>3D - flattened</li>
+ * <li>Text - processed</li>
+ * <li>Link - processed</li>
+ * <li>Line - processed</li>
+ * <li>Square - processed</li>
+ * <li>Circle - processed</li>
+ * <li>Polygon - processed</li>
+ * <li>PolyLine - processed</li>
+ * <li>Highlight - processed</li>
+ * <li>Underline - processed</li>
+ * <li>Squiggly - processed</li>
+ * <li>Ink - processed</li>
+ * <li>StrikeOut - processed</li>
+ * <li>Stamp - processed</li>
+ * <li>Popup - not processed</li>
+ * <li>FileAttachment - not processed</li>
+ * <li>Sound - processed</li>
+ * <li>Movie - processed</li>
+ * <li>3D - processed</li>
  * </ul>
  * </p>
  */
-public final class FlattenPdf {
+public final class RemoveInteractivity {
 
-    public static final String OUTPUT_FLATTENED_PDF_PATH = "Flattened.pdf";
+    public static final String OUTPUT_PDF_PATH = "InteractivityRemoved.pdf";
     public static final String INPUT_PDF_PATH = "FormDocument.pdf";
 
     /**
      * This is a utility class, and won't be instantiated.
      */
-    private FlattenPdf() {}
+    private RemoveInteractivity() {}
 
     /**
      * Main program.
@@ -90,13 +90,13 @@ public final class FlattenPdf {
             outputUrl = new File(args[1]).toURI().toURL();
         } else {
             inputUrl = ConvertPdfDocument.class.getResource(INPUT_PDF_PATH);
-            outputUrl = new File(OUTPUT_FLATTENED_PDF_PATH).toURI().toURL();
+            outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
         }
-        flattenPdf(inputUrl, outputUrl);
+        removeInteractivity(inputUrl, outputUrl);
     }
 
     /**
-     * Flatten a PDF.
+     * Remove interactivity from a PDF.
      *
      * @param inputUrl the path to read the input PDF from
      * @param outputUrl the path to output the pdf
@@ -110,7 +110,7 @@ public final class FlattenPdf {
      * @throws PDFUnsupportedFeatureException the requested feature is not currently supported
      * @throws PDFFontException there was an error in the font set or an individual font
      */
-    public static void flattenPdf(final URL inputUrl, final URL outputUrl)
+    public static void removeInteractivity(final URL inputUrl, final URL outputUrl)
                     throws IOException, PDFIOException, PDFSecurityException, PDFInvalidDocumentException,
                     PDFFontException, PDFUnsupportedFeatureException, PDFConfigurationException,
                     PDFInvalidParameterException, PDFUnableToCompleteOperationException {
@@ -118,8 +118,8 @@ public final class FlattenPdf {
         final APResources apResources = new APResources(null, null, null);
         final APContext apContext = new APContext(apResources, true, null);
 
-        // This sample flattens all elements in the given PDF. However, specific elements can be included or excluded
-        // by setting the enum of the desired element rather than PDFAnnotationEnum.class.
+        // This sample removes interactivity of all annotations in the given PDF. However, specific elements can be
+        // included or excluded by setting the enum of the desired element rather than PDFAnnotationEnum.class.
         apContext.setAnnotationsToBeProcessed(EnumSet.allOf(PDFAnnotationEnum.class));
 
         PDFDocument pdfDoc = null;
@@ -127,8 +127,8 @@ public final class FlattenPdf {
         try {
             pdfDoc = DocumentUtils.openPdfDocument(inputUrl);
 
-            // Flatten the signature fields so they can no longer be changed. If you do not want the signature fields
-            // to be flattened the the next two lines should be omitted.
+            // Remove interactivity of the signature fields so they can no longer be changed. Omit the next two lines
+            // if you want to preserve signature interactivity.
             final SignatureManager sigMgr = SignatureManager.newInstance(pdfDoc);
             sigMgr.flattenAllSignatureFields();
 
@@ -136,7 +136,7 @@ public final class FlattenPdf {
             // default text formatter.
             FormFlattener.flattenDocument(apContext, pdfDoc, null);
 
-            // Save the flattened file to an output PDF file
+            // Save the non-interactive file to an output PDF file
             DocumentHelper.saveFullAndClose(pdfDoc, outputUrl.toURI().getPath());
         } catch (final URISyntaxException e) {
             throw new PDFIOException(e);
