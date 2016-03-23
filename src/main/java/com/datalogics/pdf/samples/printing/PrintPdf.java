@@ -49,9 +49,6 @@ public class PrintPdf {
 
     private static PageRasterizer pageRasterizer;
 
-    private static int previousPageIndex = -1;
-    private static BufferedImage previousPage;
-
     /**
      * This is a utility class, and won't be instantiated.
      */
@@ -160,6 +157,9 @@ public class PrintPdf {
     }
 
     private static class BufferedImagePrintable implements Printable {
+        private int previousPageIndex = -1;
+        private BufferedImage previousPage;
+
         @Override
         public int print(final Graphics gfx, final PageFormat pageFormat, final int pageIndex)
                         throws PrinterException {
