@@ -49,9 +49,6 @@ public class PrintPdf {
 
     private static PageRasterizer pageRasterizer;
 
-    private static int previousPageIndex = -1;
-    private static BufferedImage previousPage;
-
     /**
      * This is a utility class, and won't be instantiated.
      */
@@ -159,21 +156,52 @@ public class PrintPdf {
         }
     }
 
+    /**
+     * A Printable implementation that provides rasterized pages of the document.
+     *
+     * <p>
+     * This class interacts with the Java print architecture, providing a printable image of each page on demand. See
+     * the Java AWT {@link https://docs.oracle.com/javase/7/docs/api/java/awt/print/Printable.html Printable} interface
+     * for more information.
+     */
     private static class BufferedImagePrintable implements Printable {
+        private int previousPageIndex = -1;
+        private BufferedImage previousPage;
+
+        /**
+         * Prints the page at the specified index into the specified Graphics context in the specified format.
+         *
+         * <p>
+         * Draws the specified PDF page into the specified context. Note that this method may be called multiple times
+         * for the same page index, as explained in the documentation for the Printable interface. We use an
+         * optimization to retain the most recently rasterized page, to avoid the expense of rasterizing the page a
+         * second time. If there is a problem rasterizing a page, we log the exception, and throw it to the caller
+         * wrapped in a PrinterIOException.
+         *
+         * @param gfx the context into which the page is drawn
+         * @param pageFormat the size and orientation of the page being drawn
+         * @param pageIndex the zero based index of the page to be drawn
+         * @return PAGE_EXISTS if the page is rendered successfully or NO_SUCH_PAGE if pageIndex specifies a
+         *         non-existent page.
+         * @throws PrinterException thrown when there is a problem rasterizing a page.
+         */
         @Override
         public int print(final Graphics gfx, final PageFormat pageFormat, final int pageIndex)
                         throws PrinterException {
             BufferedImage page = null;
             try {
+                // If we have not rasterized this page yet, do so. The rasterizer was created for us in the outer class.
                 if (previousPageIndex < pageIndex) {
                     if (pageRasterizer.hasNext()) {
                         page = pageRasterizer.next();
                     } else {
+                        // There are no more pages in this document.
                         previousPageIndex = -1;
                         previousPage = null;
                         return NO_SUCH_PAGE;
                     }
                 } else {
+                    // This page has already been rasterized, use it.
                     page = previousPage;
                 }
             } catch (PDFFontException | PDFInvalidDocumentException | PDFInvalidParameterException
@@ -184,12 +212,16 @@ public class PrintPdf {
                 // This double-wrap allows us to throw the rasterizer exception to the PrinterJob.
                 throw new PrinterIOException(new IOException("Error rasterizing a page", e));
             }
+
+            // Draw the rasterized page into the specified Graphics context.
             final Graphics2D gfx2d = (Graphics2D) gfx;
             gfx2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
             gfx2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
             gfx2d.drawImage(page, 0, 0, (int) pageFormat.getImageableWidth(),
                             (int) pageFormat.getImageableHeight(), null);
             gfx2d.dispose();
+
+            // Remember the rasterized page.
             previousPageIndex = pageIndex;
             previousPage = page;
             return PAGE_EXISTS;
