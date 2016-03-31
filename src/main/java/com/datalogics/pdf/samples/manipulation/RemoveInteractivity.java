@@ -22,8 +22,8 @@ import com.adobe.pdfjt.services.formflattener.FormFlattener;
 
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -86,11 +86,11 @@ public final class RemoveInteractivity {
         URL inputUrl = null;
         URL outputUrl = null;
         if (args.length > 0) {
-            inputUrl = new File(args[0]).toURI().toURL();
-            outputUrl = new File(args[1]).toURI().toURL();
+            inputUrl = IoUtils.createUrlFromPath(args[0]);
+            outputUrl = IoUtils.createUrlFromPath(args[1]);
         } else {
             inputUrl = ConvertPdfDocument.class.getResource(INPUT_PDF_PATH);
-            outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(OUTPUT_PDF_PATH);
         }
         removeInteractivity(inputUrl, outputUrl);
     }

@@ -24,6 +24,7 @@ import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.layout.LayoutEngine;
+import com.datalogics.pdf.samples.util.IoUtils;
 import com.datalogics.pdf.text.Dimension;
 import com.datalogics.pdf.text.Heading;
 import com.datalogics.pdf.text.Length;
@@ -31,7 +32,6 @@ import com.datalogics.pdf.text.Paragraph;
 
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -67,9 +67,9 @@ public final class MakeWhiteFangBook {
         LicenseManager.setLicensePath(".");
         URL outputUrl;
         if (args.length > 0) {
-            outputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(args[0]);
         } else {
-            outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(OUTPUT_PDF_PATH);
         }
         makeWhiteFangBook(outputUrl);
     }

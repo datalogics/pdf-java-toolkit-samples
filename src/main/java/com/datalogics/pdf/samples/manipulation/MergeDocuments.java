@@ -13,10 +13,10 @@ import com.adobe.pdfjt.services.manipulations.PMMService;
 
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import org.apache.commons.io.FilenameUtils;
 
-import java.io.File;
 import java.net.URL;
 
 /**
@@ -49,9 +49,9 @@ public final class MergeDocuments {
 
         URL outputUrl = null;
         if (args.length > 0) {
-            outputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(args[0]);
         } else {
-            outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(OUTPUT_PDF_PATH);
         }
 
         mergeTwoDocuments(outputUrl);

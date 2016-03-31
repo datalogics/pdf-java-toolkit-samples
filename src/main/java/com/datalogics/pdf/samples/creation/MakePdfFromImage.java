@@ -59,7 +59,7 @@ public final class MakePdfFromImage {
         // If we have more than one argument, get the output destination, get the image names, and parse the formats.
         // If we don't, just use the defaults included in the sample.
         if (args.length > 1) {
-            outputFileUrl = new File(args[0]).toURI().toURL();
+            outputFileUrl = IoUtils.createUrlFromPath(args[0]);
             final List<URL> inputImages = new ArrayList<URL>();
             for (int i = 1; i < args.length; i++) {
                 inputImages.add(IoUtils.createUrlFromPath(args[i]));
@@ -73,7 +73,7 @@ public final class MakePdfFromImage {
 
             final List<URL> inputImages = Arrays.asList(bmpImageUrl, pngImageUrl, jpgImageUrl, gifImageUrl);
 
-            outputFileUrl = new File(OUTPUT_PDF).toURI().toURL();
+            outputFileUrl = IoUtils.createUrlFromPath(OUTPUT_PDF);
 
             createPdfFromImages(inputImages, outputFileUrl);
         }

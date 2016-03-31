@@ -90,14 +90,14 @@ public final class FillForm {
         // If we've been given enough arguments, get the input PDF, the input form data file, and the name of the output
         // file. Try to parse the form data file type.
         if (args.length > 2) {
-            final URL inputForm = new File(args[1]).toURI().toURL();
+            final URL inputForm = IoUtils.createUrlFromPath(args[1]);
 
             final String format = IoUtils.getFileExtensionFromUrl(inputForm);
             if (XML_FORMAT.equalsIgnoreCase(format)
                 || FDF_FORMAT.equalsIgnoreCase(format)
                 || XFDF_FORMAT.equalsIgnoreCase(format)) {
-                fillPdfForm(new File(args[0]).toURI().toURL(), inputForm, format.toUpperCase(Locale.US),
-                            new File(args[2]).toURI().toURL());
+                fillPdfForm(IoUtils.createUrlFromPath(args[0]), inputForm, format.toUpperCase(Locale.US),
+                            IoUtils.createUrlFromPath(args[2]));
             } else {
                 throw new IllegalArgumentException("Form data format of " + format
                                                    + " is not supported. Supported types: XML, FDF, and XFDF.");
@@ -105,12 +105,12 @@ public final class FillForm {
         } else {
             final Class<FillForm> classReference = FillForm.class;
             fillPdfForm(classReference.getResource(ACROFORM_FDF_INPUT), classReference.getResource(ACROFORM_FDF_DATA),
-                        FDF_FORMAT, new File(ACROFORM_FDF_OUTPUT).toURI().toURL());
+                        FDF_FORMAT, IoUtils.createUrlFromPath(ACROFORM_FDF_OUTPUT));
             fillPdfForm(classReference.getResource(ACROFORM_XFDF_INPUT),
                         classReference.getResource(ACROFORM_XFDF_DATA), XFDF_FORMAT,
-                        new File(ACROFORM_XFDF_OUTPUT).toURI().toURL());
+                        IoUtils.createUrlFromPath(ACROFORM_XFDF_OUTPUT));
             fillPdfForm(classReference.getResource(XFA_PDF_INPUT), classReference.getResource(XFA_XML_DATA),
-                        XML_FORMAT, new File(XFA_OUTPUT).toURI().toURL());
+                        XML_FORMAT, IoUtils.createUrlFromPath(XFA_OUTPUT));
         }
     }
 

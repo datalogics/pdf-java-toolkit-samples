@@ -17,6 +17,7 @@ import com.adobe.pdfjt.services.rasterizer.RasterizationOptions;
 
 import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -28,7 +29,6 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
@@ -68,7 +68,7 @@ public class PrintPdf {
         LicenseManager.setLicensePath(".");
         URL inputUrl = null;
         if (args.length > 0) {
-            inputUrl = new File(args[0]).toURI().toURL();
+            inputUrl = IoUtils.createUrlFromPath(args[0]);
         } else {
             inputUrl = PrintPdf.class.getResource(DEFAULT_INPUT);
         }
