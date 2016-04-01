@@ -21,7 +21,6 @@ import com.adobe.pdfjt.services.digsig.UserInfo;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -65,9 +64,9 @@ public final class SignDocument {
 
         URL outputUrl = null;
         if (args.length > 0) {
-            outputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(args[0]);
         } else {
-            outputUrl = new File(OUTPUT_SIGNED_PDF_PATH).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(OUTPUT_SIGNED_PDF_PATH);
         }
 
         final URL inputUrl = SignDocument.class.getResource(INPUT_UNSIGNED_PDF_PATH);

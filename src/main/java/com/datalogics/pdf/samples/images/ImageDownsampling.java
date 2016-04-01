@@ -22,8 +22,8 @@ import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -69,11 +69,11 @@ public final class ImageDownsampling {
         URL inputUrl = null;
         URL outputUrl = null;
         if (args.length > 1) {
-            inputUrl = new File(args[0]).toURI().toURL();
-            outputUrl = new File(args[1]).toURI().toURL();
+            inputUrl = IoUtils.createUrlFromPath(args[0]);
+            outputUrl = IoUtils.createUrlFromPath(args[1]);
         } else {
             inputUrl = ImageDownsampling.class.getResource(INPUT_IMAGE_PATH);
-            outputUrl = new File(OUTPUT_IMAGE_PATH).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(OUTPUT_IMAGE_PATH);
         }
 
         // final PDFDocument pdfDoc = getPdfDocument(i);

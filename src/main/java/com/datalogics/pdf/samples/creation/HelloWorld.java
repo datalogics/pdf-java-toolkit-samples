@@ -10,9 +10,9 @@ import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.layout.LayoutEngine;
+import com.datalogics.pdf.samples.util.IoUtils;
 import com.datalogics.pdf.text.Paragraph;
 
-import java.io.File;
 import java.net.URL;
 
 /**
@@ -41,9 +41,9 @@ public final class HelloWorld {
         LicenseManager.setLicensePath(".");
         URL outputUrl;
         if (args.length > 0) {
-            outputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(args[0]);
         } else {
-            outputUrl = new File(OUTPUT_PDF_PATH).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(OUTPUT_PDF_PATH);
         }
         helloWorld(outputUrl);
     }

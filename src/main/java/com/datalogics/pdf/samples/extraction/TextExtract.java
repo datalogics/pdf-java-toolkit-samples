@@ -18,6 +18,7 @@ import com.adobe.pdfjt.services.textextraction.WordsIterator;
 
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.FontUtils;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -60,11 +61,11 @@ public final class TextExtract {
         URL outputUrl = null;
 
         if (args.length > 1) {
-            inputUrl = new File(args[0]).toURI().toURL();
-            outputUrl = new File(args[1]).toURI().toURL();
+            inputUrl = IoUtils.createUrlFromPath(args[0]);
+            outputUrl = IoUtils.createUrlFromPath(args[1]);
         } else {
             inputUrl = TextExtract.class.getResource(INPUT_PDF_PATH);
-            outputUrl = new File(OUTPUT_TEXT_PATH).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(OUTPUT_TEXT_PATH);
         }
 
         extractTextReadingOrder(inputUrl, outputUrl);

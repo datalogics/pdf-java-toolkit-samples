@@ -28,7 +28,6 @@ import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
@@ -68,9 +67,9 @@ public final class ConvertPdfDocument {
         final URL inputUrl = ConvertPdfDocument.class.getResource(INPUT_UNCONVERTED_PDF_PATH);
         URL outputUrl = null;
         if (args.length > 0) {
-            outputUrl = new File(args[0]).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(args[0]);
         } else {
-            outputUrl = new File(OUTPUT_CONVERTED_PDF_PATH).toURI().toURL();
+            outputUrl = IoUtils.createUrlFromPath(OUTPUT_CONVERTED_PDF_PATH);
         }
 
         convertToPdfA1B(inputUrl, outputUrl);
