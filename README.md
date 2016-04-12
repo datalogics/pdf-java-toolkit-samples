@@ -31,6 +31,11 @@ If this project was received as part of an evaluation, then the ``.use-pdfjt-lm`
 
 The samples were developed and tested using [Mars 4.5.0](https://eclipse.org/mars/)
 
+## Using remote input PDF files with the samples
+
+By default, the samples run with pre-packaged input PDF files that are treated as resources of the samples. However, you can use your own input PDF files 
+including those that are stored remotely on a shared network with the samples. As long as the shared network where the PDF files reside is mounted on your local machine it's treated a part of your local file system.
+
 ## Contributing
 
 See ``CONTRIBUTING.md``
