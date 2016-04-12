@@ -36,6 +36,8 @@ The samples were developed and tested using [Mars 4.5.0](https://eclipse.org/mar
 By default, the samples run with pre-packaged input PDF files that are treated as resources of the samples. However, you can use your own input PDF files 
 including those that are stored remotely on a shared network with the samples. As long as the shared network where the PDF files reside is mounted on your local machine it's treated a part of your local file system.
 
+For more information on working with files in java please see [file path java tutorial](http://www.java2s.com/Tutorial/Java/0180__File/UniversalNamingConvention.htm).
+
 ## Contributing
 
 See ``CONTRIBUTING.md``
