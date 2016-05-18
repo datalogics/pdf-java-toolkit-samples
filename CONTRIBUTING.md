@@ -14,7 +14,11 @@ You can use whatever editing tools or IDE you want, but Eclipse is strongly reco
 * JDK 1.7
 * Eclipse with [M2Eclipse](http://eclipse.org/m2e/) installed.
     * [JAutodoc](http://jautodoc.sourceforge.net/) also recommended. Makes writing Javadoc much easier.
-    * [Eclipse Checkstyle Plugin](http://eclipse-cs.sourceforge.net/#!/) is practically required. It'll help you find and correct coding style violations while you are writing the code. See the section on **Checkstyle** below.
+    * [m2e-code-quality](http://m2e-code-quality.github.io/m2e-code-quality/). Installing from the marketplace doesn't work for now, so add the [m2e-code-quality site](http://m2e-code-quality.github.io/m2e-code-quality/site) in **Help**->**Install New Software…**.
+        * Install only the following items:
+            * **Checkstyle configuration plugin for M2Eclipse**. This will also install the Eclipse Checkstyle Plug-In automatically.
+            * **FindBugs configuration plugin for M2Eclipse**. This will also install the FindBugs Feature automatically.
+            * **PMD Configuration plugin for M2Eclipse**. This will also install the PMD plug-in automatically.
     * When writing tests, it's good to see if they cover the work you did. Check out [EclEmma](http://www.eclemma.org), which lets you test for coverage in Eclipse, based on the [JaCoCo](http://www.eclemma.org/jacoco/) library.
         * Note that EclEmma may [indicate a lack of coverage when an exception is thrown](http://www.eclemma.org/faq.html#trouble05). This is a known issue.
 
