@@ -7,6 +7,7 @@ package com.datalogics.pdf.samples.forms;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.adobe.pdfjt.Version;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFField;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
@@ -16,15 +17,19 @@ import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 import com.datalogics.pdf.samples.SampleTest;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.Properties;
 
 /**
  * Test the Fill Form sample.
@@ -63,6 +68,28 @@ public class FillFormTest extends SampleTest {
                     + "<Reason/><Payee/><Amount/><Date/><DateNeeded/><Reason/><Payee/><Amount/><Date/><DateNeeded/>"
                     + "<Reason/><Payee/><Amount/><DeliveryInstructions>Direct Deposit</DeliveryInstructions>"
                     + "<Comments/><AmountPaid/><CheckNo/><DateReceived/></form1></xfa:data></xfa:datasets>";
+
+    /**
+     * Check to see if PDFJT is before version 4.0.0-SNAPSHOT.
+     *
+     * <p>
+     * This is necessary to accommodate both old and new dependencies on PDFJT. Uses the version.properties resource
+     * stored in PDFJT.
+     *
+     * @return is PDFJT before version 4.0.0-SNAPSHOT
+     * @throws IOException exception while reading properties
+     */
+    private static boolean pdfjtIsBeforeVersion4() throws IOException {
+        try (final InputStream propertiesStream = Version.class.getResourceAsStream("version.properties")) {
+            final Properties versionProperties = new Properties();
+            versionProperties.load(propertiesStream);
+            final String pdfjtVersion = versionProperties.getProperty("Implementation-Version");
+
+            final DefaultArtifactVersion pdfjtArtifactVersion = new DefaultArtifactVersion(pdfjtVersion);
+            final DefaultArtifactVersion version400Snapshot = new DefaultArtifactVersion("4.0.0-SNAPSHOT");
+            return pdfjtArtifactVersion.compareTo(version400Snapshot) < 0;
+        }
+    }
 
     // Each test will check that an output file has been created, then it will compare the form data in that file
     // to the values that we expect to see.
