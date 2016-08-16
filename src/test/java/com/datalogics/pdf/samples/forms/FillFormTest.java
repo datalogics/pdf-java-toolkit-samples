@@ -150,6 +150,6 @@ public class FillFormTest extends SampleTest {
                 Files.delete(tempOutFile.toPath());
             }
         }
-        assertEquals("Form data should match expected values", sb.toString().trim(), compare);
+        assertEquals("Form data should match expected values", compare, sb.toString().trim());
     }
 }
