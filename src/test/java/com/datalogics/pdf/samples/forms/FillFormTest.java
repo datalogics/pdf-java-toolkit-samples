@@ -7,6 +7,7 @@ package com.datalogics.pdf.samples.forms;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import com.adobe.pdfjt.Version;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFField;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
@@ -16,15 +17,19 @@ import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 import com.datalogics.pdf.samples.SampleTest;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
+import java.util.Properties;
 
 /**
  * Test the Fill Form sample.
@@ -35,7 +40,11 @@ public class FillFormTest extends SampleTest {
     private static final String TEMP_OUTPUT = "temp.xml";
     private static final String ACROFORM_FDF_DATA = "123456 John Doe 101 N. Wacker Dr, Suite 1800 Chicago IL 60606 "
                     + "1-312-853-8200 johnd@datalogics.com 2 20 15.75 55.75 Yes Off Yes Off Yes";
-    private static final String ACROFORM_XFDF_DATA = "Datalogics, Inc. John Doe 101 N. Wacker Dr. Ste 1800 "
+
+    /**
+     * Expected XFDF data before PDFJT 4. Contains nulls for undefined fields.
+     */
+    private static final String ACROFORM_XFDF_DATA_PDFJT_3 = "Datalogics, Inc. John Doe 101 N. Wacker Dr. Ste 1800 "
                     + "Chicago IL 60606 0.0 company\tname.first\tname.last\tlocation.address\tlocation.city\tlocation"
                     + ".state\tlocation.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
                     + "Datalogics, Inc.\tJohn\tDoe\t101 N. Wacker Dr. Ste 1800\tChicago\tIL\t60606\tnull\tnull"
@@ -54,6 +63,30 @@ public class FillFormTest extends SampleTest {
                     + "location.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
                     + "Datalogics, Inc.\tJohn\tDoe\t101 N. Wacker Dr. Ste 1800\tChicago\tIL\t60606\tnull\t"
                     + "null\t0";
+
+    /**
+     * Expected XFDF data for PDFJT 4 and newer. Contains empty strings for undefined fields.
+     */
+    private static final String ACROFORM_XFDF_DATA = "Datalogics, Inc. John Doe 101 N. Wacker Dr. Ste 1800 "
+                    + "Chicago IL 60606 0.0 company\tname.first\tname.last\tlocation.address\tlocation.city\tlocation"
+                    + ".state\tlocation.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
+                    + "Datalogics, Inc.\tJohn\tDoe\t101 N. Wacker Dr. Ste 1800\tChicago\tIL\t60606\t\t"
+                    + "\t0 <?xml version=\"1.0\" encoding=\"UTF-8\"?><xfdf xmlns=\"http://ns.adobe.com/xfdf/\" xml:"
+                    + "space=\"preserve\"><fields><field name=\"company\"><value>Datalogics, Inc.</value></field>"
+                    + "<field name=\"name\"><field name=\"first\"><value>John</value></field><field name="
+                    + "\"last\"><value>Doe</value></field></field><field name=\"location\"><field name=\"address\">"
+                    + "<value>101 N. Wacker Dr. Ste 1800</value></field><field name=\"city\"><value>Chicago</value>"
+                    + "</field><field name=\"state\"><value>IL</value></field><field name=\"zip\"><value>60606</value>"
+                    + "</field></field><field name=\"calculatedNumber\"><value>0</value></field></fields><ids "
+                    + "modified=\"2017F3FA55964CF3BA34CA4585D2213F\" original=\"04FE695A7CFA30449E7CC4B320AB79D7\"/>"
+                    + "</xfdf> company\tname.first\tname.last\tlocation.address\tlocation.city\tlocation.state\t"
+                    + "location.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
+                    + "Datalogics, Inc.\tJohn\tDoe\t101 N. Wacker Dr. Ste 1800\tChicago\tIL\t60606\t\t"
+                    + "\t0 company\tname.first\tname.last\tlocation.address\tlocation.city\tlocation.state\t"
+                    + "location.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
+                    + "Datalogics, Inc.\tJohn\tDoe\t101 N. Wacker Dr. Ste 1800\tChicago\tIL\t60606\t\t"
+                    + "\t0";
+
     private static final String XFA_FORM_DATA = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><xfa:datasets "
                     + "xmlns:xfa=\"http://www.xfa.org/schema/xfa-data/1.0/\"><xfa:data><form1><Name>John "
                     + "Doe</Name><Title>Software Engineer</Title><Deptartment>Engineering</Deptartment>"
@@ -63,6 +96,28 @@ public class FillFormTest extends SampleTest {
                     + "<Reason/><Payee/><Amount/><Date/><DateNeeded/><Reason/><Payee/><Amount/><Date/><DateNeeded/>"
                     + "<Reason/><Payee/><Amount/><DeliveryInstructions>Direct Deposit</DeliveryInstructions>"
                     + "<Comments/><AmountPaid/><CheckNo/><DateReceived/></form1></xfa:data></xfa:datasets>";
+
+    /**
+     * Check to see if PDFJT is before version 4.0.0-SNAPSHOT.
+     *
+     * <p>
+     * This is necessary to accommodate both old and new dependencies on PDFJT. Uses the version.properties resource
+     * stored in PDFJT.
+     *
+     * @return is PDFJT before version 4.0.0-SNAPSHOT
+     * @throws IOException exception while reading properties
+     */
+    private static boolean pdfjtIsBeforeVersion4() throws IOException {
+        try (final InputStream propertiesStream = Version.class.getResourceAsStream("version.properties")) {
+            final Properties versionProperties = new Properties();
+            versionProperties.load(propertiesStream);
+            final String pdfjtVersion = versionProperties.getProperty("Implementation-Version");
+
+            final DefaultArtifactVersion pdfjtArtifactVersion = new DefaultArtifactVersion(pdfjtVersion);
+            final DefaultArtifactVersion version400Snapshot = new DefaultArtifactVersion("4.0.0-SNAPSHOT");
+            return pdfjtArtifactVersion.compareTo(version400Snapshot) < 0;
+        }
+    }
 
     // Each test will check that an output file has been created, then it will compare the form data in that file
     // to the values that we expect to see.
@@ -92,7 +147,8 @@ public class FillFormTest extends SampleTest {
         FillForm.fillAcroformXfdf(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
 
         assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
-        checkForms(outputPdfFile.toURI().toURL(), ACROFORM_XFDF_DATA);
+        checkForms(outputPdfFile.toURI().toURL(),
+                   pdfjtIsBeforeVersion4() ? ACROFORM_XFDF_DATA_PDFJT_3 : ACROFORM_XFDF_DATA);
     }
 
     @Test
@@ -150,6 +206,6 @@ public class FillFormTest extends SampleTest {
                 Files.delete(tempOutFile.toPath());
             }
         }
-        assertEquals("Form data should match expected values", sb.toString().trim(), compare);
+        assertEquals("Form data should match expected values", compare, sb.toString().trim());
     }
 }
