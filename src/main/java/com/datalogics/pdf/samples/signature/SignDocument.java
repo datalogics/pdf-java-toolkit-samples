@@ -21,6 +21,8 @@ import com.adobe.pdfjt.services.digsig.UserInfo;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -176,13 +178,6 @@ public final class SignDocument {
     }
 
     private static byte[] getDerEncodedData(final InputStream inputStream) throws IOException {
-        final byte[] derData = new byte[inputStream.available()];
-        final int totalBytes = inputStream.read(derData, 0, derData.length);
-        if (totalBytes == 0) {
-            LOGGER.info("getDerEncodedData(): No bytes read from InputStream");
-        }
-        inputStream.close();
-
-        return derData;
+        return IOUtils.toByteArray(inputStream);
     }
 }
