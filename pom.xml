@@ -151,12 +151,18 @@
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
+          <excludes>
+            <exclude>com/datalogics/pdf/samples/extraction/TextCharacterBoxes.java</exclude>
+          </excludes>
+          <testExcludes>
+            <testExclude>com/datalogics/pdf/samples/extraction/TextCharacterBoxesTest.java</testExclude>
+          </testExcludes>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.10.1</version>
+        <version>2.10.4</version>
         <executions>
           <execution>
             <id>attach-javadocs</id>
@@ -172,6 +178,9 @@
             <artifactId>exclude-doclet</artifactId>
             <version>1.0.1-SNAPSHOT</version>
           </docletArtifact>
+          <sourceFileExcludes>
+            <sourceFileExclude>**/TextCharacterBoxes.java</sourceFileExclude>
+          </sourceFileExcludes>
         </configuration>
       </plugin>
       <plugin>
@@ -564,6 +573,37 @@
           <exists>${basedir}/.use-talkeetna-6</exists>
         </file>
       </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <!-- the combine.self="override" causes this to replace instead
+                   of adding to the excludes list(s).
+                   This replaces the exclusion of the TextCharacterBoxes sample
+                   and test with an empty exclusion list. (Specifying an
+                   include would be the wrong way to do this, because then it
+                   would compile _only_ TextCharacterBoxes) -->
+              <excludes combine.self="override"></excludes>
+              <testExcludes combine.self="override"></testExcludes>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <!-- the combine.self="override" causes this to replace instead
+                   of adding to the excludes list(s).
+                   This replaces the exclusion of the TextCharacterBoxes sample
+                   and test with an empty exclusion list. (Specifying an
+                   include would be the wrong way to do this, because then it
+                   would compile _only_ TextCharacterBoxes) -->
+              <sourceFileExcludes combine.self="override"></sourceFileExcludes>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
       <dependencyManagement>
         <dependencies>
           <dependency>

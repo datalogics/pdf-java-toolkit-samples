@@ -101,7 +101,7 @@ public class SampleTest {
         final byte[] data = new byte[(int) stream.bytesAvailable()];
         stream.read(data);
         final String contentsAsString = new String(data, "cp1252");
-        return contentsAsString;
+        return contentsAsString.replace('\n', '\r');
     }
 
     /**

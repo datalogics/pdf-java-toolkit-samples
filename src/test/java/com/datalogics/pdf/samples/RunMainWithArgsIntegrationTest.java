@@ -146,7 +146,9 @@ public class RunMainWithArgsIntegrationTest {
                                                  withName("main"), withParameters(String[].class));
             for (final Method mainMethod : mains) {
                 final String simpleName = c.getSimpleName();
-                mainArgs.add(new Object[] { simpleName, mainMethod, argsMap.get(simpleName) });
+                if (argsMap.containsKey(simpleName)) {
+                    mainArgs.add(new Object[] { simpleName, mainMethod, argsMap.get(simpleName) });
+                }
             }
         }
 
