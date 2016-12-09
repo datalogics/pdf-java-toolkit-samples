@@ -34,9 +34,13 @@ import java.util.logging.Logger;
 
 
 /**
- * Sample that demonstrates how to convert a PDF to PDF/A-1b.
+ * This sample demonstrates how to convert a PDF to PDF/A-1b archive file.
  * <p>
- * Note: Transparency is not handled by PDF Java Toolkit.
+ * To be certified as a PDF/A1 document, the PDF cannot contain a transparency, 
+ * though PDF/A2 documents do support transparencies. PDF Java Toolkit is not 
+ * designed to work with transparencies in PDF documents. But the PDF Java 
+ * Toolkit Core API is designed to report an error if a problem appears when 
+ * attempting to convert a document to PDF/A. 
  * </p>
  */
 
