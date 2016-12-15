@@ -22,6 +22,31 @@ You can use whatever editing tools or IDE you want, but Eclipse is strongly reco
     * When writing tests, it's good to see if they cover the work you did. Check out [EclEmma](http://www.eclemma.org), which lets you test for coverage in Eclipse, based on the [JaCoCo](http://www.eclemma.org/jacoco/) library.
         * Note that EclEmma may [indicate a lack of coverage when an exception is thrown](http://www.eclemma.org/faq.html#trouble05). This is a known issue.
 
+#### Installing the plugins all at once
+
+Sometimes the above instructions don't work so well. Sometimes the m2e-code-quality has trouble resolving dependencies. In that case there's an alternative.
+
+There is a file ``eclipse-plugins-neon.p2f`` in the main project director. It contains specifications for the following:
+
+* JAutodoc
+* m2e-code-quality
+* EclEmma
+* m2e connectors for the Maven Dependency Plugin and build-helper-maven-plugin (these usually could be installed with help from Eclipse)
+* Supporting plugins for PMD, FindBugs and Checkstyle
+
+To use it:
+
+1. choose **File->Import...**, then open up the **Install** group, then choose the **Install Software Items from File**. Click **Next**.
+2. Click **Browse...**, and navigate to the ``eclipse-plugins-neon.p2f`` file and select it.
+3. Click **Contact all update sites during install to find required software**
+4. Click **Next**
+5. Review things and click **Next** again
+6. Accept the licensing agreement and click **Finish**
+7. Tell it that it's okay to install unsigned software.
+8. Let it restart Eclipse.
+
+This has been tested with Eclipse Neon.
+
 ## Supplied tools
 
 ### Checked exceptions

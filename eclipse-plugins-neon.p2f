@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?p2f version='1.0.0'?>
+<p2f version='1.0.0'>
+  <ius size='8'>
+    <iu id='com.basistech.m2e.code.quality.checkstyle.feature.feature.group' name='Checkstyle configuration plugin for M2Eclipse' version='1.0.0.201608091842'>
+      <repositories size='3'>
+        <repository location='http://m2e-code-quality.github.com/m2e-code-quality/site/latest'/>
+        <repository location='http://m2e-code-quality.github.io/m2e-code-quality/site/'/>
+        <repository location='http://m2e-code-quality.github.io/m2e-code-quality/site/latest'/>
+      </repositories>
+    </iu>
+    <iu id='com.mountainminds.eclemma.feature.feature.group' name='EclEmma Java Code Coverage' version='2.3.3.201602231923'>
+      <repositories size='1'>
+        <repository location='http://update.eclemma.org/'/>
+      </repositories>
+    </iu>
+    <iu id='com.basistech.m2e.code.quality.findbugs.feature.feature.group' name='Findbugs configuration plugin for M2Eclipse' version='1.0.0.201608091842'>
+      <repositories size='3'>
+        <repository location='http://m2e-code-quality.github.com/m2e-code-quality/site/latest'/>
+        <repository location='http://m2e-code-quality.github.io/m2e-code-quality/site/'/>
+        <repository location='http://m2e-code-quality.github.io/m2e-code-quality/site/latest'/>
+      </repositories>
+    </iu>
+    <iu id='net.sf.jautodoc.feature.feature.group' name='JAutodoc' version='1.14.0'>
+      <repositories size='1'>
+        <repository location='http://jautodoc.sourceforge.net/update/'/>
+      </repositories>
+    </iu>
+    <iu id='org.sonatype.m2e.buildhelper.feature.feature.group' name='m2e connector for build-helper-maven-plugin' version='0.15.0.201207090124'>
+      <repositories size='1'>
+        <repository location='http://repo1.maven.org/maven2/.m2e/connectors/m2eclipse-buildhelper/0.15.0/N/0.15.0.201207090124/'/>
+      </repositories>
+    </iu>
+    <iu id='com.ianbrandt.tools.m2e.mdp.feature.feature.group' name='m2e connector for the Maven Dependency Plugin' version='0.0.4.201409291703'>
+      <repositories size='1'>
+        <repository location='http://ianbrandt.github.io/m2e-maven-dependency-plugin/0.0.4/'/>
+      </repositories>
+    </iu>
+    <iu id='com.basistech.m2e.code.quality.pmd.feature.feature.group' name='PMD configuration plugin for M2Eclipse' version='1.0.0.201608091842'>
+      <repositories size='3'>
+        <repository location='http://m2e-code-quality.github.com/m2e-code-quality/site/latest'/>
+        <repository location='http://m2e-code-quality.github.io/m2e-code-quality/site/'/>
+        <repository location='http://m2e-code-quality.github.io/m2e-code-quality/site/latest'/>
+      </repositories>
+    </iu>
+    <iu id='net.sourceforge.pmd.eclipse.feature.group' name='PMD Plug-in' version='4.0.10.v20160626-1043'>
+      <repositories size='2'>
+        <repository location='https://sourceforge.net/projects/pmd/files/pmd-eclipse/update-site/'/>
+        <repository location='http://sourceforge.net/projects/pmd/files/pmd-eclipse/update-site'/>
+      </repositories>
+    </iu>
+  </ius>
+</p2f>
