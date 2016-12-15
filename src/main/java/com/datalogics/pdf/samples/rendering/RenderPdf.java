@@ -17,6 +17,7 @@ import com.datalogics.pdf.samples.util.IoUtils;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,6 +81,20 @@ public final class RenderPdf {
      * @throws Exception a general exception was thrown
      */
     public static void renderPdf(final URL inputUrl, final int resolution) throws Exception {
+        final String imageBaseName = new File(inputUrl.toURI()).getName();
+        final URL outputBaseUrl = new File(imageBaseName).toURI().toURL();
+        renderPdf(inputUrl, resolution, outputBaseUrl);
+    }
+
+    /**
+     * Render the specified PDF.
+     *
+     * @param inputUrl path to the PDF to render
+     * @param resolution the desired resolution in dpi
+     * @param outputBaseUrl the URL for the output file, to which will be added the page number and ".png" extension.
+     * @throws Exception a general exception was thrown
+     */
+    public static void renderPdf(final URL inputUrl, final int resolution, final URL outputBaseUrl) throws Exception {
         // Only log info messages and above
         LOGGER.setLevel(Level.INFO);
 
@@ -104,28 +119,27 @@ public final class RenderPdf {
         // Use a PageRasterizer to create a bitmap for each page.
         pageRasterizer = new PageRasterizer(pdfDocument.requirePages(), rasterizationOptions);
 
-        final String imageBaseName = new File(inputUrl.toURI()).getName();
         int pageNo = 0;
 
         while (pageRasterizer.hasNext()) {
             pageNo += 1;
             final BufferedImage page = pageRasterizer.next();
-            savePage(imageBaseName, pageNo, page);
-
+            savePage(outputBaseUrl, pageNo, page);
         }
     }
 
     /**
      * Save one page to a PNG file.
      *
-     * @param imageBaseName the base name for the PNG file
+     * @param imageBaseUrl the URL to the image output
      * @param pageNo the pageNumber
      * @param page the image of the page
      * @throws IOException an I/O operation failed or was interrupted
+     * @throws URISyntaxException a string could not be parsed as a URI reference
      */
-    private static void savePage(final String imageBaseName, final int pageNo, final BufferedImage page)
-                    throws IOException {
-        final File outputFile = new File(imageBaseName + "." + pageNo + ".png");
+    private static void savePage(final URL imageBaseUrl, final int pageNo, final BufferedImage page)
+                    throws IOException, URISyntaxException {
+        final File outputFile = new File(imageBaseUrl.toURI().getPath() + "." + pageNo + ".png");
         // Saving raster image
         ImageIO.write(page, "png", outputFile);
     }
