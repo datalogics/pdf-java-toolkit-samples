@@ -83,7 +83,7 @@ public final class TextExtract {
      * @throws UnsupportedEncodingException the character encoding is not supported
      * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
-     * @throws URISyntaxException the input URL could not be converted to a string
+     * @throws URISyntaxException a string could not be parsed as a URI reference
      */
     public static void extractTextReadingOrder(final URL inputUrl, final URL outputUrl)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
