@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -81,7 +82,9 @@ public final class RenderPdf {
      * @throws Exception a general exception was thrown
      */
     public static void renderPdf(final URL inputUrl, final int resolution) throws Exception {
-        final String imageBaseName = new File(inputUrl.toURI()).getName();
+        final String path = URLDecoder.decode(inputUrl.getPath(), "UTF-8");
+        final int slash = path.lastIndexOf('/');
+        final String imageBaseName = path.substring(slash + 1);
         final URL outputBaseUrl = new File(imageBaseName).toURI().toURL();
         renderPdf(inputUrl, resolution, outputBaseUrl);
     }
