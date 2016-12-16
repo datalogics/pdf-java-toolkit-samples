@@ -41,10 +41,9 @@ import javax.imageio.ImageIO;
 
 /**
  * <p>
- * This sample creates a short version of the book White Fang. It uses PDFJT to insert a picture on the first page, then
- * Talkeetna to flow the text of chapter one. The sample also adds headers and formats paragraphs, while Talkeetna provides
- * default settings for the line height, font size and style, and page margins.  
- *
+ * This sample creates a short version of the book White Fang. It uses PDFJT to insert a picture on the first page,
+ * then Talkeetna to flow the text of chapter one. The sample also adds headers and formats paragraphs, while 
+ * Talkeetna provides default settings for the line height, font size and style, and page margins.
  */
 public final class MakeWhiteFangBook {
     private static final String INPUT_IMAGE_PATH = "WhiteFangCover.jpg";
