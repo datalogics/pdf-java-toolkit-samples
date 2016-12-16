@@ -33,11 +33,14 @@ import java.util.Iterator;
  * This sample demonstrates how to downsample images that are in a PDF and replace the originals with the downsampled
  * versions.
  * 
+ * <p>
  * The downsampling process serves to reduce the size and resolution of images in a document and thus may also help
  * to reduce the size of the final PDF document, though a variety of other factors can affect the size of a PDF. 
  * 
+ * <p>
  * The images in the input document are down-sampled using the Bicubic downsampling method by default.
  * 
+ * <p>
  * Supported downsampling methods are:
  * <ul>
  * <li>Resampler.kResampleNearestNeighbor: Nearest Neighbor downsampling.</li>
