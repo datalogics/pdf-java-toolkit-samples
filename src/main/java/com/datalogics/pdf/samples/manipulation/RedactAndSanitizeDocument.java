@@ -54,6 +54,10 @@ import java.util.logging.Logger;
 /**
  * This sample demonstrates how to open a document, add redaction annotations to it, and then apply the redaction. The
  * document is then sanitized.
+ * 
+ * <p>
+ * Redaction is commonly used to remove or deliberately obscure sensitive or classified information when a document is
+ * released to the public.  
  *
  * <p>
  * Redaction and sanitization is done in three steps. Redaction annotations are first added to the document. Those
