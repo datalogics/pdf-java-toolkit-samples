@@ -40,7 +40,12 @@ import javax.print.attribute.standard.PrinterResolution;
 
 /**
  * This sample shows how to rasterize a PDF page so it can be reliably printed. The code will attempt to detect the
- * resolution of your printer. The higher the resolution, the larger heap you'll need.
+ * resolution of your printer. The higher the resolution, the more internal memory needed.
+ * 
+ * <p>
+ * The sample puts the rasterized page into a Java BufferedImage class and prints that image using Java APIs.
+ * It uses the page size and the resolution of the printer to determine the size and resolution of the BufferedImage
+ * for each page, so that the document can print with the highest possible quality. 
  */
 public class PrintPdf {
 
