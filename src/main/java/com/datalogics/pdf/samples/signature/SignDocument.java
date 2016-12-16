@@ -39,7 +39,7 @@ import java.util.logging.Logger;
  * They are self-signed by Datalogics, and so this sample certificate is not backed by a certifying authority (CA).
  * The certificate is intended for a test environment. If you open the output PDF document created using this sample
  * in Adobe Acrobat, you will see an error message in the PDF document itself, stating that the validity of a signature
- * in the document is unknown.  The signer’s identity is not included in the local list of trusted certificates. 
+ * in the document is unknown.  The identity of the signer is not included in the local list of trusted certificates. 
  */
 public final class SignDocument {
     private static final Logger LOGGER = Logger.getLogger(SignDocument.class.getName());
