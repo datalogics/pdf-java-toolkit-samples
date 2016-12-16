@@ -33,6 +33,11 @@ import javax.imageio.ImageIO;
 /**
  * This sample shows how to create a PDF document from an image file. The file formats demonstrated here include PNG,
  * JPG/JPEG, GIF, and BMP.
+ * 
+ * <p>
+ * MakdPDFFromImage fits the image into a 4¼ x 5½ inch space on the page, with a half inch margin, and then doubles
+ * the image size to a standard letter size page and scales the height and width to fit. The sample includes code
+ * that allows you to generate a PDF with either portrait or landscape orientation.
  */
 public final class MakePdfFromImage {
     public static final String INPUT_PNG = "PDF-Java-Toolkit-Icon.png";
