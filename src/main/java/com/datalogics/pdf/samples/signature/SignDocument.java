@@ -31,10 +31,15 @@ import java.util.logging.Logger;
 
 /**
  * This is a sample that demonstrates how to find a specific signature field in a document so that API users can sign
- * the correct field. Note that, since we are using a sample certificate that isn't backed up by any certificate
- * authority, Adobe Acrobat (and possibly other applications) will display a warning when the document is opened. This
- * is not due to any error with the document itself and is only to let the user know that the certificate authenticity
- * could not be verified.
+ * the correct field. This sample signs the document using a certificate and key drawn from the key and certificate 
+ * files pdfjt-key.der and pdfjt-cert.der. 
+ * 
+ * <p>
+ * Note that these certificates were created by Datalogics for use in testing digital signatures with PDF Java Toolkit.
+ * They are self-signed by Datalogics, and so this sample certificate is not backed by a certifying authority (CA).
+ * The certificate is intended for a test environment. If you open the output PDF document created using this sample
+ * in Adobe Acrobat, you will see an error message in the PDF document itself, stating that the validity of a signature
+ * in the document is unknown.  The signer’s identity is not included in the local list of trusted certificates. 
  */
 public final class SignDocument {
     private static final Logger LOGGER = Logger.getLogger(SignDocument.class.getName());
