@@ -20,8 +20,19 @@ import org.apache.commons.io.FilenameUtils;
 import java.net.URL;
 
 /**
- * This sample shows how to merge two PDF documents into one. It will also show how to properly merge PDF documents that
- * contain forms, links, bookmarks, and annotations.
+ * <p>
+ * This sample shows how to merge two PDF documents into one. The resulting PDF document features form fields, formatted
+ * text, bookmarks, embedded graphics, attachments, highlighted text, and other features from the two source files, and
+ * the bookmarks and links are resolved to point to the right places.
+ * 
+ * <p>
+ * The sample can copy forms and form fields from one PDF document to another. Note that if you seek to merge a pair of
+ * input PDF files featuring form fields with matching names, the sample selects the field from the first document, and
+ * places in that field the value found in the first document. The sample does, however, offer options to allow you to
+ * change this behavior. For example, if you seek to merge documents DocumentA.PDF and DocumentB.PDF and both feature
+ * customer name and address form fields, the sample will select the customer name and address fields from DocumentA.PDF,
+ * and provide the data found in those fields in DocumentA.PDF.
+ * 
  */
 public final class MergeDocuments {
 
