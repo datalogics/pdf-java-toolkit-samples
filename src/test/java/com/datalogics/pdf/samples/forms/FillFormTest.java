@@ -105,7 +105,7 @@ public class FillFormTest extends SampleTest {
      * stored in PDFJT.
      *
      * @return is PDFJT before version 4.0.0-SNAPSHOT
-     * @throws IOException exception while reading properties
+     * @throws IOException an I/O operation failed or was interrupted
      */
     private static boolean pdfjtIsBeforeVersion4() throws IOException {
         try (final InputStream propertiesStream = Version.class.getResourceAsStream("version.properties")) {
