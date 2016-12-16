@@ -35,7 +35,7 @@ import javax.imageio.ImageIO;
  * JPG/JPEG, GIF, and BMP.
  * 
  * <p>
- * MakdPDFFromImage fits the image into a 4¼ x 5½ inch space on the page, with a half inch margin, and then doubles
+ * MakdPDFFromImage fits the image into a 4.5 x 5.5 inch space on the page, with a half inch margin, and then doubles
  * the image size to a standard letter size page and scales the height and width to fit. The sample includes code
  * that allows you to generate a PDF with either portrait or landscape orientation.
  */
