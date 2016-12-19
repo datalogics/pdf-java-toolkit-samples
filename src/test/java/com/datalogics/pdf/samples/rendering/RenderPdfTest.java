@@ -11,6 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.datalogics.pdf.samples.SampleTest;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.junit.Test;
 
 import java.awt.image.BufferedImage;
@@ -28,11 +29,26 @@ import javax.imageio.ImageIO;
 public class RenderPdfTest extends SampleTest {
 
     private static final int RESOLUTION = 72;
-    private static String[] checksums = new String[] {
-        "", // dummy
-        "1992474437f5b1ee5a885322fb089915a57fe8c9", // page 1
-        "560bae832b056507eac24c81d6f6ef65d2685667" // page 2
-    };
+    private static String[] checksums;
+
+    static {
+        // Different versions of Java render some colors differently
+        if (SystemUtils.IS_JAVA_1_8) {
+            checksums = new String[] {
+                "", // dummy
+                "359806f590dee0e642a10b9b5043e46fd74fa3ce", // page 1
+                "3192548a1abf89fec8de8d8b38f906d8717613b8" // page 2
+            };
+        } else {
+            checksums = new String[] {
+                "", // dummy
+                "1992474437f5b1ee5a885322fb089915a57fe8c9", // page 1
+                "560bae832b056507eac24c81d6f6ef65d2685667" // page 2
+            };
+
+        }
+
+    }
 
     @Test
     public void testRenderPdf() throws Exception {
