@@ -50,7 +50,7 @@ public final class IoUtils {
      *
      * @param fileUrl The URL of the file
      * @return The file extension in a string format
-     * @throws URISyntaxException Checked exception thrown to indicate that a string could not be parsed as a URI
+     * @throws URISyntaxException a string could not be parsed as a URI reference
      *         reference.
      */
     public static String getFileExtensionFromUrl(final URL fileUrl) throws URISyntaxException {

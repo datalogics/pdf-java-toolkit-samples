@@ -73,7 +73,7 @@ public class RunMainWithArgsIntegrationTest {
     /**
      * Make sure we clear the output directory of previous output files before testing.
      *
-     * @throws IOException A file operation failed
+     * @throws IOException an I/O operation failed or was interrupted
      */
     @BeforeClass
     public static void cleanUp() throws Exception {
