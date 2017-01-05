@@ -53,6 +53,7 @@ import javax.imageio.stream.ImageInputStream;
  * is not due to any error with the document itself and is only to let the user know that the certificate authenticity
  * could not be verified.
  */
+
 public final class SignDocument {
     private static final Logger LOGGER = Logger.getLogger(SignDocument.class.getName());
 
