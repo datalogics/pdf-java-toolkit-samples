@@ -180,4 +180,74 @@ public final class SignDocument {
     private static byte[] getDerEncodedData(final InputStream inputStream) throws IOException {
         return IOUtils.toByteArray(inputStream);
     }
+
+    private static SignatureAppearanceDisplayItemsSet createSignatureAppearanceDisplayItemsSet() {
+        final SignatureAppearanceDisplayItemsSet displayItems = SignatureAppearanceDisplayItemsSet.newInstance();
+
+        // Show nothing
+        displayItems.disable(SignatureAppearanceDisplayItemsSet.kShowAll);
+        return displayItems;
+    }
+
+    private static PDFPage createSignaturePage(final URL imagePath) throws Exception {
+        final ImageReader reader = loadImage(imagePath);
+        final BufferedImage bufferedImage = reader.read(0);
+
+        final Double millimetersPerPixel = getMillimetersPerPixel(reader.getImageMetadata(0));
+        final Double pageWidth = millimetersPerPixel / MM_PER_INCH * 72 * bufferedImage.getWidth();
+        final Double pageHeight = millimetersPerPixel / MM_PER_INCH * 72 * bufferedImage.getHeight();
+
+        // Create a PDF document with the first page being the same size as the PNG
+        final PDFDocument pdfDocument = PDFDocument.newInstance(new ASRectangle(new double[] { 0, 0, pageWidth,
+            pageHeight }),
+                                                                PDFOpenOptions.newInstance());
+
+        // Convert the BufferedImage to a PDFXObjectImage
+        final PDFXObjectImage image = ImageManager.getPDFImage(bufferedImage, pdfDocument);
+
+        // Create a default external graphics state which describes how graphics are to be rendered on a device.
+        final PDFExtGState pdfExtGState = PDFExtGState.newInstance(pdfDocument);
+
+        // Create a transformation matrix which maps positions from user coordinates to device coordinates. There is no
+        // transform taking place here though but it is a required parameter.
+        final ASMatrix asMatrix = new ASMatrix(pageWidth, 0, 0, pageHeight, 0, 0);
+
+        // Now add the image to the first PDF page using the graphics state and the transformation matrix.
+        ImageManager.insertImageInPDF(image,
+                                      pdfDocument.requirePages().getPage(0), // the first page of the document
+                                      pdfExtGState,
+                                      asMatrix);
+
+        return pdfDocument.requirePages().getPage(0);
+    }
+
+    private static ImageReader loadImage(final URL imagePath) throws Exception {
+        // Returns the reader that claims it can decode the given image
+        ImageReader reader = null;
+        final ImageInputStream imgStm = ImageIO.createImageInputStream(imagePath.openStream());
+        final Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(imgStm);
+        if (imageReaders.hasNext()) {
+            reader = imageReaders.next();
+            reader.setInput(imgStm, true);
+        }
+
+        return reader;
+    }
+
+    private static Double getMillimetersPerPixel(final IIOMetadata metadata) {
+        // This code assumes square pixels so it only gets the horizontal measurement
+        final IIOMetadataNode standardTree;
+        standardTree = (IIOMetadataNode) metadata.getAsTree(IIOMetadataFormatImpl.standardMetadataFormatName);
+        final IIOMetadataNode dimension = (IIOMetadataNode) standardTree.getElementsByTagName("Dimension").item(0);
+        final NodeList pixelSizes = dimension.getElementsByTagName("HorizontalPixelSize");
+
+        // If no physical dimensions were found, assume 1/72 of an inch
+        if (pixelSizes.getLength() <= 0) {
+            return DEFAULT_MM_PER_PIXEL;
+        }
+
+        final IIOMetadataNode pixelSize = (IIOMetadataNode) pixelSizes.item(0);
+
+        return Double.parseDouble(pixelSize.getAttribute("value"));
+    }
 }
