@@ -60,7 +60,11 @@ public final class SignDocument {
     private static final String DER_KEY_PATH = "pdfjt-key.der";
     private static final String DER_CERT_PATH = "pdfjt-cert.der";
     public static final String INPUT_UNSIGNED_PDF_PATH = "UnsignedDocument.pdf";
+    public static final String INPUT_SIGNATURE_IMAGE_PATH = "Signature.jpg";
     public static final String OUTPUT_SIGNED_PDF_PATH = "SignedField.pdf";
+
+    private static final Double MM_PER_INCH = 25.4; // millimeters per inch
+    private static final Double DEFAULT_MM_PER_PIXEL = 0.35277778; // default millimeters per pixel
 
     /**
      * This is a utility class, and won't be instantiated.
