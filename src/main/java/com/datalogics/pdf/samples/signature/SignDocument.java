@@ -147,8 +147,19 @@ public final class SignDocument {
                     // Create output file to hold the signed PDF data.
                     byteWriter = IoUtils.newByteWriter(outputUrl);
 
+                    // Set up the appearance of the signature
                     final SignatureOptions signatureOptions = SignatureOptions.newInstance();
+                    final SignatureAppearanceOptions appearanceOptions = SignatureAppearanceOptions.newInstance();
+                    final SignatureAppearanceDisplayItemsSet displayItems = createSignatureAppearanceDisplayItemsSet();
+
+                    appearanceOptions.setDisplayItems(displayItems);
+                    signatureOptions.setSignatureAppearanceOptions(appearanceOptions);
+
                     final UserInfo userInfo = UserInfo.newInstance();
+
+                    final URL signatureImageUrl = SignDocument.class.getResource(INPUT_SIGNATURE_IMAGE_PATH);
+                    final PDFPage signaturePage = createSignaturePage(signatureImageUrl);
+                    appearanceOptions.setGraphicImage(signaturePage);
 
                     // This name will show up in the signature as "Digitally signed by <name>".
                     // If no name is specified the signature will say it was signed by whatever name is
