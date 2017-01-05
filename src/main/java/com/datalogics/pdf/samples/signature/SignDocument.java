@@ -12,23 +12,40 @@ import com.adobe.pdfjt.core.credentials.PrivateKeyHolderFactory;
 import com.adobe.pdfjt.core.exceptions.PDFException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.license.LicenseManager;
+import com.adobe.pdfjt.core.types.ASMatrix;
+import com.adobe.pdfjt.core.types.ASRectangle;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
+import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
+import com.adobe.pdfjt.pdf.graphics.PDFExtGState;
+import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
+import com.adobe.pdfjt.pdf.page.PDFPage;
+import com.adobe.pdfjt.services.digsig.SignatureAppearanceDisplayItemsSet;
+import com.adobe.pdfjt.services.digsig.SignatureAppearanceOptions;
 import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.digsig.SignatureOptions;
 import com.adobe.pdfjt.services.digsig.UserInfo;
+import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
 import org.apache.commons.io.IOUtils;
+import org.w3c.dom.NodeList;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.metadata.IIOMetadataFormatImpl;
+import javax.imageio.metadata.IIOMetadataNode;
+import javax.imageio.stream.ImageInputStream;
 /**
  * This is a sample that demonstrates how to find a specific signature field in a document so that API users can sign
  * the correct field. Note that, since we are using a sample certificate that isn't backed up by any certificate
