@@ -582,6 +582,7 @@
                         <include>src/main/resources/com/datalogics/pdf/samples/signature/UnsignedDocument.pdf</include>
                         <include>src/main/resources/com/datalogics/pdf/samples/signature/pdfjt-cert.der</include>
                         <include>src/main/resources/com/datalogics/pdf/samples/signature/pdfjt-key.der</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/signature/Signature.jpg</include>
                         <include>src/test/java/com/datalogics/pdf/samples/AllIntegrationTests.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/AllUnitTests.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/RunMainMethodsFromJarIntegrationTest.java</include>
