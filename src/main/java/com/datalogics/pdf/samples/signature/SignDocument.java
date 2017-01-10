@@ -12,23 +12,40 @@ import com.adobe.pdfjt.core.credentials.PrivateKeyHolderFactory;
 import com.adobe.pdfjt.core.exceptions.PDFException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.license.LicenseManager;
+import com.adobe.pdfjt.core.types.ASMatrix;
+import com.adobe.pdfjt.core.types.ASRectangle;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
+import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
+import com.adobe.pdfjt.pdf.graphics.PDFExtGState;
+import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
+import com.adobe.pdfjt.pdf.page.PDFPage;
+import com.adobe.pdfjt.services.digsig.SignatureAppearanceDisplayItemsSet;
+import com.adobe.pdfjt.services.digsig.SignatureAppearanceOptions;
 import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.digsig.SignatureOptions;
 import com.adobe.pdfjt.services.digsig.UserInfo;
+import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
 import org.apache.commons.io.IOUtils;
+import org.w3c.dom.NodeList;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.metadata.IIOMetadata;
+import javax.imageio.metadata.IIOMetadataFormatImpl;
+import javax.imageio.metadata.IIOMetadataNode;
+import javax.imageio.stream.ImageInputStream;
 /**
  * This is a sample that demonstrates how to find a specific signature field in a document so that API users can sign
  * the correct field. This sample signs the document using a certificate and key drawn from the key and certificate 
@@ -41,6 +58,7 @@ import java.util.logging.Logger;
  * in Adobe Acrobat, you will see an error message in the PDF document itself, stating that the validity of a signature
  * in the document is unknown.  The identity of the signer is not included in the local list of trusted certificates. 
  */
+
 public final class SignDocument {
     private static final Logger LOGGER = Logger.getLogger(SignDocument.class.getName());
 
@@ -48,7 +66,11 @@ public final class SignDocument {
     private static final String DER_KEY_PATH = "pdfjt-key.der";
     private static final String DER_CERT_PATH = "pdfjt-cert.der";
     public static final String INPUT_UNSIGNED_PDF_PATH = "UnsignedDocument.pdf";
+    public static final String INPUT_SIGNATURE_IMAGE_PATH = "Signature.jpg";
     public static final String OUTPUT_SIGNED_PDF_PATH = "SignedField.pdf";
+
+    private static final Double MM_PER_INCH = 25.4; // millimeters per inch
+    private static final Double DEFAULT_MM_PER_PIXEL = 0.35277778; // default millimeters per pixel
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -131,8 +153,19 @@ public final class SignDocument {
                     // Create output file to hold the signed PDF data.
                     byteWriter = IoUtils.newByteWriter(outputUrl);
 
+                    // Set up the appearance of the signature
                     final SignatureOptions signatureOptions = SignatureOptions.newInstance();
+                    final SignatureAppearanceOptions appearanceOptions = SignatureAppearanceOptions.newInstance();
+                    final SignatureAppearanceDisplayItemsSet displayItems = createSignatureAppearanceDisplayItemsSet();
+
+                    appearanceOptions.setDisplayItems(displayItems);
+                    signatureOptions.setSignatureAppearanceOptions(appearanceOptions);
+
                     final UserInfo userInfo = UserInfo.newInstance();
+
+                    final URL signatureImageUrl = SignDocument.class.getResource(INPUT_SIGNATURE_IMAGE_PATH);
+                    final PDFPage signaturePage = createSignaturePage(signatureImageUrl);
+                    appearanceOptions.setGraphicImage(signaturePage);
 
                     // This name will show up in the signature as "Digitally signed by <name>".
                     // If no name is specified the signature will say it was signed by whatever name is
@@ -184,5 +217,75 @@ public final class SignDocument {
 
     private static byte[] getDerEncodedData(final InputStream inputStream) throws IOException {
         return IOUtils.toByteArray(inputStream);
+    }
+
+    private static SignatureAppearanceDisplayItemsSet createSignatureAppearanceDisplayItemsSet() {
+        final SignatureAppearanceDisplayItemsSet displayItems = SignatureAppearanceDisplayItemsSet.newInstance();
+
+        // Show nothing
+        displayItems.disable(SignatureAppearanceDisplayItemsSet.kShowAll);
+        return displayItems;
+    }
+
+    private static PDFPage createSignaturePage(final URL imagePath) throws Exception {
+        final ImageReader reader = loadImage(imagePath);
+        final BufferedImage bufferedImage = reader.read(0);
+
+        final Double millimetersPerPixel = getMillimetersPerPixel(reader.getImageMetadata(0));
+        final Double pageWidth = millimetersPerPixel / MM_PER_INCH * 72 * bufferedImage.getWidth();
+        final Double pageHeight = millimetersPerPixel / MM_PER_INCH * 72 * bufferedImage.getHeight();
+
+        // Create a PDF document with the first page being the same size as the PNG
+        final PDFDocument pdfDocument = PDFDocument.newInstance(new ASRectangle(new double[] { 0, 0, pageWidth,
+            pageHeight }),
+                                                                PDFOpenOptions.newInstance());
+
+        // Convert the BufferedImage to a PDFXObjectImage
+        final PDFXObjectImage image = ImageManager.getPDFImage(bufferedImage, pdfDocument);
+
+        // Create a default external graphics state which describes how graphics are to be rendered on a device.
+        final PDFExtGState pdfExtGState = PDFExtGState.newInstance(pdfDocument);
+
+        // Create a transformation matrix which maps positions from user coordinates to device coordinates. There is no
+        // transform taking place here though but it is a required parameter.
+        final ASMatrix asMatrix = new ASMatrix(pageWidth, 0, 0, pageHeight, 0, 0);
+
+        // Now add the image to the first PDF page using the graphics state and the transformation matrix.
+        ImageManager.insertImageInPDF(image,
+                                      pdfDocument.requirePages().getPage(0), // the first page of the document
+                                      pdfExtGState,
+                                      asMatrix);
+
+        return pdfDocument.requirePages().getPage(0);
+    }
+
+    private static ImageReader loadImage(final URL imagePath) throws Exception {
+        // Returns the reader that claims it can decode the given image
+        ImageReader reader = null;
+        final ImageInputStream imgStm = ImageIO.createImageInputStream(imagePath.openStream());
+        final Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(imgStm);
+        if (imageReaders.hasNext()) {
+            reader = imageReaders.next();
+            reader.setInput(imgStm, true);
+        }
+
+        return reader;
+    }
+
+    private static Double getMillimetersPerPixel(final IIOMetadata metadata) {
+        // This code assumes square pixels so it only gets the horizontal measurement
+        final IIOMetadataNode standardTree;
+        standardTree = (IIOMetadataNode) metadata.getAsTree(IIOMetadataFormatImpl.standardMetadataFormatName);
+        final IIOMetadataNode dimension = (IIOMetadataNode) standardTree.getElementsByTagName("Dimension").item(0);
+        final NodeList pixelSizes = dimension.getElementsByTagName("HorizontalPixelSize");
+
+        // If no physical dimensions were found, assume 1/72 of an inch
+        if (pixelSizes.getLength() <= 0) {
+            return DEFAULT_MM_PER_PIXEL;
+        }
+
+        final IIOMetadataNode pixelSize = (IIOMetadataNode) pixelSizes.item(0);
+
+        return Double.parseDouble(pixelSize.getAttribute("value"));
     }
 }
