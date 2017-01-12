@@ -550,6 +550,11 @@
                         <include>fix_throws_javadoc.sh</include>
                         <!-- all source files in a directory named util, in case the samples start picking those up -->
                         <include>src/**/util/**/*</include>
+                        <!-- Maven Wrapper files -->
+                        <include>.mvn/wrapper/maven-wrapper.jar</include>
+                        <include>.mvn/wrapper/maven-wrapper.properties</include>
+                        <include>mvnw</include>
+                        <include>mvnw.cmd</include>
                         <!-- specific reduced set of sample files -->
                         <include>src/main/java/com/datalogics/pdf/samples/creation/MakePdfFromImage.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/creation/HelloWorld.java</include>
