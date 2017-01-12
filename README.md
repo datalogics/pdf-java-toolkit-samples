@@ -11,7 +11,6 @@ evaluating Datalogics PDF Java Toolkit.
 ## Requirements
 
 * Java SE 1.7
-* Maven 3.3.9
 
 ## Using with an evaluation version of PDFJT
 
@@ -26,6 +25,10 @@ Move the license file to the top-level directory of the samples, so that it is i
 To use license-managed PDFJT, create a file called ``.use-pdfjt-lm`` in the top directory of this project. This will activate profiles automatically for Maven and Eclipse.
 
 If this project was received as part of an evaluation, then the ``.use-pdfjt-lm`` file is already created.
+
+## Building from the command line
+
+This project includes [maven-wrapper](https://github.com/datalogics/maven-wrapper), which fully encapsulates the build system required for PDF Java Toolkit. To build with Maven, simply type ``./mvnw`` at the command line (``.\mvnw`` on Windows).
 
 ## Tested IDEs
 
