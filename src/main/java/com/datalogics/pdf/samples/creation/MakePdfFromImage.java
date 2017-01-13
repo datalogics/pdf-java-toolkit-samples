@@ -65,7 +65,7 @@ public final class MakePdfFromImage {
         // If we don't, just use the defaults included in the sample.
         if (args.length > 1) {
             outputFileUrl = IoUtils.createUrlFromPath(args[0]);
-            final List<URL> inputImages = new ArrayList<URL>();
+            final List<URL> inputImages = new ArrayList<>();
             for (int i = 1; i < args.length; i++) {
                 inputImages.add(IoUtils.createUrlFromPath(args[i]));
             }
