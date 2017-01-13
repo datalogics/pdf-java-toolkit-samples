@@ -32,7 +32,7 @@ This project includes [maven-wrapper](https://github.com/datalogics/maven-wrappe
 
 ## Tested IDEs
 
-The samples were developed and tested using [Mars 4.5.0](https://eclipse.org/mars/)
+The samples were developed and tested using [Neon 4.6.2](https://eclipse.org/neon/)
 
 ## Using remote input PDF files with the samples
 
