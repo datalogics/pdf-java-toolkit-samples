@@ -35,7 +35,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
-    <pmdconfig.version>1.0.0-SNAPSHOT</pmdconfig.version>
+    <pmdconfig.version>2.0.0-SNAPSHOT</pmdconfig.version>
+    <pmdVersion>5.5.2</pmdVersion>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -254,7 +255,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.1</version>
+        <version>3.0.4</version>
         <executions>
           <execution>
             <goals>
@@ -282,7 +283,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.5</version>
+        <version>3.7</version>
         <executions>
           <execution>
             <goals>
@@ -297,6 +298,26 @@
             <artifactId>pmd-config</artifactId>
             <version>${pmdconfig.version}</version>
           </dependency>
+          <dependency>
+            <groupId>net.sourceforge.pmd</groupId>
+            <artifactId>pmd-core</artifactId>
+            <version>${pmdVersion}</version>
+          </dependency>
+          <dependency>
+            <groupId>net.sourceforge.pmd</groupId>
+            <artifactId>pmd-java</artifactId>
+            <version>${pmdVersion}</version>
+          </dependency>
+          <dependency>
+            <groupId>net.sourceforge.pmd</groupId>
+            <artifactId>pmd-javascript</artifactId>
+            <version>${pmdVersion}</version>
+          </dependency>
+          <dependency>
+            <groupId>net.sourceforge.pmd</groupId>
+            <artifactId>pmd-jsp</artifactId>
+            <version>${pmdVersion}</version>
+          </dependency>
         </dependencies>
         <configuration>
           <linkXRef>false</linkXRef>
@@ -304,6 +325,7 @@
             <!-- <ruleset>/com/datalogics/pmd_ruleset.xml</ruleset> -->
             <ruleset>${project.build.directory}/dependency/pmd-config/com/datalogics/pmd_ruleset.xml</ruleset>
           </rulesets>
+          <verbose>true</verbose>
         </configuration>
       </plugin>
       <plugin>

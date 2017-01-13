@@ -65,7 +65,7 @@ public class RunMainMethodsFromJarIntegrationTest {
         final Set<String> classes = getAllClassNamesInPackage();
 
         // Create the parameters for every main function in the candidate class
-        final ArrayList<Object[]> parameters = new ArrayList<Object[]>();
+        final ArrayList<Object[]> parameters = new ArrayList<>();
         for (final String className : classes) {
             final Class<?> klass = Class.forName(className);
 

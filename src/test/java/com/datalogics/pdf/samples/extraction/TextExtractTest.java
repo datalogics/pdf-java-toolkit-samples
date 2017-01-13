@@ -74,7 +74,7 @@ public class TextExtractTest extends SampleTest {
         final URL inputUrl = emptyPdf.toURI().toURL();
         final URL outputUrl = emptyTxt.toURI().toURL();
 
-        final ArrayList<LogRecord> logRecords = new ArrayList<LogRecord>();
+        final ArrayList<LogRecord> logRecords = new ArrayList<>();
         final Logger logger = Logger.getLogger(TextExtract.class.getName());
         try (LogRecordListCollector collector = new LogRecordListCollector(logger, logRecords)) {
             TextExtract.extractTextReadingOrder(inputUrl, outputUrl);

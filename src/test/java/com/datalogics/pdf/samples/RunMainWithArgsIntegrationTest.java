@@ -106,7 +106,7 @@ public class RunMainWithArgsIntegrationTest {
     @Parameters(name = "mainClass={0}")
     public static Iterable<Object[]> parameters() throws Exception {
         final Set<String> sampleClasses = RunMainMethodsFromJarIntegrationTest.getAllClassNamesInPackage();
-        final ArrayList<Object[]> mainArgs = new ArrayList<Object[]>();
+        final ArrayList<Object[]> mainArgs = new ArrayList<>();
         final String resourceDir = System.getProperty("user.dir") + SEP + "inputs" + SEP;
 
         final Map<String, String[]> argsMap = new HashMap<String, String[]>() {
