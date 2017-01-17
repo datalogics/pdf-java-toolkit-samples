@@ -28,7 +28,7 @@ If this project was received as part of an evaluation, then the ``.use-pdfjt-lm`
 
 ## Building from the command line
 
-This project includes [maven-wrapper](https://github.com/datalogics/maven-wrapper), which fully encapsulates the build system required for PDF Java Toolkit. To build with Maven, simply type ``./mvnw`` at the command line (``.\mvnw`` on Windows).
+This project includes [maven-wrapper](https://github.com/datalogics/maven-wrapper), which fully encapsulates the build system required for PDF Java Toolkit. To build with Maven, simply type ``./mvnw verify`` at the command line (``.\mvnw verify`` on Windows).
 
 ## Tested IDEs
 
