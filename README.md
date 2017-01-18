@@ -26,9 +26,14 @@ To use license-managed PDFJT, create a file called ``.use-pdfjt-lm`` in the top 
 
 If this project was received as part of an evaluation, then the ``.use-pdfjt-lm`` file is already created.
 
-## Building from the command line
+## Building and running from the command line
 
-This project includes [maven-wrapper](https://github.com/datalogics/maven-wrapper), which fully encapsulates the build system required for PDF Java Toolkit. To build with Maven, simply type ``./mvnw verify`` at the command line (``.\mvnw verify`` on Windows).
+This project includes [maven-wrapper](https://github.com/datalogics/maven-wrapper), which fully encapsulates the build system required for PDF Java Toolkit. Your system only requires a Java installation to build and run the samples.
+
+* To build with Maven, run ``./mvnw verify`` in the 'samples' folder (``.\mvnw verify`` on Windows).
+  * This will create a ``target`` folder with a set of build artifacts, including the ``pdf-java-toolkit-samples-lite-0.0.1-SNAPSHOT.jar`` file containing all the samples.
+* To run a sample, specify the JAR file and the fully qualified name of the sample to run. For example, to run the ``HelloWorld`` sample:
+  * ``java -cp target/pdf-java-toolkit-samples-lite-0.0.1-SNAPSHOT.jar com.datalogics.pdf.samples.creation.HelloWorld``
 
 ## Tested IDEs
 
