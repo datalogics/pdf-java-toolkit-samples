@@ -212,8 +212,11 @@ public final class FillForm {
         final InputStream formStream = inputDataUrl.openStream();
         XFDFService.importFormData(pdfDocument, formStream);
 
-        // Run calculations on the AcroForm...
-        FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+        // Run calculations on the AcroForm...only required before PDFJT 4.4.1
+        if (pdfjtIsBeforeVersion4()) {
+            FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+        }
+
         // Run formatting...
         FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
         // And generate appearances.
