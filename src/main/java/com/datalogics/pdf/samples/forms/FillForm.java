@@ -177,8 +177,6 @@ public final class FillForm {
         final FDFService fdfService = new FDFService(pdfDocument);
         fdfService.importForm(fdfDocument);
 
-        // Run calculations on the AcroForm...
-        FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
         // Run formatting...
         FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
         // And generate appearances.
