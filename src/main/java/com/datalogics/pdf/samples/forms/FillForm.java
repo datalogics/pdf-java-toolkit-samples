@@ -6,6 +6,7 @@ package com.datalogics.pdf.samples.forms;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.InputStreamByteReader;
+import com.adobe.pdfjt.Version;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
@@ -21,14 +22,17 @@ import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
+import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -177,8 +181,11 @@ public final class FillForm {
         final FDFService fdfService = new FDFService(pdfDocument);
         fdfService.importForm(fdfDocument);
 
-        // Run calculations on the AcroForm...
-        FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+        // Run calculations on the AcroForm...only required before PDFJT 4.4.1
+        if (pdfjtIsBeforeVersion4()) {
+            FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+        }
+
         // Run formatting...
         FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
         // And generate appearances.
@@ -205,8 +212,11 @@ public final class FillForm {
         final InputStream formStream = inputDataUrl.openStream();
         XFDFService.importFormData(pdfDocument, formStream);
 
-        // Run calculations on the AcroForm...
-        FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+        // Run calculations on the AcroForm...only required before PDFJT 4.4.1
+        if (pdfjtIsBeforeVersion4()) {
+            FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+        }
+
         // Run formatting...
         FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
         // And generate appearances.
@@ -332,6 +342,28 @@ public final class FillForm {
         final Result xmlFile = new StreamResult(xfaData);
         final Source newXml = new DOMSource(newDoc);
         transformer.transform(newXml, xmlFile);
+    }
+
+    /**
+     * Check to see if PDFJT is before version 4.0.0-SNAPSHOT.
+     *
+     * <p>
+     * This is necessary to accommodate both old and new dependencies on PDFJT. Uses the version.properties resource
+     * stored in PDFJT.
+     *
+     * @return is PDFJT before version 4.0.0-SNAPSHOT
+     * @throws IOException an I/O operation failed or was interrupted
+     */
+    public static boolean pdfjtIsBeforeVersion4() throws IOException {
+        try (final InputStream propertiesStream = Version.class.getResourceAsStream("version.properties")) {
+            final Properties versionProperties = new Properties();
+            versionProperties.load(propertiesStream);
+            final String pdfjtVersion = versionProperties.getProperty("Implementation-Version");
+
+            final DefaultArtifactVersion pdfjtArtifactVersion = new DefaultArtifactVersion(pdfjtVersion);
+            final DefaultArtifactVersion version400Snapshot = new DefaultArtifactVersion("4.0.0-SNAPSHOT");
+            return pdfjtArtifactVersion.compareTo(version400Snapshot) < 0;
+        }
     }
 
 }
