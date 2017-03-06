@@ -181,7 +181,7 @@ public final class FillForm {
         final FDFService fdfService = new FDFService(pdfDocument);
         fdfService.importForm(fdfDocument);
 
-        // Run calculations on the AcroForm...only required before PDFJT 4.4.1
+        // Run calculations on the AcroForm...only required before PDFJT 4.5.0
         if (pdfjtIsBeforeVersion4()) {
             FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
         }
@@ -212,7 +212,7 @@ public final class FillForm {
         final InputStream formStream = inputDataUrl.openStream();
         XFDFService.importFormData(pdfDocument, formStream);
 
-        // Run calculations on the AcroForm...only required before PDFJT 4.4.1
+        // Run calculations on the AcroForm...only required before PDFJT 4.5.0
         if (pdfjtIsBeforeVersion4()) {
             FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
         }
