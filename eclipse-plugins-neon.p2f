@@ -43,10 +43,9 @@
         <repository location='http://m2e-code-quality.github.io/m2e-code-quality/site/latest'/>
       </repositories>
     </iu>
-    <iu id='net.sourceforge.pmd.eclipse.feature.group' name='PMD Plug-in' version='4.0.10.v20160626-1043'>
-      <repositories size='2'>
-        <repository location='https://sourceforge.net/projects/pmd/files/pmd-eclipse/update-site/'/>
-        <repository location='http://sourceforge.net/projects/pmd/files/pmd-eclipse/update-site'/>
+    <iu id='net.sourceforge.pmd.eclipse.feature.group' name='PMD for Eclipse Update Site' version='4.0.10.v20160626-1043'>
+      <repositories size='1'>
+        <repository location='https://dl.bintray.com/pmd/pmd-eclipse-plugin/updates/'/>
       </repositories>
     </iu>
   </ius>
