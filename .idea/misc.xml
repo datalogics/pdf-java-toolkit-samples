@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EclipseCodeFormatter">
+    <option name="defaultSettings" value="true" />
+    <option name="disabledFileTypes" value="xml" />
+    <option name="formatter" value="ECLIPSE" />
+    <option name="id" value="1490890382938" />
+    <option name="importOrder" value="" />
+    <option name="importOrderConfigFilePath" value="$PROJECT_DIR$/.settings/org.eclipse.jdt.ui.prefs" />
+    <option name="importOrderFromFile" value="true" />
+    <option name="name" value="default" />
+    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" />
+    <option name="pathToEclipse" value="$USER_HOME$/eclipse/java-neon/Eclipse.app/Contents/Eclipse" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="PDMPlugin">
+    <option name="customRuleSets">
+      <list>
+        <option value="$PROJECT_DIR$/target/dependency/pmd-config/com/datalogics/pmd_ruleset.xml" />
+      </list>
+    </option>
+    <option name="options">
+      <map>
+        <entry key="Encoding" value="UTF-8" />
+        <entry key="Target JDK" value="1.7" />
+      </map>
+    </option>
+    <option name="skipTestSources" value="true" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="false" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
