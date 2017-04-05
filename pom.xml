@@ -333,6 +333,24 @@
         <version>2.10</version>
         <executions>
           <execution>
+            <id>unpack-checkstyle-config</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>com.datalogics</groupId>
+                  <artifactId>checkstyle-config</artifactId>
+                  <version>${checkstyle-config.version}</version>
+                  <type>jar</type>
+                  <outputDirectory>${project.build.directory}/dependency/checkstyle-config</outputDirectory>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+          <execution>
             <id>unpack-pmd-config</id>
             <phase>generate-resources</phase>
             <goals>
