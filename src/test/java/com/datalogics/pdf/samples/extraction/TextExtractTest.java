@@ -55,7 +55,7 @@ public class TextExtractTest extends SampleTest {
         final URL inputUrl = TextExtract.class.getResource(INPUT_PDF_PATH);
         final URL outputUrl = file.toURI().toURL();
 
-        TextExtract.extractTextReadingOrder(inputUrl, outputUrl);;
+        TextExtract.extractTextReadingOrder(inputUrl, outputUrl);
         assertTrue(file.getPath() + " must exist after run", file.exists());
 
         final String extractedText = contentsOfTextFile(file);
