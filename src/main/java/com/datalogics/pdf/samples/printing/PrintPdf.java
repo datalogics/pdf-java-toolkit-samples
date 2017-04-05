@@ -166,8 +166,8 @@ public class PrintPdf {
      *
      * <p>
      * This class interacts with the Java print architecture, providing a printable image of each page on demand. See
-     * the Java AWT {@link https://docs.oracle.com/javase/7/docs/api/java/awt/print/Printable.html Printable} interface
-     * for more information.
+     * the Java AWT <a href="https://docs.oracle.com/javase/7/docs/api/java/awt/print/Printable.html>Printable</a>
+     * interface for more information.
      */
     private static class BufferedImagePrintable implements Printable {
         private int previousPageIndex = -1;
