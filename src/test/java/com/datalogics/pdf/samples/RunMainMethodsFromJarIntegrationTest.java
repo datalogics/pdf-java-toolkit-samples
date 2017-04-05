@@ -55,7 +55,7 @@ public class RunMainMethodsFromJarIntegrationTest {
     Method mainMethod;
 
     /**
-     * Create a test for every class in com.datalogics.pdf.samples that has a <code>main</code> function.
+     * Create a test for every class in com.datalogics.pdf.samples that has a {@code main} function.
      *
      * @return list of argument lists to construct {@link RunMainMethodsFromJarIntegrationTest} test cases.
      * @throws Exception a general exception was thrown
