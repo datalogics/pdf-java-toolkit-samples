@@ -265,7 +265,7 @@ public final class RedactAndSanitizeDocument {
      * Apply preexisting redaction annotations to a document and save it to a file.
      *
      * @param document The document to apply the redaction to
-     * @param outputPath The redacted output document
+     * @param outputUrl The redacted output document
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      *         state

@@ -259,7 +259,7 @@ public final class FillForm {
     /**
      * Determine if the first element is an xfadataset root element as expected.
      *
-     * @param xfaData - a file containing XML form data
+     * @param inputDataUrl a file containing XML form data
      * @return a boolean indicating the presence of XFA header tags.
      * @throws Exception a general exception was thrown
      */
@@ -277,7 +277,7 @@ public final class FillForm {
     /**
      * Determine if the first child element is an xfadata element as expected.
      *
-     * @param xfaData - a file containing XML form data
+     * @param inputDataUrl a file containing XML form data
      * @return a boolean indicating the presence of XFA header tags.
      * @throws Exception a general exception was thrown
      */
