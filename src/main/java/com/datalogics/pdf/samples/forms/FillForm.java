@@ -7,6 +7,14 @@ package com.datalogics.pdf.samples.forms;
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.InputStreamByteReader;
 import com.adobe.pdfjt.Version;
+import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
+import com.adobe.pdfjt.core.exceptions.PDFFontException;
+import com.adobe.pdfjt.core.exceptions.PDFIOException;
+import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
+import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
+import com.adobe.pdfjt.core.exceptions.PDFInvalidXMLException;
+import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
+import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
@@ -30,6 +38,7 @@ import org.w3c.dom.Node;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
 import java.util.Properties;
@@ -181,18 +190,7 @@ public final class FillForm {
         final FDFService fdfService = new FDFService(pdfDocument);
         fdfService.importForm(fdfDocument);
 
-        // Run calculations on the AcroForm...only required before PDFJT 4.5.0
-        if (pdfjtIsBeforeVersion4()) {
-            FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
-        }
-
-        // Run formatting...
-        FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
-        // And generate appearances.
-        AppearanceService.generateAppearances(pdfDocument, null, null);
-
-        // Save the file.
-        DocumentHelper.saveFullAndClose(pdfDocument, outputUrl.toURI().getPath());
+        finishAndSaveForm(pdfDocument, outputUrl);
     }
 
     /**
@@ -213,12 +211,38 @@ public final class FillForm {
         XFDFService.importFormData(pdfDocument, formStream);
 
         // Run calculations on the AcroForm...only required before PDFJT 4.5.0
+        finishAndSaveForm(pdfDocument, outputUrl);
+    }
+
+    /**
+     * Run scripts, generate appearances, and save document.
+     *
+     * @param pdfDocument the document to complete and save
+     * @param outputUrl the URL to which to save the file
+     *
+     * @throws IOException
+     * @throws PDFUnableToCompleteOperationException
+     * @throws PDFInvalidDocumentException
+     * @throws PDFIOException
+     * @throws PDFSecurityException
+     * @throws PDFInvalidParameterException
+     * @throws PDFConfigurationException
+     * @throws PDFInvalidXMLException
+     * @throws PDFFontException
+     * @throws URISyntaxException
+     */
+    private static void finishAndSaveForm(final PDFDocument pdfDocument, final URL outputUrl)
+                    throws IOException, PDFInvalidDocumentException, PDFSecurityException, PDFIOException,
+                    PDFInvalidParameterException, PDFInvalidXMLException, PDFConfigurationException,
+                    PDFUnableToCompleteOperationException, PDFFontException, URISyntaxException {
         if (pdfjtIsBeforeVersion4()) {
+            // Run calculations scripts on the AcroForm...only required before PDFJT 4.5.0
             FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
+
+            // Run format scripts on the AcroForm...only required before PDFJT 4.7.0
+            FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
         }
 
-        // Run formatting...
-        FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
         // And generate appearances.
         AppearanceService.generateAppearances(pdfDocument, null, null);
 
