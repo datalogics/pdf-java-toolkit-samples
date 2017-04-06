@@ -1,0 +1,37 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="pre-integration-test" type="MavenRunConfiguration" factoryName="Maven">
+    <MavenSettings>
+      <option name="myGeneralSettings" />
+      <option name="myRunnerSettings" />
+      <option name="myRunnerParameters">
+        <MavenRunnerParameters>
+          <option name="profiles">
+            <set />
+          </option>
+          <option name="goals">
+            <list>
+              <option value="-DskipTests" />
+              <option value="-Dpmd.skip" />
+              <option value="-Dcpd.skip" />
+              <option value="-Dcheckstyle.skip" />
+              <option value="-Dfindbugs.skip" />
+              <option value="-Dmaven.javadoc.skip" />
+              <option value="-Dmaven.main.skip" />
+              <option value="-Dmaven.tests.skip" />
+              <option value="-Danimal.sniffer.skip" />
+              <option value="pre-integration-test" />
+            </list>
+          </option>
+          <option name="profilesMap">
+            <map>
+              <entry key="integration-tests" value="true" />
+            </map>
+          </option>
+          <option name="resolveToWorkspace" value="false" />
+          <option name="workingDirPath" value="$PROJECT_DIR$" />
+        </MavenRunnerParameters>
+      </option>
+    </MavenSettings>
+    <method />
+  </configuration>
+</component>
