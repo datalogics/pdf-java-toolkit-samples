@@ -6,6 +6,7 @@ package com.datalogics.pdf.samples.forms;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.InputStreamByteReader;
+import com.adobe.pdfjt.Version;
 import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
 import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
@@ -25,6 +26,7 @@ import com.adobe.pdfjt.services.xfdf.XFDFService;
 
 import com.datalogics.pdf.document.DocumentHelper;
 
+import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -35,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -166,6 +169,28 @@ public final class FormImporter {
     }
 
     /**
+     * Check to see if PDFJT is before version 4.0.0-SNAPSHOT.
+     *
+     * <p>
+     * This is necessary to accommodate both old and new dependencies on PDFJT. Uses the version.properties resource
+     * stored in PDFJT.
+     *
+     * @return is PDFJT before version 4.0.0-SNAPSHOT
+     * @throws IOException an I/O operation failed or was interrupted
+     */
+    public static boolean pdfjtIsBeforeVersion4() throws IOException {
+        try (final InputStream propertiesStream = Version.class.getResourceAsStream("version.properties")) {
+            final Properties versionProperties = new Properties();
+            versionProperties.load(propertiesStream);
+            final String pdfjtVersion = versionProperties.getProperty("Implementation-Version");
+
+            final DefaultArtifactVersion pdfjtArtifactVersion = new DefaultArtifactVersion(pdfjtVersion);
+            final DefaultArtifactVersion version400Snapshot = new DefaultArtifactVersion("4.0.0-SNAPSHOT");
+            return pdfjtArtifactVersion.compareTo(version400Snapshot) < 0;
+        }
+    }
+
+    /**
      * Run scripts, generate appearances, and save document.
      *
      * @param pdfDocument the document to complete and save
@@ -187,7 +212,7 @@ public final class FormImporter {
                     throws IOException, PDFInvalidDocumentException, PDFSecurityException, PDFIOException,
                     PDFInvalidParameterException, PDFInvalidXMLException, PDFConfigurationException,
                     PDFUnableToCompleteOperationException, PDFFontException, URISyntaxException {
-        if (FillForm.pdfjtIsBeforeVersion4()) {
+        if (pdfjtIsBeforeVersion4()) {
             // Run calculations scripts on the AcroForm...only required before PDFJT 4.5.0
             FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
 

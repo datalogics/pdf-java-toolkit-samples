@@ -122,7 +122,7 @@ public class FillFormTest extends SampleTest {
 
         assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
         checkForms(outputPdfFile.toURI().toURL(),
-                   FillForm.pdfjtIsBeforeVersion4() ? ACROFORM_XFDF_DATA_PDFJT_3 : ACROFORM_XFDF_DATA);
+                   FormImporter.pdfjtIsBeforeVersion4() ? ACROFORM_XFDF_DATA_PDFJT_3 : ACROFORM_XFDF_DATA);
     }
 
     @Test

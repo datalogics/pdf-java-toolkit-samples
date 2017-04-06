@@ -4,7 +4,6 @@
 
 package com.datalogics.pdf.samples.forms;
 
-import com.adobe.pdfjt.Version;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
@@ -13,13 +12,8 @@ import com.adobe.pdfjt.services.xfa.XFAService;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
-import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
-
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
-import java.util.Properties;
 
 /**
  * This sample will demonstrate how to fill different types of PDF forms. For Acroforms, FDF and XFDF form data formats
@@ -176,28 +170,6 @@ public final class FillForm {
     public static void fillXfa(final PDFDocument pdfDocument, final URL inputDataUrl, final URL outputUrl)
                     throws Exception {
         FormImporter.fillXfa(pdfDocument, inputDataUrl, outputUrl);
-    }
-
-    /**
-     * Check to see if PDFJT is before version 4.0.0-SNAPSHOT.
-     *
-     * <p>
-     * This is necessary to accommodate both old and new dependencies on PDFJT. Uses the version.properties resource
-     * stored in PDFJT.
-     *
-     * @return is PDFJT before version 4.0.0-SNAPSHOT
-     * @throws IOException an I/O operation failed or was interrupted
-     */
-    public static boolean pdfjtIsBeforeVersion4() throws IOException {
-        try (final InputStream propertiesStream = Version.class.getResourceAsStream("version.properties")) {
-            final Properties versionProperties = new Properties();
-            versionProperties.load(propertiesStream);
-            final String pdfjtVersion = versionProperties.getProperty("Implementation-Version");
-
-            final DefaultArtifactVersion pdfjtArtifactVersion = new DefaultArtifactVersion(pdfjtVersion);
-            final DefaultArtifactVersion version400Snapshot = new DefaultArtifactVersion("4.0.0-SNAPSHOT");
-            return pdfjtArtifactVersion.compareTo(version400Snapshot) < 0;
-        }
     }
 
 }
