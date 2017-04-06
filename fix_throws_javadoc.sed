@@ -16,3 +16,4 @@ s/^\(  *\*  *@throws UnsupportedEncodingException\).*$/\1 the character encoding
 s/^\(  *\*  *@throws UnsupportedFontException\).*$/\1 the font is not supported/
 s/^\(  *\*  *@throws ClassNotFoundException\).*$/\1 a class definition could not be found/
 s/^\(  *\*  *@throws URISyntaxException\).*$/\1 a string could not be parsed as a URI reference/
+s/^\(  *\*  *@throws PDFInvalidXMLException\).*$/\1 The XML passed to the method either directly or indirectly is invalid/

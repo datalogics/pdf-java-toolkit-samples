@@ -220,16 +220,16 @@ public final class FillForm {
      * @param pdfDocument the document to complete and save
      * @param outputUrl the URL to which to save the file
      *
-     * @throws IOException
-     * @throws PDFUnableToCompleteOperationException
-     * @throws PDFInvalidDocumentException
-     * @throws PDFIOException
-     * @throws PDFSecurityException
-     * @throws PDFInvalidParameterException
-     * @throws PDFConfigurationException
-     * @throws PDFInvalidXMLException
-     * @throws PDFFontException
-     * @throws URISyntaxException
+     * @throws IOException an I/O operation failed or was interrupted
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
+     * @throws PDFConfigurationException there was a system problem configuring PDF support
+     * @throws PDFInvalidXMLException The XML passed to the method either directly or indirectly is invalid
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws URISyntaxException a string could not be parsed as a URI reference
      */
     private static void finishAndSaveForm(final PDFDocument pdfDocument, final URL outputUrl)
                     throws IOException, PDFInvalidDocumentException, PDFSecurityException, PDFIOException,
