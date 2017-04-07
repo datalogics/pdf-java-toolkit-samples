@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -70,7 +71,7 @@ public final class FormImporter {
          */
         public static FormType valueOf(final URL fileUrl) {
             if (fileUrl == null) {
-                throw new NullPointerException();
+                throw new IllegalArgumentException("fileUrl must not be null");
             }
 
             final String format;
@@ -80,24 +81,15 @@ public final class FormImporter {
                 throw new IllegalArgumentException(e);
             }
 
-            if (XML_FORMAT.equalsIgnoreCase(format)) {
-                return XML;
+            try {
+                // The desired file extensions map directly onto the enum names
+                return valueOf(format.toUpperCase(Locale.US));
+            } catch (final IllegalArgumentException e) {
+                return UNKNOWN;
             }
-            if (FDF_FORMAT.equalsIgnoreCase(format)) {
-                return FDF;
-            }
-            if (XFDF_FORMAT.equalsIgnoreCase(format)) {
-                return XFDF;
-            }
-            return UNKNOWN;
         }
+
     }
-
-    // Accepted formats
-    public static final String XML_FORMAT = "XML";
-    public static final String FDF_FORMAT = "FDF";
-    public static final String XFDF_FORMAT = "XFDF";
-
     /**
      * This is a utility class, and won't be instantiated.
      */
