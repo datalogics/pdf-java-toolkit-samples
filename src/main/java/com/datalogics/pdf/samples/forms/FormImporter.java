@@ -91,6 +91,13 @@ public final class FormImporter {
         }
 
     }
+
+    // Some XML constants
+    private static final String XFA_DATA_ROOT_NODE = "xfa:datasets";
+    private static final String XFA_DATA_NS_URI = "http://www.xfa.org/schema/xfa-data/1.0/";
+    private static final String XFA_DATA_CHILD_NODE = "xfa:data";
+
+
     /**
      * This is a utility class, and won't be instantiated.
      */
@@ -339,7 +346,7 @@ public final class FormImporter {
         final Document xmlDoc = builder.parse(inputDataUrl.openStream());
         final String xmlRootName = xmlDoc.getDocumentElement().getNodeName();
 
-        return xmlRootName.equals(FillForm.XFA_DATA_ROOT_NODE);
+        return xmlRootName.equals(XFA_DATA_ROOT_NODE);
     }
 
     /**
@@ -360,7 +367,7 @@ public final class FormImporter {
         final Document xmlDoc = builder.parse(inputDataUrl.openStream());
         final String firstChildName = xmlDoc.getDocumentElement().getChildNodes().item(0).getNodeName();
 
-        return firstChildName.equals(FillForm.XFA_DATA_CHILD_NODE);
+        return firstChildName.equals(XFA_DATA_CHILD_NODE);
     }
 
     /**
@@ -381,7 +388,7 @@ public final class FormImporter {
         final Document oldDoc = builder.parse(xfaData);
         final Node oldRoot = oldDoc.getDocumentElement();
         final Document newDoc = builder.newDocument();
-        final Element newRoot = newDoc.createElementNS(FillForm.XFA_DATA_NS_URI, FillForm.XFA_DATA_ROOT_NODE);
+        final Element newRoot = newDoc.createElementNS(XFA_DATA_NS_URI, XFA_DATA_ROOT_NODE);
 
         newDoc.appendChild(newRoot);
         final Node dataNode = newRoot;
@@ -409,12 +416,12 @@ public final class FormImporter {
         final DocumentBuilder builder = factory.newDocumentBuilder();
 
         final Document oldDoc = builder.parse(xfaData);
-        final Node oldRoot = oldDoc.getElementsByTagName(FillForm.XFA_DATA_ROOT_NODE).item(0).getFirstChild();
+        final Node oldRoot = oldDoc.getElementsByTagName(XFA_DATA_ROOT_NODE).item(0).getFirstChild();
         final Document newDoc = builder.newDocument();
-        final Element newRoot = newDoc.createElementNS(FillForm.XFA_DATA_NS_URI, FillForm.XFA_DATA_ROOT_NODE);
+        final Element newRoot = newDoc.createElementNS(XFA_DATA_NS_URI, XFA_DATA_ROOT_NODE);
 
         newDoc.appendChild(newRoot);
-        final Node dataNode = newRoot.appendChild(newDoc.createElement(FillForm.XFA_DATA_CHILD_NODE));
+        final Node dataNode = newRoot.appendChild(newDoc.createElement(XFA_DATA_CHILD_NODE));
         dataNode.appendChild(newDoc.importNode(oldRoot, true));
 
         final Transformer transformer = TransformerFactory.newInstance().newTransformer();

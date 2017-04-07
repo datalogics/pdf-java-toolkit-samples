@@ -36,16 +36,6 @@ public final class FillForm {
     public static final String XFA_XML_DATA = "xfa_data.xml";
     public static final String XFA_OUTPUT = "xfa_output.pdf";
 
-    // Some XML constants
-    public static final String XFA_DATA_NS_URI = "http://www.xfa.org/schema/xfa-data/1.0/";
-    public static final String XFA_DATA_ROOT_NODE = "xfa:datasets";
-    public static final String XFA_DATA_CHILD_NODE = "xfa:data";
-
-    // Accepted formats
-    public static final String XML_FORMAT = "XML";
-    public static final String FDF_FORMAT = "FDF";
-    public static final String XFDF_FORMAT = "XFDF";
-
     /**
      * This is a utility class, and won't be instantiated.
      */
