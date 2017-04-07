@@ -25,6 +25,7 @@ import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 import com.adobe.pdfjt.services.xfdf.XFDFService;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
@@ -94,6 +95,64 @@ public final class FormImporter {
      * This is a utility class, and won't be instantiated.
      */
     private FormImporter() {}
+
+    /**
+     * Fill a PDF form with the provided data.
+     *
+     * @param inputFormUrl The form to be filled
+     * @param inputDataUrl The data with which to fill the form
+     * @param formType The type of form passed in
+     * @param outputUrl The file to which the filled form will be saved
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws IOException an I/O operation failed or was interrupted
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     * @throws PDFInvalidXMLException The XML passed to the method either directly or indirectly is invalid
+     * @throws PDFConfigurationException there was a system problem configuring PDF support
+     * @throws URISyntaxException a string could not be parsed as a URI reference
+     * @throws PDFFontException there was an error in the font set or an individual font
+     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
+     * @throws TransformerException an exceptional condition that occured during the transformation process
+     * @throws SAXException basic error or warning information from either the XML parser or the application
+     * @throws ParserConfigurationException a serious configuration error
+     */
+    public static void fillPdfForm(final URL inputFormUrl, final URL inputDataUrl,
+                                   final FormType formType, final URL outputUrl)
+                    throws PDFInvalidDocumentException, PDFSecurityException, PDFIOException, IOException,
+                    PDFUnableToCompleteOperationException, PDFInvalidXMLException, PDFConfigurationException,
+                    URISyntaxException, PDFFontException, PDFInvalidParameterException, TransformerException,
+                    SAXException, ParserConfigurationException {
+        final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(inputFormUrl);
+
+        // There are two types of forms that we can fill, so find out which kind we have here.
+        final PDFDocument.PDFDocumentType documentType = XFAService.getDocumentType(pdfDocument);
+
+        if (documentType == PDFDocument.PDFDocumentType.Acroform) {
+            // If this is an Acroform, make sure the form data is either FDF for XFDF.
+            if (formType == FormType.FDF) {
+                fillAcroformFdf(pdfDocument, inputDataUrl, outputUrl);
+            } else if (formType == FormType.XFDF) {
+                fillAcroformXfdf(pdfDocument, inputDataUrl, outputUrl);
+            } else {
+                throw new IllegalArgumentException("Invalid formData type for Acroform document. "
+                                                   + "FDF and XFDF supported.");
+            }
+        } else if (documentType.isXFA()) {
+            // If the document has an XFA form, make sure that we were passed an XML data file.
+            // Note that PDF Java Toolkit doesn't support generating appearances or running calculations on XFA forms
+            // (though field formatting is supported), so be sure to use Acrobat or another full-featured PDF viewer
+            // to verify the output. A viewer like OSX's Preview won't cut it.
+            if (formType == FormType.XML) {
+                fillXfa(pdfDocument, inputDataUrl, outputUrl);
+            } else {
+                throw new IllegalArgumentException("Invalid formData type for XFA document. XML supported.");
+            }
+        } else {
+            // If the form document is not XFA or Acroform, it's either not a form or it's something we don't support.
+            throw new IllegalArgumentException("PDF File does not contain an AcroForm or an XFA form.");
+        }
+    }
 
     /**
      * Fill an Acroform with FDF form data.

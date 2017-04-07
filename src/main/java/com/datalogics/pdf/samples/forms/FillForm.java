@@ -11,10 +11,7 @@ import static com.datalogics.pdf.samples.forms.FormImporter.FormType.XML;
 
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
-import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
-import com.adobe.pdfjt.services.xfa.XFAService;
 
-import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.net.URL;
@@ -106,35 +103,7 @@ public final class FillForm {
     public static void fillPdfForm(final URL inputFormUrl, final URL inputDataUrl,
                                    final FormImporter.FormType formType, final URL outputUrl)
                     throws Exception {
-        final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(inputFormUrl);
-
-        // There are two types of forms that we can fill, so find out which kind we have here.
-        final PDFDocumentType documentType = XFAService.getDocumentType(pdfDocument);
-
-        if (documentType == PDFDocumentType.Acroform) {
-            // If this is an Acroform, make sure the form data is either FDF for XFDF.
-            if (formType == FDF) {
-                fillAcroformFdf(pdfDocument, inputDataUrl, outputUrl);
-            } else if (formType == XFDF) {
-                fillAcroformXfdf(pdfDocument, inputDataUrl, outputUrl);
-            } else {
-                throw new IllegalArgumentException("Invalid formData type for Acroform document. "
-                                                   + "FDF and XFDF supported.");
-            }
-        } else if (documentType.isXFA()) {
-            // If the document has an XFA form, make sure that we were passed an XML data file.
-            // Note that PDF Java Toolkit doesn't support generating appearances or running calculations on XFA forms
-            // (though field formatting is supported), so be sure to use Acrobat or another full-featured PDF viewer
-            // to verify the output. A viewer like OSX's Preview won't cut it.
-            if (formType == XML) {
-                fillXfa(pdfDocument, inputDataUrl, outputUrl);
-            } else {
-                throw new IllegalArgumentException("Invalid formData type for XFA document. XML supported.");
-            }
-        } else {
-            // If the form document is not XFA or Acroform, it's either not a form or it's something we don't support.
-            throw new IllegalArgumentException("PDF File does not contain an AcroForm or an XFA form.");
-        }
+        FormImporter.fillPdfForm(inputFormUrl, inputDataUrl, formType, outputUrl);
     }
 
     /**
