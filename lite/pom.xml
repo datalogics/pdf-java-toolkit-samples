@@ -580,6 +580,7 @@
                         <include>src/main/java/com/datalogics/pdf/samples/creation/MakeWhiteFangBook.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/extraction/TextExtract.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/forms/FillForm.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/forms/FormImporter.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/images/ImageDownsampling.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/manipulation/ConvertPdfDocument.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/manipulation/RemoveInteractivity.java</include>
