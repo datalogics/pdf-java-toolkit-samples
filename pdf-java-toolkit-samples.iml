@@ -17,7 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/repo" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.code.findbugs:findbugs-annotations:3.0.1" level="project" />
