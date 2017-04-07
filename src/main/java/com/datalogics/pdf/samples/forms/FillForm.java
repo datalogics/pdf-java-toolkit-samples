@@ -4,6 +4,11 @@
 
 package com.datalogics.pdf.samples.forms;
 
+import static com.datalogics.pdf.samples.forms.FormImporter.FormType.FDF;
+import static com.datalogics.pdf.samples.forms.FormImporter.FormType.UNKNOWN;
+import static com.datalogics.pdf.samples.forms.FormImporter.FormType.XFDF;
+import static com.datalogics.pdf.samples.forms.FormImporter.FormType.XML;
+
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocument.PDFDocumentType;
@@ -13,7 +18,6 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
 import java.net.URL;
-import java.util.Locale;
 
 /**
  * This sample will demonstrate how to fill different types of PDF forms. For Acroforms, FDF and XFDF form data formats
@@ -68,25 +72,25 @@ public final class FillForm {
         if (args.length > 2) {
             final URL inputForm = IoUtils.createUrlFromPath(args[1]);
 
+            final FormImporter.FormType formType = FormImporter.FormType.valueOf(inputForm);
+
             final String format = IoUtils.getFileExtensionFromUrl(inputForm);
-            if (XML_FORMAT.equalsIgnoreCase(format)
-                || FDF_FORMAT.equalsIgnoreCase(format)
-                || XFDF_FORMAT.equalsIgnoreCase(format)) {
-                fillPdfForm(IoUtils.createUrlFromPath(args[0]), inputForm, format.toUpperCase(Locale.US),
-                            IoUtils.createUrlFromPath(args[2]));
-            } else {
+            if (formType == UNKNOWN) {
                 throw new IllegalArgumentException("Form data format of " + format
                                                    + " is not supported. Supported types: XML, FDF, and XFDF.");
+            } else {
+                fillPdfForm(IoUtils.createUrlFromPath(args[0]), inputForm, formType,
+                            IoUtils.createUrlFromPath(args[2]));
             }
         } else {
             final Class<FillForm> classReference = FillForm.class;
             fillPdfForm(classReference.getResource(ACROFORM_FDF_INPUT), classReference.getResource(ACROFORM_FDF_DATA),
-                        FDF_FORMAT, IoUtils.createUrlFromPath(ACROFORM_FDF_OUTPUT));
+                        FDF, IoUtils.createUrlFromPath(ACROFORM_FDF_OUTPUT));
             fillPdfForm(classReference.getResource(ACROFORM_XFDF_INPUT),
-                        classReference.getResource(ACROFORM_XFDF_DATA), XFDF_FORMAT,
+                        classReference.getResource(ACROFORM_XFDF_DATA), XFDF,
                         IoUtils.createUrlFromPath(ACROFORM_XFDF_OUTPUT));
-            fillPdfForm(classReference.getResource(XFA_PDF_INPUT), classReference.getResource(XFA_XML_DATA),
-                        XML_FORMAT, IoUtils.createUrlFromPath(XFA_OUTPUT));
+            fillPdfForm(classReference.getResource(XFA_PDF_INPUT), classReference.getResource(XFA_XML_DATA), XML,
+                        IoUtils.createUrlFromPath(XFA_OUTPUT));
         }
     }
 
@@ -99,8 +103,8 @@ public final class FillForm {
      * @param outputUrl The file to which the filled form will be saved
      * @throws Exception a general exception was thrown
      */
-    public static void fillPdfForm(final URL inputFormUrl, final URL inputDataUrl, final String formType,
-                                   final URL outputUrl)
+    public static void fillPdfForm(final URL inputFormUrl, final URL inputDataUrl,
+                                   final FormImporter.FormType formType, final URL outputUrl)
                     throws Exception {
         final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(inputFormUrl);
 
@@ -109,9 +113,9 @@ public final class FillForm {
 
         if (documentType == PDFDocumentType.Acroform) {
             // If this is an Acroform, make sure the form data is either FDF for XFDF.
-            if (FDF_FORMAT.equalsIgnoreCase(formType)) {
+            if (formType == FDF) {
                 fillAcroformFdf(pdfDocument, inputDataUrl, outputUrl);
-            } else if (XFDF_FORMAT.equalsIgnoreCase(formType)) {
+            } else if (formType == XFDF) {
                 fillAcroformXfdf(pdfDocument, inputDataUrl, outputUrl);
             } else {
                 throw new IllegalArgumentException("Invalid formData type for Acroform document. "
@@ -122,7 +126,7 @@ public final class FillForm {
             // Note that PDF Java Toolkit doesn't support generating appearances or running calculations on XFA forms
             // (though field formatting is supported), so be sure to use Acrobat or another full-featured PDF viewer
             // to verify the output. A viewer like OSX's Preview won't cut it.
-            if (XML_FORMAT.equalsIgnoreCase(formType)) {
+            if (formType == XML) {
                 fillXfa(pdfDocument, inputDataUrl, outputUrl);
             } else {
                 throw new IllegalArgumentException("Invalid formData type for XFA document. XML supported.");

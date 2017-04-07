@@ -25,6 +25,7 @@ import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 import com.adobe.pdfjt.services.xfdf.XFDFService;
 
 import com.datalogics.pdf.document.DocumentHelper;
+import com.datalogics.pdf.samples.util.IoUtils;
 
 import org.apache.maven.artifact.versioning.DefaultArtifactVersion;
 import org.w3c.dom.Document;
@@ -54,6 +55,48 @@ import javax.xml.transform.stream.StreamResult;
  * Provide support for importing forms.
  */
 public final class FormImporter {
+
+    public enum FormType {
+        FDF,
+        XFDF,
+        XML,
+        UNKNOWN;
+
+        /**
+         * Determine the form type from a file extension.
+         *
+         * @param fileUrl the URL from which to determine the form type
+         * @return the form type
+         */
+        public static FormType valueOf(final URL fileUrl) {
+            if (fileUrl == null) {
+                throw new NullPointerException();
+            }
+
+            final String format;
+            try {
+                format = IoUtils.getFileExtensionFromUrl(fileUrl);
+            } catch (final URISyntaxException e) {
+                throw new IllegalArgumentException(e);
+            }
+
+            if (XML_FORMAT.equalsIgnoreCase(format)) {
+                return XML;
+            }
+            if (FDF_FORMAT.equalsIgnoreCase(format)) {
+                return FDF;
+            }
+            if (XFDF_FORMAT.equalsIgnoreCase(format)) {
+                return XFDF;
+            }
+            return UNKNOWN;
+        }
+    }
+
+    // Accepted formats
+    public static final String XML_FORMAT = "XML";
+    public static final String FDF_FORMAT = "FDF";
+    public static final String XFDF_FORMAT = "XFDF";
 
     /**
      * This is a utility class, and won't be instantiated.
