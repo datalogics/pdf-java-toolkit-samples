@@ -94,7 +94,7 @@ public final class MergeDocuments {
     /**
      * Append a PDF file to the end of an existing PDF document.
      *
-     * @param resourceName The name of the resource to be appended
+     * @param inputUrl The name of the resource to be appended
      * @param pdfDocument The document object to which a new PDF should be appended
      * @throws Exception a general exception was thrown
      */
