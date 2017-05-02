@@ -15,6 +15,7 @@ import com.adobe.pdfjt.core.exceptions.PDFUnsupportedFeatureException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationEnum;
+import com.adobe.pdfjt.services.ap.AppearanceService;
 import com.adobe.pdfjt.services.ap.spi.APContext;
 import com.adobe.pdfjt.services.ap.spi.APResources;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
@@ -126,6 +127,10 @@ public final class RemoveInteractivity {
 
         try {
             pdfDoc = DocumentUtils.openPdfDocument(inputUrl);
+
+            // Before removing any interactive elements, generate their appearances using the AppearanceService
+            // to ensure that the document has all required appearances so the document looks correct at the end.
+            AppearanceService.generateAppearances(pdfDoc, null, null);
 
             // Remove interactivity of the signature fields so they can no longer be changed. Omit the next two lines
             // if you want to preserve signature interactivity.
