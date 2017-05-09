@@ -136,8 +136,18 @@ public class ExportFormDataToCsv {
             if (formattedValue != null) {
                 writer.write(formattedValue);
             } else {
-                writer.write(" ");
-                LOGGER.warning(field.getQualifiedName() + " has no value!");
+                final List value = field.getValueList();
+                if (value != null) {
+                    // If the list of values is not empty, write out only the first one.
+                    // For more complex forms, the field type should be inspected to
+                    // determine how to handle extracting the values.
+                    writer.write(value.get(0).toString());
+                    LOGGER.warning(field.getQualifiedName()
+                                   + " has no formatting rules! Writing out non formatted value!");
+                } else {
+                    writer.write(" ");
+                    LOGGER.warning(field.getQualifiedName() + " has no value!");
+                }
             }
 
             writeComma(writer);
