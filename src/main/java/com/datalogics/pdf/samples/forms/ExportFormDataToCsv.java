@@ -32,12 +32,12 @@ public class ExportFormDataToCsv {
 
     /**
      * @param args
-     * @throws IOException
-     * @throws PDFSecurityException
-     * @throws PDFIOException
-     * @throws PDFInvalidDocumentException
-     * @throws PDFUnableToCompleteOperationException
-     * @throws URISyntaxException
+     * @throws IOException an I/O operation failed or was interrupted
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     * @throws URISyntaxException a string could not be parsed as a URI reference
      */
     public static void main(final String[] args) throws PDFInvalidDocumentException, PDFIOException,
                     PDFSecurityException, IOException, PDFUnableToCompleteOperationException, URISyntaxException {
@@ -58,16 +58,17 @@ public class ExportFormDataToCsv {
     }
 
     /**
-     * Export the form data to a comma separated form (CSV)
+     * Export the form data to a comma separated form (CSV). The first row that is written out in the CSV contains the
+     * qualified field names and the second row contains the field values.
      *
      * @param inputUrl
      * @param outputUrl
-     * @throws IOException
-     * @throws PDFSecurityException
-     * @throws PDFIOException
-     * @throws PDFInvalidDocumentException
-     * @throws PDFUnableToCompleteOperationException
-     * @throws URISyntaxException
+     * @throws IOException an I/O operation failed or was interrupted
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
+     * @throws URISyntaxException a string could not be parsed as a URI reference
      */
     public static void exportFormFields(final URL inputUrl, final URL outputUrl) throws PDFInvalidDocumentException,
                     PDFIOException, PDFSecurityException, IOException, PDFUnableToCompleteOperationException,
@@ -96,9 +97,9 @@ public class ExportFormDataToCsv {
      * Export the form field names in comma separated form
      *
      * @param writer
-     * @throws PDFSecurityException
-     * @throws PDFIOException
-     * @throws PDFInvalidDocumentException
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      */
     private static void exportFieldNames(final PDFInteractiveForm form, final PrintWriter writer)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
@@ -120,9 +121,9 @@ public class ExportFormDataToCsv {
      *
      * @param form
      * @param writer
-     * @throws PDFInvalidDocumentException
-     * @throws PDFIOException
-     * @throws PDFSecurityException
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     private static void exportFieldValues(final PDFInteractiveForm form, final PrintWriter writer)
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
