@@ -31,7 +31,7 @@ public class ExportFormDataToCsv {
     private static final Logger LOGGER = Logger.getLogger(ExportFormDataToCsv.class.getName());
 
     /**
-     * @param args
+     * @param args path to an input PDF and a path to write the CSV output to
      * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
@@ -61,8 +61,8 @@ public class ExportFormDataToCsv {
      * Export the form data to a comma separated form (CSV). The first row that is written out in the CSV contains the
      * qualified field names and the second row contains the field values.
      *
-     * @param inputUrl
-     * @param outputUrl
+     * @param inputUrl path to the input PDF file
+     * @param outputUrl path to write the CSV output file to
      * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
@@ -96,7 +96,8 @@ public class ExportFormDataToCsv {
     /**
      * Export the form field names in comma separated form
      *
-     * @param writer
+     * @param form PDFInteractiveForm that will have its field values exported
+     * @param writer PrintWriter that will be used to write out the field names
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
@@ -119,8 +120,8 @@ public class ExportFormDataToCsv {
      * Export the values in the form fields, using their formatted values, in comma separated form. If no value is found
      * in the field, a space is written instead
      *
-     * @param form
-     * @param writer
+     * @param form PDFInteractiveForm that will have its field values exported
+     * @param writer PrintWriter that will be used to write out the field values
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
@@ -146,7 +147,7 @@ public class ExportFormDataToCsv {
     /**
      * Write a "," (comma) to the provided PrintWriter
      *
-     * @param writer
+     * @param writer PrintWriter that will be used to write out a comma
      */
     private static void writeComma(final PrintWriter writer) {
         writer.write(",");
@@ -155,7 +156,7 @@ public class ExportFormDataToCsv {
     /**
      * Write a new line, using the system defined line separator, to the provided PrintWriter
      *
-     * @param writer
+     * @param writer PrintWriter that will be used to write out the line separator based on System property
      */
     private static void writeNewLine(final PrintWriter writer) {
         writer.write(System.getProperty("line.separator"));
