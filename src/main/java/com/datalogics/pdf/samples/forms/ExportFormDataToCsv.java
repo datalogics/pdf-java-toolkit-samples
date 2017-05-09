@@ -21,13 +21,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
  * This sample demonstrates exporting data from PDF form fields with formatting to a CSV file.
  */
 public class ExportFormDataToCsv {
+    public static final String DEFAULT_INPUT = "/com/datalogics/pdf/samples/forms/filled_acroform.pdf";
+    public static final String CSV_OUTPUT = "exported-form-data.csv";
+
     private static final Logger LOGGER = Logger.getLogger(ExportFormDataToCsv.class.getName());
 
     /**
@@ -52,9 +57,12 @@ public class ExportFormDataToCsv {
         if (args.length > 0) {
             inputUrl = IoUtils.createUrlFromPath(args[0]);
             outputUrl = IoUtils.createUrlFromPath(args[1]);
-
-            exportFormFields(inputUrl, outputUrl);
+        } else {
+            inputUrl = ExportFormDataToCsv.class.getResource(DEFAULT_INPUT);
+            outputUrl = IoUtils.createUrlFromPath(CSV_OUTPUT);
         }
+
+        exportFormFields(inputUrl, outputUrl);
     }
 
     /**
@@ -78,17 +86,18 @@ public class ExportFormDataToCsv {
         final PDFInteractiveForm form = pdfDocument.getInteractiveForm();
 
         final File outputFile = new File(outputUrl.toURI());
-
-        if (outputFile.createNewFile()) {
-            final PrintWriter writer = new PrintWriter(outputFile);
-
-            exportFieldNames(form, writer);
-
-            exportFieldValues(form, writer);
-
-            writer.flush();
-            writer.close();
+        if (outputFile.exists()) {
+            Files.delete(outputFile.toPath());
         }
+
+        final PrintWriter writer = new PrintWriter(outputFile);
+
+        exportFieldNames(form, writer);
+
+        exportFieldValues(form, writer);
+
+        writer.flush();
+        writer.close();
 
         pdfDocument.close();
     }
