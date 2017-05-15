@@ -16,8 +16,9 @@ import org.junit.Test;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,7 @@ public class ExportFormDataToCsvTest extends SampleTest {
         ExportFormDataToCsv.exportFormFields(inputUrl, outputCsvFile.toURI().toURL());
         assertTrue(outputCsvFile.getPath() + " must exist after run", outputCsvFile.exists());
 
-        final BufferedReader in = new BufferedReader(new FileReader(outputCsvFile));
+        final BufferedReader in = Files.newBufferedReader(outputCsvFile.toPath(), StandardCharsets.UTF_8);
         final Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
         final List<CSVRecord> recordsAsList = IteratorUtils.toList(records.iterator());
 
