@@ -27,6 +27,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -155,16 +156,20 @@ public class ExportFormDataToCsv {
             final String formattedValue = field.getFormattedValue();
             if (formattedValue == null) {
                 final List value = field.getValueList();
-                if (value != null) {
+                if (value == null) {
                     printer.print("");
-                    LOGGER.warning(field.getQualifiedName() + " has no value!");
+                    if (LOGGER.isLoggable(Level.WARNING)) {
+                        LOGGER.warning(field.getQualifiedName() + " has no value!");
+                    }
                 } else {
                     // If the list of values is not empty, write out only the first one.
                     // For more complex forms, the field type should be inspected to
                     // determine how to handle extracting the values.
                     printer.print(value.get(0).toString());
-                    LOGGER.warning(field.getQualifiedName()
-                                   + " has no formatting rules! Writing out non formatted value!");
+                    if (LOGGER.isLoggable(Level.WARNING)) {
+                        LOGGER.warning(field.getQualifiedName()
+                                       + " has no formatting rules! Writing out non formatted value!");
+                    }
                 }
             } else {
                 printer.print(formattedValue);
