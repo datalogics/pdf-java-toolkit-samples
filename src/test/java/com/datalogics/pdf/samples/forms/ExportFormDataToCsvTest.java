@@ -73,7 +73,8 @@ public class ExportFormDataToCsvTest extends SampleTest {
                     throws Exception {
         for (final CSVRecord record : records) {
             final Map<String, String> recordAsMap = record.toMap();
-            assertEquals("Record size should match expected CSV data size", expectedCsvData.size(), recordAsMap.size());
+            assertEquals("Record size should match expected CSV data size", expectedCsvData.size(),
+                         recordAsMap.size());
             assertEquals("", recordAsMap, expectedCsvData);
             recordAsMap.clear();
         }
