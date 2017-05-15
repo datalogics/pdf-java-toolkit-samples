@@ -153,21 +153,21 @@ public class ExportFormDataToCsv {
             final PDFField field = fieldIterator.next();
 
             final String formattedValue = field.getFormattedValue();
-            if (formattedValue != null) {
-                printer.print(formattedValue);
-            } else {
+            if (formattedValue == null) {
                 final List value = field.getValueList();
                 if (value != null) {
+                    printer.print("");
+                    LOGGER.warning(field.getQualifiedName() + " has no value!");
+                } else {
                     // If the list of values is not empty, write out only the first one.
                     // For more complex forms, the field type should be inspected to
                     // determine how to handle extracting the values.
                     printer.print(value.get(0).toString());
                     LOGGER.warning(field.getQualifiedName()
                                    + " has no formatting rules! Writing out non formatted value!");
-                } else {
-                    printer.print("");
-                    LOGGER.warning(field.getQualifiedName() + " has no value!");
                 }
+            } else {
+                printer.print(formattedValue);
             }
         }
     }
