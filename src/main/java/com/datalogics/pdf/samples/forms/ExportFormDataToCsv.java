@@ -33,7 +33,7 @@ import java.util.logging.Logger;
 /**
  * This sample demonstrates exporting data from PDF form fields with formatting to a CSV file.
  */
-public class ExportFormDataToCsv {
+public final class ExportFormDataToCsv {
     public static final String DEFAULT_INPUT = "filled_acroform.pdf";
     public static final String CSV_OUTPUT = "exported-form-data.csv";
 
