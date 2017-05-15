@@ -39,6 +39,11 @@ public class ExportFormDataToCsv {
     private static final Logger LOGGER = Logger.getLogger(ExportFormDataToCsv.class.getName());
 
     /**
+     * This is a utility class, and won't be instantiated.
+     */
+    private ExportFormDataToCsv() {}
+
+    /**
      * Export the form data from a PDF as a CSV file.
      *
      * @param args path to an input PDF and a path to write the CSV output to
