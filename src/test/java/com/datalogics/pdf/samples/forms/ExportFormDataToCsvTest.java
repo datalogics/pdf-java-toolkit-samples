@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class ExportFormDataToCsvTest extends SampleTest {
     private static final int DEFAULT_SAMPLE_INPUT_RECORD_SIZE = 1;
-    private static final HashMap<String, String> DEFAULT_SAMPLE_INPUT_EXPECTED_CSV_DATA = new HashMap<String, String>() {
+    private static final HashMap<String, String> DEFAULT_SAMPLE_OUTPUT_CSV_DATA = new HashMap<String, String>() {
         private static final long serialVersionUID = -5083671805004050295L;
 
         {
@@ -66,7 +66,7 @@ public class ExportFormDataToCsvTest extends SampleTest {
         assertEquals("There should be one record for the default sample input",
                      DEFAULT_SAMPLE_INPUT_RECORD_SIZE, recordsAsList.size());
 
-        checkCsvRecordValues(recordsAsList, DEFAULT_SAMPLE_INPUT_EXPECTED_CSV_DATA);
+        checkCsvRecordValues(recordsAsList, DEFAULT_SAMPLE_OUTPUT_CSV_DATA);
     }
 
     private void checkCsvRecordValues(final List<CSVRecord> records, final HashMap<String, String> expectedCsvData)
