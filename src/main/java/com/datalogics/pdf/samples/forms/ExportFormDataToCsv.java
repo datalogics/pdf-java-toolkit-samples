@@ -101,18 +101,14 @@ public final class ExportFormDataToCsv {
             Files.delete(outputFile.toPath());
         }
 
-        final PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
+        try (final PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
+             final CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL)) {
 
-        final CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL);
+            exportFieldNames(form, printer);
 
-        exportFieldNames(form, printer);
+            exportFieldValues(form, printer);
 
-        exportFieldValues(form, printer);
-
-        printer.close();
-
-        writer.flush();
-        writer.close();
+        }
 
         pdfDocument.close();
     }
