@@ -92,25 +92,31 @@ public final class ExportFormDataToCsv {
     public static void exportFormFields(final URL inputUrl, final URL outputUrl) throws PDFInvalidDocumentException,
                     PDFIOException, PDFSecurityException, IOException, PDFUnableToCompleteOperationException,
                     URISyntaxException {
-        final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(inputUrl);
+        PDFDocument pdfDocument = null;
 
-        final PDFInteractiveForm form = pdfDocument.getInteractiveForm();
+        try {
+            pdfDocument = DocumentUtils.openPdfDocument(inputUrl);
 
-        final File outputFile = new File(outputUrl.toURI());
-        if (outputFile.exists()) {
-            Files.delete(outputFile.toPath());
+            final PDFInteractiveForm form = pdfDocument.getInteractiveForm();
+
+            final File outputFile = new File(outputUrl.toURI());
+            if (outputFile.exists()) {
+                Files.delete(outputFile.toPath());
+            }
+
+            try (final PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
+                 final CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL)) {
+
+                exportFieldNames(form, printer);
+
+                exportFieldValues(form, printer);
+
+            }
+        } finally {
+            if (pdfDocument != null) {
+                pdfDocument.close();
+            }
         }
-
-        try (final PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
-             final CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL)) {
-
-            exportFieldNames(form, printer);
-
-            exportFieldValues(form, printer);
-
-        }
-
-        pdfDocument.close();
     }
 
     /**
