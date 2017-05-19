@@ -15,6 +15,7 @@ import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 
 import com.datalogics.pdf.samples.SampleTest;
 import com.datalogics.pdf.samples.util.DocumentUtils;
+import com.datalogics.pdf.samples.util.VersionUtils;
 
 import org.junit.Test;
 
@@ -122,7 +123,7 @@ public class FillFormTest extends SampleTest {
 
         assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
         checkForms(outputPdfFile.toURI().toURL(),
-                   FormImporter.pdfjtIsBeforeVersion4() ? ACROFORM_XFDF_DATA_PDFJT_3 : ACROFORM_XFDF_DATA);
+                   VersionUtils.pdfjtIsBeforeVersion4() ? ACROFORM_XFDF_DATA_PDFJT_3 : ACROFORM_XFDF_DATA);
     }
 
     @Test
