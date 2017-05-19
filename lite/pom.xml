@@ -59,6 +59,11 @@
       <version>2.4</version>
     </dependency>
     <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>findbugs-annotations</artifactId>
       <version>3.0.1</version>
@@ -579,6 +584,7 @@
                         <include>src/main/java/com/datalogics/pdf/samples/creation/HelloWorld.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/creation/MakeWhiteFangBook.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/extraction/TextExtract.java</include>
+                        <include>src/main/java/com/datalogics/pdf/samples/forms/ExportFormDataToCsv.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/forms/FillForm.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/forms/FormImporter.java</include>
                         <include>src/main/java/com/datalogics/pdf/samples/images/ImageDownsampling.java</include>
@@ -598,6 +604,7 @@
                         <include>src/main/resources/com/datalogics/pdf/samples/forms/acroform_fdf.pdf</include>
                         <include>src/main/resources/com/datalogics/pdf/samples/forms/acroform_xfdf.pdf</include>
                         <include>src/main/resources/com/datalogics/pdf/samples/forms/acroform_xfdf.xfdf</include>
+                        <include>src/main/resources/com/datalogics/pdf/samples/forms/filled_acroform.pdf</include>
                         <include>src/main/resources/com/datalogics/pdf/samples/forms/xfa_data.xml</include>
                         <include>src/main/resources/com/datalogics/pdf/samples/forms/xfa_form.pdf</include>
                         <include>src/main/resources/com/datalogics/pdf/samples/images/ducky.pdf</include>
@@ -623,6 +630,7 @@
                         <include>src/test/java/com/datalogics/pdf/samples/creation/HelloWorldTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/creation/MakeWhiteFangBookTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/extraction/TextExtractTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/forms/ExportFormDataToCsvTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/forms/FillFormTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/images/ImageDownsamplingTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/manipulation/ConvertPdfDocumentTest.java</include>
