@@ -39,4 +39,23 @@ public class VersionUtils {
         }
     }
 
+    /**
+     * Checks if the version string passed in matches the string for the current PDFJT.
+     *
+     * @param versionToCompare String specifying version to check against
+     * @return is this the current version of PDFJT
+     * @throws IOException an I/O operation failed or was interrupted
+     */
+    public static boolean pdfjtIsBeforeVersion(final String versionToCompare) throws IOException {
+        try (final InputStream propertiesStream = Version.class.getResourceAsStream("version.properties")) {
+            final Properties versionProperties = new Properties();
+            versionProperties.load(propertiesStream);
+            final String pdfjtVersion = versionProperties.getProperty("Implementation-Version");
+
+            final DefaultArtifactVersion pdfjtArtifactVersion = new DefaultArtifactVersion(pdfjtVersion);
+            final DefaultArtifactVersion version = new DefaultArtifactVersion(versionToCompare);
+            return pdfjtArtifactVersion.compareTo(version) < 0;
+        }
+    }
+
 }
