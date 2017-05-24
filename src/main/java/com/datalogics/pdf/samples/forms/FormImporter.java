@@ -289,7 +289,7 @@ public final class FormImporter {
                     throws IOException, PDFInvalidDocumentException, PDFSecurityException, PDFIOException,
                     PDFInvalidParameterException, PDFInvalidXMLException, PDFConfigurationException,
                     PDFUnableToCompleteOperationException, PDFFontException, URISyntaxException {
-        if (VersionUtils.pdfjtIsBeforeVersion4()) {
+        if (VersionUtils.pdfjtIsBeforeVersion("4.0.0-SNAPSHOT")) {
             // Run calculations scripts on the AcroForm...only required before PDFJT 4.5.0
             FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
 
