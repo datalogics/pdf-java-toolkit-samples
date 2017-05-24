@@ -15,7 +15,9 @@ import java.util.Properties;
 /**
  * Utility class that holds methods related to checking the version of PDF Java Toolkit components.
  */
-public class VersionUtils {
+public final class VersionUtils {
+
+    private VersionUtils() {}
 
     /**
      * Check to see if PDFJT is before version 4.0.0-SNAPSHOT.
