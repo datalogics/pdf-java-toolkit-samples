@@ -164,9 +164,11 @@
           <target>1.7</target>
           <excludes>
             <exclude>com/datalogics/pdf/samples/extraction/TextCharacterBoxes.java</exclude>
+            <exclude>com/datalogics/pdf/samples/forms/ExportFormDataToCsv.java</exclude>
           </excludes>
           <testExcludes>
             <testExclude>com/datalogics/pdf/samples/extraction/TextCharacterBoxesTest.java</testExclude>
+            <testExclude>com/datalogics/pdf/samples/forms/ExportFormDataToCsvTest.java</testExclude>
           </testExcludes>
         </configuration>
       </plugin>
@@ -191,6 +193,7 @@
           </docletArtifact>
           <sourceFileExcludes>
             <sourceFileExclude>**/TextCharacterBoxes.java</sourceFileExclude>
+            <sourceFileExclude>**/ExportFormDataToCsv.java</sourceFileExclude>
           </sourceFileExcludes>
         </configuration>
       </plugin>
