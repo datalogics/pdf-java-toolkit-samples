@@ -8,8 +8,14 @@ import com.adobe.pdfjt.core.license.LicenseManager;
 
 import com.datalogics.pdf.samples.util.IoUtils;
 
-import java.net.MalformedURLException;
+import htmlflow.HtmlView;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.logging.Logger;
 
 /**
@@ -28,9 +34,10 @@ public class ConvertAcroFormToHtml {
 
     /**
      * @param args
-     * @throws MalformedURLException
+     * @throws IOException
+     * @throws URISyntaxException
      */
-    public static void main(final String[] args) throws MalformedURLException {
+    public static void main(final String[] args) throws URISyntaxException, IOException {
         // If you are using an evaluation version of the product (License Managed, or LM), set the path to where PDFJT
         // can find the license file.
         //
@@ -55,7 +62,35 @@ public class ConvertAcroFormToHtml {
      *
      * @param inputUrl
      * @param outputUrl
+     * @throws URISyntaxException
+     * @throws IOException
      */
-    public static void createHtmlForm(final URL inputUrl, final URL outputUrl) {
+    public static void createHtmlForm(final URL inputUrl, final URL outputUrl) throws URISyntaxException, IOException {
+        // Use the sample code from the README of HtmlFlow as a starting point
+        // https://github.com/fmcarvalho/HtmlFlow/blob/master/Readme.md
+        final HtmlView<?> taskView = new HtmlView<>();
+        taskView
+                .head()
+                .title("Task Details")
+                .linkCss("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
+        taskView
+                .body().classAttr("container")
+                .heading(1, "Task Details")
+                .hr()
+                .div()
+                .text("Title: ").text("ISEL MPD project")
+                .br()
+                .text("Description: ").text("A Java library for serializing objects in HTML.")
+                .br()
+                .text("Priority: ").text("HIGH");
+
+        final File outputFile = new File(outputUrl.toURI());
+        if (outputFile.exists()) {
+            Files.delete(outputFile.toPath());
+        }
+
+        try (PrintStream out = new PrintStream(outputFile)) {
+            taskView.setPrintStream(out).write();
+        }
     }
 }
