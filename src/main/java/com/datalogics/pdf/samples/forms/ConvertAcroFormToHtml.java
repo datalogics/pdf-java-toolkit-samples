@@ -4,11 +4,20 @@
 
 package com.datalogics.pdf.samples.forms;
 
+import com.adobe.pdfjt.core.exceptions.PDFIOException;
+import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
+import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
+import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.license.LicenseManager;
+import com.adobe.pdfjt.pdf.document.PDFDocument;
+import com.adobe.pdfjt.pdf.interactive.forms.PDFField;
+import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
 
+import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
 import htmlflow.HtmlView;
+import htmlflow.elements.HtmlForm;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +25,7 @@ import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.Iterator;
 import java.util.logging.Logger;
 
 /**
@@ -36,8 +46,13 @@ public class ConvertAcroFormToHtml {
      * @param args
      * @throws IOException
      * @throws URISyntaxException
+     * @throws PDFUnableToCompleteOperationException
+     * @throws PDFSecurityException
+     * @throws PDFIOException
+     * @throws PDFInvalidDocumentException
      */
-    public static void main(final String[] args) throws URISyntaxException, IOException {
+    public static void main(final String[] args) throws URISyntaxException, IOException, PDFInvalidDocumentException,
+                    PDFIOException, PDFSecurityException, PDFUnableToCompleteOperationException {
         // If you are using an evaluation version of the product (License Managed, or LM), set the path to where PDFJT
         // can find the license file.
         //
@@ -64,33 +79,58 @@ public class ConvertAcroFormToHtml {
      * @param outputUrl
      * @throws URISyntaxException
      * @throws IOException
+     * @throws PDFSecurityException
+     * @throws PDFIOException
+     * @throws PDFInvalidDocumentException
+     * @throws PDFUnableToCompleteOperationException
      */
-    public static void createHtmlForm(final URL inputUrl, final URL outputUrl) throws URISyntaxException, IOException {
-        // Use the sample code from the README of HtmlFlow as a starting point
-        // https://github.com/fmcarvalho/HtmlFlow/blob/master/Readme.md
-        final HtmlView<?> taskView = new HtmlView<>();
-        taskView
-                .head()
-                .title("Task Details")
-                .linkCss("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css");
-        taskView
-                .body().classAttr("container")
-                .heading(1, "Task Details")
-                .hr()
-                .div()
-                .text("Title: ").text("ISEL MPD project")
-                .br()
-                .text("Description: ").text("A Java library for serializing objects in HTML.")
-                .br()
-                .text("Priority: ").text("HIGH");
+    public static void createHtmlForm(final URL inputUrl, final URL outputUrl)
+                    throws URISyntaxException, IOException, PDFInvalidDocumentException, PDFIOException,
+                    PDFSecurityException, PDFUnableToCompleteOperationException {
+        PDFDocument pdfDocument = null;
 
-        final File outputFile = new File(outputUrl.toURI());
-        if (outputFile.exists()) {
-            Files.delete(outputFile.toPath());
-        }
+        try {
+            pdfDocument = DocumentUtils.openPdfDocument(inputUrl);
 
-        try (PrintStream out = new PrintStream(outputFile)) {
-            taskView.setPrintStream(out).write();
+            final PDFInteractiveForm form = pdfDocument.getInteractiveForm();
+            final Iterator<PDFField> fieldIterator = form.iterator();
+
+            final HtmlView<?> taskView = new HtmlView<>();
+
+            // setup the head element of the Html document
+            taskView
+                    .head()
+                    // use the title of the Pdf as the title of the Html document
+                    .title(pdfDocument.getDocumentInfo().getTitle());
+
+            // create an Html form
+            final HtmlForm<?> htmlForm = taskView.body().form("Form");
+
+            // add each field from the Pdf form to the Html form
+            while (fieldIterator.hasNext()) {
+                final PDFField field = fieldIterator.next();
+                // output the qualified name of the field in the Pdf as text before the field
+                // in the Html form so the user knows what the field is for
+                htmlForm.text(field.getQualifiedName())
+                        // use the qualified name as the name of the field in the Html form as well
+                        .inputText(field.getQualifiedName());
+            }
+
+            final File outputFile = new File(outputUrl.toURI());
+            if (outputFile.exists()) {
+                Files.delete(outputFile.toPath());
+            }
+
+            // output the Html form to a file
+            try (PrintStream out = new PrintStream(outputFile)) {
+                taskView.setPrintStream(out).write();
+            }
+
+        } finally {
+            if (pdfDocument != null) {
+                pdfDocument.close();
+                pdfDocument = null;
+            }
         }
     }
 }
