@@ -11,6 +11,7 @@ import com.adobe.pdfjt.core.credentials.PrivateKeyHolder;
 import com.adobe.pdfjt.core.credentials.PrivateKeyHolderFactory;
 import com.adobe.pdfjt.core.exceptions.PDFException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
+import com.adobe.pdfjt.core.fontset.PDFFontSet;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASMatrix;
 import com.adobe.pdfjt.core.types.ASRectangle;
@@ -27,6 +28,7 @@ import com.adobe.pdfjt.services.digsig.SignatureOptions;
 import com.adobe.pdfjt.services.digsig.UserInfo;
 import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
+import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
@@ -113,8 +115,13 @@ public final class SignDocument {
     public static void signExistingSignatureFields(final URL inputUrl, final URL outputUrl) throws Exception {
         PDFDocument pdfDoc = null;
         try {
+            // Attach font set to PDF
+            final PDFFontSet fontSet = FontSetLoader.newInstance().getFontSet();
+            final PDFOpenOptions openOptions = PDFOpenOptions.newInstance();
+            openOptions.setFontSet(fontSet);
+
             // Get the PDF file.
-            pdfDoc = DocumentUtils.openPdfDocument(inputUrl);
+            pdfDoc = DocumentUtils.openPdfDocumentWithOptions(inputUrl, openOptions);
 
             // Set up a signature service and iterate over all of the
             // signature fields.
@@ -123,7 +130,7 @@ public final class SignDocument {
                 final Iterator<SignatureFieldInterface> iter = sigService.getDocSignatureFieldIterator();
                 while (iter.hasNext()) {
                     final SignatureFieldInterface sigField = iter.next();
-                    signField(sigService, sigField, outputUrl);
+                    signField(sigService, sigField, fontSet, outputUrl);
                 }
             }
         } finally {
@@ -138,7 +145,9 @@ public final class SignDocument {
     }
 
     private static void signField(final SignatureManager sigMgr,
-                                  final SignatureFieldInterface sigField, final URL outputUrl)
+                                  final SignatureFieldInterface sigField,
+                                  final PDFFontSet fontSet,
+                                  final URL outputUrl)
                                                      throws Exception {
 
         final String qualifiedName = "Fully Qualified Name: " + sigField.getQualifiedName();
@@ -158,6 +167,7 @@ public final class SignDocument {
                     final SignatureAppearanceOptions appearanceOptions = SignatureAppearanceOptions.newInstance();
                     final SignatureAppearanceDisplayItemsSet displayItems = createSignatureAppearanceDisplayItemsSet();
 
+                    appearanceOptions.setFontSet(fontSet);
                     appearanceOptions.setDisplayItems(displayItems);
                     signatureOptions.setSignatureAppearanceOptions(appearanceOptions);
 
