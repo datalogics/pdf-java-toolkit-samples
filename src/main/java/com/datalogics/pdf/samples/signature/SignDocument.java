@@ -222,8 +222,8 @@ public final class SignDocument {
     private static SignatureAppearanceDisplayItemsSet createSignatureAppearanceDisplayItemsSet() {
         final SignatureAppearanceDisplayItemsSet displayItems = SignatureAppearanceDisplayItemsSet.newInstance();
 
-        // Show nothing
-        displayItems.disable(SignatureAppearanceDisplayItemsSet.kShowAll);
+        // Show everything
+        displayItems.enable(SignatureAppearanceDisplayItemsSet.kShowAll);
         return displayItems;
     }
 
