@@ -11,6 +11,7 @@ import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFField;
+import com.adobe.pdfjt.pdf.interactive.forms.PDFFieldChoice;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFFieldType;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
 
@@ -27,6 +28,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -119,6 +121,11 @@ public class ConvertAcroFormToHtml {
                     htmlForm.text(field.getQualifiedName())
                             // use the qualified name as the name of the field in the Html form as well
                             .inputText(field.getQualifiedName()).br();
+                } else if (fieldType == PDFFieldType.Choice) {
+                    final PDFFieldChoice choiceField = (PDFFieldChoice) field;
+                    final List<?> optionsList = choiceField.getOptionList();
+                    final String[] options = optionsList.toArray(new String[optionsList.size()]);
+                    htmlForm.text(field.getQualifiedName()).select(field.getQualifiedName(), options).br();
                 } else {
                     // log a warning if a field was not output because a matching type was not found
                     LOGGER.warning(field.getQualifiedName() + " was not output in the Html form!");
