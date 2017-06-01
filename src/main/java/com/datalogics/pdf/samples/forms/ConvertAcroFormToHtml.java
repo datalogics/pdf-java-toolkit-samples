@@ -34,7 +34,7 @@ import java.util.logging.Logger;
 /**
  * This sample demonstrates how to create an HTML form by inspecting an AcroForm in a PDF.
  */
-public class ConvertAcroFormToHtml {
+public final class ConvertAcroFormToHtml {
     public static final String DEFAULT_INPUT = "acroform_fdf.pdf";
     public static final String HTML_OUTPUT = "acroform.html";
 
