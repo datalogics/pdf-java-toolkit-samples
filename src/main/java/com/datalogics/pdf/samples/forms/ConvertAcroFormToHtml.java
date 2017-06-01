@@ -11,6 +11,7 @@ import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFField;
+import com.adobe.pdfjt.pdf.interactive.forms.PDFFieldType;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
 
 import com.datalogics.pdf.samples.util.DocumentUtils;
@@ -109,11 +110,19 @@ public class ConvertAcroFormToHtml {
             // add each field from the Pdf form to the Html form
             while (fieldIterator.hasNext()) {
                 final PDFField field = fieldIterator.next();
-                // output the qualified name of the field in the Pdf as text before the field
-                // in the Html form so the user knows what the field is for
-                htmlForm.text(field.getQualifiedName())
-                        // use the qualified name as the name of the field in the Html form as well
-                        .inputText(field.getQualifiedName());
+
+                // determine what Html element should be used based on the type of field in the Pdf form
+                final PDFFieldType fieldType = field.getFieldType();
+                if (fieldType == PDFFieldType.Text) {
+                    // output the qualified name of the field in the Pdf as text before the field
+                    // in the Html form so the user knows what the field is for
+                    htmlForm.text(field.getQualifiedName())
+                            // use the qualified name as the name of the field in the Html form as well
+                            .inputText(field.getQualifiedName()).br();
+                } else {
+                    // log a warning if a field was not output because a matching type was not found
+                    LOGGER.warning(field.getQualifiedName() + " was not output in the Html form!");
+                }
             }
 
             final File outputFile = new File(outputUrl.toURI());
