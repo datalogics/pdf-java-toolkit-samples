@@ -342,6 +342,7 @@ gradle-app.setting
 /Demo2Pg.txt
 /TextExtract.txt
 /*.csv
+/*.html
 
 # The FindBugs connector for M2Eclipse makes these
 .fbExcludeFilterFile
