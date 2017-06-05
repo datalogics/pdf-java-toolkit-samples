@@ -175,9 +175,11 @@
           <target>1.7</target>
           <excludes>
             <exclude>com/datalogics/pdf/samples/extraction/TextCharacterBoxes.java</exclude>
+            <exclude>com/datalogics/pdf/samples/forms/ConvertAcroFormToHtml.java</exclude>
           </excludes>
           <testExcludes>
             <testExclude>com/datalogics/pdf/samples/extraction/TextCharacterBoxesTest.java</testExclude>
+            <exclude>com/datalogics/pdf/samples/forms/ConvertAcroFormToHtmlTest.java</exclude>
           </testExcludes>
         </configuration>
       </plugin>
@@ -202,6 +204,7 @@
           </docletArtifact>
           <sourceFileExcludes>
             <sourceFileExclude>**/TextCharacterBoxes.java</sourceFileExclude>
+            <sourceFileExclude>**/ConvertAcroFormToHtml.java</sourceFileExclude>
           </sourceFileExcludes>
         </configuration>
       </plugin>
