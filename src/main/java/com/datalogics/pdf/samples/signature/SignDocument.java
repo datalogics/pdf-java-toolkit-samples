@@ -171,7 +171,9 @@ public final class SignDocument {
                     appearanceOptions.setDisplayItems(displayItems);
 
                     // Customize the label. The "{0}" will be replaced by the name of the signer.
-                    appearanceOptions.setSignatureLabel("{0} signed this document");
+                    // Also, demonstrate characters outside of WinAnsiEncoding, and subsetted fonts.
+                    // U+27A1 BLACK RIGHTWARDS ARROW
+                    appearanceOptions.setSignatureLabel("\u27a1 {0} signed this document");
 
                     signatureOptions.setSignatureAppearanceOptions(appearanceOptions);
 
