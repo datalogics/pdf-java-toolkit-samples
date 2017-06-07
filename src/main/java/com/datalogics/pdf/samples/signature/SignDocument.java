@@ -74,6 +74,17 @@ public final class SignDocument {
     private static final Double MM_PER_INCH = 25.4; // millimeters per inch
     private static final Double DEFAULT_MM_PER_PIXEL = 0.35277778; // default millimeters per pixel
 
+    // Customize the label. You can provide your own string that describes who
+    // signed the document.  The "{0}" will be replaced by the name of the
+    // signer, which is taken from the UserInfo.name in the
+    //
+    // Also, demonstrate characters outside of WinAnsiEncoding, and subsetted fonts:
+    // Acrobat and PDFJT store the embeddable font into the AcroForm
+    // dictionary, and a subset of that font will be created for the signature.
+    //
+    // See the use of this constant in setSignatureLabel() below.
+    private static final String SIGNATURE_LABEL = "\u27a1 {0} signed this document";  // U+27A1 BLACK RIGHTWARDS ARROW
+
     /**
      * This is a utility class, and won't be instantiated.
      */
@@ -170,10 +181,8 @@ public final class SignDocument {
                     appearanceOptions.setFontSet(fontSet);
                     appearanceOptions.setDisplayItems(displayItems);
 
-                    // Customize the label. The "{0}" will be replaced by the name of the signer.
-                    // Also, demonstrate characters outside of WinAnsiEncoding, and subsetted fonts.
-                    // U+27A1 BLACK RIGHTWARDS ARROW
-                    appearanceOptions.setSignatureLabel("\u27a1 {0} signed this document");
+                    // Customize the label. See the declaration of the constant for more info.
+                    appearanceOptions.setSignatureLabel(SIGNATURE_LABEL);
 
                     signatureOptions.setSignatureAppearanceOptions(appearanceOptions);
 
