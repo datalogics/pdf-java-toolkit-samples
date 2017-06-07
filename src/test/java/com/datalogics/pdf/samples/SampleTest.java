@@ -280,7 +280,13 @@ public class SampleTest {
      * @return a {@link File} object containing the file location.
      */
     protected static File newOutputFile(final String filename) {
-        return new File(new File(new File("target"), "test-output"), filename);
+        final File parent = new File(new File("target"), "test-output");
+        try {
+            Files.createDirectories(parent.toPath());
+        } catch (IOException e) {
+            throw new RuntimeException("can't create directory " + parent, e);
+        }
+        return new File(parent, filename);
     }
 
     /**
