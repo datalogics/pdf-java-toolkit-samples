@@ -26,6 +26,7 @@ import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFResources;
 import com.adobe.pdfjt.pdf.graphics.font.PDFFont;
 import com.adobe.pdfjt.pdf.graphics.font.impl.PDFFontUtils;
+import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObject;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectForm;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationWidget;
 import com.adobe.pdfjt.pdf.page.PDFPage;
@@ -68,7 +69,7 @@ public class SignDocumentTest extends SampleTest {
      *
      * @throws Exception a general exception was thrown
      */
-    private static void ensureDocument() throws Exception {
+    private static synchronized void ensureDocument() throws Exception {
         if (pdfDocument == null) {
             final URL inputUrl = SignDocument.class.getResource(SignDocument.INPUT_UNSIGNED_PDF_PATH);
 
@@ -144,8 +145,10 @@ public class SignDocumentTest extends SampleTest {
         ensureDocument();
 
         final PDFXObjectForm n2PdfXobjectForm = getN2PdfXobjectForm();
-        final PDFXObjectForm fm1 = (PDFXObjectForm) n2PdfXobjectForm.getResources().getXObject(ASName.create("Fm1"));
-        final PDFFont pdfFont = fm1.getResources().getFont(ASName.create("F0"));
+        final PDFXObject fm1 = n2PdfXobjectForm.getResources().getXObject(ASName.create("Fm1"));
+        assert fm1 instanceof PDFXObjectForm : fm1.getClass();
+        final PDFXObjectForm n2form = (PDFXObjectForm) fm1;
+        final PDFFont pdfFont = n2form.getResources().getFont(ASName.create("F0"));
 
         assertTrue("the font is a subset font", PDFFontUtils.isSubsetFont(pdfFont));
         assertThat("the font is FiraSans-Medium",
@@ -173,9 +176,13 @@ public class SignDocumentTest extends SampleTest {
         final PDFAnnotationWidget annot = (PDFAnnotationWidget) sigField.getPDFField().getPDFFieldSignature()
                                                                         .getAnnotation();
         PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
-        PDFXObjectForm frmXObject = (PDFXObjectForm) normFormResources.getXObject(ASName.create("FRM"));
+        final PDFXObject frm = normFormResources.getXObject(ASName.create("FRM"));
+        assert frm instanceof PDFXObjectForm : frm.getClass();
+        PDFXObjectForm frmXObject = (PDFXObjectForm) frm;
         PDFResources frmResources = frmXObject.getResources();
-        return (PDFXObjectForm) frmResources.getXObject(ASName.create("n2"));
+        final PDFXObject n2 = frmResources.getXObject(ASName.create("n2"));
+        assert n2 instanceof PDFXObjectForm : frm.getClass();
+        return (PDFXObjectForm) n2;
     }
 
     private List<ContentTextItem<?, ?>> getContentTextItems(XObject overlayTextForm) {
