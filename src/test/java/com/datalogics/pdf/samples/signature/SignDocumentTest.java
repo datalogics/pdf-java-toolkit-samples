@@ -121,17 +121,7 @@ public class SignDocumentTest extends SampleTest {
     public void theCustomStringWasUsed() throws Exception {
         ensureDocument();
 
-        final SignatureFieldInterface sigField = getSignedSignatureField(pdfDocument);
-        final PDFPage signedPage = pdfDocument.requirePages().getPage(0);
-        final PDFAnnotationWidget annot = (PDFAnnotationWidget) sigField.getPDFField().getPDFFieldSignature()
-                                                                        .getAnnotation();
-        PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
-        PDFXObjectForm frmXObject = (PDFXObjectForm) normFormResources.getXObject(ASName.create("FRM"));
-        PDFResources frmResources = frmXObject.getResources();
-        PDFXObjectForm n2Form = (PDFXObjectForm) frmResources.getXObject(ASName.create("n2"));
-        final List<RasterContentItem> formContentItems = DocumentUtils.getFormContentItems(signedPage, n2Form,
-                                                                                           null);
-        XObject innerN2Form = (XObject) formContentItems.get(formContentItems.size() - 1);
+        XObject innerN2Form = getN2XObject();
 
         List<ContentTextItem<?, ?>> textItems = getContentTextItems(innerN2Form);
         textItems = textItems.subList(0, 11);
@@ -147,6 +137,45 @@ public class SignDocumentTest extends SampleTest {
                                        hasText("this"),
                                        hasText(" "),
                                        hasText("document")));
+    }
+
+    @Test
+    public void theFormUsesASubsetFont() throws Exception {
+        ensureDocument();
+
+        final PDFXObjectForm n2PdfXobjectForm = getN2PdfXobjectForm();
+        final PDFXObjectForm fm1 = (PDFXObjectForm) n2PdfXobjectForm.getResources().getXObject(ASName.create("Fm1"));
+        final PDFFont pdfFont = fm1.getResources().getFont(ASName.create("F0"));
+
+        assertTrue("the font is a subset font", PDFFontUtils.isSubsetFont(pdfFont));
+        assertThat("the font is FiraSans-Medium",
+                   pdfFont.getBaseFont().asString().substring(7),
+                   equalTo("FiraSans-Medium"));
+        assertThat("it is a Type 0 font", pdfFont.getSubType(), equalTo(ASName.k_Type0));
+        assertThat("it has an Identity-H encoding",
+                   pdfFont.getDictionaryNameValue(ASName.k_Encoding),
+                   equalTo(ASName.k_Identity_H));
+    }
+
+    private XObject getN2XObject()
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
+                    PDFInvalidParameterException, PDFFontException, PDFConfigurationException {
+        final PDFPage signedPage = pdfDocument.requirePages().getPage(0);
+        final PDFXObjectForm n2Form = getN2PdfXobjectForm();
+        final List<RasterContentItem> formContentItems = DocumentUtils.getFormContentItems(signedPage, n2Form,
+                                                                                           null);
+        return (XObject) formContentItems.get(formContentItems.size() - 1);
+    }
+
+    private PDFXObjectForm getN2PdfXobjectForm()
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
+        final SignatureFieldInterface sigField = getSignedSignatureField(pdfDocument);
+        final PDFAnnotationWidget annot = (PDFAnnotationWidget) sigField.getPDFField().getPDFFieldSignature()
+                                                                        .getAnnotation();
+        PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
+        PDFXObjectForm frmXObject = (PDFXObjectForm) normFormResources.getXObject(ASName.create("FRM"));
+        PDFResources frmResources = frmXObject.getResources();
+        return (PDFXObjectForm) frmResources.getXObject(ASName.create("n2"));
     }
 
     private List<ContentTextItem<?, ?>> getContentTextItems(XObject overlayTextForm) {
