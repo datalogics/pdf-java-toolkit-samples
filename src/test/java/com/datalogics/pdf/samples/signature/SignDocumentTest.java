@@ -173,8 +173,7 @@ public class SignDocumentTest extends SampleTest {
     private PDFXObjectForm getN2PdfXobjectForm()
         throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
         final SignatureFieldInterface sigField = getSignedSignatureField(pdfDocument);
-        final PDFAnnotationWidget annot = (PDFAnnotationWidget) sigField.getPDFField().getPDFFieldSignature()
-                                                                        .getAnnotation();
+        final PDFAnnotationWidget annot = sigField.getPDFField().getPDFFieldSignature().getAnnotation();
         final PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
         final PDFXObject frm = normFormResources.getXObject(ASName.create("FRM"));
         assert frm instanceof PDFXObjectForm : frm.getClass();
