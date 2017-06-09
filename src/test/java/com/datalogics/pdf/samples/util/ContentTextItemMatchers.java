@@ -7,12 +7,9 @@ package com.datalogics.pdf.samples.util;
 import static org.hamcrest.Matchers.equalTo;
 
 import com.adobe.pdfjt.graphicsDOM.ContentTextItem;
-import com.adobe.pdfjt.graphicsDOM.Glyph;
 
 import org.hamcrest.FeatureMatcher;
 import org.hamcrest.Matcher;
-
-import java.util.List;
 
 /**
  * Matchers for {@link ContentTextItem}.
