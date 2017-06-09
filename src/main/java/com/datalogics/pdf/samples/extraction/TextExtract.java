@@ -87,7 +87,7 @@ public final class TextExtract {
      */
     public static void extractTextReadingOrder(final URL inputUrl, final URL outputUrl)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
-                    UnsupportedEncodingException, IOException, PDFUnableToCompleteOperationException,
+                    IOException, PDFUnableToCompleteOperationException,
                     URISyntaxException {
         PDFDocument document = null;
         try {

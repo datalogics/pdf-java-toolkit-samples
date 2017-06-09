@@ -6,7 +6,6 @@ package com.datalogics.pdf.samples.manipulation;
 
 
 import com.adobe.internal.io.ByteWriter;
-import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
@@ -85,7 +84,6 @@ public final class ConvertPdfDocument {
      * @param inputUrl The URL of the document to be converted
      * @param outputUrl The URL of the converted document
      * @throws IOException an I/O operation failed or was interrupted
-     * @throws PDFFontException there was an error in the font set or an individual font
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
@@ -93,8 +91,8 @@ public final class ConvertPdfDocument {
      * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
      */
     public static void convertToPdfA1B(final URL inputUrl, final URL outputUrl)
-                    throws IOException, PDFFontException, PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
+                    throws IOException, PDFInvalidDocumentException, PDFIOException, PDFSecurityException,
+                    PDFInvalidParameterException, PDFUnableToCompleteOperationException {
         ByteWriter writer = null;
         // Attach font set to PDF
         final PDFFontSet pdfaFontSet = FontSetLoader.newInstance().getFontSet();

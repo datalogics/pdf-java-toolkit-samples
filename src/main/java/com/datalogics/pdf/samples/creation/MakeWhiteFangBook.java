@@ -4,11 +4,8 @@
 
 package com.datalogics.pdf.samples.creation;
 
-import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
-import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
-import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASMatrix;
@@ -193,16 +190,8 @@ public final class MakeWhiteFangBook {
      *
      * @param layoutEngine the layout engine to add to
      * @param line the line from the original file to add
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFSecurityException some general security issue occurred during the processing of the request
-     * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
-     * @throws PDFFontException there was an error in the font set or an individual font
-     * @throws PDFConfigurationException there was a system problem configuring PDF support
      */
-    private static void addOneParagraph(final LayoutEngine layoutEngine, final String line)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException,
-                    PDFInvalidParameterException, PDFFontException, PDFConfigurationException {
+    private static void addOneParagraph(final LayoutEngine layoutEngine, final String line) {
         layoutEngine.add(new Paragraph(line));
     }
 }

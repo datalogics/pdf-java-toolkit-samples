@@ -50,10 +50,8 @@ public final class IoUtils {
      *
      * @param fileUrl The URL of the file
      * @return The file extension in a string format
-     * @throws URISyntaxException a string could not be parsed as a URI reference
-     *         reference.
      */
-    public static String getFileExtensionFromUrl(final URL fileUrl) throws URISyntaxException {
+    public static String getFileExtensionFromUrl(final URL fileUrl) {
         final String stringPath = fileUrl.getPath();
 
         return FilenameUtils.getExtension(stringPath);

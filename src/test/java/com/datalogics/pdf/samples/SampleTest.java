@@ -73,9 +73,8 @@ public class SampleTest {
      * @throws IOException an I/O operation failed or was interrupted
      * @throws UnsupportedEncodingException the character encoding is not supported
      */
-    protected String pageContentsAsString(final String path, final int pageIndex) throws FileNotFoundException,
-                    PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
-                    UnsupportedEncodingException {
+    protected String pageContentsAsString(final String path, final int pageIndex)
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
         final PDFDocument doc = openPdfDocument(path);
         return pageContentsAsString(doc, pageIndex);
     }
@@ -93,8 +92,7 @@ public class SampleTest {
      * @throws UnsupportedEncodingException the character encoding is not supported
      */
     protected String pageContentsAsString(final PDFDocument doc, final int pageIndex)
-                    throws PDFInvalidDocumentException,
-                    PDFIOException, PDFSecurityException, IOException, UnsupportedEncodingException {
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
         final PDFPage page = pageFromDocument(doc, pageIndex);
         final PDFContents contents = page.getContents();
         final InputByteStream stream = contents.getContents();
