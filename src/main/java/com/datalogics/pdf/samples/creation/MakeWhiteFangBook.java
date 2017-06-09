@@ -62,7 +62,7 @@ public final class MakeWhiteFangBook {
         //
         // If you are not using an evaluation version of the product you can ignore or remove this code.
         LicenseManager.setLicensePath(".");
-        URL outputUrl;
+        final URL outputUrl;
         if (args.length > 0) {
             outputUrl = IoUtils.createUrlFromPath(args[0]);
         } else {

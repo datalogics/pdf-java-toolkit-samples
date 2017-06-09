@@ -122,7 +122,7 @@ public class SignDocumentTest extends SampleTest {
     public void theCustomStringWasUsed() throws Exception {
         ensureDocument();
 
-        XObject innerN2Form = getN2XObject();
+        final XObject innerN2Form = getN2XObject();
 
         List<ContentTextItem<?, ?>> textItems = getContentTextItems(innerN2Form);
         textItems = textItems.subList(0, 11);
@@ -175,22 +175,22 @@ public class SignDocumentTest extends SampleTest {
         final SignatureFieldInterface sigField = getSignedSignatureField(pdfDocument);
         final PDFAnnotationWidget annot = (PDFAnnotationWidget) sigField.getPDFField().getPDFFieldSignature()
                                                                         .getAnnotation();
-        PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
+        final PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
         final PDFXObject frm = normFormResources.getXObject(ASName.create("FRM"));
         assert frm instanceof PDFXObjectForm : frm.getClass();
-        PDFXObjectForm frmXObject = (PDFXObjectForm) frm;
-        PDFResources frmResources = frmXObject.getResources();
+        final PDFXObjectForm frmXObject = (PDFXObjectForm) frm;
+        final PDFResources frmResources = frmXObject.getResources();
         final PDFXObject n2 = frmResources.getXObject(ASName.create("n2"));
         assert n2 instanceof PDFXObjectForm : frm.getClass();
         return (PDFXObjectForm) n2;
     }
 
-    private List<ContentTextItem<?, ?>> getContentTextItems(XObject overlayTextForm) {
-        List<ContentTextItem<?, ?>> textItems = new ArrayList<>();
-        for (ContentItem<?> item : new IteratorIterable<ContentItem<?>>(overlayTextForm.getContentItems()
-                                                                                       .iterator())) {
+    private List<ContentTextItem<?, ?>> getContentTextItems(final XObject overlayTextForm) {
+        final List<ContentTextItem<?, ?>> textItems = new ArrayList<>();
+        for (final ContentItem<?> item : new IteratorIterable<ContentItem<?>>(overlayTextForm.getContentItems()
+                                                                                             .iterator())) {
             if (item instanceof ContentTextItem) {
-                ContentTextItem<?, ?> textItem = (ContentTextItem<?, ?>) item;
+                final ContentTextItem<?, ?> textItem = (ContentTextItem<?, ?>) item;
                 textItems.add(textItem);
             }
         }

@@ -51,7 +51,7 @@ public class PrintPdfTest extends SampleTest {
     private static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
 
     @Rule
-    public ExpectedException expected = ExpectedException.none();
+    public final ExpectedException expected = ExpectedException.none();
 
     @Test
     public <T extends PrinterJob> void testPrintPdf() throws Exception {
