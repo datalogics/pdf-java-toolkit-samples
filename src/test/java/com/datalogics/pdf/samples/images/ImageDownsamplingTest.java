@@ -37,8 +37,10 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -198,13 +200,8 @@ public class ImageDownsamplingTest extends SampleTest {
             final PDFXObjectImage xObjectImage = image;
             try {
                 return Checksum.getMD5Checksum(xObjectImage.getImageStreamData());
-            } catch (final PDFInvalidDocumentException e) {
-                throwChecksumError(e);
-            } catch (final PDFIOException e) {
-                throwChecksumError(e);
-            } catch (final PDFSecurityException e) {
-                throwChecksumError(e);
-            } catch (final Exception e) {
+            } catch (final PDFInvalidDocumentException | PDFIOException | PDFSecurityException
+                           | NoSuchAlgorithmException | IOException e) {
                 throwChecksumError(e);
             }
             return null;

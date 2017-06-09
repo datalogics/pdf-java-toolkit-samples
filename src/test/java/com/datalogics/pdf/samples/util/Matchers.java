@@ -45,15 +45,8 @@ public class Matchers {
                 final PDFXObjectImage xObjectImage = image;
                 try {
                     return Checksum.getSha1Checksum(xObjectImage.getImageStreamData());
-                } catch (final PDFInvalidDocumentException e) {
-                    throwChecksumError(e);
-                } catch (final PDFIOException e) {
-                    throwChecksumError(e);
-                } catch (final PDFSecurityException e) {
-                    throwChecksumError(e);
-                } catch (final NoSuchAlgorithmException e) {
-                    throwChecksumError(e);
-                } catch (final IOException e) {
+                } catch (final PDFInvalidDocumentException | PDFIOException | NoSuchAlgorithmException
+                               | PDFSecurityException | IOException e) {
                     throwChecksumError(e);
                 }
                 return null;
@@ -80,9 +73,7 @@ public class Matchers {
                 final InputStream imageStream = new ByteArrayInputStream(imageData.getData(0));
                 try {
                     return Checksum.getSha1Checksum(imageStream);
-                } catch (final NoSuchAlgorithmException e) {
-                    throwChecksumError(e);
-                } catch (final IOException e) {
+                } catch (final NoSuchAlgorithmException | IOException e) {
                     throwChecksumError(e);
                 }
                 return null;
