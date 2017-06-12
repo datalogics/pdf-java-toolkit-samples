@@ -76,7 +76,7 @@ public final class SignDocument {
 
     // Customize the label. You can provide your own string that describes who
     // signed the document.  The "{0}" will be replaced by the name of the
-    // signer, which is taken from the UserInfo.name in the
+    // signer, which is set in the name property of UserInfo.
     //
     // Also, demonstrate characters outside of WinAnsiEncoding, and subsetted fonts:
     // Acrobat and PDFJT store the embeddable font into the AcroForm
@@ -84,6 +84,9 @@ public final class SignDocument {
     //
     // See the use of this constant in setSignatureLabel() below.
     private static final String SIGNATURE_LABEL = "\u27a1 {0} signed this document";  // U+27A1 BLACK RIGHTWARDS ARROW
+
+    // The name of the person signing the document. This will be passed to the UserInfo object.
+    public static final String SIGNER_NAME = "John Doe";
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -195,7 +198,7 @@ public final class SignDocument {
                     // This name will show up in the signature as "Digitally signed by <name>".
                     // If no name is specified the signature will say it was signed by whatever name is
                     // on the credentials used to sign the document.
-                    userInfo.setName("John Doe");
+                    userInfo.setName(SIGNER_NAME);
                     signatureOptions.setUserInfo(userInfo);
 
                     // Sign the document.
