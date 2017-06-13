@@ -74,6 +74,20 @@ public final class SignDocument {
     private static final Double MM_PER_INCH = 25.4; // millimeters per inch
     private static final Double DEFAULT_MM_PER_PIXEL = 0.35277778; // default millimeters per pixel
 
+    // Customize the label. You can provide your own string that describes who
+    // signed the document.  The "{0}" will be replaced by the name of the
+    // signer, which is set in the name property of UserInfo.
+    //
+    // Also, demonstrate characters outside of WinAnsiEncoding, and subsetted fonts:
+    // Acrobat and PDFJT store the embeddable font into the AcroForm
+    // dictionary, and a subset of that font will be created for the signature.
+    //
+    // See the use of this constant in setSignatureLabel() below.
+    private static final String SIGNATURE_LABEL = "\u27a1 {0} signed this document";  // U+27A1 BLACK RIGHTWARDS ARROW
+
+    // The name of the person signing the document. This will be passed to the UserInfo object.
+    public static final String SIGNER_NAME = "John Doe";
+
     /**
      * This is a utility class, and won't be instantiated.
      */
@@ -169,6 +183,10 @@ public final class SignDocument {
 
                     appearanceOptions.setFontSet(fontSet);
                     appearanceOptions.setDisplayItems(displayItems);
+
+                    // Customize the label. See the declaration of the constant for more info.
+                    appearanceOptions.setSignatureLabel(SIGNATURE_LABEL);
+
                     signatureOptions.setSignatureAppearanceOptions(appearanceOptions);
 
                     final UserInfo userInfo = UserInfo.newInstance();
@@ -180,7 +198,7 @@ public final class SignDocument {
                     // This name will show up in the signature as "Digitally signed by <name>".
                     // If no name is specified the signature will say it was signed by whatever name is
                     // on the credentials used to sign the document.
-                    userInfo.setName("John Doe");
+                    userInfo.setName(SIGNER_NAME);
                     signatureOptions.setUserInfo(userInfo);
 
                     // Sign the document.
