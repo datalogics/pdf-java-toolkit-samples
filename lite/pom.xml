@@ -43,12 +43,12 @@
       <dependency>
         <groupId>com.datalogics.pdf</groupId>
         <artifactId>talkeetna</artifactId>
-        <version>[5.0.0-SNAPSHOT,6.0.0)</version>
+        <version>[6.0.11,7.0.0-SNAPSHOT)</version>
       </dependency>
       <dependency>
         <groupId>com.datalogics.pdf</groupId>
         <artifactId>talkeetna-lm</artifactId>
-        <version>[5.0.0-SNAPSHOT,6.0.0)</version>
+        <version>[6.0.11,7.0.0-SNAPSHOT)</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -799,28 +799,6 @@
           <layout>default</layout>
         </pluginRepository>
       </pluginRepositories>
-    </profile>
-    <profile>
-      <id>use-talkeetna-6</id>
-      <activation>
-        <file>
-          <exists>${basedir}/.use-talkeetna-6</exists>
-        </file>
-      </activation>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>com.datalogics.pdf</groupId>
-            <artifactId>talkeetna</artifactId>
-            <version>[6.0.11,7.0.0-SNAPSHOT)</version>
-          </dependency>
-          <dependency>
-            <groupId>com.datalogics.pdf</groupId>
-            <artifactId>talkeetna-lm</artifactId>
-            <version>[6.0.11,7.0.0-SNAPSHOT)</version>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
     </profile>
   </profiles>
 </project>

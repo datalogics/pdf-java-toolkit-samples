@@ -43,12 +43,12 @@
       <dependency>
         <groupId>com.datalogics.pdf</groupId>
         <artifactId>talkeetna</artifactId>
-        <version>[5.0.0-SNAPSHOT,6.0.0)</version>
+        <version>[6.0.11,7.0.0-SNAPSHOT)</version>
       </dependency>
       <dependency>
         <groupId>com.datalogics.pdf</groupId>
         <artifactId>talkeetna-lm</artifactId>
-        <version>[5.0.0-SNAPSHOT,6.0.0)</version>
+        <version>[6.0.11,7.0.0-SNAPSHOT)</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -162,14 +162,6 @@
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
-          <excludes>
-            <exclude>com/datalogics/pdf/samples/extraction/TextCharacterBoxes.java</exclude>
-            <exclude>com/datalogics/pdf/samples/forms/ExportFormDataToCsv.java</exclude>
-          </excludes>
-          <testExcludes>
-            <testExclude>com/datalogics/pdf/samples/extraction/TextCharacterBoxesTest.java</testExclude>
-            <testExclude>com/datalogics/pdf/samples/forms/ExportFormDataToCsvTest.java</testExclude>
-          </testExcludes>
         </configuration>
       </plugin>
       <plugin>
@@ -191,10 +183,6 @@
             <artifactId>exclude-doclet</artifactId>
             <version>1.0.1-SNAPSHOT</version>
           </docletArtifact>
-          <sourceFileExcludes>
-            <sourceFileExclude>**/TextCharacterBoxes.java</sourceFileExclude>
-            <sourceFileExclude>**/ExportFormDataToCsv.java</sourceFileExclude>
-          </sourceFileExcludes>
         </configuration>
       </plugin>
       <plugin>
@@ -618,59 +606,6 @@
           <layout>default</layout>
         </pluginRepository>
       </pluginRepositories>
-    </profile>
-    <profile>
-      <id>use-talkeetna-6</id>
-      <activation>
-        <file>
-          <exists>${basedir}/.use-talkeetna-6</exists>
-        </file>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <!-- the combine.self="override" causes this to replace instead
-                   of adding to the excludes list(s).
-                   This replaces the exclusion of the TextCharacterBoxes sample
-                   and test with an empty exclusion list. (Specifying an
-                   include would be the wrong way to do this, because then it
-                   would compile _only_ TextCharacterBoxes) -->
-              <excludes combine.self="override"></excludes>
-              <testExcludes combine.self="override"></testExcludes>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <!-- the combine.self="override" causes this to replace instead
-                   of adding to the excludes list(s).
-                   This replaces the exclusion of the TextCharacterBoxes sample
-                   and test with an empty exclusion list. (Specifying an
-                   include would be the wrong way to do this, because then it
-                   would compile _only_ TextCharacterBoxes) -->
-              <sourceFileExcludes combine.self="override"></sourceFileExcludes>
-            </configuration>
-          </plugin>
-        </plugins>
-      </build>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>com.datalogics.pdf</groupId>
-            <artifactId>talkeetna</artifactId>
-            <version>[6.0.11,7.0.0-SNAPSHOT)</version>
-          </dependency>
-          <dependency>
-            <groupId>com.datalogics.pdf</groupId>
-            <artifactId>talkeetna-lm</artifactId>
-            <version>[6.0.11,7.0.0-SNAPSHOT)</version>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
     </profile>
   </profiles>
 </project>
