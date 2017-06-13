@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.datalogics.pdf</groupId>
   <artifactId>pdf-java-toolkit-samples-lite</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <name>Datalogics PDF Java Toolkit Samples, Lite Edition</name>
   <description>Programs demonstrating the capabilities of the Datalogics PDF Java Toolkit. See https://github.com/datalogics/pdf-java-toolkit-samples for the full set of samples.</description>
   <url>http://dev.datalogics.com/pdf-java-toolkit/</url>

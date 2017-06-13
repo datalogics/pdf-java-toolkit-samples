@@ -46,6 +46,10 @@ including those that are stored remotely on a shared network with the samples. A
 
 For more information on working with files in java please see [file path java tutorial](http://www.java2s.com/Tutorial/Java/0180__File/UniversalNamingConvention.htm).
 
+## Talkeetna 5 support
+
+Support for Talkeetna 5 has been dropped from the `develop` branch. For legacy Talkeetna 5 support, see the [`develop-talkeetna-5`](https://github.com/datalogics/pdf-java-toolkit-samples/tree/develop-talkeetna-5) branch.
+
 ## Contributing
 
 See ``CONTRIBUTING.md``
