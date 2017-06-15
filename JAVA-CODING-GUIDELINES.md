@@ -833,6 +833,13 @@ It is **extremely rare** to override `Object.finalize`.
 [_Effective Java_](http://books.google.com/books?isbn=8131726592)
 Item 7, "Avoid Finalizers," very carefully, and _then_ don't do it.
 
+### 6.5 Final private fields, parameters, and local variables
+
+Private fields, parameters, and local variables that are initialized only once,
+and not changed after initialization, should be marked final.
+
+Parameters should be marked final whenever possible. It is better to make a
+copy of a parameter before modifying it.
 
 ## 7 Javadoc
 
