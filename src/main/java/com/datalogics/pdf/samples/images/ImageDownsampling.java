@@ -118,9 +118,7 @@ public final class ImageDownsampling {
                 if (pdfResources != null) {
                     final PDFXObjectMap xobjMap = pdfResources.getXObjectMap();
                     if (xobjMap != null) {
-                        final Iterator<ASName> xobjIter = xobjMap.keySet().iterator();
-                        while (xobjIter.hasNext()) {
-                            final ASName key = xobjIter.next();
+                        for (final ASName key : xobjMap.keySet()) {
                             final PDFXObject xobj = xobjMap.get(key);
                             if (xobj instanceof PDFXObjectImage) {
                                 final PDFXObjectImage originalImage = (PDFXObjectImage) xobj;
