@@ -30,11 +30,11 @@ public final class ContentTextItemMatchers {
      * @param text the text to match
      * @return matcher
      */
-    public static Matcher<ContentTextItem> hasText(final String text) {
-        return new FeatureMatcher<ContentTextItem, String>(equalTo(text), "text item contains", "text") {
+    public static Matcher<ContentTextItem<?, ?>> hasText(final String text) {
+        return new FeatureMatcher<ContentTextItem<?, ?>, String>(equalTo(text), "text item contains", "text") {
 
             @Override
-            protected String featureValueOf(final ContentTextItem actual) {
+            protected String featureValueOf(final ContentTextItem<?, ?> actual) {
                 return actual.getString();
             }
         };

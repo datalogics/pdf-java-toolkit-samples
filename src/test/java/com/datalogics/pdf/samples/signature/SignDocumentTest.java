@@ -127,6 +127,7 @@ public class SignDocumentTest extends SampleTest {
         List<ContentTextItem<?, ?>> textItems = getContentTextItems(innerN2Form);
         textItems = textItems.subList(0, 11);
 
+        // noinspection unchecked
         assertThat(textItems, contains(hasText(BLACK_RIGHTWARDS_ARROW),
                                        hasText(" "),
                                        hasText("John"),
@@ -160,18 +161,18 @@ public class SignDocumentTest extends SampleTest {
                    equalTo(ASName.k_Identity_H));
     }
 
-    private XObject getN2XObject()
+    private XObject<?, ?, ?> getN2XObject()
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
                     PDFInvalidParameterException, PDFFontException, PDFConfigurationException {
         final PDFPage signedPage = pdfDocument.requirePages().getPage(0);
         final PDFXObjectForm n2Form = getN2PdfXobjectForm();
         final List<RasterContentItem> formContentItems = DocumentUtils.getFormContentItems(signedPage, n2Form,
                                                                                            null);
-        return (XObject) formContentItems.get(formContentItems.size() - 1);
+        return (XObject<?, ?, ?>) formContentItems.get(formContentItems.size() - 1);
     }
 
     private PDFXObjectForm getN2PdfXobjectForm()
-        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
         final SignatureFieldInterface sigField = getSignedSignatureField(pdfDocument);
         final PDFAnnotationWidget annot = sigField.getPDFField().getPDFFieldSignature().getAnnotation();
         final PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
@@ -184,7 +185,7 @@ public class SignDocumentTest extends SampleTest {
         return (PDFXObjectForm) n2;
     }
 
-    private List<ContentTextItem<?, ?>> getContentTextItems(final XObject overlayTextForm) {
+    private List<ContentTextItem<?, ?>> getContentTextItems(final XObject<?, ?, ?> overlayTextForm) {
         final List<ContentTextItem<?, ?>> textItems = new ArrayList<>();
         for (final ContentItem<?> item : new IteratorIterable<ContentItem<?>>(overlayTextForm.getContentItems()
                                                                                              .iterator())) {
