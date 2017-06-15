@@ -118,11 +118,12 @@ public class SignDocumentTest extends SampleTest {
     }
 
 
+    @SuppressWarnings("unchecked")
     @Test
     public void theCustomStringWasUsed() throws Exception {
         ensureDocument();
 
-        final XObject innerN2Form = getN2XObject();
+        final XObject<?, ?, ?> innerN2Form = getN2XObject();
 
         List<ContentTextItem<?, ?>> textItems = getContentTextItems(innerN2Form);
         textItems = textItems.subList(0, 11);
