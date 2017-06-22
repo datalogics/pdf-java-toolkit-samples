@@ -81,8 +81,8 @@ public class Checksum {
     private static String convertToHex(final byte[] bytes) {
         final StringBuilder result = new StringBuilder();
 
-        for (int i = 0; i < bytes.length; i++) {
-            result.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        for (final byte abyte : bytes) {
+            result.append(Integer.toString((abyte & 0xff) + 0x100, 16).substring(1));
         }
         return result.toString();
     }

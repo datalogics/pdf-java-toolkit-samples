@@ -157,7 +157,7 @@ public final class ExportFormDataToCsv {
 
             final String formattedValue = field.getFormattedValue();
             if (formattedValue == null) {
-                final List value = field.getValueList();
+                final List<?> value = field.getValueList();
                 if (value == null) {
                     printer.print("");
                     if (LOGGER.isLoggable(Level.WARNING)) {

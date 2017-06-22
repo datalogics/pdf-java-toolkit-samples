@@ -166,7 +166,8 @@ public class FillFormTest extends SampleTest {
             if (field.getValueList() != null) {
                 // Turn the list of values in each field into a string. Get rid of the brackets that List.toString()
                 // puts in there.
-                sb.append(field.getValueList().toString().replace("[", "").replace("]", "") + " ");
+                sb.append(field.getValueList().toString().replace("[", "").replace("]", ""));
+                sb.append(" ");
             }
         }
         // If we didn't get anything out of the form with the above method, this is probably an XFA form. Get the form

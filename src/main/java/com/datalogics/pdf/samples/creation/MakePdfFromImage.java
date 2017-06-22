@@ -22,7 +22,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -222,7 +221,7 @@ public final class MakePdfFromImage {
         return PDFDocument.newInstance(pdfDocument.finish());
     }
 
-    private static boolean isImageFormatSupported(final String imageFormat) throws URISyntaxException {
+    private static boolean isImageFormatSupported(final String imageFormat) {
         final String[] supportedFormats = ImageIO.getReaderFileSuffixes();
 
         final List<String> supportedFormatList = Arrays.asList(supportedFormats);

@@ -118,15 +118,17 @@ public class SignDocumentTest extends SampleTest {
     }
 
 
+    @SuppressWarnings("unchecked")
     @Test
     public void theCustomStringWasUsed() throws Exception {
         ensureDocument();
 
-        XObject innerN2Form = getN2XObject();
+        final XObject<?, ?, ?> innerN2Form = getN2XObject();
 
         List<ContentTextItem<?, ?>> textItems = getContentTextItems(innerN2Form);
         textItems = textItems.subList(0, 11);
 
+        // noinspection unchecked
         assertThat(textItems, contains(hasText(BLACK_RIGHTWARDS_ARROW),
                                        hasText(" "),
                                        hasText("John"),
@@ -160,37 +162,36 @@ public class SignDocumentTest extends SampleTest {
                    equalTo(ASName.k_Identity_H));
     }
 
-    private XObject getN2XObject()
+    private XObject<?, ?, ?> getN2XObject()
                     throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
                     PDFInvalidParameterException, PDFFontException, PDFConfigurationException {
         final PDFPage signedPage = pdfDocument.requirePages().getPage(0);
         final PDFXObjectForm n2Form = getN2PdfXobjectForm();
         final List<RasterContentItem> formContentItems = DocumentUtils.getFormContentItems(signedPage, n2Form,
                                                                                            null);
-        return (XObject) formContentItems.get(formContentItems.size() - 1);
+        return (XObject<?, ?, ?>) formContentItems.get(formContentItems.size() - 1);
     }
 
     private PDFXObjectForm getN2PdfXobjectForm()
-        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
         final SignatureFieldInterface sigField = getSignedSignatureField(pdfDocument);
-        final PDFAnnotationWidget annot = (PDFAnnotationWidget) sigField.getPDFField().getPDFFieldSignature()
-                                                                        .getAnnotation();
-        PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
+        final PDFAnnotationWidget annot = sigField.getPDFField().getPDFFieldSignature().getAnnotation();
+        final PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
         final PDFXObject frm = normFormResources.getXObject(ASName.create("FRM"));
         assert frm instanceof PDFXObjectForm : frm.getClass();
-        PDFXObjectForm frmXObject = (PDFXObjectForm) frm;
-        PDFResources frmResources = frmXObject.getResources();
+        final PDFXObjectForm frmXObject = (PDFXObjectForm) frm;
+        final PDFResources frmResources = frmXObject.getResources();
         final PDFXObject n2 = frmResources.getXObject(ASName.create("n2"));
         assert n2 instanceof PDFXObjectForm : frm.getClass();
         return (PDFXObjectForm) n2;
     }
 
-    private List<ContentTextItem<?, ?>> getContentTextItems(XObject overlayTextForm) {
-        List<ContentTextItem<?, ?>> textItems = new ArrayList<>();
-        for (ContentItem<?> item : new IteratorIterable<ContentItem<?>>(overlayTextForm.getContentItems()
-                                                                                       .iterator())) {
+    private List<ContentTextItem<?, ?>> getContentTextItems(final XObject<?, ?, ?> overlayTextForm) {
+        final List<ContentTextItem<?, ?>> textItems = new ArrayList<>();
+        for (final ContentItem<?> item : new IteratorIterable<ContentItem<?>>(overlayTextForm.getContentItems()
+                                                                                             .iterator())) {
             if (item instanceof ContentTextItem) {
-                ContentTextItem<?, ?> textItem = (ContentTextItem<?, ?>) item;
+                final ContentTextItem<?, ?> textItem = (ContentTextItem<?, ?>) item;
                 textItems.add(textItem);
             }
         }

@@ -209,7 +209,7 @@ public class PrintPdf {
                     // This page has already been rasterized, use it.
                     page = previousPage;
                 }
-            } catch (PDFFontException | PDFInvalidDocumentException | PDFInvalidParameterException
+            } catch (final PDFFontException | PDFInvalidDocumentException | PDFInvalidParameterException
                      | PDFIOException | PDFSecurityException e) {
                 if (LOGGER.isLoggable(Level.SEVERE)) {
                     LOGGER.log(Level.SEVERE, "Error rasterizing a page", e);

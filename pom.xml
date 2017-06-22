@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--suppress CheckTagEmptyBody -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.datalogics.pdf</groupId>
@@ -34,7 +35,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
+    <checkstyle-config.version>2.1.0-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>2.0.0-SNAPSHOT</pmdconfig.version>
     <pmdVersion>5.5.2</pmdVersion>
   </properties>
@@ -230,7 +231,6 @@
               <failsOnError>true</failsOnError>
               <violationSeverity>warning</violationSeverity>
               <includeTestSourceDirectory>true</includeTestSourceDirectory>
-              <linkXRef>false</linkXRef>
             </configuration>
           </execution>
         </executions>
@@ -243,7 +243,7 @@
           <dependency>
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
-            <version>6.14.1</version>
+            <version>6.19</version>
           </dependency>
         </dependencies>
       </plugin>

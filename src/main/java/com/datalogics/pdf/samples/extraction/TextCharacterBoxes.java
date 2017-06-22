@@ -111,8 +111,7 @@ public final class TextCharacterBoxes {
      */
     private static void drawCharacterQuadsOnPage(final ReadingOrderTextExtractor extractor,
                                          final PDFPage page)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
-                    Exception {
+                    throws Exception {
         final WordsIterator wordsIter = extractor.getWordsIterator(page, page.getIndex());
 
         if (wordsIter.hasNext()) {

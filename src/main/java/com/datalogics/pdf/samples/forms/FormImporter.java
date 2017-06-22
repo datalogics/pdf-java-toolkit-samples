@@ -73,12 +73,7 @@ public final class FormImporter {
                 throw new IllegalArgumentException("fileUrl must not be null");
             }
 
-            final String format;
-            try {
-                format = IoUtils.getFileExtensionFromUrl(fileUrl);
-            } catch (final URISyntaxException e) {
-                throw new IllegalArgumentException(e);
-            }
+            final String format = IoUtils.getFileExtensionFromUrl(fileUrl);
 
             try {
                 // The desired file extensions map directly onto the enum names

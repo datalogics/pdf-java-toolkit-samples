@@ -161,7 +161,7 @@ public final class DocumentUtils {
 
         //@formatter:off
         final ContentStreamParser<RasterGraphicsState, RasterContentItem, RasterTextState, RasterDisplayArea> csParser =
-            new ContentStreamParser<RasterGraphicsState, RasterContentItem, RasterTextState, RasterDisplayArea>(
+            new ContentStreamParser<>(
                 rasterDocument,
                 fontSet,
                 null,

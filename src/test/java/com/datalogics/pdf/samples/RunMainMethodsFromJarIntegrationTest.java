@@ -52,7 +52,7 @@ import javax.print.PrintServiceLookup;
                                     + "and methods with no discernable call site")
 @RunWith(Parameterized.class)
 public class RunMainMethodsFromJarIntegrationTest {
-    Method mainMethod;
+    final Method mainMethod;
 
     /**
      * Create a test for every class in com.datalogics.pdf.samples that has a {@code main} function.
