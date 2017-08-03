@@ -36,7 +36,7 @@ import java.util.logging.Logger;
  *
  * <p>
  * TODO add description of user password TODO add description of owner password TODO explain different encyrption
- * options TODO explain different permission options TODO add description of sample arguments
+ * options TODO explain different permission options
  * </p>
  */
 public final class AddPasswordToDocument {
