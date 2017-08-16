@@ -35,9 +35,50 @@ import java.util.logging.Logger;
  * AddPasswordToDocument demonstrates how to add user and owner passwords to a PDF.
  *
  * <p>
- * TODO add description of user password TODO add description of owner password TODO explain different encyrption
- * options TODO explain different permission options
- * </p>
+ * A PDF document can have two kinds of passwords
+ * <ul>
+ * <li>a user or document password
+ * <li>an owner or permissions password, which has a higher level of authority
+ * </ul>
+ *
+ * <p>
+ * The person or application creating a PDF document can assign an owner password to the file. Anyone with access to
+ * this owner password can also add a user password to the document, encrypt the document, and assign or restrict
+ * permissions for working with the document, such as restricting the ability of other users to send the document to a
+ * printer. A person or application opening a secured PDF document with a user password will be limited to the options
+ * provided for the document in the security settings. But if the PDF file only has a user password assigned, when it is
+ * opened with the user password the person opening the file can change the security settings. A person or application
+ * with access to an owner password can turn on or off permissions for working with that PDF document, and thus create a
+ * set of rules for the document that all other users or applications must follow.
+ *
+ * <p>
+ * The permissions include the right to:
+ * <ul>
+ * <li>Print a PDF document
+ * <li>Add any changes to the document
+ * <li>Use the document assembly feature, which allows a user to compile a collection of PDF documents into a single
+ * file
+ * <li>Copy content from a PDF to another document
+ * <li>Copy content for accessibility, such as for the vision impaired
+ * <li>Extract pages
+ * <li>Add comments
+ * <li>Complete form fields
+ * <li>Add a digital signature
+ * <li>Create template pages
+ * </ul>
+ *
+ * <p>
+ * Whenever a password is assigned to a PDF document, that document will also be encrypted to secure it for
+ * transmission. Documents created using Adobe Acrobat can be assigned one of three different encryption algorithms. The
+ * type of encryption method supported by Adobe Acrobat varies depending on the version of the product:
+ * <ul>
+ * <li>128 bit RC4 (Acrobat 6.0 and later)
+ * <li>128 bit AES (Acrobat 7.0 and later)
+ * <li>256 bit AES (Acrobat 9.0 and later)
+ * </ul>
+ *
+ * <p>
+ * Note: You cannot use the same password in a PDF document for both the owner password and the user password.
  */
 public final class AddPasswordToDocument {
     private static final Logger LOGGER = Logger.getLogger(AddPasswordToDocument.class.getName());
