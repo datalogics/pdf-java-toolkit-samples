@@ -15,13 +15,19 @@ import com.adobe.pdfjt.core.exceptions.PDFUnableToCompleteOperationException;
 import com.adobe.pdfjt.core.fontset.PDFFontSet;
 import com.adobe.pdfjt.core.license.LicenseManager;
 import com.adobe.pdfjt.core.types.ASDate;
+import com.adobe.pdfjt.core.types.ASName;
+import com.adobe.pdfjt.pdf.contentmodify.ModifiableContent;
+import com.adobe.pdfjt.pdf.document.PDFContents;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
+import com.adobe.pdfjt.pdf.document.PDFResources;
 import com.adobe.pdfjt.pdf.document.PDFSaveLinearOptions;
 import com.adobe.pdfjt.pdf.document.PDFSaveOptions;
 import com.adobe.pdfjt.pdf.document.PDFVersion;
+import com.adobe.pdfjt.pdf.graphics.font.PDFFontSimple;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotation;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationEnum;
 import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationRedaction;
+import com.adobe.pdfjt.pdf.interactive.forms.PDFDefaultAppearance;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
@@ -257,6 +263,19 @@ public final class RedactAndSanitizeDocument {
         annot.setSubject("Redact");
         annot.setTitle("PDFJT");
         annot.setFlags(PDFAnnotation.kPrint);
+
+        // This is where RedactionXObjectWriter looks for resources.
+        final PDFResources resources = document.requireCatalog().procureInteractiveForm().procureResources();
+        final PDFContents contents = PDFContents.newInstance(document);
+        final ModifiableContent content = ModifiableContent.newInstance(contents, resources);
+        final PDFFontSimple font = PDFFontSimple.newInstance(document, ASName.k_Helvetica, ASName.k_Type1);
+        final ASName fontName = content.addResource(font);
+
+        // Helvetica 8, color green (3 values == RGB, 4 == CMYK, 1 == grayscale)
+        final PDFDefaultAppearance pdfDefaultAppearance = PDFDefaultAppearance.newInstance(document, fontName, 8.0,
+                                                                                           new double[] { 0, 1, 0 });
+        annot.setDictionaryValue(ASName.k_DA, pdfDefaultAppearance);
+        annot.setOverlayText("Redacted");
 
         currentPage.addAnnotation(annot);
     }
