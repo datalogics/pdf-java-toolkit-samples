@@ -34,7 +34,7 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 /**
- * This sample demonstrates how to convert a PDF to a PDF/A2 archive file.
+ * This sample demonstrates how to convert a PDF to a PDF/A-2 archive file. (PDF/A-2b by default)
  */
 public final class ConvertToPdfA2 {
     private static final Logger LOGGER = Logger.getLogger(ConvertToPdfA2.class.getName());
