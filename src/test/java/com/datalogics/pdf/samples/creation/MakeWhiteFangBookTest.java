@@ -4,9 +4,12 @@
 
 package com.datalogics.pdf.samples.creation;
 
+import static com.adobe.pdfjt.pdf.graphics.font.impl.PDFFontUtils.getActualBaseFontName;
+
 import static com.datalogics.pdf.samples.util.Matchers.hasChecksum;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.anyOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -50,12 +53,14 @@ public class MakeWhiteFangBookTest extends SampleTest {
             final PDFResources resources = pageResources(doc, 1);
 
             final PDFFont f0 = resources.getFont(ASName.create("F0"));
-            assertEquals(ASName.k_Times_Bold, f0.getBaseFont());
-            assertNiceSimpleFont(f0);
+            assertThat(getActualBaseFontName(f0), anyOf(equalTo(ASName.k_Times_Bold.asString()),
+                                                        equalTo("TimesNewRomanPS-BoldMT")));
+            assertNiceFont(f0);
 
             final PDFFont f1 = resources.getFont(ASName.create("F1"));
-            assertEquals(ASName.k_Times_Roman, f1.getBaseFont());
-            assertNiceSimpleFont(f1);
+            assertThat(getActualBaseFontName(f1), anyOf(equalTo(ASName.k_Times_Roman.asString()),
+                                                        equalTo("TimesNewRomanPSMT")));
+            assertNiceFont(f1);
 
             // Verify the checksum of the image
             final PDFPage page = doc.requirePages().getPage(0);

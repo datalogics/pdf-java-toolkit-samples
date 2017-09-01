@@ -14,6 +14,8 @@ import com.datalogics.pdf.samples.util.IoUtils;
 import com.datalogics.pdf.text.Paragraph;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This sample shows how to create a basic PDF containing the text 'Hello World'.
@@ -79,7 +81,11 @@ public final class HelloWorld {
     private static void addText(final PDFDocument pdfDoc) throws Exception {
         // Read in a text and add each line as separate paragraph
         try (LayoutEngine layoutEngine = new LayoutEngine(pdfDoc)) {
-            layoutEngine.add(new Paragraph("Hello World"));
+            final List<String> serifFonts = Arrays.asList("Times New Roman", "Times");
+            final Paragraph helloWorld = new Paragraph("Hello, World!");
+            helloWorld.getStyle().setFontFamilies(serifFonts);
+
+            layoutEngine.add(helloWorld);
         }
     }
 }
