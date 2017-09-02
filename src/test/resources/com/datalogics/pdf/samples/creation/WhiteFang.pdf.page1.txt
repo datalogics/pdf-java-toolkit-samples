@@ -1,187 +1,314 @@
-q
-BT
-72.0 690.012 Td
-/F0 36.0 Tf
-(White Fang) Tj
-ET
-BT
-72.0 666.804 Td
-/F1 12.0 Tf
-(by Jack London) Tj
-ET
-BT
-72.0 628.968 Td
-/F0 24.0 Tf
-(Chapter 1) Tj
-ET
-BT
-72.0 594.084 Td
-/F1 12.0 Tf
-(Dark spruce forest frowned on either side the frozen waterway. The trees had been stripped by a ) Tj
-ET
-BT
-72.0 579.684 Td
-/F1 12.0 Tf
-(recent wind of their white covering of frost, and they seemed to lean towards each other, black ) Tj
-ET
-BT
-72.0 565.284 Td
-/F1 12.0 Tf
-(and ominous, in the fading light. A vast silence reigned over the land. The land itself was a ) Tj
-ET
-BT
-72.0 550.884 Td
-/F1 12.0 Tf
-(desolation, lifeless, without movement, so lone and cold that the spirit of it was not even that of ) Tj
-ET
-BT
-72.0 536.484 Td
-/F1 12.0 Tf
-(sadness. There was a hint in it of laughter, but of a laughter more terrible than any sadness—a ) Tj
-ET
-BT
-72.0 522.084 Td
-/F1 12.0 Tf
-(laughter that was mirthless as the smile of the sphinx, a laughter cold as the frost and partaking ) Tj
-ET
-BT
-72.0 507.684 Td
-/F1 12.0 Tf
-(of the grimness of infallibility. It was the masterful and incommunicable wisdom of eternity ) Tj
-ET
-BT
-72.0 493.284 Td
-/F1 12.0 Tf
-(laughing at the futility of life and the effort of life. It was the Wild, the savage, frozen-hearted ) Tj
-ET
-BT
-72.0 478.884 Td
-/F1 12.0 Tf
-(Northland Wild.) Tj
-ET
-BT
-72.0 451.044 Td
-/F1 12.0 Tf
-(But there was life, abroad in the land and defiant. Down the frozen waterway toiled a string of ) Tj
-ET
-BT
-72.0 436.644 Td
-/F1 12.0 Tf
-(wolfish dogs. Their bristly fur was rimed with frost. Their breath froze in the air as it left their ) Tj
-ET
-BT
-72.0 422.244 Td
-/F1 12.0 Tf
-(mouths, spouting forth in spumes of vapour that settled upon the hair of their bodies and formed ) Tj
-ET
-BT
-72.0 407.844 Td
-/F1 12.0 Tf
-(into crystals of frost. Leather harness was on the dogs, and leather traces attached them to a sled ) Tj
-ET
-BT
-72.0 393.444 Td
-/F1 12.0 Tf
-(which dragged along behind. The sled was without runners. It was made of stout birch-bark, and ) Tj
-ET
-BT
-72.0 379.044 Td
-/F1 12.0 Tf
-(its full surface rested on the snow. The front end of the sled was turned up, like a scroll, in order ) Tj
-ET
-BT
-72.0 364.644 Td
-/F1 12.0 Tf
-(to force down and under the bore of soft snow that surged like a wave before it. On the sled, ) Tj
-ET
-BT
-72.0 350.244 Td
-/F1 12.0 Tf
-(securely lashed, was a long and narrow oblong box. There were other things on the ) Tj
-ET
-BT
-72.0 335.844 Td
-/F1 12.0 Tf
-(sled—blankets, an axe, and a coffee-pot and frying-pan; but prominent, occupying most of the ) Tj
-ET
-BT
-72.0 321.444 Td
-/F1 12.0 Tf
-(space, was the long and narrow oblong box.) Tj
-ET
-BT
-72.0 293.604 Td
-/F1 12.0 Tf
-(In advance of the dogs, on wide snowshoes, toiled a man. At the rear of the sled toiled a second ) Tj
-ET
-BT
-72.0 279.204 Td
-/F1 12.0 Tf
-(man. On the sled, in the box, lay a third man whose toil was over,—a man whom the Wild had ) Tj
-ET
-BT
-72.0 264.804 Td
-/F1 12.0 Tf
-(conquered and beaten down until he would never move nor struggle again. It is not the way of ) Tj
-ET
-BT
-72.0 250.404 Td
-/F1 12.0 Tf
-(the Wild to like movement. Life is an offence to it, for life is movement; and the Wild aims ) Tj
-ET
-BT
-72.0 236.004 Td
-/F1 12.0 Tf
-(always to destroy movement. It freezes the water to prevent it running to the sea; it drives the sap ) Tj
-ET
-BT
-72.0 221.604 Td
-/F1 12.0 Tf
-(out of the trees till they are frozen to their mighty hearts; and most ferociously and terribly of all ) Tj
-ET
-BT
-72.0 207.204 Td
-/F1 12.0 Tf
-(does the Wild harry and crush into submission man—man who is the most restless of life, ever in ) Tj
-ET
-BT
-72.0 192.804 Td
-/F1 12.0 Tf
-(revolt against the dictum that all movement must in the end come to the cessation of movement.) Tj
-ET
-BT
-72.0 164.964 Td
-/F1 12.0 Tf
-(But at front and rear, unawed and indomitable, toiled the two men who were not yet dead. Their ) Tj
-ET
-BT
-72.0 150.564 Td
-/F1 12.0 Tf
-(bodies were covered with fur and soft-tanned leather. Eyelashes and cheeks and lips were so ) Tj
-ET
-BT
-72.0 136.164 Td
-/F1 12.0 Tf
-(coated with the crystals from their frozen breath that their faces were not discernible. This gave ) Tj
-ET
-BT
-72.0 121.764 Td
-/F1 12.0 Tf
-(them the seeming of ghostly masques, undertakers in a spectral world at the funeral of some ) Tj
-ET
-BT
-72.0 107.364 Td
-/F1 12.0 Tf
-(ghost. But under it all they were men, penetrating the land of desolation and mockery and ) Tj
-ET
-BT
-72.0 92.964 Td
-/F1 12.0 Tf
-(silence, puny adventurers bent on colossal adventure, pitting themselves against the might of a ) Tj
-ET
-BT
-72.0 78.564 Td
-/F1 12.0 Tf
-(world as remote and alien and pulseless as the abysses of space.) Tj
-ET
-Q
+DumperGraphicsState[
+  ID=Gs0
+  lineCap=NONE
+  lineJoin=MITER
+  lineWidth=1
+  fillColorValues={0,0,0}
+  strokeColorValues={0,0,0}
+  clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
+  miterLimit=10
+  strokeAdjustment=false
+  fillTilingPatternName=<null>
+  strokeTilingPatternName=<null>
+  strokeAlpha=1
+  nonStrokeAlpha=1
+  smoothness=0
+  dashPhase=0
+  dashArray={}
+  overPrintMode=0
+  flatnessTolerance=1
+  fillAlphaOpacity=1
+  alphaSourceFlag=false
+  textKnockoutFlag=true
+  renderingIntent=RELATIVE_COLORIMETRIC
+  fillShadingPatternName=<null>
+  strokeShadingPatternName=<null>
+  blendingMode=NORMAL
+  overPrint=false
+]
+DumperTextState[
+  ID=Ts0
+  fontName=Type0 Font: Subsetted TimesNewRomanPS-BoldMT
+  textRenderingMode={FILL}
+  fontSize=36
+  textRise=0
+  textLeading=0
+  isTextScalingAdjusted=false
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,690.094}
+  boundingBox=Rectangle2D.Float[x=72.3164,y=682.325,width=180.035,height=32.168]
+  text="White Fang"
+]
+DumperTextState[
+  ID=Ts1
+  fontName=Type0 Font: Subsetted TimesNewRomanPSMT
+  textRenderingMode={FILL}
+  fontSize=12
+  textRise=0
+  textLeading=0
+  isTextScalingAdjusted=false
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,666.735}
+  boundingBox=Rectangle2D.Float[x=71.9707,y=664.145,width=76.6289,height=10.9219]
+  text="by Jack London"
+]
+DumperTextState[
+  ID=Ts2
+  fontName=Type0 Font: Subsetted TimesNewRomanPS-BoldMT
+  textRenderingMode={FILL}
+  fontSize=24
+  textRise=0
+  textLeading=0
+  isTextScalingAdjusted=false
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts2
+  matrix={1,0,0,1,72,629.023}
+  boundingBox=Rectangle2D.Float[x=72.9492,y=623.89,width=100.535,height=21.3867]
+  text="Chapter 1"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,594.015}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=591.425,width=461.25,height=10.9219]
+  text="Dark spruce forest frowned on either side the frozen waterway. The trees had been stripped by a "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,579.615}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=577.025,width=453.826,height=10.9219]
+  text="recent wind of their white covering of frost, and they seemed to lean towards each other, black "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,565.215}
+  boundingBox=Rectangle2D.Float[x=72.4277,y=562.625,width=436.102,height=10.9219]
+  text="and ominous, in the fading light. A vast silence reigned over the land. The land itself was a "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,550.815}
+  boundingBox=Rectangle2D.Float[x=72.3984,y=548.248,width=459.398,height=10.8984]
+  text="desolation, lifeless, without movement, so lone and cold that the spirit of it was not even that of "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,536.415}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=533.825,width=450.252,height=10.9219]
+  text="sadness. There was a hint in it of laughter, but of a laughter more terrible than any sadness\u2014a "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,522.015}
+  boundingBox=Rectangle2D.Float[x=72.3574,y=519.425,width=455.309,height=10.9219]
+  text="laughter that was mirthless as the smile of the sphinx, a laughter cold as the frost and partaking "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,507.615}
+  boundingBox=Rectangle2D.Float[x=72.4043,y=505.025,width=441.422,height=10.9218]
+  text="of the grimness of infallibility. It was the masterful and incommunicable wisdom of eternity "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,493.215}
+  boundingBox=Rectangle2D.Float[x=72.3574,y=490.625,width=450.164,height=10.9219]
+  text="laughing at the futility of life and the effort of life. It was the Wild, the savage, frozen-hearted "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,478.815}
+  boundingBox=Rectangle2D.Float[x=71.8418,y=478.633,width=77.959,height=8.513672]
+  text="Northland Wild."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,450.975}
+  boundingBox=Rectangle2D.Float[x=72.1992,y=448.385,width=453.199,height=10.9219]
+  text="But there was life, abroad in the land and defiant. Down the frozen waterway toiled a string of "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,436.575}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=433.985,width=451.207,height=10.9219]
+  text="wolfish dogs. Their bristly fur was rimed with frost. Their breath froze in the air as it left their "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,422.175}
+  boundingBox=Rectangle2D.Float[x=72.0996,y=419.585,width=461.514,height=10.9219]
+  text="mouths, spouting forth in spumes of vapour that settled upon the hair of their bodies and formed "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,407.775}
+  boundingBox=Rectangle2D.Float[x=72.3516,y=405.185,width=460.518,height=10.9219]
+  text="into crystals of frost. Leather harness was on the dogs, and leather traces attached them to a sled "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,393.375}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=390.785,width=463.166,height=10.9219]
+  text="which dragged along behind. The sled was without runners. It was made of stout birch-bark, and "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,378.975}
+  boundingBox=Rectangle2D.Float[x=72.3516,y=376.408,width=461.262,height=10.8984]
+  text="its full surface rested on the snow. The front end of the sled was turned up, like a scroll, in order "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,364.575}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=361.985,width=441.475,height=10.9219]
+  text="to force down and under the bore of soft snow that surged like a wave before it. On the sled, "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,350.175}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=347.585,width=397.623,height=10.9219]
+  text="securely lashed, was a long and narrow oblong box. There were other things on the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,335.775}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=333.185,width=452.273,height=10.9219]
+  text="sled\u2014blankets, an axe, and a coffee-pot and frying-pan; but prominent, occupying most of the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,321.375}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=318.785,width=209.514,height=10.9219]
+  text="space, was the long and narrow oblong box."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,293.535}
+  boundingBox=Rectangle2D.Float[x=72.2988,y=290.945,width=458.268,height=10.9219]
+  text="In advance of the dogs, on wide snowshoes, toiled a man. At the rear of the sled toiled a second "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,279.135}
+  boundingBox=Rectangle2D.Float[x=72.0996,y=276.545,width=454.166,height=10.9219]
+  text="man. On the sled, in the box, lay a third man whose toil was over,\u2014a man whom the Wild had "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,264.735}
+  boundingBox=Rectangle2D.Float[x=72.4102,y=262.145,width=452.684,height=10.9219]
+  text="conquered and beaten down until he would never move nor struggle again. It is not the way of "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,250.335}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=248.337,width=438.006,height=10.3301]
+  text="the Wild to like movement. Life is an offence to it, for life is movement; and the Wild aims "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,235.935}
+  boundingBox=Rectangle2D.Float[x=72.4277,y=233.345,width=466.02,height=10.9219]
+  text="always to destroy movement. It freezes the water to prevent it running to the sea; it drives the sap "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,221.535}
+  boundingBox=Rectangle2D.Float[x=72.4043,y=218.945,width=461.877,height=10.9219]
+  text="out of the trees till they are frozen to their mighty hearts; and most ferociously and terribly of all "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,207.135}
+  boundingBox=Rectangle2D.Float[x=72.3984,y=204.545,width=466.799,height=10.9219]
+  text="does the Wild harry and crush into submission man\u2014man who is the most restless of life, ever in "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,192.735}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=190.145,width=459.961,height=10.9219]
+  text="revolt against the dictum that all movement must in the end come to the cessation of movement."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,164.895}
+  boundingBox=Rectangle2D.Float[x=72.1992,y=162.305,width=460.4,height=10.9219]
+  text="But at front and rear, unawed and indomitable, toiled the two men who were not yet dead. Their "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,150.495}
+  boundingBox=Rectangle2D.Float[x=71.9707,y=147.905,width=443.115,height=10.9219]
+  text="bodies were covered with fur and soft-tanned leather. Eyelashes and cheeks and lips were so "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,136.095}
+  boundingBox=Rectangle2D.Float[x=72.4102,y=133.505,width=457.067,height=10.9219]
+  text="coated with the crystals from their frozen breath that their faces were not discernible. This gave "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,121.695}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=119.105,width=441.416,height=10.9219]
+  text="them the seeming of ghostly masques, undertakers in a spectral world at the funeral of some "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,107.295}
+  boundingBox=Rectangle2D.Float[x=72.3574,y=104.705,width=429.885,height=10.9219]
+  text="ghost. But under it all they were men, penetrating the land of desolation and mockery and "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,92.8948}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=90.3049,width=452.941,height=10.9219]
+  text="silence, puny adventurers bent on colossal adventure, pitting themselves against the might of a "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts1
+  matrix={1,0,0,1,72,78.4948}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=75.9049,width=305.648,height=10.9219]
+  text="world as remote and alien and pulseless as the abysses of space."
+]

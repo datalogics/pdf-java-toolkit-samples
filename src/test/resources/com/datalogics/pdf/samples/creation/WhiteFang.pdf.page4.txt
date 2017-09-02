@@ -1,162 +1,261 @@
-q
-BT
-72.0 710.004 Td
-/F0 12.0 Tf
-(A long wailing cry, fiercely sad, from somewhere in the darkness, had interrupted him. He ) Tj
-ET
-BT
-72.0 695.604 Td
-/F0 12.0 Tf
-(stopped to listen to it, then he finished his sentence with a wave of his hand toward the sound of ) Tj
-ET
-BT
-72.0 681.204 Td
-/F0 12.0 Tf
-(the cry, “—one of them?”) Tj
-ET
-BT
-72.0 653.364 Td
-/F0 12.0 Tf
-(Bill nodded. “I’d a blame sight sooner think that than anything else. You noticed yourself the ) Tj
-ET
-BT
-72.0 638.964 Td
-/F0 12.0 Tf
-(row the dogs made.”) Tj
-ET
-BT
-72.0 611.124 Td
-/F0 12.0 Tf
-(Cry after cry, and answering cries, were turning the silence into a bedlam. From every side the ) Tj
-ET
-BT
-72.0 596.724 Td
-/F0 12.0 Tf
-(cries arose, and the dogs betrayed their fear by huddling together and so close to the fire that ) Tj
-ET
-BT
-72.0 582.324 Td
-/F0 12.0 Tf
-(their hair was scorched by the heat. Bill threw on more wood, before lighting his pipe.) Tj
-ET
-BT
-72.0 554.484 Td
-/F0 12.0 Tf
-(“I’m thinking you’re down in the mouth some,” Henry said.) Tj
-ET
-BT
-72.0 526.644 Td
-/F0 12.0 Tf
-(“Henry…” He sucked meditatively at his pipe for some time before he went on. “Henry, I was ) Tj
-ET
-BT
-72.0 512.244 Td
-/F0 12.0 Tf
-(a-thinkin’ what a blame sight luckier he is than you an’ me’ll ever be.”) Tj
-ET
-BT
-72.0 484.404 Td
-/F0 12.0 Tf
-(He indicated the third person by a downward thrust of the thumb to the box on which they sat.) Tj
-ET
-BT
-72.0 456.564 Td
-/F0 12.0 Tf
-(“You an’ me, Henry, when we die, we’ll be lucky if we get enough stones over our carcases to ) Tj
-ET
-BT
-72.0 442.164 Td
-/F0 12.0 Tf
-(keep the dogs off of us.”) Tj
-ET
-BT
-72.0 414.324 Td
-/F0 12.0 Tf
-(“But we ain’t got people an’ money an’ all the rest, like him,” Henry rejoined. “Long-distance ) Tj
-ET
-BT
-72.0 399.924 Td
-/F0 12.0 Tf
-(funerals is somethin’ you an’ me can’t exactly afford.”) Tj
-ET
-BT
-72.0 372.084 Td
-/F0 12.0 Tf
-(“What gets me, Henry, is what a chap like this, that’s a lord or something in his own country, ) Tj
-ET
-BT
-72.0 357.684 Td
-/F0 12.0 Tf
-(and that’s never had to bother about grub nor blankets; why he comes a-buttin’ round the ) Tj
-ET
-BT
-72.0 343.284 Td
-/F0 12.0 Tf
-(Godforsaken ends of the earth—that’s what I can’t exactly see.”) Tj
-ET
-BT
-72.0 315.444 Td
-/F0 12.0 Tf
-(“He might have lived to a ripe old age if he’d stayed at home,” Henry agreed.) Tj
-ET
-BT
-72.0 287.604 Td
-/F0 12.0 Tf
-(Bill opened his mouth to speak, but changed his mind. Instead, he pointed towards the wall of ) Tj
-ET
-BT
-72.0 273.204 Td
-/F0 12.0 Tf
-(darkness that pressed about them from every side. There was no suggestion of form in the utter ) Tj
-ET
-BT
-72.0 258.804 Td
-/F0 12.0 Tf
-(blackness; only could be seen a pair of eyes gleaming like live coals. Henry indicated with his ) Tj
-ET
-BT
-72.0 244.404 Td
-/F0 12.0 Tf
-(head a second pair, and a third. A circle of the gleaming eyes had drawn about their camp. Now ) Tj
-ET
-BT
-72.0 230.004 Td
-/F0 12.0 Tf
-(and again a pair of eyes moved, or disappeared to appear again a moment later.) Tj
-ET
-BT
-72.0 202.164 Td
-/F0 12.0 Tf
-(The unrest of the dogs had been increasing, and they stampeded, in a surge of sudden fear, to the ) Tj
-ET
-BT
-72.0 187.764 Td
-/F0 12.0 Tf
-(near side of the fire, cringing and crawling about the legs of the men. In the scramble one of the ) Tj
-ET
-BT
-72.0 173.364 Td
-/F0 12.0 Tf
-(dogs had been overturned on the edge of the fire, and it had yelped with pain and fright as the ) Tj
-ET
-BT
-72.0 158.964 Td
-/F0 12.0 Tf
-(smell of its singed coat possessed the air. The commotion caused the circle of eyes to shift ) Tj
-ET
-BT
-72.0 144.564 Td
-/F0 12.0 Tf
-(restlessly for a moment and even to withdraw a bit, but it settled down again as the dogs became ) Tj
-ET
-BT
-72.0 130.164 Td
-/F0 12.0 Tf
-(quiet.) Tj
-ET
-BT
-72.0 102.324 Td
-/F0 12.0 Tf
-(“Henry, it’s a blame misfortune to be out of ammunition.”) Tj
-ET
-Q
+DumperGraphicsState[
+  ID=Gs0
+  lineCap=NONE
+  lineJoin=MITER
+  lineWidth=1
+  fillColorValues={0,0,0}
+  strokeColorValues={0,0,0}
+  clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
+  miterLimit=10
+  strokeAdjustment=false
+  fillTilingPatternName=<null>
+  strokeTilingPatternName=<null>
+  strokeAlpha=1
+  nonStrokeAlpha=1
+  smoothness=0
+  dashPhase=0
+  dashArray={}
+  overPrintMode=0
+  flatnessTolerance=1
+  fillAlphaOpacity=1
+  alphaSourceFlag=false
+  textKnockoutFlag=true
+  renderingIntent=RELATIVE_COLORIMETRIC
+  fillShadingPatternName=<null>
+  strokeShadingPatternName=<null>
+  blendingMode=NORMAL
+  overPrint=false
+]
+DumperTextState[
+  ID=Ts0
+  fontName=Type0 Font: Subsetted TimesNewRomanPSMT
+  textRenderingMode={FILL}
+  fontSize=12
+  textRise=0
+  textLeading=0
+  isTextScalingAdjusted=false
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,709.935}
+  boundingBox=Rectangle2D.Float[x=72.0938,y=707.345,width=434.104,height=10.9219]
+  text="A long wailing cry, fiercely sad, from somewhere in the darkness, had interrupted him. He "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,695.535}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=692.968,width=461.209,height=10.8984]
+  text="stopped to listen to it, then he finished his sentence with a wave of his hand toward the sound of "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,681.135}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=678.545,width=123.82,height=10.9219]
+  text="the cry, \u201C\u2014one of them?\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,653.295}
+  boundingBox=Rectangle2D.Float[x=72.1992,y=650.705,width=447.029,height=10.9219]
+  text="Bill nodded. \u201CI\u2019d a blame sight sooner think that than anything else. You noticed yourself the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,638.895}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=636.305,width=98.8887,height=10.9219]
+  text="row the dogs made.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,611.055}
+  boundingBox=Rectangle2D.Float[x=72.4336,y=608.465,width=452.736,height=10.9219]
+  text="Cry after cry, and answering cries, were turning the silence into a bedlam. From every side the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,596.655}
+  boundingBox=Rectangle2D.Float[x=72.4102,y=594.065,width=443.455,height=10.9219]
+  text="cries arose, and the dogs betrayed their fear by huddling together and so close to the fire that "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,582.255}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=579.665,width=412.928,height=10.9219]
+  text="their hair was scorched by the heat. Bill threw on more wood, before lighting his pipe."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,554.415}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=551.825,width=287.033,height=10.9219]
+  text="\u201CI\u2019m thinking you\u2019re down in the mouth some,\u201D Henry said."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,526.575}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=523.985,width=452.367,height=10.9219]
+  text="\u201CHenry\u2026\u201D He sucked meditatively at his pipe for some time before he went on. \u201CHenry, I was "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,512.175}
+  boundingBox=Rectangle2D.Float[x=72.4277,y=509.585,width=339.117,height=10.9218]
+  text="a-thinkin\u2019 what a blame sight luckier he is than you an\u2019 me\u2019ll ever be.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,484.335}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=481.745,width=451.184,height=10.9219]
+  text="He indicated the third person by a downward thrust of the thumb to the box on which they sat."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,456.495}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=453.905,width=453.369,height=10.9219]
+  text="\u201CYou an\u2019 me, Henry, when we die, we\u2019ll be lucky if we get enough stones over our carcases to "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,442.095}
+  boundingBox=Rectangle2D.Float[x=72.0996,y=439.505,width=117.527,height=10.9219]
+  text="keep the dogs off of us.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,414.255}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=411.665,width=451.781,height=10.9277]
+  text="\u201CBut we ain\u2019t got people an\u2019 money an\u2019 all the rest, like him,\u201D Henry rejoined. \u201CLong-distance "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,399.855}
+  boundingBox=Rectangle2D.Float[x=72.4629,y=397.265,width=262.096,height=10.9219]
+  text="funerals is somethin\u2019 you an\u2019 me can\u2019t exactly afford.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,372.015}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=369.425,width=446.9,height=10.9219]
+  text="\u201CWhat gets me, Henry, is what a chap like this, that\u2019s a lord or something in his own country, "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,357.615}
+  boundingBox=Rectangle2D.Float[x=72.4277,y=355.025,width=426.785,height=10.9219]
+  text="and that\u2019s never had to bother about grub nor blankets; why he comes a-buttin\u2019 round the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,343.215}
+  boundingBox=Rectangle2D.Float[x=72.4219,y=340.625,width=307.113,height=10.9219]
+  text="Godforsaken ends of the earth\u2014that\u2019s what I can\u2019t exactly see.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,315.375}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=312.785,width=370.945,height=10.9219]
+  text="\u201CHe might have lived to a ripe old age if he\u2019d stayed at home,\u201D Henry agreed."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,287.535}
+  boundingBox=Rectangle2D.Float[x=72.1992,y=284.945,width=451.272,height=10.9219]
+  text="Bill opened his mouth to speak, but changed his mind. Instead, he pointed towards the wall of "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,273.135}
+  boundingBox=Rectangle2D.Float[x=72.3984,y=270.545,width=455.889,height=10.9219]
+  text="darkness that pressed about them from every side. There was no suggestion of form in the utter "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,258.735}
+  boundingBox=Rectangle2D.Float[x=71.9707,y=256.145,width=451.143,height=10.9219]
+  text="blackness; only could be seen a pair of eyes gleaming like live coals. Henry indicated with his "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,244.335}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=241.745,width=459.311,height=10.9219]
+  text="head a second pair, and a third. A circle of the gleaming eyes had drawn about their camp. Now "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,229.935}
+  boundingBox=Rectangle2D.Float[x=72.4277,y=227.345,width=378.563,height=10.9219]
+  text="and again a pair of eyes moved, or disappeared to appear again a moment later."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,202.095}
+  boundingBox=Rectangle2D.Float[x=72.3633,y=199.505,width=463.482,height=10.9219]
+  text="The unrest of the dogs had been increasing, and they stampeded, in a surge of sudden fear, to the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,187.695}
+  boundingBox=Rectangle2D.Float[x=72.0703,y=185.105,width=459.094,height=10.9219]
+  text="near side of the fire, cringing and crawling about the legs of the men. In the scramble one of the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,173.295}
+  boundingBox=Rectangle2D.Float[x=72.3984,y=170.705,width=448.453,height=10.9219]
+  text="dogs had been overturned on the edge of the fire, and it had yelped with pain and fright as the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,158.895}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=156.305,width=432.984,height=10.9219]
+  text="smell of its singed coat possessed the air. The commotion caused the circle of eyes to shift "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,144.495}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=141.905,width=462.463,height=10.9219]
+  text="restlessly for a moment and even to withdraw a bit, but it settled down again as the dogs became "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,130.095}
+  boundingBox=Rectangle2D.Float[x=72.3984,y=127.528,width=25.7461,height=10.8984]
+  text="quiet."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,102.255}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=99.6649,width=278.865,height=10.9219]
+  text="\u201CHenry, it\u2019s a blame misfortune to be out of ammunition.\u201D"
+]

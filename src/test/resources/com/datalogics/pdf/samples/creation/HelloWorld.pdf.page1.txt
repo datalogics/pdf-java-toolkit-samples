@@ -1,7 +1,44 @@
-q
-BT
-72.0 710.004 Td
-/F0 12.0 Tf
-(Hello World) Tj
-ET
-Q
+DumperGraphicsState[
+  ID=Gs0
+  lineCap=NONE
+  lineJoin=MITER
+  lineWidth=1
+  fillColorValues={0,0,0}
+  strokeColorValues={0,0,0}
+  clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
+  miterLimit=10
+  strokeAdjustment=false
+  fillTilingPatternName=<null>
+  strokeTilingPatternName=<null>
+  strokeAlpha=1
+  nonStrokeAlpha=1
+  smoothness=0
+  dashPhase=0
+  dashArray={}
+  overPrintMode=0
+  flatnessTolerance=1
+  fillAlphaOpacity=1
+  alphaSourceFlag=false
+  textKnockoutFlag=true
+  renderingIntent=RELATIVE_COLORIMETRIC
+  fillShadingPatternName=<null>
+  strokeShadingPatternName=<null>
+  blendingMode=NORMAL
+  overPrint=false
+]
+DumperTextState[
+  ID=Ts0
+  fontName=Type0 Font: Subsetted TimesNewRomanPSMT
+  textRenderingMode={FILL}
+  fontSize=12
+  textRise=0
+  textLeading=0
+  isTextScalingAdjusted=false
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,709.935}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=707.937,width=65.7715,height=10.3301]
+  text="Hello, World!"
+]

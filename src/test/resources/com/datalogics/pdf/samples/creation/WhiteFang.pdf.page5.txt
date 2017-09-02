@@ -1,162 +1,261 @@
-q
-BT
-72.0 710.004 Td
-/F0 12.0 Tf
-(Bill had finished his pipe and was helping his companion to spread the bed of fur and blanket ) Tj
-ET
-BT
-72.0 695.604 Td
-/F0 12.0 Tf
-(upon the spruce boughs which he had laid over the snow before supper. Henry grunted, and ) Tj
-ET
-BT
-72.0 681.204 Td
-/F0 12.0 Tf
-(began unlacing his mocassins.) Tj
-ET
-BT
-72.0 653.364 Td
-/F0 12.0 Tf
-(“How many cartridges did you say you had left?” he asked.) Tj
-ET
-BT
-72.0 625.524 Td
-/F0 12.0 Tf
-(“Three,” came the answer. “An’ I wisht ’twas three hundred. Then I’d show ‘em what for, damn ) Tj
-ET
-BT
-72.0 611.124 Td
-/F0 12.0 Tf
-(‘em!”) Tj
-ET
-BT
-72.0 583.284 Td
-/F0 12.0 Tf
-(He shook his fist angrily at the gleaming eyes, and began securely to prop his moccasins before ) Tj
-ET
-BT
-72.0 568.884 Td
-/F0 12.0 Tf
-(the fire.) Tj
-ET
-BT
-72.0 541.044 Td
-/F0 12.0 Tf
-(“An’ I wisht this cold snap’d break,” he went on. “It’s ben fifty below for two weeks now. An’ I ) Tj
-ET
-BT
-72.0 526.644 Td
-/F0 12.0 Tf
-(wisht I’d never started on this trip, Henry. I don’t like the looks of it. I don’t feel right, somehow. ) Tj
-ET
-BT
-72.0 512.244 Td
-/F0 12.0 Tf
-(An’ while I’m wishin’, I wisht the trip was over an’ done with, an’ you an’ me a-sittin’ by the ) Tj
-ET
-BT
-72.0 497.844 Td
-/F0 12.0 Tf
-(fire in Fort McGurry just about now an’ playing cribbage—that’s what I wisht.”) Tj
-ET
-BT
-72.0 470.004 Td
-/F0 12.0 Tf
-(Henry grunted and crawled into bed. As he dozed off he was aroused by his comrade’s voice.) Tj
-ET
-BT
-72.0 442.164 Td
-/F0 12.0 Tf
-(“Say, Henry, that other one that come in an’ got a fish—why didn’t the dogs pitch into it? That’s ) Tj
-ET
-BT
-72.0 427.764 Td
-/F0 12.0 Tf
-(what’s botherin’ me.”) Tj
-ET
-BT
-72.0 399.924 Td
-/F0 12.0 Tf
-(“You’re botherin’ too much, Bill,” came the sleepy response. “You was never like this before. ) Tj
-ET
-BT
-72.0 385.524 Td
-/F0 12.0 Tf
-(You jes’ shut up now, an’ go to sleep, an’ you’ll be all hunkydory in the mornin’. Your ) Tj
-ET
-BT
-72.0 371.124 Td
-/F0 12.0 Tf
-(stomach’s sour, that’s what’s botherin’ you.”) Tj
-ET
-BT
-72.0 343.284 Td
-/F0 12.0 Tf
-(The men slept, breathing heavily, side by side, under the one covering. The fire died down, and ) Tj
-ET
-BT
-72.0 328.884 Td
-/F0 12.0 Tf
-(the gleaming eyes drew closer the circle they had flung about the camp. The dogs clustered ) Tj
-ET
-BT
-72.0 314.484 Td
-/F0 12.0 Tf
-(together in fear, now and again snarling menacingly as a pair of eyes drew close. Once their ) Tj
-ET
-BT
-72.0 300.084 Td
-/F0 12.0 Tf
-(uproar became so loud that Bill woke up. He got out of bed carefully, so as not to disturb the ) Tj
-ET
-BT
-72.0 285.684 Td
-/F0 12.0 Tf
-(sleep of his comrade, and threw more wood on the fire. As it began to flame up, the circle of ) Tj
-ET
-BT
-72.0 271.284 Td
-/F0 12.0 Tf
-(eyes drew farther back. He glanced casually at the huddling dogs. He rubbed his eyes and looked ) Tj
-ET
-BT
-72.0 256.884 Td
-/F0 12.0 Tf
-(at them more sharply. Then he crawled back into the blankets.) Tj
-ET
-BT
-72.0 229.044 Td
-/F0 12.0 Tf
-(“Henry,” he said. “Oh, Henry.”) Tj
-ET
-BT
-72.0 201.204 Td
-/F0 12.0 Tf
-(Henry groaned as he passed from sleep to waking, and demanded, “What’s wrong now?”) Tj
-ET
-BT
-72.0 173.364 Td
-/F0 12.0 Tf
-(“Nothin’,” came the answer; “only there’s seven of ‘em again. I just counted.”) Tj
-ET
-BT
-72.0 145.524 Td
-/F0 12.0 Tf
-(Henry acknowledged receipt of the information with a grunt that slid into a snore as he drifted ) Tj
-ET
-BT
-72.0 131.124 Td
-/F0 12.0 Tf
-(back into sleep.) Tj
-ET
-BT
-72.0 103.284 Td
-/F0 12.0 Tf
-(In the morning it was Henry who awoke first and routed his companion out of bed. Daylight was ) Tj
-ET
-BT
-72.0 88.884 Td
-/F0 12.0 Tf
-(yet three hours away, though it was already six o’clock; and in the darkness Henry went about ) Tj
-ET
-Q
+DumperGraphicsState[
+  ID=Gs0
+  lineCap=NONE
+  lineJoin=MITER
+  lineWidth=1
+  fillColorValues={0,0,0}
+  strokeColorValues={0,0,0}
+  clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
+  miterLimit=10
+  strokeAdjustment=false
+  fillTilingPatternName=<null>
+  strokeTilingPatternName=<null>
+  strokeAlpha=1
+  nonStrokeAlpha=1
+  smoothness=0
+  dashPhase=0
+  dashArray={}
+  overPrintMode=0
+  flatnessTolerance=1
+  fillAlphaOpacity=1
+  alphaSourceFlag=false
+  textKnockoutFlag=true
+  renderingIntent=RELATIVE_COLORIMETRIC
+  fillShadingPatternName=<null>
+  strokeShadingPatternName=<null>
+  blendingMode=NORMAL
+  overPrint=false
+]
+DumperTextState[
+  ID=Ts0
+  fontName=Type0 Font: Subsetted TimesNewRomanPSMT
+  textRenderingMode={FILL}
+  fontSize=12
+  textRise=0
+  textLeading=0
+  isTextScalingAdjusted=false
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,709.935}
+  boundingBox=Rectangle2D.Float[x=72.1992,y=707.345,width=448.055,height=10.9219]
+  text="Bill had finished his pipe and was helping his companion to spread the bed of fur and blanket "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,695.535}
+  boundingBox=Rectangle2D.Float[x=72.0117,y=692.945,width=439.565,height=10.9219]
+  text="upon the spruce boughs which he had laid over the snow before supper. Henry grunted, and "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,681.135}
+  boundingBox=Rectangle2D.Float[x=71.9707,y=678.545,width=144.486,height=10.9219]
+  text="began unlacing his mocassins."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,653.295}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=650.705,width=284.332,height=10.9219]
+  text="\u201CHow many cartridges did you say you had left?\u201D he asked."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,625.455}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=623.457,width=462.047,height=10.3301]
+  text="\u201CThree,\u201D came the answer. \u201CAn\u2019 I wisht \u2019twas three hundred. Then I\u2019d show \u2018em what for, damn "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,611.055}
+  boundingBox=Rectangle2D.Float[x=73.084,y=610.891,width=26.5547,height=8.291016]
+  text="\u2018em!\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,583.215}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=580.625,width=457.664,height=10.9219]
+  text="He shook his fist angrily at the gleaming eyes, and began securely to prop his moccasins before "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,568.815}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=568.651,width=36.3457,height=8.496094]
+  text="the fire."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,540.975}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=538.385,width=461.859,height=10.9219]
+  text="\u201CAn\u2019 I wisht this cold snap\u2019d break,\u201D he went on. \u201CIt\u2019s ben fifty below for two weeks now. An\u2019 I "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,526.575}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=523.985,width=466.313,height=10.9219]
+  text="wisht I\u2019d never started on this trip, Henry. I don\u2019t like the looks of it. I don\u2019t feel right, somehow. "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,512.175}
+  boundingBox=Rectangle2D.Float[x=72.0938,y=509.585,width=449.795,height=10.9218]
+  text="An\u2019 while I\u2019m wishin\u2019, I wisht the trip was over an\u2019 done with, an\u2019 you an\u2019 me a-sittin\u2019 by the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,497.775}
+  boundingBox=Rectangle2D.Float[x=72.4629,y=495.185,width=383.443,height=10.9277]
+  text="fire in Fort McGurry just about now an\u2019 playing cribbage\u2014that\u2019s what I wisht.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,469.935}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=467.345,width=447.463,height=10.9219]
+  text="Henry grunted and crawled into bed. As he dozed off he was aroused by his comrade\u2019s voice."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,442.095}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=439.505,width=463.746,height=10.9219]
+  text="\u201CSay, Henry, that other one that come in an\u2019 got a fish\u2014why didn\u2019t the dogs pitch into it? That\u2019s "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,427.695}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=427.531,width=104.549,height=8.496094]
+  text="what\u2019s botherin\u2019 me.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,399.855}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=397.265,width=451.277,height=10.9219]
+  text="\u201CYou\u2019re botherin\u2019 too much, Bill,\u201D came the sleepy response. \u201CYou was never like this before. "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,385.455}
+  boundingBox=Rectangle2D.Float[x=72.1113,y=382.865,width=418.559,height=10.9277]
+  text="You jes\u2019 shut up now, an\u2019 go to sleep, an\u2019 you\u2019ll be all hunkydory in the mornin\u2019. Your "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,371.055}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=368.465,width=215.361,height=10.9219]
+  text="stomach\u2019s sour, that\u2019s what\u2019s botherin\u2019 you.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,343.215}
+  boundingBox=Rectangle2D.Float[x=72.3633,y=340.625,width=457.195,height=10.9219]
+  text="The men slept, breathing heavily, side by side, under the one covering. The fire died down, and "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,328.815}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=326.225,width=437.754,height=10.9219]
+  text="the gleaming eyes drew closer the circle they had flung about the camp. The dogs clustered "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,314.415}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=311.825,width=441.123,height=10.9219]
+  text="together in fear, now and again snarling menacingly as a pair of eyes drew close. Once their "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,300.015}
+  boundingBox=Rectangle2D.Float[x=72.0117,y=297.425,width=444.551,height=10.9219]
+  text="uproar became so loud that Bill woke up. He got out of bed carefully, so as not to disturb the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,285.615}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=283.025,width=444.486,height=10.9219]
+  text="sleep of his comrade, and threw more wood on the fire. As it began to flame up, the circle of "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,271.215}
+  boundingBox=Rectangle2D.Float[x=72.4453,y=268.625,width=465.428,height=10.9219]
+  text="eyes drew farther back. He glanced casually at the huddling dogs. He rubbed his eyes and looked "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,256.815}
+  boundingBox=Rectangle2D.Float[x=72.4277,y=254.225,width=297.287,height=10.9219]
+  text="at them more sharply. Then he crawled back into the blankets."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,228.975}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=226.385,width=149.871,height=10.9219]
+  text="\u201CHenry,\u201D he said. \u201COh, Henry.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,201.135}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=198.545,width=427.647,height=10.9219]
+  text="Henry groaned as he passed from sleep to waking, and demanded, \u201CWhat\u2019s wrong now?\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,173.295}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=170.705,width=375.457,height=10.9277]
+  text="\u201CNothin\u2019,\u201D came the answer; \u201Conly there\u2019s seven of \u2018em again. I just counted.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,145.455}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=142.865,width=451.688,height=10.9219]
+  text="Henry acknowledged receipt of the information with a grunt that slid into a snore as he drifted "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,131.055}
+  boundingBox=Rectangle2D.Float[x=71.9707,y=128.488,width=74.1563,height=10.8984]
+  text="back into sleep."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,103.215}
+  boundingBox=Rectangle2D.Float[x=72.2988,y=100.625,width=463.852,height=10.9219]
+  text="In the morning it was Henry who awoke first and routed his companion out of bed. Daylight was "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,88.8148}
+  boundingBox=Rectangle2D.Float[x=72.0703,y=86.2249,width=452.15,height=10.9219]
+  text="yet three hours away, though it was already six o\u2019clock; and in the darkness Henry went about "
+]
