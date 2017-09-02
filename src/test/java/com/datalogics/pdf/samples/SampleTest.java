@@ -15,12 +15,13 @@ import static org.junit.Assert.assertTrue;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.RandomAccessFileByteReader;
-import com.adobe.internal.io.stream.InputByteStream;
+import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
+import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
+import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.types.ASName;
-import com.adobe.pdfjt.pdf.document.PDFContents;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.document.PDFResources;
@@ -39,6 +40,8 @@ import com.adobe.pdfjt.pdf.graphics.font.PDFFontType0;
 import com.adobe.pdfjt.pdf.graphics.font.impl.PDFFontUtils;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
+
+import com.datalogics.pdf.dumper.ContentDumper;
 
 import org.junit.After;
 import org.junit.Before;
@@ -86,7 +89,8 @@ public class SampleTest {
      * @throws UnsupportedEncodingException the character encoding is not supported
      */
     protected String pageContentsAsString(final String path, final int pageIndex)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
+                    PDFFontException, PDFInvalidParameterException, PDFConfigurationException {
         final PDFDocument doc = openPdfDocument(path);
         return pageContentsAsString(doc, pageIndex);
     }
@@ -104,14 +108,11 @@ public class SampleTest {
      * @throws UnsupportedEncodingException the character encoding is not supported
      */
     protected String pageContentsAsString(final PDFDocument doc, final int pageIndex)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
+                    PDFFontException, PDFInvalidParameterException,
+                    PDFConfigurationException {
         final PDFPage page = pageFromDocument(doc, pageIndex);
-        final PDFContents contents = page.getContents();
-        final InputByteStream stream = contents.getContents();
-        final byte[] data = new byte[(int) stream.bytesAvailable()];
-        stream.read(data);
-        final String contentsAsString = new String(data, "cp1252");
-        return contentsAsString.replace('\n', '\r');
+        return ContentDumper.getPageContextDump(page, null);
     }
 
     /**
@@ -184,8 +185,8 @@ public class SampleTest {
             scanner.useDelimiter("\\A");
             if (scanner.hasNext()) {
                 String returnVal = scanner.next();
-                returnVal = returnVal.replace("\r\n", "\r");
-                returnVal = returnVal.replace("\n", "\r");
+                returnVal = returnVal.replace("\r\n", "\n");
+                returnVal = returnVal.replace("\n", "\n");
                 return returnVal;
             } else {
                 return "";
@@ -213,8 +214,8 @@ public class SampleTest {
             scanner.useDelimiter("\\A");
             if (scanner.hasNext()) {
                 String returnVal = scanner.next();
-                returnVal = returnVal.replace("\r\n", "\r");
-                returnVal = returnVal.replace("\n", "\r");
+                returnVal = returnVal.replace("\r\n", "\n");
+                returnVal = returnVal.replace("\n", "\n");
                 return returnVal;
             } else {
                 return "";
