@@ -185,8 +185,7 @@ public class SampleTest {
             scanner.useDelimiter("\\A");
             if (scanner.hasNext()) {
                 String returnVal = scanner.next();
-                returnVal = returnVal.replace("\r\n", "\n");
-                returnVal = returnVal.replace("\n", "\n");
+                returnVal = returnVal.replaceAll("\\r?\\n", System.lineSeparator());
                 return returnVal;
             } else {
                 return "";
