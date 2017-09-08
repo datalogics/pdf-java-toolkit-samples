@@ -1,97 +1,170 @@
-q
-BT
-72.0 710.004 Td
-/F0 12.0 Tf
-(preparing breakfast, while Bill rolled the blankets and made the sled ready for lashing.) Tj
-ET
-BT
-72.0 682.164 Td
-/F0 12.0 Tf
-(“Say, Henry,” he asked suddenly, “how many dogs did you say we had?”) Tj
-ET
-BT
-72.0 654.324 Td
-/F0 12.0 Tf
-(“Six.”) Tj
-ET
-BT
-72.0 626.484 Td
-/F0 12.0 Tf
-(“Wrong,” Bill proclaimed triumphantly.) Tj
-ET
-BT
-72.0 598.644 Td
-/F0 12.0 Tf
-(“Seven again?” Henry queried.) Tj
-ET
-BT
-72.0 570.804 Td
-/F0 12.0 Tf
-(“No, five; one’s gone.”) Tj
-ET
-BT
-72.0 542.964 Td
-/F0 12.0 Tf
-(“The hell!” Henry cried in wrath, leaving the cooking to come and count the dogs.) Tj
-ET
-BT
-72.0 515.124 Td
-/F0 12.0 Tf
-(“You’re right, Bill,” he concluded. “Fatty’s gone.”) Tj
-ET
-BT
-72.0 487.284 Td
-/F0 12.0 Tf
-(“An’ he went like greased lightnin’ once he got started. Couldn’t ‘ve seen ‘m for smoke.”) Tj
-ET
-BT
-72.0 459.444 Td
-/F0 12.0 Tf
-(“No chance at all,” Henry concluded. “They jes’ swallowed ‘m alive. I bet he was yelpin’ as he ) Tj
-ET
-BT
-72.0 445.044 Td
-/F0 12.0 Tf
-(went down their throats, damn ‘em!”) Tj
-ET
-BT
-72.0 417.204 Td
-/F0 12.0 Tf
-(“He always was a fool dog,” said Bill.) Tj
-ET
-BT
-72.0 389.364 Td
-/F0 12.0 Tf
-(“But no fool dog ought to be fool enough to go off an’ commit suicide that way.” He looked over ) Tj
-ET
-BT
-72.0 374.964 Td
-/F0 12.0 Tf
-(the remainder of the team with a speculative eye that summed up instantly the salient traits of ) Tj
-ET
-BT
-72.0 360.564 Td
-/F0 12.0 Tf
-(each animal. “I bet none of the others would do it.”) Tj
-ET
-BT
-72.0 332.724 Td
-/F0 12.0 Tf
-(“Couldn’t drive ‘em away from the fire with a club,” Bill agreed. “I always did think there was ) Tj
-ET
-BT
-72.0 318.324 Td
-/F0 12.0 Tf
-(somethin’ wrong with Fatty anyway.”) Tj
-ET
-BT
-72.0 290.484 Td
-/F0 12.0 Tf
-(And this was the epitaph of a dead dog on the Northland trail—less scant than the epitaph of ) Tj
-ET
-BT
-72.0 276.084 Td
-/F0 12.0 Tf
-(many another dog, of many a man.) Tj
-ET
-Q
+DumperGraphicsState[
+  ID=Gs0
+  lineCap=NONE
+  lineJoin=MITER
+  lineWidth=1
+  fillColorValues={0,0,0}
+  strokeColorValues={0,0,0}
+  clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
+  miterLimit=10
+  strokeAdjustment=false
+  fillTilingPatternName=<null>
+  strokeTilingPatternName=<null>
+  strokeAlpha=1
+  nonStrokeAlpha=1
+  smoothness=0
+  dashPhase=0
+  dashArray={}
+  overPrintMode=0
+  flatnessTolerance=1
+  fillAlphaOpacity=1
+  alphaSourceFlag=false
+  textKnockoutFlag=true
+  renderingIntent=RELATIVE_COLORIMETRIC
+  fillShadingPatternName=<null>
+  strokeShadingPatternName=<null>
+  blendingMode=NORMAL
+  overPrint=false
+]
+DumperTextState[
+  ID=Ts0
+  fontName=Type0 Font: Subsetted TimesNewRomanPSMT
+  textRenderingMode={FILL}
+  fontSize=12
+  textRise=0
+  textLeading=0
+  isTextScalingAdjusted=false
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,709.935}
+  boundingBox=Rectangle2D.Float[x=71.959,y=707.345,width=414.059,height=10.9219]
+  text="preparing breakfast, while Bill rolled the blankets and made the sled ready for lashing."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,682.095}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=679.505,width=351.51,height=10.9219]
+  text="\u201CSay, Henry,\u201D he asked suddenly, \u201Chow many dogs did you say we had?\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,654.255}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=654.073,width=28.9277,height=8.513672]
+  text="\u201CSix.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,626.415}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=623.825,width=191.707,height=10.9219]
+  text="\u201CWrong,\u201D Bill proclaimed triumphantly."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,598.575}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=595.985,width=148.02,height=10.9219]
+  text="\u201CSeven again?\u201D Henry queried."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,570.735}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=568.145,width=110.895,height=10.9219]
+  text="\u201CNo, five; one\u2019s gone.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,542.895}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=540.305,width=393.961,height=10.9219]
+  text="\u201CThe hell!\u201D Henry cried in wrath, leaving the cooking to come and count the dogs."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,515.055}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=512.465,width=242.525,height=10.9219]
+  text="\u201CYou\u2019re right, Bill,\u201D he concluded. \u201CFatty\u2019s gone.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,487.215}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=484.625,width=429.469,height=10.9219]
+  text="\u201CAn\u2019 he went like greased lightnin\u2019 once he got started. Couldn\u2019t \u2018ve seen \u2018m for smoke.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,459.375}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=456.785,width=457.084,height=10.9277]
+  text="\u201CNo chance at all,\u201D Henry concluded. \u201CThey jes\u2019 swallowed \u2018m alive. I bet he was yelpin\u2019 as he "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,444.975}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=442.977,width=176.865,height=10.3301]
+  text="went down their throats, damn \u2018em!\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,417.135}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=414.545,width=182.379,height=10.9219]
+  text="\u201CHe always was a fool dog,\u201D said Bill."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,389.295}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=386.705,width=466.916,height=10.9219]
+  text="\u201CBut no fool dog ought to be fool enough to go off an\u2019 commit suicide that way.\u201D He looked over "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,374.895}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=372.305,width=449.631,height=10.9219]
+  text="the remainder of the team with a speculative eye that summed up instantly the salient traits of "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,360.495}
+  boundingBox=Rectangle2D.Float[x=72.4453,y=360.331,width=245.133,height=8.496094]
+  text="each animal. \u201CI bet none of the others would do it.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,332.655}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=330.065,width=455.367,height=10.9219]
+  text="\u201CCouldn\u2019t drive \u2018em away from the fire with a club,\u201D Bill agreed. \u201CI always did think there was "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,318.255}
+  boundingBox=Rectangle2D.Float[x=72.5859,y=315.665,width=181.377,height=10.9219]
+  text="somethin\u2019 wrong with Fatty anyway.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,290.415}
+  boundingBox=Rectangle2D.Float[x=72.0938,y=287.825,width=444.68,height=10.9219]
+  text="And this was the epitaph of a dead dog on the Northland trail\u2014less scant than the epitaph of "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,276.015}
+  boundingBox=Rectangle2D.Float[x=72.0996,y=273.425,width=166.336,height=10.9219]
+  text="many another dog, of many a man."
+]

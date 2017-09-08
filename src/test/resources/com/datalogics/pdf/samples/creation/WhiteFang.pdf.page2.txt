@@ -1,167 +1,268 @@
-q
-BT
-72.0 710.004 Td
-/F0 12.0 Tf
-(They travelled on without speech, saving their breath for the work of their bodies. On every side ) Tj
-ET
-BT
-72.0 695.604 Td
-/F0 12.0 Tf
-(was the silence, pressing upon them with a tangible presence. It affected their minds as the many ) Tj
-ET
-BT
-72.0 681.204 Td
-/F0 12.0 Tf
-(atmospheres of deep water affect the body of the diver. It crushed them with the weight of ) Tj
-ET
-BT
-72.0 666.804 Td
-/F0 12.0 Tf
-(unending vastness and unalterable decree. It crushed them into the remotest recesses of their own ) Tj
-ET
-BT
-72.0 652.404 Td
-/F0 12.0 Tf
-(minds, pressing out of them, like juices from the grape, all the false ardours and exaltations and ) Tj
-ET
-BT
-72.0 638.004 Td
-/F0 12.0 Tf
-(undue self-values of the human soul, until they perceived themselves finite and small, specks and ) Tj
-ET
-BT
-72.0 623.604 Td
-/F0 12.0 Tf
-(motes, moving with weak cunning and little wisdom amidst the play and inter-play of the great ) Tj
-ET
-BT
-72.0 609.204 Td
-/F0 12.0 Tf
-(blind elements and forces.) Tj
-ET
-BT
-72.0 581.364 Td
-/F0 12.0 Tf
-(An hour went by, and a second hour. The pale light of the short sunless day was beginning to ) Tj
-ET
-BT
-72.0 566.964 Td
-/F0 12.0 Tf
-(fade, when a faint far cry arose on the still air. It soared upward with a swift rush, till it reached ) Tj
-ET
-BT
-72.0 552.564 Td
-/F0 12.0 Tf
-(its topmost note, where it persisted, palpitant and tense, and then slowly died away. It might have ) Tj
-ET
-BT
-72.0 538.164 Td
-/F0 12.0 Tf
-(been a lost soul wailing, had it not been invested with a certain sad fierceness and hungry ) Tj
-ET
-BT
-72.0 523.764 Td
-/F0 12.0 Tf
-(eagerness. The front man turned his head until his eyes met the eyes of the man behind. And ) Tj
-ET
-BT
-72.0 509.364 Td
-/F0 12.0 Tf
-(then, across the narrow oblong box, each nodded to the other.) Tj
-ET
-BT
-72.0 481.524 Td
-/F0 12.0 Tf
-(A second cry arose, piercing the silence with needle-like shrillness. Both men located the sound. ) Tj
-ET
-BT
-72.0 467.124 Td
-/F0 12.0 Tf
-(It was to the rear, somewhere in the snow expanse they had just traversed. A third and answering ) Tj
-ET
-BT
-72.0 452.724 Td
-/F0 12.0 Tf
-(cry arose, also to the rear and to the left of the second cry.) Tj
-ET
-BT
-72.0 424.884 Td
-/F0 12.0 Tf
-(“They’re after us, Bill,” said the man at the front.) Tj
-ET
-BT
-72.0 397.044 Td
-/F0 12.0 Tf
-(His voice sounded hoarse and unreal, and he had spoken with apparent effort.) Tj
-ET
-BT
-72.0 369.204 Td
-/F0 12.0 Tf
-(“Meat is scarce,” answered his comrade. “I ain’t seen a rabbit sign for days.”) Tj
-ET
-BT
-72.0 341.364 Td
-/F0 12.0 Tf
-(Thereafter they spoke no more, though their ears were keen for the hunting-cries that continued ) Tj
-ET
-BT
-72.0 326.964 Td
-/F0 12.0 Tf
-(to rise behind them.) Tj
-ET
-BT
-72.0 299.124 Td
-/F0 12.0 Tf
-(At the fall of darkness they swung the dogs into a cluster of spruce trees on the edge of the ) Tj
-ET
-BT
-72.0 284.724 Td
-/F0 12.0 Tf
-(waterway and made a camp. The coffin, at the side of the fire, served for seat and table. The ) Tj
-ET
-BT
-72.0 270.324 Td
-/F0 12.0 Tf
-(wolf-dogs, clustered on the far side of the fire, snarled and bickered among themselves, but ) Tj
-ET
-BT
-72.0 255.924 Td
-/F0 12.0 Tf
-(evinced no inclination to stray off into the darkness.) Tj
-ET
-BT
-72.0 228.084 Td
-/F0 12.0 Tf
-(“Seems to me, Henry, they’re stayin’ remarkable close to camp,” Bill commented.) Tj
-ET
-BT
-72.0 200.244 Td
-/F0 12.0 Tf
-(Henry, squatting over the fire and settling the pot of coffee with a piece of ice, nodded. Nor did ) Tj
-ET
-BT
-72.0 185.844 Td
-/F0 12.0 Tf
-(he speak till he had taken his seat on the coffin and begun to eat.) Tj
-ET
-BT
-72.0 158.004 Td
-/F0 12.0 Tf
-(“They know where their hides is safe,” he said. “They’d sooner eat grub than be grub. They’re ) Tj
-ET
-BT
-72.0 143.604 Td
-/F0 12.0 Tf
-(pretty wise, them dogs.”) Tj
-ET
-BT
-72.0 115.764 Td
-/F0 12.0 Tf
-(Bill shook his head. “Oh, I don’t know.”) Tj
-ET
-BT
-72.0 87.924 Td
-/F0 12.0 Tf
-(His comrade looked at him curiously. “First time I ever heard you say anything about their not ) Tj
-ET
-Q
+DumperGraphicsState[
+  ID=Gs0
+  lineCap=NONE
+  lineJoin=MITER
+  lineWidth=1
+  fillColorValues={0,0,0}
+  strokeColorValues={0,0,0}
+  clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
+  miterLimit=10
+  strokeAdjustment=false
+  fillTilingPatternName=<null>
+  strokeTilingPatternName=<null>
+  strokeAlpha=1
+  nonStrokeAlpha=1
+  smoothness=0
+  dashPhase=0
+  dashArray={}
+  overPrintMode=0
+  flatnessTolerance=1
+  fillAlphaOpacity=1
+  alphaSourceFlag=false
+  textKnockoutFlag=true
+  renderingIntent=RELATIVE_COLORIMETRIC
+  fillShadingPatternName=<null>
+  strokeShadingPatternName=<null>
+  blendingMode=NORMAL
+  overPrint=false
+]
+DumperTextState[
+  ID=Ts0
+  fontName=Type0 Font: Subsetted TimesNewRomanPSMT
+  textRenderingMode={FILL}
+  fontSize=12
+  textRise=0
+  textLeading=0
+  isTextScalingAdjusted=false
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,709.935}
+  boundingBox=Rectangle2D.Float[x=72.3633,y=707.345,width=461.824,height=10.9219]
+  text="They travelled on without speech, saving their breath for the work of their bodies. On every side "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,695.535}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=692.945,width=464.373,height=10.9219]
+  text="was the silence, pressing upon them with a tangible presence. It affected their minds as the many "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,681.135}
+  boundingBox=Rectangle2D.Float[x=72.4277,y=678.545,width=433.641,height=10.9219]
+  text="atmospheres of deep water affect the body of the diver. It crushed them with the weight of "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,666.735}
+  boundingBox=Rectangle2D.Float[x=72.0117,y=664.145,width=466.776,height=10.9219]
+  text="unending vastness and unalterable decree. It crushed them into the remotest recesses of their own "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,652.335}
+  boundingBox=Rectangle2D.Float[x=72.0996,y=649.745,width=458.139,height=10.9277]
+  text="minds, pressing out of them, like juices from the grape, all the false ardours and exaltations and "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,637.935}
+  boundingBox=Rectangle2D.Float[x=72.0117,y=635.345,width=467.227,height=10.9219]
+  text="undue self-values of the human soul, until they perceived themselves finite and small, specks and "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,623.535}
+  boundingBox=Rectangle2D.Float[x=72.0996,y=620.945,width=455.818,height=10.9219]
+  text="motes, moving with weak cunning and little wisdom amidst the play and inter-play of the great "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,609.135}
+  boundingBox=Rectangle2D.Float[x=71.9707,y=608.971,width=125.139,height=8.496094]
+  text="blind elements and forces."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,581.295}
+  boundingBox=Rectangle2D.Float[x=72.0938,y=578.705,width=446.736,height=10.9219]
+  text="An hour went by, and a second hour. The pale light of the short sunless day was beginning to "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,566.895}
+  boundingBox=Rectangle2D.Float[x=72.4629,y=564.305,width=457.072,height=10.9219]
+  text="fade, when a faint far cry arose on the still air. It soared upward with a swift rush, till it reached "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,552.495}
+  boundingBox=Rectangle2D.Float[x=72.3516,y=549.905,width=466.541,height=10.9219]
+  text="its topmost note, where it persisted, palpitant and tense, and then slowly died away. It might have "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,538.095}
+  boundingBox=Rectangle2D.Float[x=71.9707,y=535.505,width=428.836,height=10.9219]
+  text="been a lost soul wailing, had it not been invested with a certain sad fierceness and hungry "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,523.695}
+  boundingBox=Rectangle2D.Float[x=72.4453,y=521.105,width=443.127,height=10.9219]
+  text="eagerness. The front man turned his head until his eyes met the eyes of the man behind. And "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,509.295}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=506.705,width=294.615,height=10.9219]
+  text="then, across the narrow oblong box, each nodded to the other."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,481.455}
+  boundingBox=Rectangle2D.Float[x=72.0938,y=478.865,width=461.924,height=10.9219]
+  text="A second cry arose, piercing the silence with needle-like shrillness. Both men located the sound. "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,467.055}
+  boundingBox=Rectangle2D.Float[x=72.2988,y=464.465,width=465.012,height=10.9277]
+  text="It was to the rear, somewhere in the snow expanse they had just traversed. A third and answering "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,452.655}
+  boundingBox=Rectangle2D.Float[x=72.4102,y=450.065,width=276.961,height=10.9219]
+  text="cry arose, also to the rear and to the left of the second cry."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,424.815}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=422.225,width=235.336,height=10.9219]
+  text="\u201CThey\u2019re after us, Bill,\u201D said the man at the front."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,396.975}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=394.408,width=371.49,height=10.8984]
+  text="His voice sounded hoarse and unreal, and he had spoken with apparent effort."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,369.135}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=366.545,width=368.443,height=10.9219]
+  text="\u201CMeat is scarce,\u201D answered his comrade. \u201CI ain\u2019t seen a rabbit sign for days.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,341.295}
+  boundingBox=Rectangle2D.Float[x=72.3633,y=338.705,width=457.828,height=10.9219]
+  text="Thereafter they spoke no more, though their ears were keen for the hunting-cries that continued "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,326.895}
+  boundingBox=Rectangle2D.Float[x=72.1172,y=326.731,width=94.3477,height=8.496094]
+  text="to rise behind them."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,299.055}
+  boundingBox=Rectangle2D.Float[x=72.0938,y=296.465,width=434.443,height=10.9219]
+  text="At the fall of darkness they swung the dogs into a cluster of spruce trees on the edge of the "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,284.655}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=282.065,width=441.387,height=10.9219]
+  text="waterway and made a camp. The coffin, at the side of the fire, served for seat and table. The "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,270.255}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=267.665,width=438.135,height=10.9219]
+  text="wolf-dogs, clustered on the far side of the fire, snarled and bickered among themselves, but "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,255.855}
+  boundingBox=Rectangle2D.Float[x=72.4453,y=253.265,width=248.309,height=10.9219]
+  text="evinced no inclination to stray off into the darkness."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,228.015}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=225.425,width=394.289,height=10.9219]
+  text="\u201CSeems to me, Henry, they\u2019re stayin\u2019 remarkable close to camp,\u201D Bill commented."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,200.175}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=197.585,width=457.342,height=10.9219]
+  text="Henry, squatting over the fire and settling the pot of coffee with a piece of ice, nodded. Nor did "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,185.775}
+  boundingBox=Rectangle2D.Float[x=72.0762,y=183.185,width=308.643,height=10.9219]
+  text="he speak till he had taken his seat on the coffin and begun to eat."
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,157.935}
+  boundingBox=Rectangle2D.Float[x=72.3926,y=155.345,width=452.766,height=10.9219]
+  text="\u201CThey know where their hides is safe,\u201D he said. \u201CThey\u2019d sooner eat grub than be grub. They\u2019re "
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,143.535}
+  boundingBox=Rectangle2D.Float[x=71.959,y=140.945,width=116.678,height=10.9219]
+  text="pretty wise, them dogs.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,115.695}
+  boundingBox=Rectangle2D.Float[x=72.1992,y=113.697,width=194.104,height=10.3301]
+  text="Bill shook his head. \u201COh, I don\u2019t know.\u201D"
+]
+DumperContentTextItem[
+  graphicsState=Gs0
+  textState=Ts0
+  matrix={1,0,0,1,72,87.8548}
+  boundingBox=Rectangle2D.Float[x=72.2051,y=85.2649,width=453.369,height=10.9219]
+  text="His comrade looked at him curiously. \u201CFirst time I ever heard you say anything about their not "
+]

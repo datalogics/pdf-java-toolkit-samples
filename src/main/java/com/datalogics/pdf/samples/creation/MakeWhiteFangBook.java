@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
 
 import javax.imageio.ImageIO;
 
@@ -169,6 +170,7 @@ public final class MakeWhiteFangBook {
      */
     private static void addHeading1(final LayoutEngine layoutEngine, final String text) {
         final Heading h = new Heading(text);
+        h.getStyle().setFontFamilies(Arrays.asList("Times New Roman", "Times"));
         h.getStyle().setFontSize(new Length(36, Dimension.PT));
         h.getStyle().setMarginBottom(new Length(0, Dimension.PT));
         layoutEngine.add(h);
@@ -182,6 +184,7 @@ public final class MakeWhiteFangBook {
      */
     private static void addHeading2(final LayoutEngine layoutEngine, final String text) {
         final Heading h = new Heading(text);
+        h.getStyle().setFontFamilies(Arrays.asList("Times New Roman", "Times"));
         layoutEngine.add(h);
     }
 
@@ -192,6 +195,8 @@ public final class MakeWhiteFangBook {
      * @param line the line from the original file to add
      */
     private static void addOneParagraph(final LayoutEngine layoutEngine, final String line) {
-        layoutEngine.add(new Paragraph(line));
+        final Paragraph para = new Paragraph(line);
+        para.getStyle().setFontFamilies(Arrays.asList("Times New Roman", "Times"));
+        layoutEngine.add(para);
     }
 }

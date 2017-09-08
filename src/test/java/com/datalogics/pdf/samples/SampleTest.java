@@ -4,17 +4,24 @@
 
 package com.datalogics.pdf.samples;
 
+import static org.hamcrest.Matchers.anyOf;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import com.adobe.internal.io.ByteReader;
 import com.adobe.internal.io.RandomAccessFileByteReader;
-import com.adobe.internal.io.stream.InputByteStream;
+import com.adobe.pdfjt.core.exceptions.PDFConfigurationException;
+import com.adobe.pdfjt.core.exceptions.PDFFontException;
 import com.adobe.pdfjt.core.exceptions.PDFIOException;
 import com.adobe.pdfjt.core.exceptions.PDFInvalidDocumentException;
+import com.adobe.pdfjt.core.exceptions.PDFInvalidParameterException;
 import com.adobe.pdfjt.core.exceptions.PDFSecurityException;
 import com.adobe.pdfjt.core.types.ASName;
-import com.adobe.pdfjt.pdf.document.PDFContents;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFOpenOptions;
 import com.adobe.pdfjt.pdf.document.PDFResources;
@@ -22,11 +29,19 @@ import com.adobe.pdfjt.pdf.filters.PDFFilter;
 import com.adobe.pdfjt.pdf.graphics.colorspaces.PDFColorSpace;
 import com.adobe.pdfjt.pdf.graphics.colorspaces.PDFColorSpaceICCBased;
 import com.adobe.pdfjt.pdf.graphics.colorspaces.PDFICCProfile;
+import com.adobe.pdfjt.pdf.graphics.font.PDFCIDFont;
+import com.adobe.pdfjt.pdf.graphics.font.PDFCIDFontWidths;
+import com.adobe.pdfjt.pdf.graphics.font.PDFCIDSystemInfo;
 import com.adobe.pdfjt.pdf.graphics.font.PDFFont;
 import com.adobe.pdfjt.pdf.graphics.font.PDFFontDescriptor;
+import com.adobe.pdfjt.pdf.graphics.font.PDFFontFile;
 import com.adobe.pdfjt.pdf.graphics.font.PDFFontSimple;
+import com.adobe.pdfjt.pdf.graphics.font.PDFFontType0;
+import com.adobe.pdfjt.pdf.graphics.font.impl.PDFFontUtils;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
+
+import com.datalogics.pdf.dumper.ContentDumper;
 
 import org.junit.After;
 import org.junit.Before;
@@ -74,7 +89,8 @@ public class SampleTest {
      * @throws UnsupportedEncodingException the character encoding is not supported
      */
     protected String pageContentsAsString(final String path, final int pageIndex)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
+                    PDFFontException, PDFInvalidParameterException, PDFConfigurationException {
         final PDFDocument doc = openPdfDocument(path);
         return pageContentsAsString(doc, pageIndex);
     }
@@ -92,14 +108,11 @@ public class SampleTest {
      * @throws UnsupportedEncodingException the character encoding is not supported
      */
     protected String pageContentsAsString(final PDFDocument doc, final int pageIndex)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException {
+                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
+                    PDFFontException, PDFInvalidParameterException,
+                    PDFConfigurationException {
         final PDFPage page = pageFromDocument(doc, pageIndex);
-        final PDFContents contents = page.getContents();
-        final InputByteStream stream = contents.getContents();
-        final byte[] data = new byte[(int) stream.bytesAvailable()];
-        stream.read(data);
-        final String contentsAsString = new String(data, "cp1252");
-        return contentsAsString.replace('\n', '\r');
+        return ContentDumper.getPageContextDump(page, null);
     }
 
     /**
@@ -172,8 +185,7 @@ public class SampleTest {
             scanner.useDelimiter("\\A");
             if (scanner.hasNext()) {
                 String returnVal = scanner.next();
-                returnVal = returnVal.replace("\r\n", "\r");
-                returnVal = returnVal.replace("\n", "\r");
+                returnVal = returnVal.replaceAll("\\r?\\n", System.lineSeparator());
                 return returnVal;
             } else {
                 return "";
@@ -201,8 +213,8 @@ public class SampleTest {
             scanner.useDelimiter("\\A");
             if (scanner.hasNext()) {
                 String returnVal = scanner.next();
-                returnVal = returnVal.replace("\r\n", "\r");
-                returnVal = returnVal.replace("\n", "\r");
+                returnVal = returnVal.replace("\r\n", "\n");
+                returnVal = returnVal.replace("\n", "\n");
                 return returnVal;
             } else {
                 return "";
@@ -241,6 +253,129 @@ public class SampleTest {
         final PDFFontDescriptor descriptor = simpleFont.getFontDescriptor();
         assertEquals("Descriptor font name must match base font name", descriptor.getFontName(),
                      simpleFont.getBaseFont());
+    }
+
+    /**
+     * Checks validity of a Type 0 font.
+     *
+     * <p>
+     * Checks values in the font, that there is a descendant font, and that there is a font descriptor with a name.
+     *
+     * <p>
+     * Also checks that the font has a valid name if subsetted.
+     *
+     * @param font the {@link PDFFont} to test
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     */
+    protected void assertNiceType0Font(final PDFFont font)
+                    throws PDFSecurityException, PDFIOException, PDFInvalidDocumentException {
+        assertThat("it is a type 0 font", font, instanceOf(PDFFontType0.class));
+        final PDFFontType0 fontType0 = (PDFFontType0) font;
+
+        final String baseFontName = fontType0.getBaseFont().asString();
+        if (baseFontName.length() > 7 && baseFontName.charAt(6) == '+') {
+            assertSubsetted(font);
+        }
+
+        assertThat("there is a ToUnicode cmap", fontType0.getToUnicodeCMap(), not(nullValue()));
+        assertThat("it has Identity-H encoding", fontType0.getEncoding().getCMapName(), equalTo(ASName.k_Identity_H));
+
+        final PDFCIDFont descendantFont = fontType0.getDescendantFont();
+        assertThat("there is a descendant font", descendantFont, not(nullValue()));
+
+        final PDFCIDFontWidths widths = descendantFont.getW();
+        assertThat("there are widths", widths, not(nullValue()));
+
+        assertThat("there is a DW value", descendantFont.getDW(), not(nullValue()));
+
+        final PDFCIDSystemInfo cidSystemInfo = descendantFont.getCIDSystemInfo();
+        assertThat("there is CIDSystemInfo", cidSystemInfo, not(nullValue()));
+
+        assertThat("descendant font name must match main font name", descendantFont.getBaseFont(),
+                   equalTo(fontType0.getBaseFont()));
+
+        final PDFFontDescriptor descriptor = descendantFont.getFontDescriptor();
+        assertEquals("Descriptor font name must match base font name", descriptor.getFontName(),
+                     fontType0.getBaseFont());
+
+        if (PDFFontUtils.isSubsetFont(font)) {
+            final PDFFontFile fontFile3 = descriptor.getFontFile3();
+            final PDFFontFile fontFile2 = descriptor.getFontFile2();
+
+            assertTrue("there is a FontFile2 or a FontFile3", fontFile2 != null || fontFile3 != null);
+
+            if (fontFile3 != null) {
+                final ASName subtype = fontFile3.getSubtype();
+                assertThat("the subtype is Type1C or CIDFontType0C",
+                           subtype.asString(),
+                           anyOf(equalTo("Type1C"), equalTo("CIDFontType0C")));
+            }
+        }
+    }
+
+    /**
+     * Checks validity of a font.
+     *
+     * <p>
+     * Checks the font as appropriate using {@link #assertNiceSimpleFont(PDFFont)} or
+     * {@link #assertNiceType0Font(PDFFont)} as appropriate.
+     *
+     * <p>
+     * Also checks that the font has a valid name if subsetted.
+     *
+     * @param font the {@link PDFFont} to test
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     */
+    protected void assertNiceFont(final PDFFont font)
+                    throws PDFSecurityException, PDFIOException, PDFInvalidDocumentException {
+        assertThat(font, anyOf(instanceOf(PDFFontSimple.class), instanceOf(PDFFontType0.class)));
+
+        if (font instanceof PDFFontSimple) {
+            assertNiceSimpleFont(font);
+        } else {
+            assertNiceType0Font(font);
+        }
+    }
+
+    /**
+     * Assert a font is subsetted.
+     *
+     * @param font the font
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
+     * @throws PDFSecurityException some general security issue occurred during the processing of the request
+     */
+    protected void assertSubsetted(final PDFFont font) throws PDFInvalidDocumentException, PDFIOException,
+                    PDFSecurityException {
+        // Test this validity first, because it gives better diagnostics than isFontEmbedded()
+        assertValidSubsetName(font.getBaseFont().asString());
+        assertTrue(PDFFontUtils.isSubsetFont(font));
+        assertTrue(PDFFontUtils.isFontEmbedded(font));
+    }
+
+    /**
+     * Assert that a font has a valid subset name.
+     *
+     * <p>
+     * The initial '/' may or may not be present.
+     *
+     * @param string the string
+     */
+    protected void assertValidSubsetName(String string) {
+        if (string.charAt(0) == '/') {
+            string = string.substring(1);
+        }
+        assertTrue("Subset name must have more than 7 characters", string.length() > 7);
+        assertEquals("Subset name must have '+' in 7th character", "+", string.substring(6, 7));
+        for (int i = 0; i < 6; i++) {
+            final char subsetNameChar = string.charAt(i);
+            assertTrue("Subset prefix must be made of six alphabetic, Latin letters", subsetNameChar >= 'A'
+                                                                                      && subsetNameChar <= 'Z');
+        }
     }
 
     /**
