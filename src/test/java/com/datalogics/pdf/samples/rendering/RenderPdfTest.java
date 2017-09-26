@@ -59,9 +59,15 @@ public class RenderPdfTest extends SampleTest {
                 if (SystemUtils.IS_JAVA_1_8) {
                     add(CLASS_NAME + ".1.png", "359806f590dee0e642a10b9b5043e46fd74fa3ce");
                     add(CLASS_NAME + ".2.png", "3192548a1abf89fec8de8d8b38f906d8717613b8");
+
+                    add(CLASS_NAME + ".1.jpg", "bff446bb308a9bf45fa698c087515dc33454e5cd");
+                    add(CLASS_NAME + ".2.jpg", "284ddfc066d209f7b1705f63c8a08eb6289d205a");
                 } else {
                     add(CLASS_NAME + ".1.png", "1992474437f5b1ee5a885322fb089915a57fe8c9");
                     add(CLASS_NAME + ".2.png", "560bae832b056507eac24c81d6f6ef65d2685667");
+
+                    add(CLASS_NAME + ".1.jpg", "387a2721566553d92a936f75d3024faf83fc4430");
+                    add(CLASS_NAME + ".2.jpg", "453730cfbb8e556feb532e0110fc580c2dff6a77");
                 }
             }
         };
