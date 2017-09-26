@@ -14,6 +14,7 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.FontUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -127,7 +128,8 @@ public final class RenderPdf {
         while (pageRasterizer.hasNext()) {
             pageNo += 1;
             final BufferedImage page = pageRasterizer.next();
-            savePage(outputBaseUrl, pageNo, page);
+            savePageAsPng(outputBaseUrl, pageNo, page);
+            savePageAsJpeg(outputBaseUrl, pageNo, page);
         }
     }
 
@@ -140,10 +142,49 @@ public final class RenderPdf {
      * @throws IOException an I/O operation failed or was interrupted
      * @throws URISyntaxException a string could not be parsed as a URI reference
      */
-    private static void savePage(final URL imageBaseUrl, final int pageNo, final BufferedImage page)
+    private static void savePageAsPng(final URL imageBaseUrl, final int pageNo, final BufferedImage page)
                     throws IOException, URISyntaxException {
         final File outputFile = new File(imageBaseUrl.toURI().getPath() + "." + pageNo + ".png");
         // Saving raster image
         ImageIO.write(page, "png", outputFile);
+    }
+
+    /**
+     * Save one page to a JPEG file.
+     *
+     * @param imageBaseUrl the URL to the image output
+     * @param pageNo the pageNumber
+     * @param page the image of the page
+     * @throws IOException an I/O operation failed or was interrupted
+     * @throws URISyntaxException a string could not be parsed as a URI reference
+     */
+    private static void savePageAsJpeg(final URL imageBaseUrl, final int pageNo, final BufferedImage page)
+                    throws IOException, URISyntaxException {
+        final File outputFile = new File(imageBaseUrl.toURI().getPath() + "." + pageNo + ".jpg");
+
+        // NOTE: Convert the RGBA image to RGB before passing off to the JPEG encoder. Otherwise, the ImageIO JPEG image
+        // writer will write a JPEG-encoded RGBA image that few readers will correctly decode.
+        final BufferedImage rgbPage = convertToRgb(page);
+
+        // Saving raster image
+        ImageIO.write(rgbPage, "jpeg", outputFile);
+    }
+
+    /**
+     * Convert a {@link BufferedImage} to RGB.
+     *
+     * @param input the {@link BufferedImage} to convert
+     * @return the resulting {@link BufferedImage}
+     */
+    private static BufferedImage convertToRgb(final BufferedImage input) {
+        final BufferedImage output = new BufferedImage(input.getWidth(), input.getHeight(),
+                                                       BufferedImage.TYPE_INT_RGB);
+        final Graphics graphics = output.getGraphics();
+        try {
+            graphics.drawImage(input, 0, 0, input.getWidth(), input.getHeight(), null);
+        } finally {
+            graphics.dispose();
+        }
+        return output;
     }
 }
