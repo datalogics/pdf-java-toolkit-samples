@@ -36,7 +36,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>2.0.0-SNAPSHOT</pmdconfig.version>
-    <pmdVersion>5.5.2</pmdVersion>
+    <pmdVersion>5.8.1</pmdVersion>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -295,7 +295,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.7</version>
+        <version>3.8</version>
         <executions>
           <execution>
             <goals>
