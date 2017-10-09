@@ -45,11 +45,14 @@ import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.EnumSet;
 import java.util.Locale;
-import java.util.logging.Logger;
 
 /**
  * This sample demonstrates how to open a document, add redaction annotations to it, and then apply the redaction. The
@@ -95,7 +98,7 @@ import java.util.logging.Logger;
  * </ul>
  */
 public final class RedactAndSanitizeDocument {
-    private static final Logger LOGGER = Logger.getLogger(RedactAndSanitizeDocument.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public static final String SEARCH_PDF_STRING = "Reader";
     public static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";
@@ -314,7 +317,7 @@ public final class RedactAndSanitizeDocument {
                     PDFConfigurationException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
 
         if (!canSanitizeDocument(document)) {
-            LOGGER.warning("The document was not sanitized");
+            LOGGER.warn("The document was not sanitized");
             return;
         }
         ByteWriter writer = null;

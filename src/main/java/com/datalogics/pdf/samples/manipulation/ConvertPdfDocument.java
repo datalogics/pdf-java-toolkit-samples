@@ -27,9 +27,12 @@ import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
-import java.util.logging.Logger;
 
 
 /**
@@ -44,7 +47,7 @@ import java.util.logging.Logger;
  */
 
 public final class ConvertPdfDocument {
-    private static final Logger LOGGER = Logger.getLogger(ConvertPdfDocument.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public static final String INPUT_UNCONVERTED_PDF_PATH = "UnConvertedPdf.pdf";
     public static final String OUTPUT_CONVERTED_PDF_PATH = "ConvertedPdfa-1b.pdf";

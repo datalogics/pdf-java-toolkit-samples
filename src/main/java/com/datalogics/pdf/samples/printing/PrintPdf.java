@@ -19,6 +19,9 @@ import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -30,9 +33,8 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterIOException;
 import java.awt.print.PrinterJob;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
@@ -49,7 +51,7 @@ import javax.print.attribute.standard.PrinterResolution;
  */
 public class PrintPdf {
 
-    private static final Logger LOGGER = Logger.getLogger(PrintPdf.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     public static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
 
     private static PageRasterizer pageRasterizer;
@@ -88,16 +90,13 @@ public class PrintPdf {
      * @throws Exception a general exception was thrown
      */
     public static void printPdf(final URL inputUrl) throws Exception {
-        // Only log info messages and above
-        LOGGER.setLevel(Level.INFO);
-
         // Find the default printer.
         final PrintService printService = PrintServiceLookup.lookupDefaultPrintService();
 
         // If no printer is available, give up: we can't go any further.
         if (printService == null) {
-            if (LOGGER.isLoggable(Level.SEVERE)) {
-                LOGGER.severe("No printer available, aborting.");
+            if (LOGGER.isErrorEnabled()) {
+                LOGGER.error("No printer available, aborting.");
             }
             throw new PrinterException("Printer failed to exist.");
         }
@@ -111,7 +110,7 @@ public class PrintPdf {
             final int pdfPageHeight = (int) pdfPage.getMediaBox().height();
 
             // Describe the selected printer.
-            if (LOGGER.isLoggable(Level.INFO)) {
+            if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("Printer: " + printService.getName());
             }
 
@@ -121,7 +120,7 @@ public class PrintPdf {
             if (printerResolution != null) {
                 resolution = printerResolution.getResolution(PrinterResolution.DPI)[0];
             }
-            if (LOGGER.isLoggable(Level.INFO)) {
+            if (LOGGER.isInfoEnabled()) {
                 LOGGER.info("Resolution: " + resolution + " DPI");
             }
 
@@ -155,8 +154,8 @@ public class PrintPdf {
             printerJob.setPrintable(new BufferedImagePrintable(), validatePage);
             printerJob.print();
         } catch (final IOException | PrinterException exp) {
-            if (LOGGER.isLoggable(Level.WARNING)) {
-                LOGGER.warning(exp.getMessage());
+            if (LOGGER.isWarnEnabled()) {
+                LOGGER.warn(exp.getMessage());
             }
         }
     }
@@ -211,8 +210,8 @@ public class PrintPdf {
                 }
             } catch (final PDFFontException | PDFInvalidDocumentException | PDFInvalidParameterException
                      | PDFIOException | PDFSecurityException e) {
-                if (LOGGER.isLoggable(Level.SEVERE)) {
-                    LOGGER.log(Level.SEVERE, "Error rasterizing a page", e);
+                if (LOGGER.isErrorEnabled()) {
+                    LOGGER.error("Error rasterizing a page", e);
                 }
                 // This double-wrap allows us to throw the rasterizer exception to the PrinterJob.
                 throw new PrinterIOException(new IOException("Error rasterizing a page", e));

@@ -18,17 +18,18 @@ import com.datalogics.pdf.samples.util.IoUtils;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.invoke.MethodHandles;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This sample demonstrates exporting data from PDF form fields with formatting to a CSV file.
@@ -37,7 +38,7 @@ public final class ExportFormDataToCsv {
     public static final String DEFAULT_INPUT = "filled_acroform.pdf";
     public static final String CSV_OUTPUT = "exported-form-data.csv";
 
-    private static final Logger LOGGER = Logger.getLogger(ExportFormDataToCsv.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * This is a utility class, and won't be instantiated.
@@ -160,17 +161,17 @@ public final class ExportFormDataToCsv {
                 final List<?> value = field.getValueList();
                 if (value == null) {
                     printer.print("");
-                    if (LOGGER.isLoggable(Level.WARNING)) {
-                        LOGGER.warning(field.getQualifiedName() + " has no value!");
+                    if (LOGGER.isWarnEnabled()) {
+                        LOGGER.warn(field.getQualifiedName() + " has no value!");
                     }
                 } else {
                     // If the list of values is not empty, write out only the first one.
                     // For more complex forms, the field type should be inspected to
                     // determine how to handle extracting the values.
                     printer.print(value.get(0).toString());
-                    if (LOGGER.isLoggable(Level.WARNING)) {
-                        LOGGER.warning(field.getQualifiedName()
-                                       + " has no formatting rules! Writing out non formatted value!");
+                    if (LOGGER.isWarnEnabled()) {
+                        LOGGER.warn(field.getQualifiedName()
+                                    + " has no formatting rules! Writing out non formatted value!");
                     }
                 }
             } else {

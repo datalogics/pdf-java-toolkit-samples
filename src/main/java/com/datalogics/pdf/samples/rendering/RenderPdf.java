@@ -14,15 +14,17 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.FontUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -32,7 +34,7 @@ import javax.imageio.ImageIO;
 public final class RenderPdf {
 
     private static final int RESOLUTION = 300;
-    private static final Logger LOGGER = Logger.getLogger(RenderPdf.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     public static final String DEFAULT_INPUT = "/com/datalogics/pdf/samples/printing/pdfjavatoolkit-ds.pdf";
 
     private static PageRasterizer pageRasterizer;
@@ -106,7 +108,7 @@ public final class RenderPdf {
         final int pdfPageWidth = (int) pdfPage.getMediaBox().width();
         final int pdfPageHeight = (int) pdfPage.getMediaBox().height();
 
-        if (LOGGER.isLoggable(Level.INFO)) {
+        if (LOGGER.isInfoEnabled()) {
             LOGGER.info("Resolution: " + resolution + " DPI");
         }
 

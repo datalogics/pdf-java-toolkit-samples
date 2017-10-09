@@ -20,22 +20,24 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.FontUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.invoke.MethodHandles;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * This sample demonstrates how to extract text from a document. The text is extracted in reading order and then saved
  * to a text file.
  */
 public final class TextExtract {
-    private static final Logger LOGGER = Logger.getLogger(TextExtract.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
     public static final String OUTPUT_TEXT_PATH = "TextExtract.txt";
@@ -105,7 +107,7 @@ public final class TextExtract {
                     } while (wordsIter.hasNext());
                 }
             } else {
-                if (LOGGER.isLoggable(Level.INFO)) {
+                if (LOGGER.isInfoEnabled()) {
                     LOGGER.info(inputUrl.toURI().getPath() + " did not have any text to extract.");
                 }
             }
