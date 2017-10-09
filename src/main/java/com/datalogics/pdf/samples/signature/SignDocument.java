@@ -237,10 +237,8 @@ public final class SignDocument {
                                                                          .newInstance()
                                                                          .createPrivateKey(derEncodedPrivateKey,
                                                                                            sigAlgorithm);
-        final Credentials credentials = CredentialFactory.newInstance()
-                                                         .createCredentials(privateKeyHolder, derEncodedCert,
-                                                                            null);
-        return credentials;
+        return CredentialFactory.newInstance()
+                                .createCredentials(privateKeyHolder, derEncodedCert, null);
     }
 
     private static byte[] getDerEncodedData(final InputStream inputStream) throws IOException {

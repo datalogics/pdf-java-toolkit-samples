@@ -118,9 +118,7 @@ public final class DocumentUtils {
      */
     public static PDFFontSet getDocumentFontSet(final PDFDocument document)
                     throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException {
-        final PDFFontSet docFontSet = PDFFontSetUtil.buildWorkingFontSet(document, null, document.getDocumentLocale(),
-                                                                         null);
-        return docFontSet;
+        return PDFFontSetUtil.buildWorkingFontSet(document, null, document.getDocumentLocale(), null);
     }
 
     /**
