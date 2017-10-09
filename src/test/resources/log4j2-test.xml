@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2017 Datalogics, Inc.
+  -->
+
+<Configuration status="warn">
+  <Appenders>
+    <RandomAccessFile name="TestLog" fileName="target/test.log" append="false">
+      <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+    </RandomAccessFile>
+    <Console name="stdout" target="SYSTEM_OUT">
+      <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+  </Appenders>
+  <Loggers>
+    <Root level="trace">
+      <AppenderRef ref="TestLog"/>
+      <AppenderRef ref="stdout"/>
+    </Root>
+  </Loggers>
+</Configuration>
