@@ -587,6 +587,8 @@
                         <include>.settings/org.eclipse.m2e.core.prefs</include>
                         <!-- all the Markdown files at the top level -->
                         <include>*.md</include>
+                        <!-- log4j2 configuration files -->
+                        <include>src/**/log4j2*.xml</include>
                         <!-- things used to build the project -->
                         <include>fix_throws_javadoc.sed</include>
                         <include>fix_throws_javadoc.sh</include>
