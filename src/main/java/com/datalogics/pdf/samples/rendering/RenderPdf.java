@@ -99,9 +99,6 @@ public final class RenderPdf {
      * @throws Exception a general exception was thrown
      */
     public static void renderPdf(final URL inputUrl, final int resolution, final URL outputBaseUrl) throws Exception {
-        // Only log info messages and above
-        LOGGER.setLevel(Level.INFO);
-
         // Read the PDF input file and detect the page size of the first page. This sample assumes all pages in
         // the document are the same size.
         final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(inputUrl);
