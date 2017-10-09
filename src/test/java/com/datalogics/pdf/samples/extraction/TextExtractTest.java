@@ -19,8 +19,10 @@ import com.adobe.pdfjt.pdf.page.PDFPageTree;
 
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.SampleTest;
-import com.datalogics.pdf.samples.util.LogRecordListCollector;
+import com.datalogics.pdf.samples.util.LogEventListCollector;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.LogEvent;
 import org.junit.Test;
 
 import java.io.File;
@@ -29,10 +31,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
+import java.util.List;
 
 /**
  * Tests the TextExtract sample.
@@ -74,17 +73,18 @@ public class TextExtractTest extends SampleTest {
         final URL inputUrl = emptyPdf.toURI().toURL();
         final URL outputUrl = emptyTxt.toURI().toURL();
 
-        final ArrayList<LogRecord> logRecords = new ArrayList<>();
-        final Logger logger = Logger.getLogger(TextExtract.class.getName());
-        try (LogRecordListCollector collector = new LogRecordListCollector(logger, logRecords)) {
+        try (LogEventListCollector logEventListCollector = new LogEventListCollector()) {
             TextExtract.extractTextReadingOrder(inputUrl, outputUrl);
-        }
 
-        // Verify that we got the expected log message
-        assertEquals("Must have one log record", 1, logRecords.size());
-        final LogRecord logRecord = logRecords.get(0);
-        assertEquals(inputUrl.toURI().getPath() + " did not have any text to extract.", logRecord.getMessage());
-        assertEquals(Level.INFO, logRecord.getLevel());
+            final List<LogEvent> events = logEventListCollector.getEvents();
+
+            // Verify that we got the expected log message
+            assertEquals("Must have one log record", 1, events.size());
+            final LogEvent logEvent = events.get(0);
+            assertEquals(inputUrl.toURI().getPath() + " did not have any text to extract.",
+                         logEvent.getMessage().getFormattedMessage());
+            assertEquals(Level.INFO, logEvent.getLevel());
+        }
 
         // Verify that the output file was not created
         final Path path = Paths.get(outputUrl.toURI());
