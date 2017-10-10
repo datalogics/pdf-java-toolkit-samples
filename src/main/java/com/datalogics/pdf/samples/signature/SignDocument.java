@@ -33,14 +33,16 @@ import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.NodeList;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -62,7 +64,7 @@ import javax.imageio.stream.ImageInputStream;
  */
 
 public final class SignDocument {
-    private static final Logger LOGGER = Logger.getLogger(SignDocument.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
 
     private static final String DER_KEY_PATH = "pdfjt-key.der";
@@ -153,7 +155,7 @@ public final class SignDocument {
                     pdfDoc.close();
                 }
             } catch (final PDFException e) {
-                LOGGER.severe(e.getMessage());
+                LOGGER.error(e.getMessage());
             }
         }
     }
@@ -237,10 +239,8 @@ public final class SignDocument {
                                                                          .newInstance()
                                                                          .createPrivateKey(derEncodedPrivateKey,
                                                                                            sigAlgorithm);
-        final Credentials credentials = CredentialFactory.newInstance()
-                                                         .createCredentials(privateKeyHolder, derEncodedCert,
-                                                                            null);
-        return credentials;
+        return CredentialFactory.newInstance()
+                                .createCredentials(privateKeyHolder, derEncodedCert, null);
     }
 
     private static byte[] getDerEncodedData(final InputStream inputStream) throws IOException {

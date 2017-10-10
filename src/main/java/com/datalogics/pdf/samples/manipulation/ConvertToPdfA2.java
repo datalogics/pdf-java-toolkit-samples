@@ -29,15 +29,18 @@ import com.datalogics.pdf.document.FontSetLoader;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.net.URL;
-import java.util.logging.Logger;
 
 /**
  * This sample demonstrates how to convert a PDF to a PDF/A-2 archive file. (PDF/A-2b by default)
  */
 public final class ConvertToPdfA2 {
-    private static final Logger LOGGER = Logger.getLogger(ConvertToPdfA2.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     public static final String INPUT_PDF_PATH = "UnconvertedPdfA2.pdf";
     public static final String OUTPUT_PDF_PATH = "ConvertedToPdfA2.pdf";

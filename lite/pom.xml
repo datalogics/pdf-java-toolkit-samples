@@ -36,7 +36,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <checkstyle-config.version>2.0.2-SNAPSHOT</checkstyle-config.version>
     <pmdconfig.version>2.0.0-SNAPSHOT</pmdconfig.version>
-    <pmdVersion>5.5.2</pmdVersion>
+    <pmdVersion>5.8.1</pmdVersion>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -108,6 +108,23 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.5</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>2.9.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.9.1</version>
+      <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -278,7 +295,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.7</version>
+        <version>3.8</version>
         <executions>
           <execution>
             <goals>
@@ -363,7 +380,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
-        <version>1.14</version>
+        <version>1.16</version>
         <executions>
           <execution>
             <id>check-java-version</id>
@@ -570,6 +587,8 @@
                         <include>.settings/org.eclipse.m2e.core.prefs</include>
                         <!-- all the Markdown files at the top level -->
                         <include>*.md</include>
+                        <!-- log4j2 configuration files -->
+                        <include>src/**/log4j2*.xml</include>
                         <!-- things used to build the project -->
                         <include>fix_throws_javadoc.sed</include>
                         <include>fix_throws_javadoc.sh</include>
