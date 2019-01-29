@@ -1,12 +1,12 @@
 Datasheet
 
- Datalogics PDF Java Toolkit
+Datalogics PDF Java Toolkit
 
- The Datalogics PDF Java Toolkit is core technology
+The Datalogics PDF Java Toolkit is core technology
 from Adobe and powers much of its server-based PDF
 and forms functionality.
 
- Overview The Datalogics PDF Java Toolkit is a
+Overview The Datalogics PDF Java Toolkit is a
 Java API, developed and refined for
 years at Adobe Systems, and is now
 available to application developers
@@ -17,7 +17,7 @@ capabilities to be embedded within your
 custom application to automate business
 workflows.
 
- PDF Forms Support
+PDF Forms Support
 PDF Java Toolkit includes the most
 comprehensive support available for
 working with all PDF form types:
@@ -30,14 +30,14 @@ XFA forms
 and XFA forms
 • Flattening AcroForms
 
- Digital Signatures
+Digital Signatures
 Sign or certify PDF files or validate
 signed PDF documents. Create
 digital signatures compliant with
 PDF Advanced Electronic Signatures
 (PAdES).
 
- Additional Functionality
+Additional Functionality
 PDF Java Toolkit provides a broad range
 of functionality for working with PDF
 files, including:
@@ -51,7 +51,7 @@ performance
 and annotations in XML format
 • Create PDF/A compliant documents
 
- Reader Enablement
+Reader Enablement
 Reader Enablement opens up additional
 functionality within the free Adobe
 Reader to your users allowing them to:
@@ -69,7 +69,7 @@ Datalogics offers two Java-based PDF toolkits for software developers: the Adobe
 Adobe Acrobat family of products which includes a java interface; and the PDF Java Toolkit, which is a native Java SDK. Each SDK
 offers its own set of functionality. Refer to the table below for details, or contact us to discuss your requirements in a free consolation.
 
- FUNCTIONALITY General Attributes
+FUNCTIONALITY General Attributes
 Pure Java Implementation
 PDF Capabilities: General
 Print PDFs
@@ -94,40 +94,40 @@ Annotation support
 Annotation creation in PDF files
 Annotation information access
 
- Datalogics, Inc.
+Datalogics, Inc.
 101 N. Wacker Drive, Suite 1800
 Chicago, IL 60606
 USA www.datalogics.com
 
- PDFL
+PDFL
 
- No
+No
 
- Yes
+Yes
 Yes Yes Yes
 Yes No
 Yes
 
- No
+No
 Yes No No No No
 No No No
 Yes
 
- Yes Yes
+Yes Yes
 
- PDFJT
+PDFJT
 
- Yes
+Yes
 
- No No No
+No No No
 Yes Yes Yes Yes
 
- Yes Yes Yes Yes Yes No
+Yes Yes Yes Yes Yes No
 Yes Yes Yes Yes
 
- Yes Yes
+Yes Yes
 
- FUNCTIONALITY
+FUNCTIONALITY
 Digital signature support
 Digitally sign PDF files
 Validate digitally signed PDF files
@@ -153,50 +153,50 @@ Reader Enablement
 Reader Enable PDF files
 Remove Reader Enablement from PDF files
 
- PDFL
+PDFL
 
- No No No
+No No No
 Yes No
 
- Yes Yes Yes Yes Yes
+Yes Yes Yes Yes Yes
 
- Yes Yes Yes No
+Yes Yes Yes No
 Yes Yes
 Yes Yes
 
- No
+No
 Yes
 
- PDFJT
+PDFJT
 
- Yes Yes Yes Yes Yes
+Yes Yes Yes Yes Yes
 
- Yes Yes Yes Yes Yes
+Yes Yes Yes Yes Yes
 
- Yes Yes Yes Yes Yes No
+Yes Yes Yes Yes Yes No
 Yes Yes
 
- Yes Yes
+Yes Yes
 
- Availability The PDF Java Toolkit is available to OEMs, ISVs, systems integrators, and enterprise
+Availability The PDF Java Toolkit is available to OEMs, ISVs, systems integrators, and enterprise
 IT customers and partners through a license agreement. To discuss pricing
 with a Datalogics Sales Representative, please fill out our ‘Contact Us’ form at
 www.datalogics.com/company/contact-us/ or call us directly at +1 (312) 853-8200.
 
- Support and maintenance
+Support and maintenance
 Full developer support is available for all PDF Java Toolkit licensees. PDF Java Toolkit
 maintenance updates are released on a regular basis and are available to all current
 licensees under a maintenance plan.
 
- For more information
+For more information
 For more details about the PDF Java Toolkit, including our interactive forms detector,
 please visit our product web page at:
 
- www.datalogics.com/products/pdf/pdfjavatoolkit/
+www.datalogics.com/products/pdf/pdfjavatoolkit/
 
- Datalogics and the Datalogics logo are registered trademarks of Datalogics Incorporated. Adobe and the Adobe logo are either registered trademarks or
+Datalogics and the Datalogics logo are registered trademarks of Datalogics Incorporated. Adobe and the Adobe logo are either registered trademarks or
 trademarks of Adobe Systems Incorporated in the United States and/or other countries. All other trademarks are the property of their respective owners.
 
- ©2015 Datalogics, Inc.
+©2015 Datalogics, Inc.
 GMNB05
 
