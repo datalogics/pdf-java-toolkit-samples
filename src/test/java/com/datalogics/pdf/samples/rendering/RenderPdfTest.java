@@ -4,6 +4,7 @@
 
 package com.datalogics.pdf.samples.rendering;
 
+import static com.datalogics.pdf.samples.util.EnvironmentUtils.IS_OPENJDK_8;
 import static com.datalogics.pdf.samples.util.Matchers.bufferedImageHasChecksum;
 
 import static org.junit.Assert.assertThat;
@@ -56,7 +57,13 @@ public class RenderPdfTest extends SampleTestBase {
             }
 
             {
-                if (SystemUtils.IS_JAVA_1_8) {
+                if (IS_OPENJDK_8) {
+                    add(CLASS_NAME + ".1.png", "c66daa9a924059fb44f2318e164e57111978bdc0");
+                    add(CLASS_NAME + ".2.png", "1dc5105235eae1ded71fa4a72340b5650c85a0e1");
+
+                    add(CLASS_NAME + ".1.jpg", "89e443ff8ad35bc2143282deaeee7dde9e59307d");
+                    add(CLASS_NAME + ".2.jpg", "efd6e6e77e26533e754ab5d7e5069829f21bbbcf");
+                } else if (SystemUtils.IS_JAVA_1_8) {
                     add(CLASS_NAME + ".1.png", "359806f590dee0e642a10b9b5043e46fd74fa3ce");
                     add(CLASS_NAME + ".2.png", "3192548a1abf89fec8de8d8b38f906d8717613b8");
 

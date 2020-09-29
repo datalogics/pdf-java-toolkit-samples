@@ -44,12 +44,25 @@ import javax.print.PrintServiceLookup;
 public class PrintPdfTest extends SampleTestBase {
     private static final String RENDERED_IMAGE_NAME = "renderedImage_page%d.png";
     private static final String RENDERED_MULTI_PAGE_IMAGE_NAME = "renderedMultiPageImage_page%d.png";
-    private static final String[] PAGE_IMAGE_CHECKSUMS = { "897ac162b0ab9e798771250ca8fdd7997f03cbd1",
-        "f2e86261405b8e6e1a1d94f9f67571d4a8f7fef6" };
-    private static final String[] PAGE_MULTI_PAGE_IMAGE_CHECKSUMS = { "897ac162b0ab9e798771250ca8fdd7997f03cbd1",
-        "897ac162b0ab9e798771250ca8fdd7997f03cbd1", "f2e86261405b8e6e1a1d94f9f67571d4a8f7fef6",
-        "f2e86261405b8e6e1a1d94f9f67571d4a8f7fef6" };
+    private static String[] PAGE_IMAGE_CHECKSUMS;
+    private static String[] PAGE_MULTI_PAGE_IMAGE_CHECKSUMS;
     private static final String DEFAULT_INPUT = "pdfjavatoolkit-ds.pdf";
+
+    static {
+        if (IS_OPENJDK_8) {
+            PAGE_IMAGE_CHECKSUMS = new String[] { "2e916aaf00e55a29787a43983bca63f5367825f4",
+                "ad7c2854accf8b7004b7547aa2a01611053cfcc7" };
+            PAGE_MULTI_PAGE_IMAGE_CHECKSUMS = new String[] { "2e916aaf00e55a29787a43983bca63f5367825f4",
+                "2e916aaf00e55a29787a43983bca63f5367825f4", "ad7c2854accf8b7004b7547aa2a01611053cfcc7",
+                "ad7c2854accf8b7004b7547aa2a01611053cfcc7" };
+        } else {
+            PAGE_IMAGE_CHECKSUMS = new String[] { "897ac162b0ab9e798771250ca8fdd7997f03cbd1",
+                "f2e86261405b8e6e1a1d94f9f67571d4a8f7fef6" };
+            PAGE_MULTI_PAGE_IMAGE_CHECKSUMS = new String[] { "897ac162b0ab9e798771250ca8fdd7997f03cbd1",
+                "897ac162b0ab9e798771250ca8fdd7997f03cbd1", "f2e86261405b8e6e1a1d94f9f67571d4a8f7fef6",
+                "f2e86261405b8e6e1a1d94f9f67571d4a8f7fef6" };
+        }
+    }
 
     @Rule
     public final ExpectedException expected = ExpectedException.none();
@@ -60,7 +73,7 @@ public class PrintPdfTest extends SampleTestBase {
                    System.getProperty("java.runtime.version"), startsWith("1.8."));
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
         new MockUp<PrintServiceLookup>() {
-            @Mock(invocations = 1)
+            @Mock()
             PrintService lookupDefaultPrintService() {
                 return new FakePrintService();
             }
@@ -68,7 +81,7 @@ public class PrintPdfTest extends SampleTestBase {
 
         // Mock the PrinterJob.getPrinterJob() method to return a TestPrinterJob object
         new MockUp<T>() {
-            @Mock(invocations = 1)
+            @Mock()
             public PrinterJob getPrinterJob() {
                 return new TestPrinterJob();
             }
@@ -85,7 +98,7 @@ public class PrintPdfTest extends SampleTestBase {
                    System.getProperty("java.runtime.version"), startsWith("1.8."));
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
         new MockUp<PrintServiceLookup>() {
-            @Mock(invocations = 1)
+            @Mock()
             PrintService lookupDefaultPrintService() {
                 return new FakePrintService();
             }
@@ -93,7 +106,7 @@ public class PrintPdfTest extends SampleTestBase {
 
         // Mock the PrinterJob.getPrinterJob() method to return a TestPrinterJob object
         new MockUp<T>() {
-            @Mock(invocations = 1)
+            @Mock()
             public PrinterJob getPrinterJob() {
                 return new TestMultiPagePrinterJob();
             }
@@ -108,7 +121,7 @@ public class PrintPdfTest extends SampleTestBase {
     public void testPrintPdfNoPrinter() throws Exception {
         // Mock the PrinterServiceLookup.lookupDefaultPrintService() method to return nothing (no printer available)
         new MockUp<PrintServiceLookup>() {
-            @Mock(invocations = 1)
+            @Mock()
             PrintService lookupDefaultPrintService() {
                 return null;
             }
