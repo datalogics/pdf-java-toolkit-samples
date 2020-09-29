@@ -56,8 +56,8 @@ public class PrintPdfTest extends SampleTestBase {
 
     @Test
     public <T extends PrinterJob> void testPrintPdf() throws Exception {
-        assumeThat("This test requires a Java 7 JRE for the checksums to work",
-                   System.getProperty("java.runtime.version"), startsWith("1.7."));
+        assumeThat("This test requires a Java 8 JRE for the checksums to work",
+                   System.getProperty("java.runtime.version"), startsWith("1.8."));
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
         new MockUp<PrintServiceLookup>() {
             @Mock(invocations = 1)
@@ -81,8 +81,8 @@ public class PrintPdfTest extends SampleTestBase {
 
     @Test
     public <T extends PrinterJob> void testPrintPdfWithMultiPagePrinterJob() throws Exception {
-        assumeThat("This test requires a Java 7 JRE for the checksums to work",
-                   System.getProperty("java.runtime.version"), startsWith("1.7."));
+        assumeThat("This test requires a Java 8 JRE for the checksums to work",
+                   System.getProperty("java.runtime.version"), startsWith("1.8."));
         // Mock the PrintServiceLookup.lookupDefaultPrintService() method to return a TestPrintService object
         new MockUp<PrintServiceLookup>() {
             @Mock(invocations = 1)
