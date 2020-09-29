@@ -13,7 +13,7 @@ import com.adobe.pdfjt.pdf.document.PDFCatalog;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.interactive.navigation.PDFBookmarkRoot;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
@@ -25,7 +25,7 @@ import java.nio.file.Files;
 /**
  * Tests the RedactAndSanitizeDocuments sample.
  */
-public class RedactAndSanitizeDocumentTest extends SampleTest {
+public class RedactAndSanitizeDocumentTest extends SampleTestBase {
     private static final String SEARCH_STRING = "Reader";
     private static final String OUTPUT_PDF_PATH = "RedactAndSanitizeTest.pdf";
     private static final String INPUT_PDF_PATH = "pdfjavatoolkit-ds.pdf";

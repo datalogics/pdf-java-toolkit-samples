@@ -18,7 +18,7 @@ import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
 
 import com.datalogics.pdf.document.DocumentHelper;
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.LogEventListCollector;
 
 import org.apache.logging.log4j.Level;
@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Tests the TextExtract sample.
  */
-public class TextExtractTest extends SampleTest {
+public class TextExtractTest extends SampleTestBase {
 
     private static final String OUTPUT_FILE_PATH = "TextExtractTest.txt";
     private static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";

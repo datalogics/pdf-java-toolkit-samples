@@ -9,7 +9,7 @@ import static com.datalogics.pdf.samples.util.Matchers.bufferedImageHasChecksum;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.junit.BeforeClass;
@@ -33,7 +33,7 @@ import javax.imageio.ImageIO;
  * Test the RenderPdf sample.
  */
 @RunWith(Parameterized.class)
-public class RenderPdfTest extends SampleTest {
+public class RenderPdfTest extends SampleTestBase {
 
     private static final String CLASS_NAME = MethodHandles.lookup().lookupClass().getSimpleName();
     private static final int RESOLUTION = 72;

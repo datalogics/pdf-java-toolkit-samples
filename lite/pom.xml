@@ -362,7 +362,7 @@
                         <include>src/test/java/com/datalogics/pdf/samples/AllIntegrationTests.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/AllUnitTests.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/RunMainMethodsFromJarIntegrationTest.java</include>
-                        <include>src/test/java/com/datalogics/pdf/samples/SampleTest.java</include>
+                        <include>src/test/java/com/datalogics/pdf/samples/SampleTestBase.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/TestFontCacheManager.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/creation/MakePdfFromImageTest.java</include>
                         <include>src/test/java/com/datalogics/pdf/samples/creation/HelloWorldTest.java</include>

@@ -12,7 +12,7 @@ import com.adobe.pdfjt.pdf.interactive.annotation.PDFAnnotationList;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
@@ -23,7 +23,7 @@ import java.net.URL;
 /**
  * Tests the RemoveInteractivity sample.
  */
-public class RemoveInteractivityTest extends SampleTest {
+public class RemoveInteractivityTest extends SampleTestBase {
 
     private static final String OUTPUT_NONINTERACTIVE_FORM_PDF_PATH = "NonInteractiveForm.pdf";
     private static final String OUTPUT_NONINTERACTIVE_ANNOTATION_PDF_PATH = "NonInteractiveAnnotation.pdf";

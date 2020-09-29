@@ -4,13 +4,14 @@
 
 package com.datalogics.pdf.samples.printing;
 
+import static com.datalogics.pdf.samples.util.EnvironmentUtils.IS_OPENJDK_8;
 import static com.datalogics.pdf.samples.util.Matchers.bufferedImageHasChecksum;
 
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeThat;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import mockit.Mock;
@@ -40,7 +41,7 @@ import javax.print.PrintServiceLookup;
 @SuppressFBWarnings(value = { "SIC_INNER_SHOULD_BE_STATIC_ANON", "UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS" },
                     justification = "JMockit coding pattern depends on anonymous classes "
                                     + "and methods with no discernable call site")
-public class PrintPdfTest extends SampleTest {
+public class PrintPdfTest extends SampleTestBase {
     private static final String RENDERED_IMAGE_NAME = "renderedImage_page%d.png";
     private static final String RENDERED_MULTI_PAGE_IMAGE_NAME = "renderedMultiPageImage_page%d.png";
     private static final String[] PAGE_IMAGE_CHECKSUMS = { "897ac162b0ab9e798771250ca8fdd7997f03cbd1",

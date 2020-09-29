@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
@@ -20,7 +20,7 @@ import java.nio.file.Files;
 /**
  * Tests the HelloWorld sample.
  */
-public class HelloWorldTest extends SampleTest {
+public class HelloWorldTest extends SampleTestBase {
     static final String FILE_NAME = "HelloWorld.pdf";
 
     @Test

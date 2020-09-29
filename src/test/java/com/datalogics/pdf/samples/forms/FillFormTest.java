@@ -13,7 +13,7 @@ import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
 import com.adobe.pdfjt.services.xfa.XFAService;
 import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.VersionUtils;
 
@@ -30,7 +30,7 @@ import java.util.Iterator;
 /**
  * Test the Fill Form sample.
  */
-public class FillFormTest extends SampleTest {
+public class FillFormTest extends SampleTestBase {
 
     private static final String MISSING_TAGS_INPUT = "missing_xfa_tags.xml";
     private static final String TEMP_OUTPUT = "temp.xml";
