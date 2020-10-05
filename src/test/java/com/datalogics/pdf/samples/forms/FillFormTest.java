@@ -15,7 +15,6 @@ import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 
 import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
-import com.datalogics.pdf.samples.util.VersionUtils;
 
 import org.junit.Test;
 
@@ -36,29 +35,6 @@ public class FillFormTest extends SampleTestBase {
     private static final String TEMP_OUTPUT = "temp.xml";
     private static final String ACROFORM_FDF_DATA = "123456 John Doe 101 N. Wacker Dr, Suite 1800 Chicago IL 60606 "
                     + "1-312-853-8200 johnd@datalogics.com 2 20 15.75 55.75 Yes Off Yes Off Yes";
-
-    /**
-     * Expected XFDF data before PDFJT 4. Contains nulls for undefined fields.
-     */
-    private static final String ACROFORM_XFDF_DATA_PDFJT_3 = "Datalogics, Inc. John Doe 101 N. Wacker Dr. Ste 1800 "
-                    + "Chicago IL 60606 0.0 company\tname.first\tname.last\tlocation.address\tlocation.city\tlocation"
-                    + ".state\tlocation.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
-                    + "Datalogics, Inc.\tJohn\tDoe\t101 N. Wacker Dr. Ste 1800\tChicago\tIL\t60606\tnull\tnull"
-                    + "\t0 <?xml version=\"1.0\" encoding=\"UTF-8\"?><xfdf xmlns=\"http://ns.adobe.com/xfdf/\" xml:"
-                    + "space=\"preserve\"><fields><field name=\"company\"><value>Datalogics, Inc.</value></field>"
-                    + "<field name=\"name\"><field name=\"first\"><value>John</value></field><field name="
-                    + "\"last\"><value>Doe</value></field></field><field name=\"location\"><field name=\"address\">"
-                    + "<value>101 N. Wacker Dr. Ste 1800</value></field><field name=\"city\"><value>Chicago</value>"
-                    + "</field><field name=\"state\"><value>IL</value></field><field name=\"zip\"><value>60606</value>"
-                    + "</field></field><field name=\"calculatedNumber\"><value>0.0</value></field></fields><ids "
-                    + "modified=\"759F29AF67E14390951898904CE98DB0\" original=\"04FE695A7CFA30449E7CC4B320AB79D7\"/>"
-                    + "</xfdf> company\tname.first\tname.last\tlocation.address\tlocation.city\tlocation.state\t"
-                    + "location.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
-                    + "Datalogics, Inc.\tJohn\tDoe\t101 N. Wacker Dr. Ste 1800\tChicago\tIL\t60606\tnull\t"
-                    + "null\t0 company\tname.first\tname.last\tlocation.address\tlocation.city\tlocation.state\t"
-                    + "location.zip\tformattedNumber.2\tformattedNumber.1\tcalculatedNumber\n"
-                    + "Datalogics, Inc.\tJohn\tDoe\t101 N. Wacker Dr. Ste 1800\tChicago\tIL\t60606\tnull\t"
-                    + "null\t0";
 
     /**
      * Expected XFDF data for PDFJT 4 and newer. Contains empty strings for undefined fields.
@@ -122,9 +98,7 @@ public class FillFormTest extends SampleTestBase {
         FillForm.fillAcroformXfdf(inputPdfDocument, inputDataUrl, outputPdfFile.toURI().toURL());
 
         assertTrue(outputPdfFile.getPath() + " must exist after run", outputPdfFile.exists());
-        checkForms(outputPdfFile.toURI().toURL(),
-                   VersionUtils.pdfjtIsBeforeVersion("4.0.0-SNAPSHOT") ? ACROFORM_XFDF_DATA_PDFJT_3
-                                   : ACROFORM_XFDF_DATA);
+        checkForms(outputPdfFile.toURI().toURL(), ACROFORM_XFDF_DATA);
     }
 
     @Test
