@@ -23,7 +23,7 @@ import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectMap;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
@@ -34,7 +34,7 @@ import java.nio.file.Files;
 /**
  * Tests the MakeWhiteFangBook sample.
  */
-public class MakeWhiteFangBookTest extends SampleTest {
+public class MakeWhiteFangBookTest extends SampleTestBase {
     static final String FILE_NAME = "WhiteFang.pdf";
 
     @Test

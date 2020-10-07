@@ -35,7 +35,7 @@ DumperContentImageItem[
     width=486
     height=761
     colorSpace=/DeviceRGB
-    checksum=6fed1df9d7b55b081773f0e72508c7c95c161006
+    checksum=edf7ecdb15777c68e0c91cfdadf9c988c0c5bf30
   ]
   softMask=<null>
 ]
@@ -44,7 +44,7 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.135668,0.121126,0.125048}
   strokeColorValues={0,0,0}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
@@ -792,14 +792,14 @@ DumperContentTextItem[
 DumperContentTextItem[
   graphicsState=Gs1
   textState=Ts3
-  matrix={5.5,0,0,5.5,326.208,69.9}
+  matrix={5.5,0,0,5.5,326.209,69.9}
   boundingBox=Rectangle2D.Float[x=326.418,y=69.845,width=4.262482,height=2.777496]
   text="er"
 ]
 DumperContentTextItem[
   graphicsState=Gs1
   textState=Ts3
-  matrix={5.5,0,0,5.5,330.708,69.9}
+  matrix={5.5,0,0,5.5,330.707,69.9}
   boundingBox=Rectangle2D.Float[x=330.917,y=69.8395,width=10.351,height=3.9655]
   text="ed tr"
 ]
@@ -820,7 +820,7 @@ DumperContentTextItem[
 DumperContentTextItem[
   graphicsState=Gs1
   textState=Ts3
-  matrix={5.5,0,0,5.5,376.896,69.9}
+  matrix={5.5,0,0,5.5,376.897,69.9}
   boundingBox=Rectangle2D.Float[x=376.996,y=68.7505,width=11.385,height=5.054497]
   text="talog"
 ]
@@ -869,7 +869,7 @@ DumperContentTextItem[
 DumperContentTextItem[
   graphicsState=Gs1
   textState=Ts3
-  matrix={5.5,0,0,5.5,419.852,69.9}
+  matrix={5.5,0,0,5.5,419.851,69.9}
   boundingBox=Rectangle2D.Float[x=420.06,y=69.8395,width=5.26901,height=3.9655]
   text="ed"
 ]
@@ -883,7 +883,7 @@ DumperContentTextItem[
 DumperContentTextItem[
   graphicsState=Gs1
   textState=Ts3
-  matrix={5.5,0,0,5.5,431.258,69.9}
+  matrix={5.5,0,0,5.5,431.259,69.9}
   boundingBox=Rectangle2D.Float[x=431.462,y=69.8395,width=34.9745,height=3.9655]
   text="dobe and the A"
 ]
@@ -918,7 +918,7 @@ DumperContentTextItem[
 DumperContentTextItem[
   graphicsState=Gs1
   textState=Ts3
-  matrix={5.5,0,0,5.5,526.992,69.9}
+  matrix={5.5,0,0,5.5,526.991,69.9}
   boundingBox=Rectangle2D.Float[x=527.201,y=69.845,width=4.262512,height=2.777496]
   text="er"
 ]
@@ -939,7 +939,7 @@ DumperContentTextItem[
 DumperContentTextItem[
   graphicsState=Gs1
   textState=Ts3
-  matrix={5.5,0,0,5.5,559.672,69.9}
+  matrix={5.5,0,0,5.5,559.673,69.9}
   boundingBox=Rectangle2D.Float[x=560.074,y=69.8395,width=10.2575,height=3.9655]
   text="ks or "
 ]
@@ -1237,7 +1237,7 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=59.7266
-  fillColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.135668,0.121126,0.125048}
   strokeColorValues={0,0,0}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
@@ -1269,7 +1269,7 @@ DumperContentImageItem[
     width=210
     height=39
     colorSpace=/DeviceRGB
-    checksum=586ca1c0697acd079210ba905b3bc2b2ad4155b7
+    checksum=c684038174a3ff7bcd28009a3f5d532f8cab0d64
   ]
   softMask=ARGBImage[
     width=420
@@ -4795,7 +4795,7 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.535225,0.652171,0.753567}
+  fillColorValues={0.53492,0.651789,0.752728}
   strokeColorValues={0,0,0}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
@@ -4847,7 +4847,7 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.775906,0.777783,0.778683}
+  fillColorValues={0.776623,0.778058,0.779416}
   strokeColorValues={0,0,0}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
@@ -4889,7 +4889,7 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
+  fillColorValues={0.783551,0.786511,0.788602}
   strokeColorValues={0,0,0}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
@@ -4941,8 +4941,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -4980,8 +4980,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5019,8 +5019,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5058,8 +5058,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5097,8 +5097,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5136,8 +5136,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5175,8 +5175,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5214,8 +5214,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5253,8 +5253,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5292,8 +5292,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5331,8 +5331,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5370,8 +5370,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5409,8 +5409,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5448,8 +5448,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5487,8 +5487,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5526,8 +5526,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5565,8 +5565,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5604,8 +5604,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5643,8 +5643,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5682,8 +5682,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5721,8 +5721,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5760,8 +5760,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5799,8 +5799,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5838,8 +5838,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5877,8 +5877,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5916,8 +5916,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5955,8 +5955,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -5994,8 +5994,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6033,8 +6033,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6072,8 +6072,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6111,8 +6111,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6150,8 +6150,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6189,8 +6189,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6228,8 +6228,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6267,8 +6267,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6306,8 +6306,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6345,8 +6345,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6384,8 +6384,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6423,8 +6423,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6462,8 +6462,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6501,8 +6501,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6540,8 +6540,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6579,8 +6579,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6618,8 +6618,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6657,8 +6657,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6696,8 +6696,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6735,8 +6735,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6774,8 +6774,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6813,8 +6813,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6852,8 +6852,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6891,8 +6891,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6930,8 +6930,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -6969,8 +6969,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7008,8 +7008,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7047,8 +7047,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7086,8 +7086,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7125,8 +7125,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7164,8 +7164,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7203,8 +7203,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7242,8 +7242,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7281,8 +7281,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7320,8 +7320,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7359,8 +7359,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7398,8 +7398,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7437,8 +7437,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7476,8 +7476,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7515,8 +7515,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7554,8 +7554,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7593,8 +7593,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7632,8 +7632,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7671,8 +7671,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7710,8 +7710,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7749,8 +7749,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7788,8 +7788,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7827,8 +7827,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7866,8 +7866,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7905,8 +7905,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7944,8 +7944,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -7983,8 +7983,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8022,8 +8022,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8061,8 +8061,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8100,8 +8100,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8139,8 +8139,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8178,8 +8178,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8217,8 +8217,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8256,8 +8256,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8295,8 +8295,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8334,8 +8334,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8373,8 +8373,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8412,8 +8412,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8451,8 +8451,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8490,8 +8490,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8529,8 +8529,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8568,8 +8568,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8607,8 +8607,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8646,8 +8646,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8685,8 +8685,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8724,8 +8724,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8763,8 +8763,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8802,8 +8802,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8841,8 +8841,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8880,8 +8880,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8919,8 +8919,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8958,8 +8958,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -8997,8 +8997,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9036,8 +9036,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9075,8 +9075,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9114,8 +9114,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9153,8 +9153,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9192,8 +9192,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9231,8 +9231,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9270,8 +9270,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9309,8 +9309,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9348,8 +9348,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9387,8 +9387,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9426,8 +9426,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9465,8 +9465,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9504,8 +9504,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9543,8 +9543,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9582,8 +9582,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9621,8 +9621,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9660,8 +9660,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9699,8 +9699,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9738,8 +9738,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9777,8 +9777,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9816,8 +9816,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9855,8 +9855,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9894,8 +9894,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9933,8 +9933,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -9972,8 +9972,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10011,8 +10011,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10050,8 +10050,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10089,8 +10089,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10128,8 +10128,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10167,8 +10167,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10206,8 +10206,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10245,8 +10245,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10284,8 +10284,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10323,8 +10323,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10362,8 +10362,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10401,8 +10401,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10440,8 +10440,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10479,8 +10479,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10518,8 +10518,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10557,8 +10557,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10596,8 +10596,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10635,8 +10635,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10674,8 +10674,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10713,8 +10713,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10752,8 +10752,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10791,8 +10791,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10830,8 +10830,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10869,8 +10869,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10908,8 +10908,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10947,8 +10947,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -10986,8 +10986,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11025,8 +11025,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11064,8 +11064,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11103,8 +11103,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11142,8 +11142,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11181,8 +11181,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11220,8 +11220,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11259,8 +11259,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11298,8 +11298,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11337,8 +11337,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11376,8 +11376,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11415,8 +11415,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11454,8 +11454,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11493,8 +11493,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11532,8 +11532,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.783169,0.785748,0.787243}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.783551,0.786511,0.788602}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=false
@@ -11571,8 +11571,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.999893,1,0.999878}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={1,0.999985,1}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=true
@@ -11641,8 +11641,8 @@ DumperGraphicsState[
   lineCap=NONE
   lineJoin=MITER
   lineWidth=1
-  fillColorValues={0.135683,0.121218,0.125109}
-  strokeColorValues={0.135683,0.121218,0.125109}
+  fillColorValues={0.135668,0.121126,0.125048}
+  strokeColorValues={0.135668,0.121126,0.125048}
   clipPath=Area[moveto={0,0},lineto={0,792},lineto={612,792},lineto={612,0},close]
   miterLimit=10
   strokeAdjustment=true

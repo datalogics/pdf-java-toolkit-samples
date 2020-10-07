@@ -14,7 +14,7 @@ import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObject;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectImage;
 import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectMap;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Test the Create PDF From Image sample.
  */
-public class MakePdfFromImageTest extends SampleTest {
+public class MakePdfFromImageTest extends SampleTestBase {
 
     public static final String OUTPUT_PNG = "PDF_from_PNG.pdf";
     public static final String OUTPUT_JPG = "PDF_from_JPG.pdf";

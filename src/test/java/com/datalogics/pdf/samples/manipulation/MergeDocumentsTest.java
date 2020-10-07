@@ -13,7 +13,7 @@ import com.adobe.pdfjt.pdf.interactive.forms.PDFField;
 import com.adobe.pdfjt.pdf.interactive.forms.PDFInteractiveForm;
 import com.adobe.pdfjt.pdf.interactive.navigation.PDFBookmarkNode;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
@@ -26,7 +26,7 @@ import java.util.Iterator;
 /**
  * Tests the Merge Documents sample.
  */
-public class MergeDocumentsTest extends SampleTest {
+public class MergeDocumentsTest extends SampleTestBase {
     static final String FILE_NAME = "MergedDocument.pdf";
 
     @Test
