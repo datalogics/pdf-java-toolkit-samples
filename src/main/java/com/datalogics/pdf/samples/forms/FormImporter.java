@@ -18,7 +18,6 @@ import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.services.ap.AppearanceService;
 import com.adobe.pdfjt.services.fdf.FDFDocument;
 import com.adobe.pdfjt.services.fdf.FDFService;
-import com.adobe.pdfjt.services.forms.FormFieldService;
 import com.adobe.pdfjt.services.xfa.XFAService;
 import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 import com.adobe.pdfjt.services.xfdf.XFDFService;
@@ -26,7 +25,6 @@ import com.adobe.pdfjt.services.xfdf.XFDFService;
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
-import com.datalogics.pdf.samples.util.VersionUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -268,30 +266,18 @@ public final class FormImporter {
      * @param pdfDocument the document to complete and save
      * @param outputUrl the URL to which to save the file
      *
-     * @throws IOException an I/O operation failed or was interrupted
-     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      * @throws PDFConfigurationException there was a system problem configuring PDF support
-     * @throws PDFInvalidXMLException The XML passed to the method either directly or indirectly is invalid
      * @throws PDFFontException there was an error in the font set or an individual font
      * @throws URISyntaxException a string could not be parsed as a URI reference
      */
-    @SuppressWarnings("deprecation") // for runFormatScripts()
     private static void finishAndSaveForm(final PDFDocument pdfDocument, final URL outputUrl)
-                    throws IOException, PDFInvalidDocumentException, PDFSecurityException, PDFIOException,
-                    PDFInvalidParameterException, PDFInvalidXMLException, PDFConfigurationException,
-                    PDFUnableToCompleteOperationException, PDFFontException, URISyntaxException {
-        if (VersionUtils.pdfjtIsBeforeVersion("4.0.0-SNAPSHOT")) {
-            // Run calculations scripts on the AcroForm...only required before PDFJT 4.5.0
-            FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
-
-            // Run format scripts on the AcroForm...only required before PDFJT 4.7.0
-            FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
-        }
-
+                    throws PDFInvalidDocumentException, PDFSecurityException, PDFIOException,
+                    PDFInvalidParameterException, PDFConfigurationException,
+        PDFFontException, URISyntaxException {
         // And generate appearances.
         AppearanceService.generateAppearances(pdfDocument, null, null);
 
