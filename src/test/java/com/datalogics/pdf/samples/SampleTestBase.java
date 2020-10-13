@@ -62,7 +62,7 @@ import java.util.Scanner;
  * <p>
  * This base class provides a font cache, and some utility functions to ease the writing of tests.
  */
-public class SampleTest {
+public class SampleTestBase {
     private TestFontCacheManager fontCacheManager = null;
 
     @Before

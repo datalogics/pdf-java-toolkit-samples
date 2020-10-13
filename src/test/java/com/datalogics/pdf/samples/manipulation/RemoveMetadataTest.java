@@ -9,14 +9,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import com.adobe.internal.xmp.XMPException;
 import com.adobe.pdfjt.core.exceptions.PDFException;
 import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.pdf.document.PDFDocumentInfo;
 import com.adobe.pdfjt.services.xmp.DocumentMetadata;
 import com.adobe.pdfjt.services.xmp.XMPService;
+import com.adobe.xmp.XMPException;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
@@ -28,7 +28,7 @@ import java.net.URL;
 /**
  * This tests the RemoveMetadata sample.
  */
-public class RemoveMetadataTest extends SampleTest {
+public class RemoveMetadataTest extends SampleTestBase {
 
     private static final String FILE_NAME = "MetadataRemoved.pdf";
     private static final String PRODUCER = "Datalogics PDF Java Toolkit";

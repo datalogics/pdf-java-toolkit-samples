@@ -34,7 +34,7 @@ import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.rasterizer.impl.RasterContentItem;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.apache.commons.collections4.iterators.IteratorIterable;
@@ -52,7 +52,7 @@ import java.util.List;
 /**
  * Tests the SignDocument Sample.
  */
-public class SignDocumentTest extends SampleTest {
+public class SignDocumentTest extends SampleTestBase {
     private static final String FILE_NAME = "SignedField.pdf";
     private static final String QUALIFIED_SIGNATURE_FIELD_NAME = "Approver";
     private static final String BLACK_RIGHTWARDS_ARROW = "\u27a1"; // U+27A1 BLACK RIGHTWARDS ARROW
@@ -73,7 +73,7 @@ public class SignDocumentTest extends SampleTest {
         if (pdfDocument == null) {
             final URL inputUrl = SignDocument.class.getResource(SignDocument.INPUT_UNSIGNED_PDF_PATH);
 
-            file = SampleTest.newOutputFileWithDelete(FILE_NAME);
+            file = SampleTestBase.newOutputFileWithDelete(FILE_NAME);
 
             // The complete file name will be set in the SignDocument class.
             final URL outputUrl = file.toURI().toURL();

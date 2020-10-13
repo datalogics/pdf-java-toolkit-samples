@@ -12,7 +12,7 @@ import com.adobe.pdfjt.services.pdfa.PDFADefaultValidationHandler;
 import com.adobe.pdfjt.services.pdfa.PDFAService;
 import com.adobe.pdfjt.services.pdfa.PDFAValidationOptions;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.junit.Test;
@@ -24,7 +24,7 @@ import java.net.URL;
 /**
  * Test the ConvertPdfDocument sample.
  */
-public class ConvertPdfDocumentTest extends SampleTest {
+public class ConvertPdfDocumentTest extends SampleTestBase {
 
     private static final String FILE_NAME = "ConvertedPdfa-1b.pdf";
 
