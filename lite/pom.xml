@@ -4,8 +4,9 @@
   <parent>
     <artifactId>super-pom</artifactId>
     <groupId>com.datalogics.maven</groupId>
+    <!-- Note: Also change the super-pom.version below -->
     <version>2.0.2</version>
-    <relativePath></relativePath>
+    <relativePath>super-pom</relativePath>
   </parent>
   <groupId>com.datalogics.pdf</groupId>
   <artifactId>pdf-java-toolkit-samples-lite</artifactId>
@@ -37,6 +38,9 @@
     <developerConnection>scm:git:git@github.com:datalogics/pdf-java-toolkit-samples.git</developerConnection>
     <url>https://github.com/datalogics/pdf-java-toolkit-samples</url>
   </scm>
+  <properties>
+    <super-pom.version>2.0.2</super-pom.version>
+  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -208,6 +212,47 @@
                       <directory>${project.build.directory}/distributed-files/src/test/resources</directory>
                     </resource>
                   </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>unpack</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>copy</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <artifactId>super-pom</artifactId>
+                      <groupId>com.datalogics.maven</groupId>
+                      <version>${super-pom.version}</version>
+                      <type>pom</type>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>com.coderplus.maven.plugins</groupId>
+            <artifactId>copy-rename-maven-plugin</artifactId>
+            <version>1.0.1</version>
+            <executions>
+              <execution>
+                <id>copy-super-pom-file</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>rename</goal>
+                </goals>
+                <configuration>
+                  <sourceFile>${project.build.directory}/dependency/super-pom-${super-pom.version}.pom</sourceFile>
+                  <destinationFile>${project.build.directory}/distributed-files/super-pom/pom.xml</destinationFile>
                 </configuration>
               </execution>
             </executions>
