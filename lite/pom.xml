@@ -465,9 +465,9 @@
             <updatePolicy>always</updatePolicy>
             <checksumPolicy>warn</checksumPolicy>
           </snapshots>
-          <id>pdfjt</id>
+          <id>pdfjt-libraries</id>
           <name>Local PDFJT repository</name>
-          <url>${project.baseUri}../repo</url>
+          <url>file://${project.basedir}/../repo</url>
           <layout>default</layout>
         </repository>
       </repositories>
@@ -483,9 +483,9 @@
             <updatePolicy>always</updatePolicy>
             <checksumPolicy>warn</checksumPolicy>
           </snapshots>
-          <id>pdfjt</id>
+          <id>pdfjt-plugins</id>
           <name>Local PDFJT repository</name>
-          <url>${project.baseUri}../repo</url>
+          <url>file://${project.basedir}/../repo</url>
           <layout>default</layout>
         </pluginRepository>
       </pluginRepositories>
