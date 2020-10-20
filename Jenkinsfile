@@ -84,6 +84,21 @@ pipeline {
             }
         }
 
+        stage('Check dependencies for CVEs') {
+            when {
+                anyOf {
+                    branch 'develop'
+                    changeRequest()
+                }
+            }
+            steps {
+                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                    // Run Maven on a Unix agent.
+                    sh "./mvnw org.owasp:dependency-check-maven:check -DskipTestScope=false -Pintegration-tests,distributed-samples"
+                }
+            }
+        }
+
         stage('Analysis') {
             steps {
                 recordIssues enabledForFailure: true, healthy: 1, tools: [checkStyle(), findBugs(useRankAsPriority: true), pmdParser(), cpd(), javaDoc(), java()]
