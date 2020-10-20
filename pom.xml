@@ -133,6 +133,7 @@
             <artifactId>echo-maven-plugin</artifactId>
             <executions>
               <execution>
+                <?m2e ignore?>
                 <id>note-pdfjt-lm</id>
                 <phase>initialize</phase>
                 <goals>
