@@ -89,8 +89,8 @@ public class SampleTestBase {
      * @throws UnsupportedEncodingException the character encoding is not supported
      */
     protected String pageContentsAsString(final String path, final int pageIndex)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
-                    PDFFontException, PDFInvalidParameterException, PDFConfigurationException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
+        PDFFontException, PDFInvalidParameterException, PDFConfigurationException {
         final PDFDocument doc = openPdfDocument(path);
         return pageContentsAsString(doc, pageIndex);
     }
@@ -108,9 +108,9 @@ public class SampleTestBase {
      * @throws UnsupportedEncodingException the character encoding is not supported
      */
     protected String pageContentsAsString(final PDFDocument doc, final int pageIndex)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
-                    PDFFontException, PDFInvalidParameterException,
-                    PDFConfigurationException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
+        PDFFontException, PDFInvalidParameterException,
+        PDFConfigurationException {
         final PDFPage page = pageFromDocument(doc, pageIndex);
         return ContentDumper.getPageContextDump(page, null);
     }
@@ -126,8 +126,8 @@ public class SampleTestBase {
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     protected PDFDocument openPdfDocument(final String path) throws FileNotFoundException,
-                    PDFInvalidDocumentException,
-                    PDFIOException, PDFSecurityException {
+        PDFInvalidDocumentException,
+        PDFIOException, PDFSecurityException {
         final RandomAccessFile raf = new RandomAccessFile(path, "r");
         final ByteReader byteReader = new RandomAccessFileByteReader(raf);
         final PDFDocument doc = PDFDocument.newInstance(byteReader, PDFOpenOptions.newInstance());
@@ -145,8 +145,8 @@ public class SampleTestBase {
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      */
     protected PDFResources pageResources(final PDFDocument doc, final int pageIndex)
-                    throws PDFInvalidDocumentException,
-                    PDFIOException, PDFSecurityException {
+        throws PDFInvalidDocumentException,
+        PDFIOException, PDFSecurityException {
         return pageFromDocument(doc, pageIndex).getResources();
     }
 
@@ -161,7 +161,7 @@ public class SampleTestBase {
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     protected PDFPage pageFromDocument(final PDFDocument doc, final int pageIndex) throws PDFInvalidDocumentException,
-                    PDFIOException, PDFSecurityException {
+        PDFIOException, PDFSecurityException {
         final PDFPageTree pageTree = doc.requirePages();
         final PDFPage page = pageTree.getPage(pageIndex);
         return page;
@@ -237,7 +237,7 @@ public class SampleTestBase {
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     protected void assertNiceSimpleFont(final PDFFont font) throws PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException {
+        PDFSecurityException {
         final PDFFontSimple simpleFont = (PDFFontSimple) font;
         if (!(font.getBaseFont().equals(ASName.k_ZapfDingbats) || font.getBaseFont().equals(ASName.k_Symbol))) {
             assertEquals(ASName.k_WinAnsiEncoding, simpleFont.getEncoding().getBaseEncoding().getName());
@@ -269,7 +269,7 @@ public class SampleTestBase {
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     protected void assertNiceType0Font(final PDFFont font)
-                    throws PDFSecurityException, PDFIOException, PDFInvalidDocumentException {
+        throws PDFSecurityException, PDFIOException, PDFInvalidDocumentException {
         assertThat("it is a type 0 font", font, instanceOf(PDFFontType0.class));
         final PDFFontType0 fontType0 = (PDFFontType0) font;
 
@@ -319,7 +319,8 @@ public class SampleTestBase {
      *
      * <p>
      * Checks the font as appropriate using {@link #assertNiceSimpleFont(PDFFont)} or
-     * {@link #assertNiceType0Font(PDFFont)} as appropriate.
+     * {@link #assertNiceType0Font(PDFFont)}
+     * as appropriate.
      *
      * <p>
      * Also checks that the font has a valid name if subsetted.
@@ -330,7 +331,7 @@ public class SampleTestBase {
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     protected void assertNiceFont(final PDFFont font)
-                    throws PDFSecurityException, PDFIOException, PDFInvalidDocumentException {
+        throws PDFSecurityException, PDFIOException, PDFInvalidDocumentException {
         assertThat(font, anyOf(instanceOf(PDFFontSimple.class), instanceOf(PDFFontType0.class)));
 
         if (font instanceof PDFFontSimple) {
@@ -349,7 +350,7 @@ public class SampleTestBase {
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     protected void assertSubsetted(final PDFFont font) throws PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException {
+        PDFSecurityException {
         // Test this validity first, because it gives better diagnostics than isFontEmbedded()
         assertValidSubsetName(font.getBaseFont().asString());
         assertTrue(PDFFontUtils.isSubsetFont(font));
@@ -389,7 +390,7 @@ public class SampleTestBase {
      * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
      */
     protected void assertNiceColorSpace(final PDFColorSpace cs) throws PDFIOException,
-                    PDFSecurityException, PDFInvalidDocumentException {
+        PDFSecurityException, PDFInvalidDocumentException {
         assertTrue(cs instanceof PDFColorSpaceICCBased);
         assertEquals(3, cs.getNumberOfComponents());
         assertEquals(ASName.k_ICCBased, cs.getName());
@@ -422,8 +423,8 @@ public class SampleTestBase {
     }
 
     /**
-     * Create a {@link File} with the specified name in <tt>target/test-output</tt>. If the file already exists, delete
-     * it.
+     * Create a {@link File} with the specified name in <tt>target/test-output</tt>. If the file already exists,
+     * delete it.
      *
      * @param filename the name of the file to create
      * @return a {@link File} object containing the file location

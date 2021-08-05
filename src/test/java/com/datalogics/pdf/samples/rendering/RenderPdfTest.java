@@ -6,7 +6,6 @@ package com.datalogics.pdf.samples.rendering;
 
 import static com.datalogics.pdf.samples.util.EnvironmentUtils.IS_OPENJDK_8;
 import static com.datalogics.pdf.samples.util.Matchers.bufferedImageHasChecksum;
-
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 

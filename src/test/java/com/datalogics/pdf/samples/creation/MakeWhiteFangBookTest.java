@@ -5,9 +5,7 @@
 package com.datalogics.pdf.samples.creation;
 
 import static com.adobe.pdfjt.pdf.graphics.font.impl.PDFFontUtils.getActualBaseFontName;
-
 import static com.datalogics.pdf.samples.util.Matchers.hasChecksum;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.anyOf;
 import static org.junit.Assert.assertEquals;
