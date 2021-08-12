@@ -116,7 +116,7 @@ public final class TextCharacterBoxes {
 
         if (wordsIter.hasNext()) {
             final PDFDocument document = page.getPDFDocument();
-            try (final PageContentAppender contentAppender = new PageContentAppender(document, page)) {
+            try (PageContentAppender contentAppender = new PageContentAppender(document, page)) {
                 contentAppender.setLineWidth(0.125);
                 contentAppender.strokeColor(PDFColorSpaceDeviceRGB.newInstance(document),
                                             (float) 1.0, (float) 0.0, (float) 0.0);

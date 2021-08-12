@@ -136,7 +136,7 @@ public final class MakePdfFromImage {
         // that, we'll treat the input as a file to be opened. Set the BufferedImage to be used here as well.
         final BufferedImage bufferedImage;
 
-        try (final InputStream resourceStream = inputImageUrl.openStream()) {
+        try (InputStream resourceStream = inputImageUrl.openStream()) {
             if (resourceStream == null) {
                 bufferedImage = ImageIO.read(new File(inputImageUrl.toURI().getPath()));
             } else {
