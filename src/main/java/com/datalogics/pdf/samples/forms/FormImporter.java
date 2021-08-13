@@ -317,7 +317,7 @@ public final class FormImporter {
         final Document xmlDoc = builder.parse(inputDataUrl.openStream());
         final String xmlRootName = xmlDoc.getDocumentElement().getNodeName();
 
-        return xmlRootName.equals(XFA_DATA_ROOT_NODE);
+        return XFA_DATA_ROOT_NODE.equals(xmlRootName);
     }
 
     /**
@@ -338,7 +338,7 @@ public final class FormImporter {
         final Document xmlDoc = builder.parse(inputDataUrl.openStream());
         final String firstChildName = xmlDoc.getDocumentElement().getChildNodes().item(0).getNodeName();
 
-        return firstChildName.equals(XFA_DATA_CHILD_NODE);
+        return XFA_DATA_CHILD_NODE.equals(firstChildName);
     }
 
     /**
