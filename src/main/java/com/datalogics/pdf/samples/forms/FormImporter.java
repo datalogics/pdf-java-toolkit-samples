@@ -182,13 +182,17 @@ public final class FormImporter {
         URISyntaxException, PDFInvalidParameterException {
 
         // Open the input form data file.
-        final InputStream formStream = inputDataUrl.openStream();
-        final ByteReader formByteReader = new InputStreamByteReader(formStream);
-        final FDFDocument fdfDocument = FDFDocument.newInstance(formByteReader);
+        final ByteReader formByteReader;
+        try (InputStream formStream = inputDataUrl.openStream()) {
+            // NOTE: formStream must stay open as long as fdfDocument is in use
+            formByteReader = new InputStreamByteReader(formStream);
+            final FDFDocument fdfDocument = FDFDocument.newInstance(formByteReader);
 
-        // Use the FDFService to get the form data into the PDF.
-        final FDFService fdfService = new FDFService(pdfDocument);
-        fdfService.importForm(fdfDocument);
+            // Use the FDFService to get the form data into the PDF.
+            final FDFService fdfService = new FDFService(pdfDocument);
+            fdfService.importForm(fdfDocument);
+            fdfDocument.close();
+        }
 
         finishAndSaveForm(pdfDocument, outputUrl);
     }
@@ -220,8 +224,9 @@ public final class FormImporter {
         // If this is XFDF form data, fill the form using the XFDFService, which uses a slightly different
         // process than the FDFService. Just get the data file into an InputStream, then import the data into the PDF
         // document.
-        final InputStream formStream = inputDataUrl.openStream();
-        XFDFService.importFormData(pdfDocument, formStream);
+        try (InputStream formStream = inputDataUrl.openStream()) {
+            XFDFService.importFormData(pdfDocument, formStream);
+        }
 
         // Run calculations on the AcroForm...only required before PDFJT 4.5.0
         finishAndSaveForm(pdfDocument, outputUrl);
@@ -258,10 +263,11 @@ public final class FormImporter {
         }
 
         // Start by getting the form data into an InputStream.
-        final InputStream formStream = inputDataUrl.openStream();
+        try (InputStream formStream = inputDataUrl.openStream()) {
 
-        // If we have an XML file with the proper header, use the XFAService to get the data into the PDF.
-        XFAService.importElement(pdfDocument, XFAElement.DATASETS, formStream);
+            // If we have an XML file with the proper header, use the XFAService to get the data into the PDF.
+            XFAService.importElement(pdfDocument, XFAElement.DATASETS, formStream);
+        }
 
         // Just save the file. Generating appearances and running calculations aren't supported for XFA forms, so
         // there's no need to try it.
