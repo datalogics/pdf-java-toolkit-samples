@@ -446,7 +446,9 @@ public final class RedactAndSanitizeDocument {
          */
         @Override
         public void objectRedacted(final RedactedObjectInfo redactedObject) {
-            LOGGER.info(redactedObject.toString());
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info(redactedObject.toString());
+            }
         }
 
     }

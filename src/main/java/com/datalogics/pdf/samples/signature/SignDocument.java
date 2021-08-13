@@ -155,7 +155,9 @@ public final class SignDocument {
                     pdfDoc.close();
                 }
             } catch (final PDFException e) {
-                LOGGER.error(e.getMessage());
+                if (LOGGER.isErrorEnabled()) {
+                    LOGGER.error(e.getMessage());
+                }
             }
         }
     }
