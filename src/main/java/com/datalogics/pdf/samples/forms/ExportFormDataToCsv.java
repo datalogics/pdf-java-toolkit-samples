@@ -105,8 +105,8 @@ public final class ExportFormDataToCsv {
                 Files.delete(outputFile.toPath());
             }
 
-            try (final PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
-                 final CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL)) {
+            try (PrintWriter writer = new PrintWriter(outputFile, "UTF-8");
+                 CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL)) {
 
                 exportFieldNames(form, printer);
 

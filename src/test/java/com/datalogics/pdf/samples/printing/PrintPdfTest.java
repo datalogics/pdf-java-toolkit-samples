@@ -6,7 +6,6 @@ package com.datalogics.pdf.samples.printing;
 
 import static com.datalogics.pdf.samples.util.EnvironmentUtils.IS_OPENJDK_8;
 import static com.datalogics.pdf.samples.util.Matchers.bufferedImageHasChecksum;
-
 import static org.hamcrest.Matchers.startsWith;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeThat;
@@ -159,6 +158,7 @@ public class PrintPdfTest extends SampleTestBase {
             }
         }
     }
+
 
     /*
      * TestMultiPagePrinterJob implements a 'fake' PrinterJob to intercept print requests.

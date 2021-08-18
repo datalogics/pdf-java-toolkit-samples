@@ -59,6 +59,7 @@ public final class DocumentUtils {
         ByteReader reader = null;
         PDFDocument document = null;
 
+        @SuppressWarnings("PMD.CloseResource")  // inputStream becomes owned by document
         final InputStream inputStream = DocumentUtils.class.getResourceAsStream(inputPath);
         reader = new InputStreamByteReader(inputStream);
         document = PDFDocument.newInstance(reader, PDFOpenOptions.newInstance());
@@ -71,7 +72,8 @@ public final class DocumentUtils {
      *
      * @param inputUrl The URL to a PDF file to open
      * @return A new PDFDocument instance of the input document
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws IOException an I/O operation failed or was interrupted
@@ -89,7 +91,8 @@ public final class DocumentUtils {
      * @param inputUrl The URL to a PDF file to open
      * @param pdfOpenOptions Options used to open a PDF document
      * @return A new PDFDocument instance of the input document
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws IOException an I/O operation failed or was interrupted
@@ -99,6 +102,7 @@ public final class DocumentUtils {
         ByteReader reader = null;
         PDFDocument document = null;
 
+        @SuppressWarnings("PMD.CloseResource")  // inputStream becomes owned by document
         final InputStream inputStream = inputUrl.openStream();
         reader = new InputStreamByteReader(inputStream);
         document = PDFDocument.newInstance(reader, pdfOpenOptions);
@@ -111,7 +115,8 @@ public final class DocumentUtils {
      *
      * @param document the document to get the font set for
      * @return the font set
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFFontException there was an error in the font set or an individual font
      * @throws PDFSecurityException some general security issue occurred during the processing of the request

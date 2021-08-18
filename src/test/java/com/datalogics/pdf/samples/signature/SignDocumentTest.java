@@ -5,7 +5,6 @@
 package com.datalogics.pdf.samples.signature;
 
 import static com.datalogics.pdf.samples.util.ContentTextItemMatchers.hasText;
-
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
@@ -163,8 +162,8 @@ public class SignDocumentTest extends SampleTestBase {
     }
 
     private XObject<?, ?, ?> getN2XObject()
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
-                    PDFInvalidParameterException, PDFFontException, PDFConfigurationException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
+        PDFInvalidParameterException, PDFFontException, PDFConfigurationException {
         final PDFPage signedPage = pdfDocument.requirePages().getPage(0);
         final PDFXObjectForm n2Form = getN2PdfXobjectForm();
         final List<RasterContentItem> formContentItems = DocumentUtils.getFormContentItems(signedPage, n2Form,
@@ -173,7 +172,7 @@ public class SignDocumentTest extends SampleTestBase {
     }
 
     private PDFXObjectForm getN2PdfXobjectForm()
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
         final SignatureFieldInterface sigField = getSignedSignatureField(pdfDocument);
         final PDFAnnotationWidget annot = sigField.getPDFField().getPDFFieldSignature().getAnnotation();
         final PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
@@ -199,7 +198,7 @@ public class SignDocumentTest extends SampleTestBase {
     }
 
     private static SignatureFieldInterface getSignedSignatureField(final PDFDocument doc)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
         // Set up a signature service and get the first signature field.
         final SignatureManager sigService = SignatureManager.newInstance(doc);
         if (sigService.hasSignedSignatureFields()) {

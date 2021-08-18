@@ -16,7 +16,7 @@ import javax.print.attribute.ResolutionSyntax;
 import javax.print.attribute.standard.PrinterResolution;
 import javax.print.event.PrintServiceAttributeListener;
 
-/*
+/**
  * TestPrintService implements a 'fake' PrintService to be returned by our mock PrintServiceLookup.
  */
 public class FakePrintService implements PrintService {
