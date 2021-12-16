@@ -99,9 +99,27 @@ pipeline {
             }
         }
 
+        stage('Run OWASP Dependenency checker') {
+            when {
+                not {
+                    changeRequest()
+                }
+            }
+            steps {
+                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                    // Run Maven on a Unix agent.
+                    sh "./mvnw -B -V -U org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON"
+                    sh "./mvnw -B -V -U -f lite org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON"
+                }
+            }
+        }
+
         stage('Analysis') {
             steps {
-                recordIssues enabledForFailure: true, healthy: 1, tools: [checkStyle(), findBugs(useRankAsPriority: true), pmdParser(), cpd(), javaDoc(), java()]
+                recordIssues ignoreFailedBuilds: false, qualityGates: [[threshold: 1, type: 'TOTAL', unstable: false]],
+                    enabledForFailure: true,
+                    tools: [checkStyle(), findBugs(useRankAsPriority: true), pmdParser(), cpd(), javaDoc(), java(),
+                            owaspDependencyCheck()]
             }
         }
 
