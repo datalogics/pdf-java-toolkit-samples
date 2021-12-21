@@ -5,7 +5,7 @@
   <parent>
     <artifactId>super-pom</artifactId>
     <groupId>com.datalogics.maven</groupId>
-    <version>2.0.6</version>
+    <version>3.0.0</version>
     <relativePath></relativePath>
   </parent>
   <groupId>com.datalogics.pdf</groupId>
@@ -71,17 +71,10 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.25</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <classifier>tests</classifier>
-      <scope>test</scope>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
     </dependency>
   </dependencies>
   <profiles>
