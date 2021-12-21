@@ -21,8 +21,9 @@ import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.LogEventListCollector;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.LogEvent;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+
 import org.junit.Test;
 
 import java.io.File;
@@ -76,13 +77,13 @@ public class TextExtractTest extends SampleTestBase {
         try (LogEventListCollector logEventListCollector = new LogEventListCollector()) {
             TextExtract.extractTextReadingOrder(inputUrl, outputUrl);
 
-            final List<LogEvent> events = logEventListCollector.getEvents();
+            final List<ILoggingEvent> events = logEventListCollector.getEvents();
 
             // Verify that we got the expected log message
             assertEquals("Must have one log record", 1, events.size());
-            final LogEvent logEvent = events.get(0);
+            final ILoggingEvent logEvent = events.get(0);
             assertEquals(inputUrl.toURI().getPath() + " did not have any text to extract.",
-                         logEvent.getMessage().getFormattedMessage());
+                         logEvent.getFormattedMessage());
             assertEquals(Level.INFO, logEvent.getLevel());
         }
 
@@ -96,7 +97,7 @@ public class TextExtractTest extends SampleTestBase {
      * Create a PDF with a single blank page, for testing.
      */
     private static PDFDocument createEmptyPdf() throws PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException {
+        PDFSecurityException {
         final PDFDocument document = PDFDocument.newInstance(PDFOpenOptions.newInstance());
         final PDFPage page = PDFPage.newInstance(document, PDFRectangle.newInstance(document, ASRectangle.US_LETTER));
         PDFPageTree.newInstance(document, page);
