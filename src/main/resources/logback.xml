@@ -1,0 +1,16 @@
+<configuration>
+  <!--
+  Copyright 2021, Datalogics, Inc.
+  -->
+
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <Pattern>%d %c %M%n%p: %m%n</Pattern>
+    </encoder>
+  </appender>
+
+  <root level="info">
+    <appender-ref ref="CONSOLE"/>
+  </root>
+
+</configuration>
