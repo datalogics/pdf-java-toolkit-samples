@@ -5,7 +5,7 @@
   <parent>
     <artifactId>super-pom</artifactId>
     <groupId>com.datalogics.maven</groupId>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
     <relativePath></relativePath>
   </parent>
   <groupId>com.datalogics.pdf</groupId>
