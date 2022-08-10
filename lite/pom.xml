@@ -91,6 +91,24 @@
           <missing>${basedir}/.use-pdfjt-lm</missing>
         </file>
       </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <suppressionFile>owasp-suppressions/owasp-suppressions.xml</suppressionFile>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
       <dependencies>
         <dependency>
           <groupId>com.datalogics.pdf</groupId>
