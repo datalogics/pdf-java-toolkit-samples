@@ -318,6 +318,8 @@
                         <include>fix_throws_javadoc.sh</include>
                         <!-- all source files in a directory named util, in case the samples start picking those up -->
                         <include>src/**/util/**/*</include>
+                        <!-- OWASP suppression files -->
+                        <include>owasp-suppressions/**/*</include>
                         <!-- Maven Wrapper files -->
                         <include>.mvn/wrapper/**/*</include>
                         <include>mvnw</include>
