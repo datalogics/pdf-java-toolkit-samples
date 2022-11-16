@@ -7,7 +7,7 @@ package com.datalogics.pdf.samples.forms;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.csv.CSVFormat;
@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * Tests the ExportFormDataToCsv sample.
  */
-public class ExportFormDataToCsvTest extends SampleTest {
+public class ExportFormDataToCsvTest extends SampleTestBase {
     private static final int DEFAULT_SAMPLE_INPUT_RECORD_SIZE = 1;
     private static final HashMap<String, String> DEFAULT_SAMPLE_OUTPUT_CSV_DATA = new HashMap<String, String>() {
         private static final long serialVersionUID = -5083671805004050295L;

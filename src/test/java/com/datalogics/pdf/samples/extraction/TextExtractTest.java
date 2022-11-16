@@ -18,11 +18,12 @@ import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.pdf.page.PDFPageTree;
 
 import com.datalogics.pdf.document.DocumentHelper;
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.LogEventListCollector;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.LogEvent;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+
 import org.junit.Test;
 
 import java.io.File;
@@ -36,7 +37,7 @@ import java.util.List;
 /**
  * Tests the TextExtract sample.
  */
-public class TextExtractTest extends SampleTest {
+public class TextExtractTest extends SampleTestBase {
 
     private static final String OUTPUT_FILE_PATH = "TextExtractTest.txt";
     private static final String INPUT_PDF_PATH = "/com/datalogics/pdf/samples/pdfjavatoolkit-ds.pdf";
@@ -76,13 +77,13 @@ public class TextExtractTest extends SampleTest {
         try (LogEventListCollector logEventListCollector = new LogEventListCollector()) {
             TextExtract.extractTextReadingOrder(inputUrl, outputUrl);
 
-            final List<LogEvent> events = logEventListCollector.getEvents();
+            final List<ILoggingEvent> events = logEventListCollector.getEvents();
 
             // Verify that we got the expected log message
             assertEquals("Must have one log record", 1, events.size());
-            final LogEvent logEvent = events.get(0);
+            final ILoggingEvent logEvent = events.get(0);
             assertEquals(inputUrl.toURI().getPath() + " did not have any text to extract.",
-                         logEvent.getMessage().getFormattedMessage());
+                         logEvent.getFormattedMessage());
             assertEquals(Level.INFO, logEvent.getLevel());
         }
 
@@ -96,7 +97,7 @@ public class TextExtractTest extends SampleTest {
      * Create a PDF with a single blank page, for testing.
      */
     private static PDFDocument createEmptyPdf() throws PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException {
+        PDFSecurityException {
         final PDFDocument document = PDFDocument.newInstance(PDFOpenOptions.newInstance());
         final PDFPage page = PDFPage.newInstance(document, PDFRectangle.newInstance(document, ASRectangle.US_LETTER));
         PDFPageTree.newInstance(document, page);

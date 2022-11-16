@@ -111,8 +111,10 @@ public final class MakeWhiteFangBook {
     private static void addCoverPage(final PDFDocument document)
                     throws IOException, PDFIOException, PDFSecurityException, PDFInvalidDocumentException {
         // Create an image decoder and decode the image file
-        final InputStream imageStream = MakeWhiteFangBook.class.getResourceAsStream(INPUT_IMAGE_PATH);
-        final BufferedImage bim = ImageIO.read(imageStream);
+        final BufferedImage bim;
+        try (InputStream imageStream = MakeWhiteFangBook.class.getResourceAsStream(INPUT_IMAGE_PATH)) {
+            bim = ImageIO.read(imageStream);
+        }
         // Create PDFXObjectImage from bufferedImage
         final PDFXObjectImage image = ImageManager.getPDFImage(bim, document);
 

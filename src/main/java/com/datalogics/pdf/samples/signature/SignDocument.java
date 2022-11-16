@@ -155,7 +155,9 @@ public final class SignDocument {
                     pdfDoc.close();
                 }
             } catch (final PDFException e) {
-                LOGGER.error(e.getMessage());
+                if (LOGGER.isErrorEnabled()) {
+                    LOGGER.error(e.getMessage());
+                }
             }
         }
     }
@@ -222,10 +224,10 @@ public final class SignDocument {
         // signed with this certificate, Acrobat will display a warning. This does not indicate any error in the
         // document itself aside from the unverifiable signature.
         final String sigAlgorithm = "RSA";
-        final InputStream certStream = SignDocument.class.getResourceAsStream(DER_CERT_PATH);
-        final InputStream keyStream = SignDocument.class.getResourceAsStream(DER_KEY_PATH);
-
-        return createCredentialsFromDerBytes(certStream, keyStream, sigAlgorithm);
+        try (InputStream certStream = SignDocument.class.getResourceAsStream(DER_CERT_PATH);
+             InputStream keyStream = SignDocument.class.getResourceAsStream(DER_KEY_PATH)) {
+            return createCredentialsFromDerBytes(certStream, keyStream, sigAlgorithm);
+        }
     }
 
 
@@ -290,6 +292,7 @@ public final class SignDocument {
     private static ImageReader loadImage(final URL imagePath) throws Exception {
         // Returns the reader that claims it can decode the given image
         ImageReader reader = null;
+        @SuppressWarnings("PMD.CloseResource") // imgStm ends up owned by the reader
         final ImageInputStream imgStm = ImageIO.createImageInputStream(imagePath.openStream());
         final Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(imgStm);
         if (imageReaders.hasNext()) {

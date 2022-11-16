@@ -5,59 +5,46 @@
 package com.datalogics.pdf.samples.util;
 
 
-import static org.apache.logging.log4j.core.Filter.Result.ACCEPT;
-import static org.apache.logging.log4j.core.Filter.Result.DENY;
+import ch.qos.logback.classic.filter.ThresholdFilter;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.core.LogEvent;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.filter.ThresholdFilter;
-import org.apache.logging.log4j.test.appender.ListAppender;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Collect up {@link LogEvent} objects for testing.
+ * Collect up {@link ILoggingEvent} objects for testing.
  */
 public class LogEventListCollector implements AutoCloseable {
-    private static final String CLASS_NAME = MethodHandles.lookup().lookupClass().getSimpleName();
-
-    private ListAppender appender;
-
-    private final LoggerContext loggerContext;
+    private ListAppender<ILoggingEvent> appender = new ListAppender<>();
 
     /**
-     * Push a new {@link org.apache.logging.log4j.core.Appender} onto the root logger, and collect up events.
+     * Push a new {@link ListAppender} onto the root logger, and collect up events.
      */
     public LogEventListCollector() {
-        // Getting the context this way gets the same context that slf4j uses. The ClassLoader is used to distinguish
-        // between different web apps on the same server, but in an effort to simplify things, slf4j always gets a
-        // context this way. Thus, getting the default context isn't sufficient; one must get the context via the class
-        // loader.
-        loggerContext = LoggerContext.getContext(getClass().getClassLoader(), false, null);
-        appender = ListAppender.getListAppender(CLASS_NAME);
-        if (appender == null) {
-            appender = new ListAppender.Builder().setName(CLASS_NAME)
-                                                 // If you were to alter the level, it'd happen here.
-                                                 .setFilter(ThresholdFilter.createFilter(Level.TRACE, ACCEPT, DENY))
-                                                 .build();
-        }
+        final ThresholdFilter thresholdFilter = new ThresholdFilter();
+        thresholdFilter.setLevel("TRACE");
+        appender.addFilter(thresholdFilter);
 
         // If we have removed the appender, it gets stopped, so make sure it's started here.
         appender.start();
 
-        // Appenders are persistent, therefore remove any previous events.
-        appender.clear();
-        loggerContext.getRootLogger().addAppender(appender);
+        getRootLogger().addAppender(appender);
     }
 
-    public List<LogEvent> getEvents() {
-        return appender.getEvents();
+    private ch.qos.logback.classic.Logger getRootLogger() {
+        return (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
     }
 
-    @Override
-    public void close() throws Exception {
-        loggerContext.getRootLogger().removeAppender(appender);
+    public List<ILoggingEvent> getEvents() {
+        return new ArrayList<>(appender.list);
+    }
+
+    @Override public void close() throws Exception {
+        appender.stop();
+        getRootLogger().detachAppender(appender);
     }
 }

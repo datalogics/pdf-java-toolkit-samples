@@ -25,7 +25,7 @@ import com.adobe.pdfjt.pdf.graphics.xobject.PDFXObjectMap;
 import com.adobe.pdfjt.pdf.page.PDFPage;
 import com.adobe.pdfjt.services.imageconversion.ImageManager;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.Checksum;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
@@ -48,7 +48,7 @@ import java.util.List;
  * Tests the ImageDownsamplingTest Sample.
  */
 @RunWith(Parameterized.class)
-public class ImageDownsamplingTest extends SampleTest {
+public class ImageDownsamplingTest extends SampleTestBase {
     private static final String FILE_NAME = "downsampled_ducky.pdf";
     private static final String ORIGINAL_FILE_NAME = "ducky.pdf";
     private static final double SCALE_FACTOR = 0.5;

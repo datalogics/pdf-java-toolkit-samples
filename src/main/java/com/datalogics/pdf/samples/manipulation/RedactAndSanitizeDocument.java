@@ -57,10 +57,10 @@ import java.util.Locale;
 /**
  * This sample demonstrates how to open a document, add redaction annotations to it, and then apply the redaction. The
  * document is then sanitized.
- * 
+ *
  * <p>
  * Redaction is commonly used to remove or deliberately obscure sensitive or classified information when a document is
- * released to the public.  
+ * released to the public.
  *
  * <p>
  * Redaction and sanitization is done in three steps. Redaction annotations are first added to the document. Those
@@ -152,7 +152,7 @@ public final class RedactAndSanitizeDocument {
      * @throws Exception a general exception was thrown
      */
     public static void redactAndSanitize(final URL inputUrl, final URL outputUrl, final String redactionString)
-                    throws Exception {
+        throws Exception {
         PDFDocument document = null;
         try {
             document = DocumentUtils.openPdfDocument(inputUrl);
@@ -183,7 +183,8 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document to receive PDF annotations
      * @param searchTerm The term to be redacted
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFFontException there was an error in the font set or an individual font
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
@@ -191,8 +192,8 @@ public final class RedactAndSanitizeDocument {
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      */
     private static void markTextForRedaction(final PDFDocument document, final String searchTerm)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
-                    PDFConfigurationException, PDFInvalidParameterException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException,
+        PDFConfigurationException, PDFInvalidParameterException {
         final String searchTermLowerCase = searchTerm.toLowerCase(Locale.ENGLISH);
         final PDFFontSet docFontSet = setupDocFontSet(document);
 
@@ -234,15 +235,16 @@ public final class RedactAndSanitizeDocument {
      * @param document The document to receive a redaction annotation
      * @param word The word to be redacted
      * @param currentPage The current page that contains the word to be redacted
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     private static void addRedactionAnnotationToWord(final PDFDocument document, final Word word,
                                                      final PDFPage currentPage) throws PDFInvalidDocumentException,
-                                                                     PDFIOException, PDFSecurityException {
+        PDFIOException, PDFSecurityException {
         final PDFAnnotationRedaction annot = PDFAnnotationRedaction
-                                                                   .newInstance(document);
+            .newInstance(document);
 
         // Set a few annotation properties that will be used to
         // generate its Appearance
@@ -270,8 +272,8 @@ public final class RedactAndSanitizeDocument {
      * @param document The document to apply the redaction to
      * @param outputUrl The redacted output document
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
-     *         state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
@@ -279,8 +281,8 @@ public final class RedactAndSanitizeDocument {
      * @throws IOException an I/O operation failed or was interrupted
      */
     private static void applyRedaction(final PDFDocument document, final URL outputUrl)
-                    throws PDFInvalidParameterException, PDFInvalidDocumentException, PDFIOException,
-                    PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
+        throws PDFInvalidParameterException, PDFInvalidDocumentException, PDFIOException,
+        PDFSecurityException, PDFUnableToCompleteOperationException, PDFFontException, IOException {
         ByteWriter writer = null;
         try {
             writer = IoUtils.newByteWriter(outputUrl);
@@ -310,11 +312,12 @@ public final class RedactAndSanitizeDocument {
      * @throws PDFFontException there was an error in the font set or an individual font
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      */
     public static void sanitizeDocument(final PDFDocument document, final URL sanitizedUrl)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
-                    PDFConfigurationException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
+        PDFConfigurationException, PDFInvalidParameterException, PDFUnableToCompleteOperationException {
 
         if (!canSanitizeDocument(document)) {
             LOGGER.warn("The document was not sanitized");
@@ -328,11 +331,11 @@ public final class RedactAndSanitizeDocument {
         }
         final PDFSaveOptions saveOptions = PDFSaveLinearOptions.newInstance();
         // Optimize the document for fast web viewing. This is a part of sanitization.
-        saveOptions.setForceCompress(true);// All the streams should be encoded with flate filter.
+        saveOptions.setForceCompress(true); // All the streams should be encoded with flate filter.
         final SanitizationOptions options = new SanitizationOptions();
         options.setPDFFontSet(FontSetLoader.newInstance().getFontSet());
         options.setSaveOptions(saveOptions);
-        SanitizationService.sanitizeDocument(document, options, writer);// API to start the sanitization.
+        SanitizationService.sanitizeDocument(document, options, writer); // API to start the sanitization.
     }
 
     /**
@@ -340,7 +343,8 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document A PDF document, to check if it can be sanitized
      * @return Returns true of the document can/should be sanitized
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFFontException there was an error in the font set or an individual font
@@ -348,8 +352,8 @@ public final class RedactAndSanitizeDocument {
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      */
     private static boolean canSanitizeDocument(final PDFDocument document)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
-                    PDFConfigurationException, PDFInvalidParameterException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
+        PDFConfigurationException, PDFInvalidParameterException {
         if (document.requireCatalog().getCollection() != null) {
             return false;
         }
@@ -380,7 +384,8 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document that needs appearances generated for it's redaction annotations
      * @param docFontSet A fontset with the appropriate fonts added from the PDFDocument
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFFontException there was an error in the font set or an individual font
@@ -388,15 +393,15 @@ public final class RedactAndSanitizeDocument {
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      */
     private static void generateAnnotationAppearances(final PDFDocument document, final PDFFontSet docFontSet)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
-                    PDFConfigurationException, PDFInvalidParameterException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, PDFFontException,
+        PDFConfigurationException, PDFInvalidParameterException {
         // Generate appearance streams for only the redaction annotations of the
         // document, using font and locale resources.
         final APResources apResources = new APResources(docFontSet,
                                                         PDFDocument.ROOT_LOCALE, null);
         final APContext apContext = new APContext(apResources, true, null);
         apContext.setAnnotationsToBeProcessed(EnumSet
-                                                     .of(PDFAnnotationEnum.Redact));
+                                                  .of(PDFAnnotationEnum.Redact));
 
         AppearanceService.generateAppearances(document, apContext, null);
     }
@@ -406,13 +411,14 @@ public final class RedactAndSanitizeDocument {
      *
      * @param document The document whose fonts need to be loaded
      * @return A fontset with the appropriate fonts added from the PDFDocument
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFFontException there was an error in the font set or an individual font
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     private static PDFFontSet setupDocFontSet(final PDFDocument document)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFFontException, PDFSecurityException {
         PDFFontSet sysFontSet = null;
         final FontSetLoader fontSetLoader = FontSetLoader.newInstance();
 
@@ -440,7 +446,9 @@ public final class RedactAndSanitizeDocument {
          */
         @Override
         public void objectRedacted(final RedactedObjectInfo redactedObject) {
-            LOGGER.info(redactedObject.toString());
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info(redactedObject.toString());
+            }
         }
 
     }

@@ -100,7 +100,7 @@ public final class TextExtract {
             final WordsIterator wordsIter = extractor.getWordsIterator();
 
             if (wordsIter.hasNext()) {
-                try (final FileOutputStream outputStream = obtainOutputStream(outputUrl)) {
+                try (FileOutputStream outputStream = obtainOutputStream(outputUrl)) {
                     do {
                         final Word word = wordsIter.next();
                         outputStream.write(word.toString().getBytes("UTF-8"));

@@ -5,7 +5,6 @@
 package com.datalogics.pdf.samples.signature;
 
 import static com.datalogics.pdf.samples.util.ContentTextItemMatchers.hasText;
-
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
@@ -34,7 +33,7 @@ import com.adobe.pdfjt.services.digsig.SignatureFieldInterface;
 import com.adobe.pdfjt.services.digsig.SignatureManager;
 import com.adobe.pdfjt.services.rasterizer.impl.RasterContentItem;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 
 import org.apache.commons.collections4.iterators.IteratorIterable;
@@ -52,7 +51,7 @@ import java.util.List;
 /**
  * Tests the SignDocument Sample.
  */
-public class SignDocumentTest extends SampleTest {
+public class SignDocumentTest extends SampleTestBase {
     private static final String FILE_NAME = "SignedField.pdf";
     private static final String QUALIFIED_SIGNATURE_FIELD_NAME = "Approver";
     private static final String BLACK_RIGHTWARDS_ARROW = "\u27a1"; // U+27A1 BLACK RIGHTWARDS ARROW
@@ -73,7 +72,7 @@ public class SignDocumentTest extends SampleTest {
         if (pdfDocument == null) {
             final URL inputUrl = SignDocument.class.getResource(SignDocument.INPUT_UNSIGNED_PDF_PATH);
 
-            file = SampleTest.newOutputFileWithDelete(FILE_NAME);
+            file = SampleTestBase.newOutputFileWithDelete(FILE_NAME);
 
             // The complete file name will be set in the SignDocument class.
             final URL outputUrl = file.toURI().toURL();
@@ -163,8 +162,8 @@ public class SignDocumentTest extends SampleTest {
     }
 
     private XObject<?, ?, ?> getN2XObject()
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
-                    PDFInvalidParameterException, PDFFontException, PDFConfigurationException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException, IOException,
+        PDFInvalidParameterException, PDFFontException, PDFConfigurationException {
         final PDFPage signedPage = pdfDocument.requirePages().getPage(0);
         final PDFXObjectForm n2Form = getN2PdfXobjectForm();
         final List<RasterContentItem> formContentItems = DocumentUtils.getFormContentItems(signedPage, n2Form,
@@ -173,7 +172,7 @@ public class SignDocumentTest extends SampleTest {
     }
 
     private PDFXObjectForm getN2PdfXobjectForm()
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
         final SignatureFieldInterface sigField = getSignedSignatureField(pdfDocument);
         final PDFAnnotationWidget annot = sigField.getPDFField().getPDFFieldSignature().getAnnotation();
         final PDFResources normFormResources = annot.getNormalStateAppearance().getResources();
@@ -199,7 +198,7 @@ public class SignDocumentTest extends SampleTest {
     }
 
     private static SignatureFieldInterface getSignedSignatureField(final PDFDocument doc)
-                    throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
+        throws PDFInvalidDocumentException, PDFIOException, PDFSecurityException {
         // Set up a signature service and get the first signature field.
         final SignatureManager sigService = SignatureManager.newInstance(doc);
         if (sigService.hasSignedSignatureFields()) {

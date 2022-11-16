@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.adobe.pdfjt.services.pdfa2.PDFA2ConformanceLevel;
 
-import com.datalogics.pdf.samples.SampleTest;
+import com.datalogics.pdf.samples.SampleTestBase;
 
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ import java.net.URL;
 /**
  * Tests the ConvertToPdfA2 sample.
  */
-public class ConvertToPdfA2Test extends SampleTest {
+public class ConvertToPdfA2Test extends SampleTestBase {
 
     private static final String FILE_NAME = "ConvertedPdfa-2b.pdf";
 

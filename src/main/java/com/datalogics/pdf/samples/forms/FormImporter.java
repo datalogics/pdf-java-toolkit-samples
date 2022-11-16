@@ -18,7 +18,6 @@ import com.adobe.pdfjt.pdf.document.PDFDocument;
 import com.adobe.pdfjt.services.ap.AppearanceService;
 import com.adobe.pdfjt.services.fdf.FDFDocument;
 import com.adobe.pdfjt.services.fdf.FDFService;
-import com.adobe.pdfjt.services.forms.FormFieldService;
 import com.adobe.pdfjt.services.xfa.XFAService;
 import com.adobe.pdfjt.services.xfa.XFAService.XFAElement;
 import com.adobe.pdfjt.services.xfdf.XFDFService;
@@ -26,7 +25,6 @@ import com.adobe.pdfjt.services.xfdf.XFDFService;
 import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
-import com.datalogics.pdf.samples.util.VersionUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -56,6 +54,9 @@ import javax.xml.transform.stream.StreamResult;
  */
 public final class FormImporter {
 
+    /**
+     * Indicate the type of the form.
+     */
     public enum FormType {
         FDF,
         XFDF,
@@ -85,6 +86,7 @@ public final class FormImporter {
 
     }
 
+
     // Some XML constants
     private static final String XFA_DATA_ROOT_NODE = "xfa:datasets";
     private static final String XFA_DATA_NS_URI = "http://www.xfa.org/schema/xfa-data/1.0/";
@@ -103,7 +105,8 @@ public final class FormImporter {
      * @param inputDataUrl The data with which to fill the form
      * @param formType The type of form passed in
      * @param outputUrl The file to which the filled form will be saved
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws IOException an I/O operation failed or was interrupted
@@ -119,10 +122,10 @@ public final class FormImporter {
      */
     public static void fillPdfForm(final URL inputFormUrl, final URL inputDataUrl,
                                    final FormType formType, final URL outputUrl)
-                    throws PDFInvalidDocumentException, PDFSecurityException, PDFIOException, IOException,
-                    PDFUnableToCompleteOperationException, PDFInvalidXMLException, PDFConfigurationException,
-                    URISyntaxException, PDFFontException, PDFInvalidParameterException, TransformerException,
-                    SAXException, ParserConfigurationException {
+        throws PDFInvalidDocumentException, PDFSecurityException, PDFIOException, IOException,
+        PDFUnableToCompleteOperationException, PDFInvalidXMLException, PDFConfigurationException,
+        URISyntaxException, PDFFontException, PDFInvalidParameterException, TransformerException,
+        SAXException, ParserConfigurationException {
         final PDFDocument pdfDocument = DocumentUtils.openPdfDocument(inputFormUrl);
 
         // There are two types of forms that we can fill, so find out which kind we have here.
@@ -163,7 +166,8 @@ public final class FormImporter {
      * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
      * @throws PDFInvalidXMLException The XML passed to the method either directly or indirectly is invalid
      * @throws PDFConfigurationException there was a system problem configuring PDF support
@@ -172,19 +176,23 @@ public final class FormImporter {
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      */
     public static void fillAcroformFdf(final PDFDocument pdfDocument, final URL inputDataUrl, final URL outputUrl)
-                    throws IOException, PDFSecurityException, PDFIOException, PDFInvalidDocumentException,
-                    PDFUnableToCompleteOperationException, PDFInvalidXMLException, PDFConfigurationException,
-                    PDFFontException,
-                    URISyntaxException, PDFInvalidParameterException {
+        throws IOException, PDFSecurityException, PDFIOException, PDFInvalidDocumentException,
+        PDFUnableToCompleteOperationException, PDFInvalidXMLException, PDFConfigurationException,
+        PDFFontException,
+        URISyntaxException, PDFInvalidParameterException {
 
         // Open the input form data file.
-        final InputStream formStream = inputDataUrl.openStream();
-        final ByteReader formByteReader = new InputStreamByteReader(formStream);
-        final FDFDocument fdfDocument = FDFDocument.newInstance(formByteReader);
+        final ByteReader formByteReader;
+        try (InputStream formStream = inputDataUrl.openStream()) {
+            // NOTE: formStream must stay open as long as fdfDocument is in use
+            formByteReader = new InputStreamByteReader(formStream);
+            final FDFDocument fdfDocument = FDFDocument.newInstance(formByteReader);
 
-        // Use the FDFService to get the form data into the PDF.
-        final FDFService fdfService = new FDFService(pdfDocument);
-        fdfService.importForm(fdfDocument);
+            // Use the FDFService to get the form data into the PDF.
+            final FDFService fdfService = new FDFService(pdfDocument);
+            fdfService.importForm(fdfDocument);
+            fdfDocument.close();
+        }
 
         finishAndSaveForm(pdfDocument, outputUrl);
     }
@@ -198,7 +206,8 @@ public final class FormImporter {
      * @throws IOException an I/O operation failed or was interrupted
      * @throws PDFInvalidXMLException The XML passed to the method either directly or indirectly is invalid
      * @throws PDFConfigurationException there was a system problem configuring PDF support
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
@@ -207,16 +216,17 @@ public final class FormImporter {
      * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
      */
     public static void fillAcroformXfdf(final PDFDocument pdfDocument, final URL inputDataUrl, final URL outputUrl)
-                    throws IOException, PDFInvalidXMLException, PDFConfigurationException, PDFInvalidDocumentException,
-                    PDFIOException, PDFSecurityException, PDFInvalidParameterException, PDFFontException,
-                    URISyntaxException,
-                    PDFUnableToCompleteOperationException {
+        throws IOException, PDFInvalidXMLException, PDFConfigurationException, PDFInvalidDocumentException,
+        PDFIOException, PDFSecurityException, PDFInvalidParameterException, PDFFontException,
+        URISyntaxException,
+        PDFUnableToCompleteOperationException {
 
         // If this is XFDF form data, fill the form using the XFDFService, which uses a slightly different
         // process than the FDFService. Just get the data file into an InputStream, then import the data into the PDF
         // document.
-        final InputStream formStream = inputDataUrl.openStream();
-        XFDFService.importFormData(pdfDocument, formStream);
+        try (InputStream formStream = inputDataUrl.openStream()) {
+            XFDFService.importFormData(pdfDocument, formStream);
+        }
 
         // Run calculations on the AcroForm...only required before PDFJT 4.5.0
         finishAndSaveForm(pdfDocument, outputUrl);
@@ -233,15 +243,16 @@ public final class FormImporter {
      * @throws URISyntaxException a string could not be parsed as a URI reference
      * @throws SAXException basic error or warning information from either the XML parser or the application
      * @throws TransformerException an exceptional condition that occured during the transformation process
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFInvalidXMLException The XML passed to the method either directly or indirectly is invalid
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      */
     public static void fillXfa(final PDFDocument pdfDocument, final URL inputDataUrl, final URL outputUrl)
-                    throws IOException, ParserConfigurationException, URISyntaxException, SAXException,
-                    TransformerException,
-                    PDFInvalidDocumentException, PDFInvalidXMLException, PDFIOException, PDFSecurityException {
+        throws IOException, ParserConfigurationException, URISyntaxException, SAXException,
+        TransformerException,
+        PDFInvalidDocumentException, PDFInvalidXMLException, PDFIOException, PDFSecurityException {
         // Check to see if the input data file is properly formatted for the XFAService to use. The two outermost
         // elements should be <xfa:datasets><xfa:data>; if they're not, make it so.
         if (!hasXfaRootHeader(inputDataUrl)) {
@@ -252,10 +263,11 @@ public final class FormImporter {
         }
 
         // Start by getting the form data into an InputStream.
-        final InputStream formStream = inputDataUrl.openStream();
+        try (InputStream formStream = inputDataUrl.openStream()) {
 
-        // If we have an XML file with the proper header, use the XFAService to get the data into the PDF.
-        XFAService.importElement(pdfDocument, XFAElement.DATASETS, formStream);
+            // If we have an XML file with the proper header, use the XFAService to get the data into the PDF.
+            XFAService.importElement(pdfDocument, XFAElement.DATASETS, formStream);
+        }
 
         // Just save the file. Generating appearances and running calculations aren't supported for XFA forms, so
         // there's no need to try it.
@@ -267,31 +279,19 @@ public final class FormImporter {
      *
      * @param pdfDocument the document to complete and save
      * @param outputUrl the URL to which to save the file
-     *
-     * @throws IOException an I/O operation failed or was interrupted
-     * @throws PDFUnableToCompleteOperationException the operation was unable to be completed
-     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid state
+     * @throws PDFInvalidDocumentException a general problem with the PDF document, which may now be in an invalid
+     *     state
      * @throws PDFIOException there was an error reading or writing a PDF file or temporary caches
      * @throws PDFSecurityException some general security issue occurred during the processing of the request
      * @throws PDFInvalidParameterException one or more of the parameters passed to a method is invalid
      * @throws PDFConfigurationException there was a system problem configuring PDF support
-     * @throws PDFInvalidXMLException The XML passed to the method either directly or indirectly is invalid
      * @throws PDFFontException there was an error in the font set or an individual font
      * @throws URISyntaxException a string could not be parsed as a URI reference
      */
-    @SuppressWarnings("deprecation") // for runFormatScripts()
     private static void finishAndSaveForm(final PDFDocument pdfDocument, final URL outputUrl)
-                    throws IOException, PDFInvalidDocumentException, PDFSecurityException, PDFIOException,
-                    PDFInvalidParameterException, PDFInvalidXMLException, PDFConfigurationException,
-                    PDFUnableToCompleteOperationException, PDFFontException, URISyntaxException {
-        if (VersionUtils.pdfjtIsBeforeVersion("4.0.0-SNAPSHOT")) {
-            // Run calculations scripts on the AcroForm...only required before PDFJT 4.5.0
-            FormFieldService.getAcroFormFieldManager(pdfDocument).runCalculateScripts();
-
-            // Run format scripts on the AcroForm...only required before PDFJT 4.7.0
-            FormFieldService.getAcroFormFieldManager(pdfDocument).runFormatScripts();
-        }
-
+        throws PDFInvalidDocumentException, PDFSecurityException, PDFIOException,
+        PDFInvalidParameterException, PDFConfigurationException,
+        PDFFontException, URISyntaxException {
         // And generate appearances.
         AppearanceService.generateAppearances(pdfDocument, null, null);
 
@@ -309,7 +309,7 @@ public final class FormImporter {
      * @throws SAXException basic error or warning information from either the XML parser or the application
      */
     private static boolean hasXfaRootHeader(final URL inputDataUrl)
-                    throws ParserConfigurationException, IOException, SAXException {
+        throws ParserConfigurationException, IOException, SAXException {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
@@ -317,7 +317,7 @@ public final class FormImporter {
         final Document xmlDoc = builder.parse(inputDataUrl.openStream());
         final String xmlRootName = xmlDoc.getDocumentElement().getNodeName();
 
-        return xmlRootName.equals(XFA_DATA_ROOT_NODE);
+        return XFA_DATA_ROOT_NODE.equals(xmlRootName);
     }
 
     /**
@@ -330,7 +330,7 @@ public final class FormImporter {
      * @throws SAXException basic error or warning information from either the XML parser or the application
      */
     private static boolean hasXfaChildHeader(final URL inputDataUrl)
-                    throws ParserConfigurationException, IOException, SAXException {
+        throws ParserConfigurationException, IOException, SAXException {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
@@ -338,7 +338,7 @@ public final class FormImporter {
         final Document xmlDoc = builder.parse(inputDataUrl.openStream());
         final String firstChildName = xmlDoc.getDocumentElement().getChildNodes().item(0).getNodeName();
 
-        return firstChildName.equals(XFA_DATA_CHILD_NODE);
+        return XFA_DATA_CHILD_NODE.equals(firstChildName);
     }
 
     /**
@@ -351,7 +351,7 @@ public final class FormImporter {
      * @throws TransformerException an exceptional condition that occured during the transformation process
      */
     private static void addXfaRootHeader(final File xfaData)
-                    throws ParserConfigurationException, IOException, SAXException, TransformerException {
+        throws ParserConfigurationException, IOException, SAXException, TransformerException {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
@@ -381,7 +381,7 @@ public final class FormImporter {
      * @throws SAXException basic error or warning information from either the XML parser or the application
      */
     private static void addXfaChildHeader(final File xfaData)
-                    throws ParserConfigurationException, TransformerException, IOException, SAXException {
+        throws ParserConfigurationException, TransformerException, IOException, SAXException {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         final DocumentBuilder builder = factory.newDocumentBuilder();
