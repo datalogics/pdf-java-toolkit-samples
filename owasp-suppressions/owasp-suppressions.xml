@@ -35,4 +35,39 @@
         <packageUrl regex="true">^pkg:maven/ch.qos.logback/logback-classic@.*$</packageUrl>
         <cve>CVE-2023-6378</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+            file name: commons-lang3-3.6.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org.apache.commons/commons-lang3@.*$</packageUrl>
+        <cve>CVE-2021-37533</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+            file name: logback-core-1.2.9.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/ch.qos.logback/logback-core@.*$</packageUrl>
+        <cve>CVE-2023-6378</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+            file name: xml-apis-1.4.01.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/xml-apis/xml-apis@.*$</packageUrl>
+        <cve>CVE-2021-37533</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+            file name: xml-resolver-1.2.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/xml-resolver/xml-resolver@.*$</packageUrl>
+        <cve>CVE-2021-37533</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+            file name: commons-cli-1.2.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/commons-cli/commons-cli@.*$</packageUrl>
+        <cve>CVE-2021-37533</cve>
+    </suppress>
 </suppressions>
