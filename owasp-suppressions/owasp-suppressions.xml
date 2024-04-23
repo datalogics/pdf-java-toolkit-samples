@@ -21,4 +21,18 @@
         <packageUrl regex="true">^pkg:maven/xerces/xercesImpl@.*$</packageUrl>
         <vulnerabilityName>CVE-2017-10355</vulnerabilityName>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+            file name: commons-io-2.7.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/commons-io/commons-io@.*$</packageUrl>
+        <cve>CVE-2021-37533</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[g
+            file name: logback-classic-1.2.9.jar
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/ch.qos.logback/logback-classic@.*$</packageUrl>
+        <cve>CVE-2023-6378</cve>
+    </suppress>
 </suppressions>
