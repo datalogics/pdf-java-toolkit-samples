@@ -3,7 +3,7 @@
 # repository with the Octocat version of the repository.
 FORK_NAME="datalogics"
 
-OCTOCAT_SAMPLES_REPO="git@octocat.dlogics.com:${FORK_NAME}/pdf-java-toolkit-samples.git"
+OCTOCAT_SAMPLES_REPO="git@github.com:${FORK_NAME}/pdf-java-toolkit-samples.git"
 GITHUB_SAMPLES_REPO="git@github.com:${FORK_NAME}/pdf-java-toolkit-samples.git"
 
 # Make sure local repository has remotes called "upstream" and "github"
