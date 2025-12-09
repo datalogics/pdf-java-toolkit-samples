@@ -116,7 +116,7 @@ pipeline {
 
         stage('Analysis') {
             steps {
-                recordIssues ignoreFailedBuilds: false, qualityGates: [[threshold: 1, type: 'TOTAL', unstable: false]],
+                recordIssues ignoreQualityGate: false, qualityGates: [[threshold: 1, type: 'TOTAL', unstable: false]],
                     enabledForFailure: true,
                     tools: [checkStyle(), findBugs(useRankAsPriority: true), pmdParser(), cpd(), javaDoc(), java(),
                             owaspDependencyCheck()]
