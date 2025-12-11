@@ -116,10 +116,13 @@ pipeline {
 
         stage('Analysis') {
             steps {
-                recordIssues ignoreQualityGate: false, qualityGates: [[threshold: 1, type: 'TOTAL', unstable: false]],
+                recordIssues(
+                    ignoreQualityGate: false,
                     enabledForFailure: true,
+                    qualityGates: [[threshold: 1, type: 'TOTAL', unstable: false]],
                     tools: [checkStyle(), findBugs(useRankAsPriority: true), pmdParser(), cpd(), javaDoc(), java(),
                             owaspDependencyCheck()]
+                )
             }
         }
 
