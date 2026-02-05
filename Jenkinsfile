@@ -10,7 +10,7 @@ pipeline {
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "M3"
-        jdk 'AdoptOpenJDK 8'
+        jdk 'AdoptOpenJDK 11'
     }
 
     stages {
@@ -22,7 +22,7 @@ pipeline {
             }
 
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -B -V -U clean dependency:tree deploy -P integration-tests,distributed-samples"
                 }
@@ -41,7 +41,7 @@ pipeline {
             }
 
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -B -V -U -f lite/pom.xml clean dependency:tree deploy -P integration-tests,generate-distribution"
                 }
@@ -58,7 +58,7 @@ pipeline {
             }
 
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -V -B -U clean dependency:tree install -P integration-tests,distributed-samples"
                 }
@@ -74,7 +74,7 @@ pipeline {
             }
 
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -f lite/pom.xml -V -B -U clean dependency:tree install -P integration-tests,generate-distribution"
                 }
@@ -92,7 +92,7 @@ pipeline {
                 }
             }
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw org.owasp:dependency-check-maven:check -DskipTestScope=false -Pintegration-tests,distributed-samples"
                 }
@@ -106,7 +106,7 @@ pipeline {
                 }
             }
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -B -V -U org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON"
                     sh "./mvnw -B -V -U -f lite org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON"
