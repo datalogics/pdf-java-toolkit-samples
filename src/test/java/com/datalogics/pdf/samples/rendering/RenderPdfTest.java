@@ -11,7 +11,6 @@ import static org.junit.Assert.assertTrue;
 
 import com.datalogics.pdf.samples.SampleTestBase;
 
-import org.apache.commons.lang3.SystemUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,18 +61,12 @@ public class RenderPdfTest extends SampleTestBase {
 
                     add(CLASS_NAME + ".1.jpg", "89e443ff8ad35bc2143282deaeee7dde9e59307d");
                     add(CLASS_NAME + ".2.jpg", "efd6e6e77e26533e754ab5d7e5069829f21bbbcf");
-                } else if (SystemUtils.IS_JAVA_1_8) {
-                    add(CLASS_NAME + ".1.png", "359806f590dee0e642a10b9b5043e46fd74fa3ce");
-                    add(CLASS_NAME + ".2.png", "3192548a1abf89fec8de8d8b38f906d8717613b8");
-
-                    add(CLASS_NAME + ".1.jpg", "bff446bb308a9bf45fa698c087515dc33454e5cd");
-                    add(CLASS_NAME + ".2.jpg", "284ddfc066d209f7b1705f63c8a08eb6289d205a");
                 } else {
-                    add(CLASS_NAME + ".1.png", "1992474437f5b1ee5a885322fb089915a57fe8c9");
-                    add(CLASS_NAME + ".2.png", "560bae832b056507eac24c81d6f6ef65d2685667");
+                    add(CLASS_NAME + ".1.png", "ac1da1dc53e31eaec2b6152ef6ea68cf6b11cc49");
+                    add(CLASS_NAME + ".2.png", "41eca76bf8daf99426ea2682869bdea29adaa08f");
 
-                    add(CLASS_NAME + ".1.jpg", "387a2721566553d92a936f75d3024faf83fc4430");
-                    add(CLASS_NAME + ".2.jpg", "453730cfbb8e556feb532e0110fc580c2dff6a77");
+                    add(CLASS_NAME + ".1.jpg", "8e56d2f061e2dc028efaf9a76bb3e713ca2aae99");
+                    add(CLASS_NAME + ".2.jpg", "c7aac07c52ca078d99c66e74a95af1a674bd8a58");
                 }
             }
         };
