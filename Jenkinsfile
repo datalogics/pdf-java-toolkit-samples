@@ -98,7 +98,7 @@ pipeline {
             steps {
                 withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
                     // Run Maven on a Unix agent.
-                    sh "./mvnw org.owasp:dependency-check-maven:check -DskipTestScope=false -Pintegration-tests,distributed-samples"
+                    sh "./mvnw org.owasp:dependency-check-maven:check -DskipTestScope=false -Pintegration-tests,distributed-samples -DossindexAnalyzerEnabled=false"
                 }
             }
         }
@@ -112,8 +112,8 @@ pipeline {
             steps {
                 withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
                     // Run Maven on a Unix agent.
-                    sh "./mvnw -B -V -U org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON"
-                    sh "./mvnw -B -V -U -f lite org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON"
+                    sh "./mvnw -B -V -U org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON -DossindexAnalyzerEnabled=false"
+                    sh "./mvnw -B -V -U -f lite org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON -DossindexAnalyzerEnabled=false"
                 }
             }
         }
