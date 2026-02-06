@@ -13,6 +13,11 @@ pipeline {
         jdk 'AdoptOpenJDK 11'
     }
 
+    triggers {
+        // Run nightly after talkeetna (4:30 AM) and pdfjt (midnight) builds complete
+        cron('0 5 * * *')
+    }
+
     stages {
         stage('Build and Deploy') {
             when {
