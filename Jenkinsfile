@@ -52,7 +52,7 @@ pipeline {
             steps {
                 withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
                     // Run Maven on a Unix agent.
-                    sh "./mvnw -B -V -U -f lite/pom.xml clean dependency:tree deploy -P integration-tests,generate-distribution -Dmaven.javadoc.skip=true"
+                    sh "./mvnw -B -V -U -f lite/pom.xml clean dependency:tree deploy -P integration-tests,generate-distribution -Dmaven.javadoc.skip=true -DossindexAnalyzerEnabled=false"
                 }
                 withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
                     // Re-run javadoc using JDK 8 so the legacy doclet succeeds.
