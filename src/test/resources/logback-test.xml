@@ -8,7 +8,7 @@
       <level>WARN</level>
     </filter>
     <encoder>
-      <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      <Pattern>%d %p %c{1} [%t] %m%n</Pattern>
     </encoder>
   </appender>
 
