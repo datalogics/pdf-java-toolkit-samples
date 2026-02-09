@@ -4,6 +4,7 @@
 
 package com.datalogics.pdf.samples.manipulation;
 
+import static com.datalogics.pdf.samples.util.EnvironmentUtils.IS_OPENJDK_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -51,7 +52,9 @@ public class RedactAndSanitizeDocumentTest extends SampleTestBase {
             // Test redaction
             for (int i = 0; i < 2; i++) {
                 final String contentsAsString = pageContentsAsString(document, i);
-                final String resourceName = String.format("pdfjavatoolkit-ds.pdf.page%d.txt", i);
+                final String resourceName = IS_OPENJDK_8
+                    ? String.format("pdfjavatoolkit-ds.pdf.page%d.txt", i)
+                    : String.format("pdfjavatoolkit-ds.pdf.page%d.jdk11.txt", i);
 
                 assertEquals(contentsOfResource(resourceName), contentsAsString);
             }
