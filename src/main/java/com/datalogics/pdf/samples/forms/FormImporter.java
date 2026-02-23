@@ -26,6 +26,8 @@ import com.datalogics.pdf.document.DocumentHelper;
 import com.datalogics.pdf.samples.util.DocumentUtils;
 import com.datalogics.pdf.samples.util.IoUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -34,10 +36,12 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Locale;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -53,6 +57,13 @@ import javax.xml.transform.stream.StreamResult;
  * Provide support for importing forms.
  */
 public final class FormImporter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
+    // XXE prevention feature URIs
+    private static final String DISALLOW_DOCTYPE_DECL = "http://apache.org/xml/features/disallow-doctype-decl";
+    private static final String EXTERNAL_GENERAL_ENTITIES = "http://xml.org/sax/features/external-general-entities";
+    private static final String EXTERNAL_PARAMETER_ENTITIES = "http://xml.org/sax/features/external-parameter-entities";
 
     /**
      * Indicate the type of the form.
@@ -312,6 +323,9 @@ public final class FormImporter {
         throws ParserConfigurationException, IOException, SAXException {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setFeature(DISALLOW_DOCTYPE_DECL, true);
+        factory.setFeature(EXTERNAL_GENERAL_ENTITIES, false);
+        factory.setFeature(EXTERNAL_PARAMETER_ENTITIES, false);
         final DocumentBuilder builder = factory.newDocumentBuilder();
 
         final Document xmlDoc = builder.parse(inputDataUrl.openStream());
@@ -333,6 +347,9 @@ public final class FormImporter {
         throws ParserConfigurationException, IOException, SAXException {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setFeature(DISALLOW_DOCTYPE_DECL, true);
+        factory.setFeature(EXTERNAL_GENERAL_ENTITIES, false);
+        factory.setFeature(EXTERNAL_PARAMETER_ENTITIES, false);
         final DocumentBuilder builder = factory.newDocumentBuilder();
 
         final Document xmlDoc = builder.parse(inputDataUrl.openStream());
@@ -354,6 +371,9 @@ public final class FormImporter {
         throws ParserConfigurationException, IOException, SAXException, TransformerException {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setFeature(DISALLOW_DOCTYPE_DECL, true);
+        factory.setFeature(EXTERNAL_GENERAL_ENTITIES, false);
+        factory.setFeature(EXTERNAL_PARAMETER_ENTITIES, false);
         final DocumentBuilder builder = factory.newDocumentBuilder();
 
         final Document oldDoc = builder.parse(xfaData);
@@ -365,7 +385,17 @@ public final class FormImporter {
         final Node dataNode = newRoot;
         dataNode.appendChild(newDoc.importNode(oldRoot, true));
 
-        final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        try {
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        } catch (final IllegalArgumentException e) {
+            // Some TransformerFactory implementations (e.g. Apache Xalan) do not support these
+            // JAXP 1.5 attributes. In that case, external DTD/stylesheet access is already
+            // restricted by the implementation.
+            LOGGER.debug("TransformerFactory does not support JAXP 1.5 security attributes", e);
+        }
+        final Transformer transformer = transformerFactory.newTransformer();
         final Result xmlFile = new StreamResult(xfaData);
         final Source newXml = new DOMSource(newDoc);
         transformer.transform(newXml, xmlFile);
@@ -384,6 +414,9 @@ public final class FormImporter {
         throws ParserConfigurationException, TransformerException, IOException, SAXException {
 
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setFeature(DISALLOW_DOCTYPE_DECL, true);
+        factory.setFeature(EXTERNAL_GENERAL_ENTITIES, false);
+        factory.setFeature(EXTERNAL_PARAMETER_ENTITIES, false);
         final DocumentBuilder builder = factory.newDocumentBuilder();
 
         final Document oldDoc = builder.parse(xfaData);
@@ -395,7 +428,17 @@ public final class FormImporter {
         final Node dataNode = newRoot.appendChild(newDoc.createElement(XFA_DATA_CHILD_NODE));
         dataNode.appendChild(newDoc.importNode(oldRoot, true));
 
-        final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        try {
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            transformerFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+        } catch (final IllegalArgumentException e) {
+            // Some TransformerFactory implementations (e.g. Apache Xalan) do not support these
+            // JAXP 1.5 attributes. In that case, external DTD/stylesheet access is already
+            // restricted by the implementation.
+            LOGGER.debug("TransformerFactory does not support JAXP 1.5 security attributes", e);
+        }
+        final Transformer transformer = transformerFactory.newTransformer();
         final Result xmlFile = new StreamResult(xfaData);
         final Source newXml = new DOMSource(newDoc);
         transformer.transform(newXml, xmlFile);
