@@ -18,4 +18,16 @@
         <packageUrl regex="true">^pkg:maven/org.apache.tika/tika-core@.*$</packageUrl>
         <cve>CVE-2025-54988</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+            file name: tika-core-1.28.5.jar
+            Suppressed upstream in talkeetna. CVE-2026-66755 is a path traversal in
+            Tika's ISATabParser, which ships in tika-parsers; we depend only on
+            tika-core, so the vulnerable code is not on the classpath. Cannot upgrade
+            anyway: fix versions are Tika 3.3.2 (Java 11+) and 4.0.0 (Java 17+), and
+            we must maintain JDK 8 compatibility for users.
+        ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org.apache.tika/tika-core@.*$</packageUrl>
+        <cve>CVE-2026-66755</cve>
+    </suppress>
 </suppressions>
