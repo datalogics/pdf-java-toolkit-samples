@@ -27,11 +27,11 @@ pipeline {
             }
 
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -B -V -U clean dependency:tree deploy -P integration-tests,distributed-samples -Dmaven.javadoc.skip=true -DossindexAnalyzerEnabled=false"
                 }
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Re-run javadoc using JDK 8 so the legacy doclet succeeds.
                     sh "./mvnw -V -B -U javadoc:jar -DskipTests=true"
                 }
@@ -50,11 +50,11 @@ pipeline {
             }
 
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -B -V -U -f lite/pom.xml clean dependency:tree deploy -P integration-tests,generate-distribution -Dmaven.javadoc.skip=true -DossindexAnalyzerEnabled=false"
                 }
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Re-run javadoc using JDK 8 so the legacy doclet succeeds.
                     sh "./mvnw -V -B -U -f lite/pom.xml javadoc:jar -DskipTests=true"
                 }
@@ -71,11 +71,11 @@ pipeline {
             }
 
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -V -B -U clean dependency:tree install -P integration-tests,distributed-samples -Dmaven.javadoc.skip=true -DossindexAnalyzerEnabled=false"
                 }
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Re-run javadoc using JDK 8 so the legacy doclet succeeds.
                     sh "./mvnw -V -B -U javadoc:jar -DskipTests=true"
                 }
@@ -91,11 +91,11 @@ pipeline {
             }
 
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -f lite/pom.xml -V -B -U clean dependency:tree install -P integration-tests,generate-distribution -Dmaven.javadoc.skip=true -DossindexAnalyzerEnabled=false"
                 }
-                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 8', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Re-run javadoc using JDK 8 so the legacy doclet succeeds.
                     sh "./mvnw -V -B -U -f lite/pom.xml javadoc:jar -DskipTests=true"
                 }
@@ -113,7 +113,7 @@ pipeline {
                 }
             }
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw org.owasp:dependency-check-maven:check -DskipTestScope=false -Pintegration-tests,distributed-samples -DossindexAnalyzerEnabled=false"
                 }
@@ -127,7 +127,7 @@ pipeline {
                 }
             }
             steps {
-                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3') {
+                withMaven(jdk: 'AdoptOpenJDK 11', maven: 'M3', mavenSettingsConfig: 'pdfjt-repoflow-maven-settings') {
                     // Run Maven on a Unix agent.
                     sh "./mvnw -B -V -U org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON -DossindexAnalyzerEnabled=false"
                     sh "./mvnw -B -V -U -f lite org.owasp:dependency-check-maven:check -DskipTestScope=false -DskipDependencyManagement=true -Dformat=JSON -DossindexAnalyzerEnabled=false"
